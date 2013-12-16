@@ -1,0 +1,557 @@
+\documentclass[12pt]{beamer}
+
+\mode<presentation>{\usetheme{Warsaw}\setbeamercovered{transparent=5}}
+\setbeamertemplate{footline}[frame number]
+\usepackage[english]{babel}
+\usepackage{times}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{qtree}
+\lstloadlanguages{Python}
+\lstset{language=Python}
+\lstset{%
+	basicstyle=\ttfamily\bfseries,
+	keywordstyle=\color{blue}, emph={self}, emphstyle={\color{blue}},
+	identifierstyle=,
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	emph={[2]__init__,__str__,take_action,ProblemSolvingAgent,tree_search,graph_search}, emphstyle={[2]\color{purple}},
+}
+\newcommand{\key}[1]{\mbox{\texttt{\bfseries\color{red}#1}}}
+
+
+\title{Solving Problems by Searching}
+\subtitle{Introduction to Artificial Intelligence}
+\author{Steven Bethard}
+\institute{
+  Department of Computer Science\\
+  University of Colorado
+}
+\date{CSCI 3202}
+
+\AtBeginSection[]{
+  \begin{frame}<beamer>{Outline}
+  	\footnotesize
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\part{Class Expectations}
+\section*{Things that Won't Be Covered}
+\begin{frame}{Things that Won't Be Covered}
+	\begin{block}{The Apocalypse}
+		\begin{itemize}
+			\item ``\ldots technology/world domination''
+			\item ``\ldots the impending robot revolution''
+			\item ``\ldots Cyberdyne Systems Skynet defense network''
+		\end{itemize}
+	\end{block}
+	\begin{block}{Programming}
+		\begin{itemize}
+			\item Lisp
+			\item Functional Styles
+		\end{itemize}
+	\end{block}
+	\begin{block}{Perception (Chapter 24)}
+		\begin{itemize}
+			\item Computer Vision
+			\item Image Processing
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section*{Things that Will Be Covered}
+\begin{frame}{Things that Will Be Covered}
+	\begin{block}{Definitely}
+		\begin{itemize}
+			\item Game AI (Chapter 6+)
+			\item Genetic algorithms (Chapter 4)
+			\item Logic and Reasoning (Chapter 7-9)
+			\item Fuzzy logic a little, but better: \\ probabilistic reasoning (Chapter 14)
+			\item Neural networks a little, but better: decision trees, na\"ive bayes, support vector machines (Chapter 20)
+		\end{itemize}
+	\end{block}
+	\begin{block}{Somewhat}
+		\begin{itemize}
+			\item ``user friendly programs''
+			\item ``human-like decisions''/``human thought process''
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section*{Data Structures}
+\begin{frame}{What You Need to Know}
+	\begin{block}{Key Skills}
+		\begin{itemize}
+			\item \alert{Use} stacks, queues, sets, hash tables, priority queues
+			\item \alert{Implement} trees, graphs, search algorithms
+			\item \alert{Understand} Big O Notation
+		\end{itemize}
+	\end{block}
+	\begin{block}{Other Terms to Look Up}
+		\begin{itemize}
+			\item Stack
+			\item Queue
+			\item Heap
+			\item Adjacency list
+			\item Adjacency matrix
+		\end{itemize}
+	\end{block}
+\end{frame}
+\begin{frame}{Python Data Structures}
+	\begin{block}{Names}
+		\begin{tabular}{ll}
+			Stack/Queue      & \texttt{list()}, \texttt{deque()} \\
+			Set              & \texttt{set()} \\
+			Hash Table       & \texttt{dict()}, \texttt{defaultdict()} \\
+			Priority Queue   & \texttt{heapq()} \\
+			Classes/Objects  & \texttt{class} statement \\
+		\end{tabular}
+	\end{block}
+	\begin{block}{Documentation}
+		\url{http://docs.python.org/lib/lib.html}
+	\end{block}
+\end{frame}
+
+
+\part{Solving Problems by Searching}
+
+\begin{frame}{Outline}
+	\footnotesize
+  \tableofcontents
+\end{frame}
+
+\section{Search Problems}
+
+\subsection{Properties of Search Problems}
+\begin{frame}[plain]
+	\begin{center}
+		\includegraphics[width=3in]{cu-to-africana.pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Properties of Search Problems}
+	\begin{itemize}
+		\item \alert<2->{Fully} or Partially Observable?
+		\item \alert<3->{Deterministic} or Stochastic?
+		\item Episodic or \alert<4->{Sequential}?
+		\item \alert<5->{Static} or Dynamic?
+		\item \alert<6->{Discrete} or Continuous?
+		\item \alert<7->{Single} or Multi-Agent?
+	\end{itemize}
+\end{frame}
+
+\subsection{Defining a Search Problem}
+\begin{frame}{Example: Vacuum Problem}
+	\begin{columns}
+		\column{.50\textwidth}
+			\begin{block}{Problem}
+				\begin{itemize}
+					\item Start in \key{1}
+					\item Left square actions:\\
+					      \key{Suck} or \key{Right}
+					\item Right square actions:\\
+					      \key{Suck} or \key{Left}
+					\item Success: \key{7} or \key{8}
+					\item Optimal: fewest actions
+				\end{itemize}
+			\end{block}
+			\begin{block}{Solution}<2->
+				\uncover<3->{[\key{Suck}, \key{Right}, \key{Suck}]} \\
+				\uncover<4->{i.e., [\key{1}, \key{5}, \key{6}, \key{8}]}
+			\end{block}
+		\column{.50\textwidth}
+			\includegraphics[width=2.1in]{vacuum-space.pdf}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Defining a Search Problem}
+	\begin{block}{Components}
+		\begin{itemize}
+			\item Initial state
+			\item Actions
+			\item Goal test
+			\item Path cost
+		\end{itemize}
+	\end{block}
+	\begin{block}{Solution}
+		Path from initial state to goal state
+	\end{block}
+	\begin{block}{Optimal solution}
+		Path with lowest cost
+	\end{block}
+\end{frame}
+
+\begin{frame}{Defining the Vacuum Problem}
+	\begin{columns}
+		\column{.50\textwidth}
+			\begin{block}{Initial State}
+				\key{1}
+			\end{block}
+			\begin{block}{Actions}
+				\small
+	      $S(\key{1}) = \{(\key{Right}, \key{2}), (\key{Suck}, \key{5})\}$ \\
+	      $S(\key{2}) = \{(\key{Left}, \key{1}), (\key{Suck}, \key{4})\}$ \\
+	      \ldots
+			\end{block}
+			\begin{block}{Goal Test}
+				$G(s) = s \in \{\key{7}, \key{8}\}$
+			\end{block}
+			\begin{block}{Path Cost}
+				1 per state
+			\end{block}
+		\column{.50\textwidth}
+			\includegraphics[width=2.1in]{vacuum-space.pdf}
+	\end{columns}
+\end{frame}
+
+\subsection{Search Problem Examples}
+\begin{frame}{Defining the 8-Puzzle Problem}
+	\begin{center}
+		\includegraphics[height=1.5in]{8puzzle.pdf}
+	\end{center}
+	\begin{itemize}
+		\item[States] \uncover<2->{Mappings of tile numbers to tile locations }
+		\item[Initial] \uncover<3->{$\{
+			1\!\!:\!\!9,
+			2\!\!:\!\!2,
+			3\!\!:\!\!8,
+			4\!\!:\!\!3,
+			5\!\!:\!\!4,
+			6\!\!:\!\!6,
+			7\!\!:\!\!1,
+			8\!\!:\!\!9\}$}
+		\item[Actions] \uncover<4->{Move blank left, right, up, down}
+		\item[Goal] \uncover<5->{$\{
+			1\!\!:\!\!1,
+			2\!\!:\!\!2,
+			3\!\!:\!\!3,
+			4\!\!:\!\!4,
+			5\!\!:\!\!5,
+			6\!\!:\!\!6,
+			7\!\!:\!\!7,
+			8\!\!:\!\!8\}$}
+		\item[Cost] \uncover<6->{1 per move}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Defining the Robotic Assembly Problem}
+	\begin{center}
+		\includegraphics[height=1.5in]{stanford-arm.pdf}
+	\end{center}
+	\begin{itemize}
+		\item[States] \uncover<2->{real-valued joint angles, parts to assemble}
+		\item[Initial] \uncover<3->{many possible}
+		\item[Actions] \uncover<4->{real-valued adjustments to joint angles}
+		\item[Goal] \uncover<5->{fully assembled part}
+		\item[Cost] \uncover<6->{total duration of all movements}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Defining the Machine Translation Problem}
+	\begin{itemize}
+		\item[Input] Com\'i la manzana roja porque ten\'ia hambre.
+		\item[Output] I ate the red apple because I was hungry.
+		\bigskip\bigskip
+		\item[States]
+		\item[Initial]
+		\item[Actions]
+		\item[Goal]
+		\item[Cost]
+	\end{itemize}
+\end{frame}
+
+\section{Search Algorithms}
+
+\subsection{Search Trees}
+
+\begin{frame}[fragile]{Tree Search}
+	\footnotesize
+	\begin{lstlisting}
+		def tree_search(problem, strategy):
+
+		    strategy.add(...problem.initial_state...)
+
+		    for node in strategy:
+
+		        if problem.is_goal(node.state):
+		            return node.get_actions()
+
+		        items = problem.get_successors(node.state)
+		        for state, action, ... in items:
+		            strategy.add(...state...action...)
+
+		    return None
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Search Tree Example}
+	\begin{center}
+		\only<1>{\includegraphics[width=4in]{boulder-search-tree-1.pdf}}%
+		\only<2>{\includegraphics[width=4in]{boulder-search-tree-2.pdf}}%
+		\only<3>{\includegraphics[width=4in]{boulder-search-tree-3.pdf}}%
+	\end{center}
+\end{frame}
+
+\subsection{Search Nodes}
+
+\begin{frame}{The Node Data Structure}
+	\begin{center}
+		\includegraphics[width=4in]{state-vs-node.pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Tree Search Revisited}
+	\footnotesize
+	\begin{lstlisting}
+		def tree_search(problem, strategy):
+		    strategy.add(Node(problem.initial_state))
+		    for node in strategy:
+		        if problem.is_goal(node.state):
+		            return node.get_actions()
+		        succs = problem.get_successors(node.state)
+		        for state, action, cost in succs:
+		            strategy.add(Node(
+		                state=state,
+		                action=action,
+		                parent=node,
+		                cost=node.cost + cost,
+		                depth=node.depth + 1))
+		    return None
+	\end{lstlisting}
+\end{frame}
+
+\section{Search Strategies}
+\begin{frame}[<+->]{Search Strategy Properties}
+	\begin{block}{Completeness}
+		If a solution exists, is it always found?
+	\end{block}
+	\begin{block}{Optimality}
+		Is the solution found always the lowest cost?
+	\end{block}
+	\begin{block}{Time Complexity}
+		How many search nodes will be generated?
+	\end{block}
+	\begin{block}{Space Complexity}
+		How many search nodes must stay in main memory?
+	\end{block}
+\end{frame}
+
+\subsection{Breadth-first Search}
+\begin{frame}[label=breadth-first-example]{Breadth-first Search}
+	\begin{center}
+		\only<1>{\includegraphics[height=2in]{breadth-first-1.pdf}}%
+		\only<2>{\includegraphics[height=2in]{breadth-first-2.pdf}}%
+		\only<3>{\includegraphics[height=2in]{breadth-first-3.pdf}}%
+		\only<4>{\includegraphics[height=2in]{breadth-first-4.pdf}}%
+		\only<5>{\includegraphics[height=2in]{breadth-first-5.pdf}}%
+		\only<6>{\includegraphics[height=2in]{breadth-first-6.pdf}}%
+	\end{center}
+\end{frame}
+\begin{frame}{Breadth-first Properties}
+	\footnotesize
+	\begin{block}{Strategy? \hyperlink{breadth-first-example}{\beamergotobutton{Example}}}
+		 \uncover<2->{First-in First-Out Queue}
+	\end{block}
+	\begin{block}{Complete?}
+		\uncover<3->{Yes, if number of branches is finite}
+	\end{block}
+	\begin{block}{Optimal?}
+		\uncover<4->{Yes, if step costs are all identical}
+	\end{block}
+	\begin{block}{Worst Case Time Complexity?}
+		\uncover<5->{$O(b^{d+1})$, branching factor $b$, depth of goal state $d$}
+	\end{block}
+	\begin{block}{Worst Case Space Complexity?}
+		\uncover<6->{$O(b^{d+1})$, branching factor $b$, depth of goal state $d$}
+	\end{block}
+\end{frame}
+
+\subsection{Uniform-cost Search}
+\begin{frame}[label=uniform-cost-example]{Uniform-cost Search}
+	\begin{center}
+		\only<1>{\includegraphics[height=2in]{uniform-cost-1.pdf}}%
+		\only<2>{\includegraphics[height=2in]{uniform-cost-2.pdf}}%
+		\only<3>{\includegraphics[height=2in]{uniform-cost-3.pdf}}%
+		\only<4>{\includegraphics[height=2in]{uniform-cost-4.pdf}}%
+		\only<5>{\includegraphics[height=2in]{uniform-cost-5.pdf}}%
+		\only<6>{\includegraphics[height=2in]{uniform-cost-6.pdf}}%
+	\end{center}
+\end{frame}
+\begin{frame}{Uniform-cost Search}
+	\footnotesize
+	\begin{block}{Strategy? \hyperlink{uniform-cost-example}{\beamergotobutton{Example}}}
+		\uncover<2->{Lowest Cost First Priority Queue}
+	\end{block}
+	\begin{block}{Complete?}
+		\uncover<3->{Yes, if number of branches is finite and steps are all positive}
+	\end{block}
+	\begin{block}{Optimal?}
+		\uncover<4->{Yes}
+	\end{block}
+	\begin{block}{Worst Case Time Complexity?}
+		\uncover<5->{$O(b^{\left\lfloor C^{*}/\epsilon \right\rfloor +1})$, optimal cost $C^{*}$, minimum step cost $\epsilon$}
+	\end{block}
+	\begin{block}{Worst Case Space Complexity?}
+		\uncover<6->{$O(b^{\left\lfloor C^{*}/\epsilon \right\rfloor +1})$, optimal cost $C^{*}$, minimum step cost $\epsilon$}
+	\end{block}
+\end{frame}
+
+\subsection{Depth-first Search}
+\begin{frame}[label=depth-first-example]{Depth-first Search}
+	\begin{center}
+		\only<1>{\includegraphics[height=2in]{depth-first-1.pdf}}%
+		\only<2>{\includegraphics[height=2in]{depth-first-2.pdf}}%
+		\only<3>{\includegraphics[height=2in]{depth-first-3.pdf}}%
+		\only<4>{\includegraphics[height=2in]{depth-first-4.pdf}}%
+		\only<5>{\includegraphics[height=2in]{depth-first-5.pdf}}%
+		\only<6>{\includegraphics[height=2in]{depth-first-6.pdf}}%
+		\only<7>{\includegraphics[height=2in]{depth-first-7.pdf}}%
+		\only<8>{\includegraphics[height=2in]{depth-first-8.pdf}}%
+		\only<9>{\includegraphics[height=2in]{depth-first-9.pdf}}%
+		\only<10>{\includegraphics[height=2in]{depth-first-10.pdf}}%
+	\end{center}
+\end{frame}
+\begin{frame}{Depth-first Properties}
+	\footnotesize
+	\begin{block}{Strategy? \hyperlink{depth-first-example}{\beamergotobutton{Example}}}
+		\uncover<2->{First-in Last-Out Stack}
+	\end{block}
+	\begin{block}{Complete?}
+		\uncover<3->{Yes, if finite number of states and no cyclic paths}
+	\end{block}
+	\begin{block}{Optimal?}
+		\uncover<4->{No, lower goal states may be found first}
+	\end{block}
+	\begin{block}{Worst Case Time Complexity?}
+		\uncover<5->{$O(b^{m})$, branching factor $b$, maximum depth $m$}
+	\end{block}
+	\begin{block}{Worst Case Space Complexity?}
+		\uncover<6->{$O(bm)$, branching factor $b$, maximum depth $m$}
+	\end{block}
+\end{frame}
+
+\subsection{Iterative Deepening Search}
+\begin{frame}[label=iterative-deepening-example]{Iterative Deepening Search}
+	\begin{center}
+		\only<1>{\includegraphics[height=2in]{iterative-deepening-0-1.pdf}}%
+		\only<2>{\includegraphics[height=2in]{iterative-deepening-0-2.pdf}}%
+		\only<3>{\includegraphics[height=2in]{iterative-deepening-1-1.pdf}}%
+		\only<4>{\includegraphics[height=2in]{iterative-deepening-1-2.pdf}}%
+		\only<5>{\includegraphics[height=2in]{iterative-deepening-1-3.pdf}}%
+		\only<6>{\includegraphics[height=2in]{iterative-deepening-1-4.pdf}}%
+		\only<7>{\includegraphics[height=2in]{iterative-deepening-1-5.pdf}}%
+		\only<8>{\includegraphics[height=2in]{iterative-deepening-2-1.pdf}}%
+		\only<9>{\includegraphics[height=2in]{iterative-deepening-2-2.pdf}}%
+		\only<10>{\includegraphics[height=2in]{iterative-deepening-2-3.pdf}}%
+		\only<11>{\includegraphics[height=2in]{iterative-deepening-2-4.pdf}}%
+		\only<12>{\includegraphics[height=2in]{iterative-deepening-2-5.pdf}}%
+		\only<13>{\includegraphics[height=2in]{iterative-deepening-2-6.pdf}}%
+		\only<14>{\includegraphics[height=2in]{iterative-deepening-2-7.pdf}}%
+		\only<15>{\includegraphics[height=2in]{iterative-deepening-2-8.pdf}}%
+		\only<16>{\includegraphics[height=2in]{iterative-deepening-2-9.pdf}}%
+	\end{center}
+\end{frame}
+\begin{frame}{Iterative Deepening Properties}
+	\footnotesize
+	\begin{block}{Strategy? \hyperlink{iterative-deepening-example}{\beamergotobutton{Example}}}
+		\uncover<2->{First-in Last-Out Stack with depth limit}
+	\end{block}
+	\begin{block}{Complete?}
+		\uncover<3->{Yes, if number of branches is finite}
+	\end{block}
+	\begin{block}{Optimal?}
+		\uncover<4->{Yes, if step costs are all identical}
+	\end{block}
+	\begin{block}{Worst Case Time Complexity?}
+		\uncover<5->{$O(b^{d})$, branching factor $b$, depth of goal state $d$}
+	\end{block}
+	\begin{block}{Worst Case Space Complexity?}
+		\uncover<6->{$O(bd)$, branching factor $b$, depth of goal state $d$}
+	\end{block}
+\end{frame}
+
+\section{Advanced Search}
+
+\subsection{Repeated States}
+\begin{frame}{Exponential Costs of Repeated States}
+	\begin{center}
+		\includegraphics[width=4in]{ribbon-space.pdf}
+	\end{center}
+\end{frame}
+\begin{frame}[fragile]{Graph Search}
+	\scriptsize
+	\begin{lstlisting}
+		def graph_search(problem, strategy):
+		    seen = set()
+		    strategy.add(Node(problem.initial_state))
+		    for node in strategy:
+		        if problem.is_goal(node.state):
+		            return node.get_actions()
+		        if node not in seen:
+		            seen.add(node)
+		            succs = problem.get_successors(node.state)
+		            for state, action, cost in succs:
+		                strategy.add(Node(
+		                    state=state,
+		                    action=action,
+		                    parent=node,
+		                    cost=node.cost + cost,
+		                    depth=node.depth + 1))
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Partial Information}
+\begin{frame}{Searching with Partial Information}
+	\begin{columns}
+		\column{.50\textwidth}
+			\begin{block}{Problem}
+				Start in \alert{any state}
+			\end{block}
+			\begin{block}{Solution?}
+				\footnotesize
+				\begin{tabular}{ll}
+					\uncover<2->{Initial}     & \uncover<2->{$\{\key{1}, \key{2}, \key{3}, \key{4}, \key{5}, \key{6}, \key{7}, \key{8}\}$} \\
+					\uncover<3->{\key{Right}} & \uncover<4->{$\{\key{2}, \key{4}, \key{6}, \key{8}\}$} \\
+					\uncover<5->{\key{Suck}}  & \uncover<6->{$\{\key{4}, \key{8}\}$} \\
+					\uncover<7->{\key{Left}}  & \uncover<8->{$\{\key{3}, \key{7}\}$} \\
+					\uncover<9->{\key{Suck}}  & \uncover<10->{$\{\key{7}\}$} \\
+				\end{tabular}
+			\end{block}
+		\column{.50\textwidth}
+			\includegraphics[width=2.1in]{vacuum-space.pdf}
+	\end{columns}
+\end{frame}
+
+\part{Key Points}
+\begin{frame}{Key Points}
+	\begin{block}{Search Problems}
+		\begin{itemize}
+			\item Initial State
+			\item Actions
+			\item Goal Test
+			\item Path Cost
+		\end{itemize}
+	\end{block}
+	\begin{block}{Search Strategies}
+		\begin{itemize}
+			\item Breadth-first
+			\item Uniform-cost
+			\item Depth-first
+			\item \alert<2->{Iterative Deepening}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+
+\end{document}
+
+

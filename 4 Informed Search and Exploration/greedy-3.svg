@@ -1,0 +1,99 @@
+<ns0:svg color-interpolation="auto" color-rendering="auto" fill="black" fill-opacity="1" font-family="&apos;Dialog&apos;" font-size="12" font-style="normal" font-weight="normal" height="272" image-rendering="auto" shape-rendering="auto" stroke="black" stroke-dasharray="none" stroke-dashoffset="0" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10" stroke-opacity="1" stroke-width="1" text-rendering="auto" width="400" xmlns:ns0="http://www.w3.org/2000/svg">
+  
+  <ns0:defs id="genericDefs" />
+  <ns0:g>
+    <ns0:defs id="defs1">
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath1">
+        <ns0:path d="M0 0 L400 0 L400 272 L0 272 L0 0 Z" />
+      </ns0:clipPath>
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath2">
+        <ns0:path d="M-15 -15 L385 -15 L385 257 L-15 257 L-15 -15 Z" />
+      </ns0:clipPath>
+    </ns0:defs>
+    <ns0:g fill="rgb(153,153,153)" stroke="rgb(153,153,153)" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" height="37.8525" rx="4" ry="4" stroke="none" width="65" x="219.5" y="0" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,15,15)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="238.5" y="16.0698" xml:space="preserve">Arad</ns0:text>
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="222.5" y="31.9961" xml:space="preserve">h(n) = 366</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="37.8525" rx="4" ry="4" width="65" x="219.5" y="0" />
+    </ns0:g>
+    <ns0:g fill="rgb(153,153,153)" stroke="rgb(153,153,153)" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" height="37.8525" rx="4" ry="4" stroke="none" width="65" x="134.5" y="67.8525" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,15,15)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="152.5" y="83.9224" xml:space="preserve">Sibiu</ns0:text>
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="137.5" y="99.8486" xml:space="preserve">h(n) = 253</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="37.8525" rx="4" ry="4" width="65" x="134.5" y="67.8525" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,15,15)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="224" y="83.9224" xml:space="preserve">Timisoara</ns0:text>
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="222.5" y="99.8486" xml:space="preserve">h(n) = 329</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="37.8525" rx="4" ry="4" width="65" x="219.5" y="67.8525" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,15,15)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="319.5" y="83.9224" xml:space="preserve">Zerind</ns0:text>
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="307.5" y="99.8486" xml:space="preserve">h(n) = 374</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="37.8525" rx="4" ry="4" width="65" x="304.5" y="67.8525" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,15,15)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="19" y="151.7749" xml:space="preserve">Arad</ns0:text>
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="3" y="167.7012" xml:space="preserve">h(n) = 366</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="37.8525" rx="4" ry="4" width="65" x="0" y="135.7051" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,15,15)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="94" y="151.7749" xml:space="preserve">Fagaras</ns0:text>
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="88" y="167.7012" xml:space="preserve">h(n) = 176</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="37.8525" rx="4" ry="4" width="65" x="85" y="135.7051" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,15,15)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="181.5" y="151.7749" xml:space="preserve">Oradea</ns0:text>
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="173" y="167.7012" xml:space="preserve">h(n) = 380</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="37.8525" rx="4" ry="4" width="65" x="170" y="135.7051" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,15,15)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="258" y="151.7749" xml:space="preserve">Rimnicu Vilcea</ns0:text>
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="272" y="167.7012" xml:space="preserve">h(n) = 193</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="37.8525" rx="4" ry="4" width="93" x="255" y="135.7051" />
+    </ns0:g>
+    <ns0:g fill="rgb(153,153,153)" font-family="sans-serif" font-size="13" stroke="rgb(153,153,153)" transform="matrix(1,0,0,1,15,15)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="60.5" y="219.6274" xml:space="preserve">Sibiu</ns0:text>
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="45.5" y="235.5537" xml:space="preserve">h(n) = 253</ns0:text>
+    </ns0:g>
+    <ns0:g fill="rgb(153,153,153)" stroke="rgb(153,153,153)" stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="37.8525" rx="4" ry="4" width="65" x="42.5" y="203.5576" />
+    </ns0:g>
+    <ns0:g fill="rgb(153,153,153)" font-family="sans-serif" font-size="13" stroke="rgb(153,153,153)" transform="matrix(1,0,0,1,15,15)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="130.5" y="219.6274" xml:space="preserve">Bucharest</ns0:text>
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="137.5" y="235.5537" xml:space="preserve">h(n) = 0</ns0:text>
+    </ns0:g>
+    <ns0:g fill="rgb(153,153,153)" stroke="rgb(153,153,153)" stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,15,15)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="37.8525" rx="4" ry="4" width="65" x="127.5" y="203.5576" />
+      <ns0:path clip-path="url(#clipPath2)" d="M228.2805 37.8607 L190.7282 67.8374" fill="none" stroke="black" />
+      <ns0:path clip-path="url(#clipPath2)" d="M252 37.8441 L252 67.8071" fill="none" stroke="black" />
+      <ns0:path clip-path="url(#clipPath2)" d="M275.7195 37.8607 L313.2718 67.8374" fill="none" stroke="black" />
+      <ns0:path clip-path="url(#clipPath2)" d="M134.7213 103.0628 L64.7686 138.3525" fill="none" stroke="black" />
+      <ns0:path clip-path="url(#clipPath2)" d="M153.199 105.6967 L131.3229 135.6835" fill="none" stroke="black" />
+      <ns0:path clip-path="url(#clipPath2)" d="M176.8977 105.6967 L192.5866 135.6835" fill="none" stroke="black" />
+      <ns0:path clip-path="url(#clipPath2)" d="M199.2787 103.0628 L263.9906 135.7086" fill="none" stroke="black" />
+      <ns0:path clip-path="url(#clipPath2)" d="M105.6506 173.5492 L86.8681 203.536" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M129.3494 173.5492 L148.1319 203.536" fill="none" />
+    </ns0:g>
+  </ns0:g>
+</ns0:svg>

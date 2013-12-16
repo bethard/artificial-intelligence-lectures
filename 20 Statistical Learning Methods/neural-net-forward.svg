@@ -1,0 +1,69 @@
+<ns0:svg color-interpolation="auto" color-rendering="auto" fill="black" fill-opacity="1" font-family="&apos;Dialog&apos;" font-size="12" font-style="normal" font-weight="normal" height="286" image-rendering="auto" shape-rendering="auto" stroke="black" stroke-dasharray="none" stroke-dashoffset="0" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10" stroke-opacity="1" stroke-width="1" text-rendering="auto" width="360" xmlns:ns0="http://www.w3.org/2000/svg">
+  
+  <ns0:defs id="genericDefs" />
+  <ns0:g>
+    <ns0:defs id="defs1">
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath1">
+        <ns0:path d="M0 0 L360 0 L360 286 L0 286 L0 0 Z" />
+      </ns0:clipPath>
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath2">
+        <ns0:path d="M150 130 L510 130 L510 416 L150 416 L150 130 Z" />
+      </ns0:clipPath>
+    </ns0:defs>
+    <ns0:g fill="white" stroke="white" transform="translate(-150,-130)">
+      <ns0:rect clip-path="url(#clipPath2)" height="286" stroke="none" width="360" x="150" y="130" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-150,-130)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="30" width="30" x="165" y="225" />
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="30" width="30" x="165" y="365" />
+      <ns0:circle clip-path="url(#clipPath2)" cx="280" cy="240" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-150,-130)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="274.5" y="165.1067" xml:space="preserve">-1</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-150,-130)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="280" cy="380" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-150,-130)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="274.5" y="305.1067" xml:space="preserve">-1</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-150,-130)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="380" cy="300" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-150,-130)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="374.5" y="225.1067" xml:space="preserve">-1</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-150,-130)">
+      <ns0:rect clip-path="url(#clipPath2)" fill="none" height="30" width="30" x="465" y="285" />
+      <ns0:path clip-path="url(#clipPath2)" d="M195 240 L257 240" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M265 240 L253 235 L256 240 L253 245 Z" stroke="none" />
+      <ns0:text clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" x="236.7699" y="231.7019" xml:space="preserve">0.5</ns0:text>
+      <ns0:path clip-path="url(#clipPath2)" d="M190.7143 365 L266.6315 258.7159" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M271.2814 252.206 L260.2379 259.0646 L266.0503 259.5296 L268.3752 264.877 Z" stroke="none" />
+      <ns0:text clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" x="237.0014" y="264.1902" xml:space="preserve">0.5</ns0:text>
+      <ns0:path clip-path="url(#clipPath2)" d="M280 175 L280 217" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M280 225 L285 213 L280 216 L275 213 Z" stroke="none" />
+      <ns0:text clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" x="285.3375" y="202.9398" xml:space="preserve">1.5</ns0:text>
+      <ns0:path clip-path="url(#clipPath2)" d="M195 380 L257 380" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M265 380 L253 375 L256 380 L253 385 Z" stroke="none" />
+      <ns0:text clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" x="234.7699" y="395.7019" xml:space="preserve">1.0</ns0:text>
+      <ns0:path clip-path="url(#clipPath2)" d="M280 315 L280 357" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M280 365 L285 353 L280 356 L275 353 Z" stroke="none" />
+      <ns0:text clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" x="285.3375" y="342.9398" xml:space="preserve">0.5</ns0:text>
+      <ns0:path clip-path="url(#clipPath2)" d="M292.8624 247.7174 L360.2776 288.1666" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M367.1376 292.2826 L359.4202 281.8211 L359.4202 287.6521 L354.2752 290.3961 Z" stroke="none" />
+      <ns0:text clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" x="339.7282" y="267.8764" xml:space="preserve">-0.5</ns0:text>
+      <ns0:path clip-path="url(#clipPath2)" d="M291.713 370.6296 L362.04 314.368" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M368.287 309.3704 L355.7931 312.9624 L361.2591 314.9927 L362.04 320.7711 Z" stroke="none" />
+      <ns0:text clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" x="342.0931" y="350.1387" xml:space="preserve">1.0</ns0:text>
+      <ns0:path clip-path="url(#clipPath2)" d="M380 235 L380 277" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M380 285 L385 273 L380 276 L375 273 Z" stroke="none" />
+      <ns0:text clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" x="390.3375" y="262.9398" xml:space="preserve">0.5</ns0:text>
+      <ns0:path clip-path="url(#clipPath2)" d="M395 300 L457 300" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M465 300 L453 295 L456 300 L453 305 Z" stroke="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M190.7143 255 L266.6315 361.2841" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M271.2814 367.794 L268.3752 355.123 L266.0503 360.4704 L260.2379 360.9354 Z" stroke="none" />
+      <ns0:text clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" x="236.0803" y="359.6129" xml:space="preserve">0.0</ns0:text>
+    </ns0:g>
+  </ns0:g>
+</ns0:svg>

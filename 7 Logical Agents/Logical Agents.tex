@@ -1,0 +1,1207 @@
+\documentclass[12pt,table]{beamer}
+%\includeonlyframes{current}
+
+\mode<presentation>{\usetheme{Warsaw}}
+\setbeamertemplate{footline}[frame number]
+\usepackage[english]{babel}
+\usepackage{times}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hhline}
+\usepackage{array}
+\usepackage{colortbl}
+\lstloadlanguages{Python}
+\lstset{language=Python}
+\lstset{%
+	basicstyle=\ttfamily\bfseries,
+	keywordstyle=\color{blue}, emph={self}, emphstyle={\color{blue}},
+	identifierstyle=,
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	emph={[2]__init__,__str__}, emphstyle={[2]\color{purple}},
+}
+\newcommand{\key}[1]{{\color{blue}#1}}
+\newcommand{\cmnt}[1]{{\color{gray}#1}}
+\newcommand{\str}[1]{{\color{green!50!black}#1}}
+\newcommand{\defn}[1]{{\color{purple}#1}}
+\newcommand{\SC}[1]{\mbox{\sc#1}}
+\newcommand{\EM}[1]{\mbox{\em#1}}
+
+\newcommand{\limpl}{\Rightarrow}
+\newcommand{\liff}{\Leftrightarrow}
+
+
+\newlength{\cellwidth}
+\setlength{\cellwidth}{.5in}
+\newlength{\cellheight}
+\setlength{\cellheight}{.6in}
+\newcommand{\cell}[1]{\parbox[c][\cellheight]{\cellwidth}{#1}}
+\newcommand{\emptycell}{\cell{\ }}
+\newcommand{\wumpcell}[3]{\cell{%
+	\parbox[c][.1in]{\cellwidth}{\small #1 \hfill #2} \\
+	\parbox[c][.2in]{\cellwidth}{\centering #3}}}
+
+\title{Logical Agents}
+\subtitle{Introduction to Artificial Intelligence}
+\author{Steven Bethard}
+\institute{
+  Department of Computer Science\\
+  University of Colorado
+}
+\date{CSCI 3202}
+
+\AtBeginSection[]{
+  \begin{frame}<beamer>{Outline}
+  	\scriptsize
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\begin{frame}{Outline}
+	\scriptsize
+  \tableofcontents
+\end{frame}
+
+
+\section{Logical Agents}
+\subsection{Knowledge Bases}
+\begin{frame}{Knowledge Bases}
+	\begin{block}{Idea: Separate Knowledge from Reasoning}
+		\arrayrulewidth=2pt
+		\begin{tabular}{|l|l}
+			\hhline{-~}
+			\parbox[c][0.4in]{1.25in}{Inference Engine} & $\leftarrow$ domain-independent algorithms \\
+			\hhline{-~}
+			\parbox[c][0.4in]{1.25in}{Knowledge Base}   & $\leftarrow$ domain-specific content \\
+			\hhline{-~}
+		\end{tabular}
+	\end{block}
+	\pause
+	\begin{block}{Knowledge Base (KB) Properties}
+		\begin{itemize}
+			\item Contains a set of ``sentences''
+			\item Can \SC{Tell} it new ``sentences''
+			\item Can \SC{Ask} it ``queries''
+		\end{itemize}
+	\end{block}
+\end{frame}
+\begin{frame}[fragile]{Knowledge-Based Agents}
+	\begin{semiverbatim}\bfseries\scriptsize
+		\key{class} \defn{KnowledgeBaseAgent}(object):\pause
+		    \key{def} \defn{__init__}(\key{self}, knowledge_base):
+		        \key{self}.knowledge_base = knowledge_base
+		        \key{self}.time = 0
+		    \key{def} \defn{take_action}(\key{self}, percept):
+		        \pause\cmnt{# convert the percept to knowledge}
+		        percept_sentence = \key{self}.percept_to_sentence(percept)
+		        \key{self}.knowledge_base.tell(percept_sentence)
+		        \pause\cmnt{# select an action based on the knowledge}
+		        action_query = \key{self}.make_action_query()
+		        action = \key{self}.knowledge_base.ask(action_query)
+		        \pause\cmnt{# update the knowledge base with the planned action}
+		        action_sentence = \key{self}.action_to_sentence(action)
+		        \key{self}.knowledge_base.tell(action)
+		        \key{self}.time += 1
+		        \pause\cmnt{# perform the action}
+		        \key{return} action
+	\end{semiverbatim}
+\end{frame}
+
+
+\subsection{The Wumpus World}
+\begin{frame}{The Wumpus World}
+	\begin{columns}
+		\begin{column}{2in}
+			\begin{block}{Overview}
+				\begin{itemize}
+					\item The agent is in a cave with many rooms
+					\item Pits and the wumpus can kill the agent
+					\item The agent has a single arrow than can be fired to kill the wumpus
+					\item There is a heap of gold in one room
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{2in}
+			\includegraphics[width=2in]{wumpus-world}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{Wumpus World Description}
+	\begin{block}{Environment}
+		\begin{itemize}
+			\item Squares adjacent to wumpus (pit) are smelly (breezy)
+			\item \SC{Shoot} uses the arrow and kills wumpus if facing it
+			\item Gold glitters and \SC{Grab} picks it up if in same square
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Actions}
+		\SC{Turn-Left}, \SC{Turn-Right}, \SC{Forward}, \SC{Grab}, \SC{Shoot}
+	\end{block}
+	\pause
+	\begin{block}{Score}
+		\begin{itemize}
+			\item gold +1000, death -1000
+			\item -1 per step, -10 for using the arrow
+		\end{itemize}
+	\end{block}
+\end{frame}
+\begin{frame}{Wumpus World Properties}
+	\begin{tabular}{ll}
+		\key{Observable?}    \pause & No, only local perception \pause \\
+		\key{Deterministic?} \pause & Yes, state+action determines outcome \pause \\
+		\key{Episodic?}      \pause & No, involves a sequence of actions \pause \\
+		\key{Static?}        \pause & Yes, pits and wumpus are stationary \pause \\
+		\key{Discrete?}      \pause & Yes, no real-valued states or actions \pause \\
+		\key{Single-Agent?}  \pause & Yes, wumpus takes no (real) actions
+	\end{tabular}
+\end{frame}
+
+
+\subsection{Wumpus World Examples}
+\begin{frame}{Exploring a Wumpus World}
+	\begin{center}
+		\arrayrulewidth=2pt
+		\begin{tabular}{|l|l|l|l|}
+			\hline
+			\emptycell & \emptycell & \emptycell & \emptycell \\
+			\hline
+			\wumpcell{}{\uncover<5-10>{P?}}{\only<11->{\Huge P}} &
+			\wumpcell{}{\uncover<14->{OK}}{} &
+			\emptycell &
+			\emptycell \\
+			\hline
+			\wumpcell{\uncover<4->{B}}{\uncover<2->{OK}}{\only<3-5>{\fbox{A}}} &
+			\wumpcell{}{\uncover<5->{\alt<-9>{P?}{OK}}}{\only<12-14>{\fbox{A}}} &
+			\wumpcell{\uncover<16->{SG}}{\uncover<14->{OK}}{\only<15->{\fbox{A}}} &
+			\emptycell \\
+			\hline
+			\wumpcell{}{\uncover<2->{OK}}{\only<-2,6>{\fbox{A}}} &
+			\wumpcell{\uncover<8->{S}}{\uncover<2->{OK}}{\only<7-11>{\fbox{A}}} &
+			\wumpcell{}{}{\uncover<9->{\Huge W}} &
+			\emptycell \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{frame}
+\begin{frame}{Difficult Wumpus World Situations}
+	\begin{columns}
+		\begin{column}{2in}
+			\cellwidth=.375in
+			\cellheight=.475in
+			\arrayrulewidth=2pt
+			\begin{tabular}{|l|l|}
+				\hhline{-~}
+				\wumpcell{}{\uncover<2->{W?}}{} & \multicolumn{1}{c}{} \\
+				\hhline{--}
+				\wumpcell{S}{}{\fbox{A}} & \wumpcell{}{\uncover<2->{W?}}{}  \\
+				\hline
+			\end{tabular}
+			\pause\pause
+			\begin{block}{Solution: Coercion}
+				\SC{Shoot} an arrow
+				\begin{itemize}
+					\item Scream $\Rightarrow$ \\
+					      Wumpus ahead
+					\item No scream $\Rightarrow$ \\
+					      Wumpus to the side
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\pause
+		\begin{column}{2in}
+			\cellwidth=.375in
+			\cellheight=.475in
+			\arrayrulewidth=2pt
+			\begin{tabular}{|l|l|l|}
+				\hhline{-~~}
+				\wumpcell{}{\uncover<5->{P?}}{} & \multicolumn{2}{c}{} \\
+				\hhline{--~}
+				\wumpcell{B}{OK}{} & \wumpcell{}{\uncover<5->{P?}}{} & \multicolumn{1}{c}{} \\
+				\hline
+				\wumpcell{}{OK}{\fbox{A}} & \wumpcell{B}{OK}{} & \wumpcell{}{\uncover<5->{P?}}{} \\
+				\hline
+			\end{tabular}
+			\pause\pause
+			\begin{block}{Solution: Probability theory}
+				\begin{itemize}
+					\item 86\% pit in [2,2]
+					\item 31\% pit in [3,1] or [1,3]
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+\section{Logic Basics}
+\subsection{Logic}
+\begin{frame}{Logic}
+	\begin{block}{Key Ideas}
+		Formal language for representing information
+		\begin{description}
+			\item[Syntax] defines structure of sentences
+			\item[Semantics] defines meaning of sentences
+		\end{description}
+	\end{block}
+	\pause
+	\begin{block}{Example: Arithmetic}
+		\begin{description}
+			\item[Syntax] 
+				\begin{tabular}[t]{ll}
+					Valid:   & $x + 2 > y$ \\
+					Invalid: & $x2 + y >$
+				\end{tabular}
+			\item[Semantics]
+				\begin{tabular}[t]{ll}
+					\lefteqn{\mbox{The sentence\ } x + 2 > y \mbox{\ is true if:}} \\
+					& \emph{The sum of $x$ and $2$ is greater than $y$}
+				\end{tabular}
+		\end{description}
+	\end{block}
+\end{frame}
+
+
+\subsection{Models}
+\begin{frame}{Models}
+	\begin{block}{Definitions}
+		\begin{itemize}
+			\item A \alert{model} is a possible state of the world
+			\item If a sentence $\alpha$ is true in model $m$, \\
+			      \hspace{1em} then $m$ is \alert{a model of} $\alpha$
+			\item $M(\alpha)$ means \alert{all models of} $\alpha$
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Example: Arithmetic}
+		Given the sentence $\alpha$ which looks like $x + 2 > y$:
+		\begin{itemize}
+			\pause\item Is $\{x=7, y=1\}$ a model of $\alpha$? \pause \alert{Yes}
+			\pause\item Is $\{x=3, y=6\}$ a model of $\alpha$? \pause \alert{No}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+
+\subsection{Entailment}
+\begin{frame}{Entailment}
+	\begin{columns}
+		\begin{column}{2in}
+			\begin{block}{Idea}
+				\begin{tabular}{ll}
+					\multicolumn{2}{l}{A sentence $\beta$ \alert{entails} a} \\
+					\multicolumn{2}{l}{sentence $\alpha$ if and only if:} \\
+					& $\alpha$ is true in all worlds \\
+					& where $\beta$ is true \\
+				\end{tabular}
+			\end{block}
+			\pause
+			\begin{block}{Definition}
+				$\beta \models \alpha$ if and only if \\
+				\hspace{1em} $M(\beta) \subseteq M(\alpha)$
+			\end{block}
+		\end{column}
+		\pause
+		\begin{column}{2in}
+			\begin{block}{$M(\mbox{KB}) \subseteq M(\alpha)$}
+				\includegraphics[width=2in]{model-inclusion}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{Entailment Examples}
+	\begin{block}{Definition (Again)}
+		$\beta \models \alpha$ if and only if $M(\beta) \subseteq M(\alpha)$
+	\end{block}
+	\pause
+	\begin{block}{Example: Arithmetic}
+		$(x + y = 4) \models (4 = x + y)$
+	\end{block}
+	\pause
+	\begin{block}{Example: English}
+		``The Broncos won and the Avalanche won'' \\
+		$\models$ \\
+		``Either the Broncos won or the Avalanche won''
+	\end{block}
+\end{frame}
+\begin{frame}{Wumpus Entailment Example}
+	\begin{columns}
+		\begin{column}{2.5in}
+			\arrayrulewidth=2pt
+			\begin{tabular}{|l|l|l|}
+				\hhline{--~}
+				\wumpcell{}{}{\only<4->{\Huge ?}} &
+				\wumpcell{}{}{\only<4->{\Huge ?}} &
+				\multicolumn{1}{c}{} \\
+				\hline
+				\wumpcell{}{}{\only<1>{\fbox{A}}} &
+				\wumpcell{\only<3->{B}}{}{\only<2->{\fbox{A}}} &
+				\wumpcell{}{}{\only<4->{\Huge ?}} \\
+				\hline
+			\end{tabular}
+		\end{column}
+		\begin{column}{1.5in}
+			\begin{block}<5->{Models}
+				Number of possible models when placing pits in three squares: \\
+				\hspace{1em} \uncover<6->{\alert{$2^3 = 8$}}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{Wumpus Entailment Example}
+	\begin{columns}
+		\begin{column}{3.25in}
+			\only<1>{\includegraphics[height=2.25in]{wumpus-models1}}%
+			\only<2>{\includegraphics[height=2.25in]{wumpus-models2}}%
+			\only<3-4>{\includegraphics[height=2.25in]{wumpus-models3}}%
+			\only<5-6>{\includegraphics[height=2.25in]{wumpus-models4}}%
+		\end{column}
+		\begin{column}{1in}
+			\uncover<2->{KB = rules + observations} \\[1em]
+			
+			\uncover<3->{$\alpha$ = \\ ``[1,2] is safe''} \\
+			\uncover<4->{$\mbox{KB} \models \alpha$} \\[1em]
+
+			\uncover<5->{$\beta$ = \\ ``[2,2] is safe''} \\
+			\uncover<6->{$\mbox{KB} \not\models \beta$}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+\section{Propositional Logic}
+\subsection{Definitions}
+\begin{frame}{Propositional Logic Syntax}
+	\begin{block}{Basics}
+		\begin{itemize}
+			\item Symbols look like $P$, $Q$, $R$, etc.
+			\item Connectives look like:\\[0.5em]
+				\begin{tabular}{ll}
+					$\lnot$  & negation, a.k.a. ``not'' \\
+					$\land$  & conunction, a.k.a. ``and'' \\
+					$\lor$   & disjunction, a.k.a. ``or'' \\
+					$\limpl$ & implication, a.k.a. ``implies'' \\
+					$\liff$  & biconditional, a.k.a. ``equivalent''
+				\end{tabular}
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Examples}
+		\begin{tabular}{p{.5in}p{.75in}p{1in}p{1in}}
+			$P$ \pause &
+			$\lnot Q$ \pause &
+			$\lnot Q \land P$ \pause &
+			$R \limpl \lnot Q \land P$
+		\end{tabular}
+	\end{block}
+\end{frame}
+\begin{frame}{Propositional Logic Semantics}
+	\begin{block}{Symbols}
+		A model specifies \emph{true} or \emph{false} for each symbol \\
+		\hspace{1em} E.g. $\{P=\mbox{\em true}, Q=\mbox{\em false}, R=\mbox{\em true}\}$
+	\end{block}
+	\pause
+	\begin{block}{Connectives}
+		\small
+		\begin{tabular}{@{}lllll}
+			$\lnot S$         & is true iff & $S$ is \emph{false} \\
+			$S_1 \land S_2$   & is true iff & $S_1$ is \emph{true}            & and & $S_2$ is \emph{true} \\
+			$S_1 \lor S_2$    & is true iff & $S_1$ is \emph{true}            & or  & $S_2$ is \emph{true} \\
+			$S_1 \limpl S_2$  & is true iff & $S_1$ is \emph{false}           & or  & $S_2$ is \emph{true} \\
+			$S_1 \liff S_2$   & is true iff & $S_1 \limpl S_2$ is \emph{true} & and & $S_2 \limpl S_1$ is \emph{true}
+		\end{tabular}
+	\end{block}
+\end{frame}
+\begin{frame}{Implication vs. Entailment}
+	\begin{block}{Implication ($\alpha \limpl \beta$)}
+		\begin{itemize}
+			\item $\alpha$ is \emph{false} or $\beta$ is \emph{true}
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Entailment ($\alpha \models \beta$)}
+		\begin{itemize}
+			\item In all models where $\alpha$ is true, $\beta$ is also true
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Example}
+		\begin{tabular}{@{}l@{\hspace{.5em}}p{1em}@{\hspace{.5em}}l}
+			\rule{0pt}{1.5em}
+			the earth is flat &
+			\only<-3>{$\stackrel{?}{\limpl}$}\only<4>{$\limpl$}\only<5>{$\stackrel{?}{\models}$}\only<6->{$\not\models$} &
+			the moon is made of green cheese
+		\end{tabular}
+	\end{block}
+	\pause\pause\pause\pause
+	\begin{block}{Relation between Implication and Entailment}
+		$\alpha \models \beta$ if and only if $\alpha \limpl \beta$ in all models
+	\end{block}
+\end{frame}
+
+
+\subsection{Truth Tables}
+\begin{frame}{Truth Tables}
+	\begin{block}{Key Idea}
+		\begin{itemize}
+			\item Enumerate all possible values for symbols
+			\item Calculate expression for each set of values
+		\end{itemize}
+	\end{block}
+	\bigskip
+	\em
+	\begin{tabular}{|c|c||c|c|c|c|c|}
+	\hline
+	$P$   & $Q$   & $\lnot P$ & $P \land Q$ & $P \lor Q$ & $P \limpl Q$ & $P \liff Q$ \\
+	\hline
+	false & false & true      & false       & false      & true         & true \\
+	false & true  & true      & false       & true       & true         & false \\
+	true  & false & false     & false       & true       & false        & false \\
+	true  & true  & false     & true        & true       & true         & true \\
+	\hline
+	\end{tabular}
+\end{frame}
+\begin{frame}{Evaluating Complex Expressions}
+	\begin{block}{Given}
+		\begin{tabular}{lll}
+			$P=\EM{true}$ & $Q=\EM{false}$ & $R=\EM{true}$ 
+		\end{tabular}
+	\end{block}
+	\begin{block}{Evaluate}
+		$P \lor R \limpl \lnot (Q \land \lnot R)$
+	\end{block}
+	\begin{enumerate}
+		\pause\item $\EM{true} \lor \EM{true} \limpl \lnot (\EM{false} \land \lnot \EM{true})$
+		\pause\item $\EM{true} \lor \EM{true} \limpl \lnot (\EM{false} \land \EM{false})$
+		\pause\item $\EM{true} \lor \EM{true} \limpl \lnot \EM{false}$
+		\pause\item $\EM{true} \lor \EM{true} \limpl \EM{true}$
+		\pause\item $\EM{true} \limpl \EM{true}$
+		\pause\item $\EM{true}$
+	\end{enumerate}
+\end{frame}
+\begin{frame}{Truth Table Exercise}
+	\begin{block}{Problem}
+		Construct a truth table for $P \lor R \limpl \lnot (Q \land \lnot R)$
+	\end{block}
+	\pause
+	\medskip
+	\em
+	\begin{tabular}{|ccc||c|}
+		\hline
+		$P$   & $Q$   & $R$          & $P \lor R \limpl \lnot (Q \land \lnot R)$ \\
+		\hline
+		true  & true  & true  \pause & true  \pause\\
+		true  & true  & false \pause & false \pause\\
+		true  & false & true  \pause & true  \pause\\
+		true  & false & false \pause & true  \pause\\
+		false & true  & true  \pause & true  \pause\\
+		false & true  & false \pause & true  \pause\\
+		false & false & true  \pause & true  \pause\\
+		false & false & false \pause & true \\
+		\hline
+	\end{tabular}
+\end{frame}
+\begin{frame}{Logical Equivalences}
+	\footnotesize
+	$
+	\begin{array}{@{}r@{\hspace{.25em}}c@{\hspace{.25em}}l@{\hspace{.25em}}l}
+	(\alpha \land \beta)                &\liff& (\beta \land \alpha)                             & \mbox{Commutativity of} \land\\
+	(\alpha \lor \beta)                 &\liff& (\beta\lor \alpha)                               & \mbox{Commutativity of} \lor\\
+	((\alpha \land \beta)\land \gamma)  &\liff& (\alpha\land (\beta\land \gamma))                & \mbox{Associativity of} \land\\
+	((\alpha \lor \beta)\lor \gamma)    &\liff& (\alpha\lor (\beta\lor \gamma))                  & \mbox{Associativity of} \lor\\
+	\lnot(\lnot \alpha)                 &\liff& \alpha                                           & \mbox{Double-negation elimination}\\
+	(\alpha \limpl \beta)               &\liff& (\lnot \beta \limpl \lnot \alpha)                & \mbox{Contraposition}\\
+	(\alpha \limpl \beta)               &\liff& (\lnot \alpha \lor \beta)                        & \mbox{Implication elimination}\\
+	(\alpha \liff \beta)                &\liff& ((\alpha\limpl \beta)\land (\beta\limpl \alpha)) & \mbox{Biconditional elimination}\\
+	\lnot(\alpha \land \beta)           &\liff& (\lnot \alpha \lor \lnot \beta)                  & \mbox{De Morgan}\\
+	\lnot(\alpha \lor \beta)            &\liff& (\lnot \alpha \land \lnot \beta)                 & \mbox{De Morgan}\\
+	(\alpha \land (\beta \lor \gamma))  &\liff& ((\alpha\land \beta)\lor (\alpha\land \gamma))   & \mbox{Distributivity of} \land \mbox{over} \lor\\
+	(\alpha \lor (\beta \land \gamma))  &\liff& ((\alpha\lor \beta)\land (\alpha\lor \gamma))    & \mbox{Distributivity of} \lor \mbox{over} \land
+	\end{array}
+	$
+\end{frame}
+
+
+\subsection{Reasoning Patterns}
+\begin{frame}{Reasoning}
+	\begin{block}{Key Ideas}
+		\begin{itemize}
+			\item Use logical equivalences etc. to prove things
+			\item No need for a truth table!
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Example}
+		Prove: $\lnot (P \land R \land Q)$ \\
+		Given: $P \land R \limpl \lnot Q$ \\
+	\end{block}
+	\bigskip
+	\pause
+	\begin{tabular}{l@{\hspace{2em}}l}
+		$P \land R \limpl \lnot Q$          & Given \pause\\
+		$\lnot (P \land R) \lor \lnot Q$    & Implication Elimination \pause\\
+		$\lnot P \lor \lnot R \lor \lnot Q$ & De Morgan \pause\\
+		$\lnot (P \land R \land Q)$         & De Morgan \\
+	\end{tabular}
+\end{frame}
+\begin{frame}{Additional Reasoning Patterns}
+	\begin{columns}[T]
+		\begin{column}{1.4in}
+			\begin{block}{Modus Ponens}
+				\[
+				\begin{array}{l}
+					\alpha \limpl \beta \\
+					\alpha \\
+					\hline
+					\beta
+				\end{array}
+				\]
+				\bigskip
+				\[
+				\begin{array}{l}
+					x > 2 \limpl x \neq 1 \\
+					x > 2 \\
+					\hline
+					x \neq 1
+				\end{array}
+				\]
+			\end{block}
+		\end{column}
+		\pause
+		\begin{column}{1.4in}
+			\begin{block}{And-Elimination}
+				\vspace{1.2em}
+				\[
+				\begin{array}{l}
+					\alpha \land \beta \\
+					\hline
+					\beta
+				\end{array}
+				\]
+				\bigskip
+				\vspace{1.2em}
+				\[
+				\begin{array}{l}
+					x = 0 \land y = 42 \\
+					\hline
+					y = 42
+				\end{array}
+				\]
+			\end{block}
+		\end{column}
+		\pause
+		\begin{column}{1.4in}
+			\begin{block}{Resolution}
+				\[
+				\begin{array}{l}
+					\alpha \lor \beta \\
+					\lnot\alpha \\
+					\hline
+					\beta
+				\end{array}
+				\]
+				\bigskip
+				\[
+				\begin{array}{l}
+					x = 1 \lor x = 2 \\
+					x \neq 1 \\
+					\hline
+					x = 2
+				\end{array}
+				\]
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{Reasoning Exercise}
+	\begin{columns}
+		\begin{column}{2in}
+			Prove: $P_{1, 3}$
+		
+			\bigskip
+			Given: \\[.2em]
+			$B_{1, 2}$ \\
+			$\lnot B_{2, 1}$ \\
+			$B_{1, 2} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{1, 3})$ \\
+			$B_{2, 1} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$
+			
+			\bigskip
+			\bigskip
+			\footnotesize\em
+			The reasoning patterns are in your book on pages 210, 211 and 214
+		\end{column}
+		\begin{column}{2in}
+			\begin{tabular}{|@{}l|l|l|}
+				\hhline{-~~}
+				\wumpcell{}{\scriptsize(1, 3)}{$P?$} & \multicolumn{2}{c}{} \\
+				\hhline{--~}
+				\wumpcell{}{\scriptsize(1, 2)}{$B$} & \wumpcell{}{\scriptsize(2, 2)}{} & \multicolumn{1}{c}{} \\
+				\hline
+				\wumpcell{}{\scriptsize(1, 1)}{} & \wumpcell{}{\scriptsize(2, 1)}{$\lnot B$} & \wumpcell{}{\scriptsize(3, 1)}{} \\
+				\hline
+			\end{tabular}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{Prove: $P_{1, 3}$}
+	\begin{tabular}{ll}
+		$B_{1, 2} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{1, 3})$             & Given \pause\\
+		$B_{1, 2} \limpl (P_{1, 1} \lor P_{2, 2} \lor P_{1, 3})$            & Biconditional Elimination \pause\\
+		$B_{1, 2}$                                                          & Given \pause\\
+		$P_{1, 1} \lor P_{2, 2} \lor P_{1, 3}$                              & Modus Ponens \pause\\[1em]
+		
+		$B_{2, 1} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$             & Given \pause\\
+		$(P_{1, 1} \lor P_{2, 2} \lor P_{3, 1}) \limpl B_{2, 1}$            & Biconditional Elimination \pause\\
+		$\lnot B_{2, 1} \limpl \lnot(P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$ & Contraposition \pause\\
+		$\lnot B_{2, 1}$                                                    & Given \pause\\
+		$\lnot(P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$                       & Modus Ponens \pause\\
+		$\lnot P_{1, 1} \land \lnot P_{2, 2} \land \lnot P_{3, 1}$          & De Morgan \pause\\[1em]
+
+		$P_{1, 3}$                                                          & Resolution \\
+	\end{tabular}
+\end{frame}
+
+
+\section{Inference Algorithms}
+\begin{frame}{Inference Algorithms}
+	\begin{block}{Definition: Derives}
+		Procedure $i$ \alert{derives} $\beta$ from $\alpha$ ($\alpha \vdash_i \beta$) if:\\
+		\hspace{1em} when given $\alpha$, procedure $i$ is able to conclude $\beta$
+	\end{block}
+	\pause
+	\begin{block}{Definition: Soundness}
+		Procedure $i$ is \alert{sound} if:\\
+		\hspace{1em} whenever $\alpha \vdash_i \beta$ it is also true that $\alpha \models \beta$
+	\end{block}
+	\pause
+	\begin{block}{Definition: Completeness}
+		Procedure $i$ is \alert{complete} if:\\
+		\hspace{1em} whenever $\alpha \models \beta$ it is also true that $\alpha \vdash_i \beta$
+	\end{block}
+\end{frame}
+
+
+\subsection{Truth Tables}
+\begin{frame}{Inference by Truth Table}
+	\small
+	\begin{columns}[T]
+		\begin{column}{.8in}
+			Prove: \\[.2em]
+			$
+			\begin{array}{l}
+				\lnot P_{1,2}
+			\end{array}
+			$
+		\end{column}
+		\begin{column}{3.4in}
+			Given: \\[.2em]
+			\small
+			$
+			\begin{array}{llll}
+			R_1: & \lnot P_{1,1}                                     & R_4: & \lnot B_{1,1} \\
+			R_2: & B_{1,1} \liff (P_{1,2} \lor P_{2,1})              & R_5: & B_{2,1}\\
+			R_3: & B_{2,1} \liff (P_{1,1} \lor P_{2,2} \lor P_{3,1})
+			\end{array}
+			$
+		\end{column}
+	\end{columns}
+	\pause
+	
+	\medskip	
+	\em\scriptsize
+	\begin{tabular}{
+		|@{\hspace{.3em}}c@{\hspace{.4em}}
+		|@{\hspace{.3em}}c@{\hspace{.4em}}
+		|@{\hspace{.3em}}c@{\hspace{.4em}}
+		|@{\hspace{.3em}}c@{\hspace{.4em}}
+		|@{\hspace{.3em}}c@{\hspace{.4em}}
+		|@{\hspace{.3em}}c@{\hspace{.4em}}
+		|@{\hspace{.3em}}c@{\hspace{.4em}}
+		||@{\hspace{.3em}}c@{\hspace{.4em}}
+		|@{\hspace{.3em}}c@{\hspace{.4em}}
+		|@{\hspace{.3em}}c@{\hspace{.4em}}
+		|@{\hspace{.3em}}c@{\hspace{.4em}}
+		|@{\hspace{.3em}}c@{\hspace{.4em}}
+		||@{\hspace{.3em}}c@{\hspace{.4em}}
+		|}
+		\hline
+		$B_{1,1}$ & $B_{2,1}$ & $P_{1,1}$ & $P_{1,2}$ & $P_{2,1}$ & $P_{2,2}$ & $P_{3,1}$ & $R_{1}$ & $R_{2}$ & $R_{3}$ & $R_{4}$ & $R_{5}$ & KB \\
+		\hline
+		false   & false   & false   & false   & false   & false   & false   & true  & true  & true  & true  & false & false \\
+		false   & false   & false   & false   & false   & false   & true    & true  & true  & false & true  & false & false \\
+		\vdots  & \vdots  & \vdots  & \vdots  & \vdots  & \vdots  & \vdots  & \vdots& \vdots& \vdots& \vdots& \vdots& \vdots \\
+		false   & true    & false   & false   & false   & false   & false   & true  & true  & false & true  & true  & false \\
+		\hline
+		false   & true    & false   & \alert<5>{false}   & false   & false   & true    & \alert<3>{true}  & \alert<3>{true}  & \alert<3>{true}  & \alert<3>{true}  & \alert<3>{true}  & \alert<4->{true} \\
+		false   & true    & false   & \alert<5>{false}   & false   & true    & false   & \alert<3>{true}  & \alert<3>{true}  & \alert<3>{true}  & \alert<3>{true}  & \alert<3>{true}  & \alert<4->{true} \\
+		false   & true    & false   & \alert<5>{false}   & false   & true    & true    & \alert<3>{true}  & \alert<3>{true}  & \alert<3>{true}  & \alert<3>{true}  & \alert<3>{true}  & \alert<4->{true} \\
+		\hline
+		false   & true    & false   & false   & true    & false   & false   & true  & false & false & true  & true  & false \\
+		\vdots  & \vdots  & \vdots  & \vdots  & \vdots  & \vdots  & \vdots  & \vdots& \vdots& \vdots& \vdots& \vdots& \vdots \\
+		true    & true    & true    & true    & true    & true    & true    & false & true  & true  & false & true  & false \\
+		\hline
+	\end{tabular}
+\end{frame}
+\begin{frame}[fragile]{Truth Table Inference Code}
+	\begin{semiverbatim}\scriptsize\bfseries
+		\key{def} \defn{truth_table_entails}(knowledge_base, query):\pause
+		    query_true = query.is_true_for
+		    kb_true = knowledge_base.is_true_for
+		    \cmnt{# check all assignments of knowledge base and query symbols:}
+		    \cmnt{# if the knowledge base is true the query should be true}
+		    symbols = set.union(knowledge_base.symbols, query.symbols)
+		    \key{return} all(
+		        query_true(assignment) \key{if} kb_true(assignment) \key{else} \key{True}
+		        \key{for} assignment \key{in} all_models(symbols))
+		
+		\pause\key{def} \defn{all_models}(symbols):
+		    \pause\cmnt{# base case: no symbols, generate an empty assignment}
+		    \key{if} \key{not} symbols:
+		        \key{yield} {}
+		    \pause\cmnt{# recursive case: assign to the first symbol and recurse}
+		    \key{else}:
+		        first, rest = symbols[0], symbols[1:]
+		        \key{for} assignment \key{in} all_models(rest):
+		            \key{for} value \key{in} [True, False]:
+		                assignment[first] = value
+		                \key{yield} assignment	
+	\end{semiverbatim}
+\end{frame}
+\begin{frame}{Truth Table Inference Properties}
+	\begin{block}{Definitions (Again)}
+		\begin{description}
+			\item[Sound] if $\alpha \vdash_i \beta$ then $\alpha \models \beta$
+			\item[Complete] if $\alpha \models \beta$ then $\alpha \vdash_i \beta$
+		\end{description}
+	\end{block}
+	\begin{block}{Truth Table Inference Properties}
+		\begin{tabular}{@{}l@{\hspace{.3em}}l}
+			\pause\key{Sound?}    & \pause Yes, directly implements entailment definition \\
+			\pause\key{Complete?} & \pause Yes, explores all possibilities \\
+			\pause\key{Time?}     & \pause Given $n$ symbols, takes $O(2^n)$ \\
+		\end{tabular}
+	\end{block}
+\end{frame}
+
+
+\subsection{Chaining}
+\begin{frame}{Forward and Backward Chaining}
+	\begin{block}{Key Idea}
+		Inference is easier if all statements are \alert{Horn Clauses}: \\
+		\hspace{1em} $P_1 \land \ldots \land P_n \limpl Q$ \\
+	\end{block}
+	\pause
+	\begin{block}{Example}
+		\begin{columns}[t]
+			\begin{column}{1in}
+				Given: \\[.2em]
+				$
+				\begin{array}{l}
+					B \land L \limpl M \\
+					A \land B \limpl L \\
+					A \\
+					B
+				\end{array}
+				$
+			\end{column}
+			\begin{column}{3in}
+				Prove $M$: \\[.2em]
+				$
+				\begin{array}{ll}
+					\pause
+					A \\
+					B \\
+					A \land B \limpl L \\
+					\hline
+					\pause
+					L & \mbox{by Modus Ponens} \\
+					\pause
+					B \land L \limpl M \\
+					\hline
+					\pause
+					M & \mbox{by Modus Ponens}
+				\end{array}
+				$
+			\end{column}
+		\end{columns}
+	\end{block}
+\end{frame}
+\begin{frame}[fragile]{Forward Chaining Code}
+	\begin{semiverbatim}\bfseries\scriptsize
+		\key{def} \defn{forward_chaining_entails}(knowledge_base, query):
+		    \pause\cmnt{# count the symbols in the body of each clause}
+		    counts = \{\}
+		    \key{for} clause \key{in} knowledge_base.get_clauses():
+		        counts[clause] = len(clause.body)
+		    \pause\cmnt{# start with known symbols and search for non-inferred}
+		    inferred = set()
+		    agenda = knowledge_base.get_true_symbols()
+		    \key{while} agenda:
+		        symbol = agenda.pop()
+		        \key{if} symbol \key{not in} inferred:
+		            inferred.add(symbol)
+		            \pause\cmnt{# update counts and infer heads when possible}
+		            \key{for} clause \key{in} knowledge_base.get_clauses():
+		                \key{if} symbol \key{in} clause.body:
+		                    counts[clause] -= 1
+		                    \pause\key{if} counts[clause] == 0:
+		                        \key{if} clause.head == query:
+		                            \key{return} \key{True}
+		                        agenda.append(clause.head)
+		    \key{return} \key{False}
+	\end{semiverbatim}
+\end{frame}
+\begin{frame}{Forward Chaining Example}
+	\begin{columns}
+		\begin{column}{2in}
+			\large
+			\hspace{2em} $
+			\begin{array}{l}
+				P \limpl Q \\
+				L \land M \limpl P \\
+				B \land L \limpl M \\
+				A \land P \limpl L \\
+				A \land B \limpl L \\
+				A \\
+				B
+			\end{array}
+			$
+		\end{column}
+		\begin{column}{2in}
+			\parbox[b][2.5in]{1.5in}{
+			\only<1>{\includegraphics[width=1.5in]{fc-horn-example01c}}%
+			\only<2>{\includegraphics[width=1.5in]{fc-horn-example02c}}%
+			\only<3>{\includegraphics[width=1.5in]{fc-horn-example03c}}%
+			\only<4>{\includegraphics[width=1.5in]{fc-horn-example04c}}%
+			\only<5>{\includegraphics[width=1.5in]{fc-horn-example05c}}%
+			\only<6>{\includegraphics[width=1.5in]{fc-horn-example06c}}%
+			\only<7>{\includegraphics[width=1.5in]{fc-horn-example07c}}%
+			\only<8>{\includegraphics[width=1.5in]{fc-horn-example08c}}%
+			}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{Forward Chaining Properties}
+	\begin{block}{Properties}
+		\begin{tabular}{ll}
+			\pause\key{Sound?}    & \pause Yes, uses Modus Ponens \\
+			\pause\key{Complete?} & \pause Yes (more on this in a moment) \\
+			\pause\key{Time?}     & \pause $O(n)$ given $n$ statements in KB \\
+		\end{tabular}
+	\end{block}
+	\pause
+	\begin{block}{Reminder}
+		\begin{itemize}
+			\item Requires Horn Clauses
+			\item Won't work with Propositional logic in general
+		\end{itemize}
+	\end{block}
+\end{frame}
+\begin{frame}{Forward Chaining Completeness}
+	\begin{block}{Prove: If $\EM{KB} \models Q$ then $\EM{KB} \vdash_{\EM{\scriptsize forward-chaining}} Q$}
+		\begin{enumerate}
+			\item<2-> $\EM{KB} \models Q$, so $Q$ is \emph{true} in every model of \emph{KB}
+			\item<2-> Final \texttt{inferred} set (not inferred = \emph{false}) is a model 
+			\item<4-> So $Q$ is true in the \texttt{inferred} model
+			\item<4-> So $\EM{KB} \vdash_{\EM{\scriptsize forward-chaining}} Q$
+		\end{enumerate}
+	\end{block}
+	\begin{block}<3->{Prove: The final \texttt{inferred} set is a model of $\EM{KB}$}
+		\begin{enumerate}
+			\item Assume not, i.e. $P_1 \land \ldots \land P_n \limpl Q$ is \emph{false}
+			\item So $P_1 \land \ldots \land P_n$ is \emph{true} and $Q$ is \emph{false} (= not inferred)
+			\item But then $Q$ should have been inferred!
+			\item So \texttt{inferred} must be a model of KB
+		\end{enumerate}
+	\end{block}
+\end{frame}
+\begin{frame}{Backward Chaining}
+	\begin{columns}
+		\begin{column}{2in}
+			\begin{block}{Key Idea}
+				\begin{itemize}
+					\item Start with query $Q$
+					\item If not \emph{true}, try to prove all rules of the form: \\
+						\hspace{1em} $P_1 \land \ldots \land P_n \limpl Q$
+					\item Recurse as necessary
+				\end{itemize}
+			\end{block}
+			\begin{block}<12->{Properties}
+				\begin{tabular}{@{\hspace{.1em}}l@{\hspace{.3em}}l}
+					\key{Sound?}    & Yes \\
+					\key{Complete?} & Yes \\
+					\key{Time?}     & Often $\mbox{} < O(n)$ \\
+				\end{tabular}
+			\end{block}
+		\end{column}
+		\begin{column}{2in}
+			\only<1>{\invisible<1>{\includegraphics[width=1.5in]{bc-horn-example01c}}}%
+			\only<2>{\includegraphics[width=1.5in]{bc-horn-example01c}}%
+			\only<3>{\includegraphics[width=1.5in]{bc-horn-example02c}}%
+			\only<4>{\includegraphics[width=1.5in]{bc-horn-example03c}}%
+			\only<5>{\includegraphics[width=1.5in]{bc-horn-example04c}}%
+			\only<6>{\includegraphics[width=1.5in]{bc-horn-example05c}}%
+			\only<7>{\includegraphics[width=1.5in]{bc-horn-example06c}}%
+			\only<8>{\includegraphics[width=1.5in]{bc-horn-example07c}}%
+			\only<9>{\includegraphics[width=1.5in]{bc-horn-example08c}}%
+			\only<10>{\includegraphics[width=1.5in]{bc-horn-example09c}}%
+			\only<11->{\includegraphics[width=1.5in]{bc-horn-example10c}}%
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+\subsection{Resolution}
+\begin{frame}{Resolution (Again)}
+	\begin{block}{Example}
+		$
+		\begin{array}{l}
+		\lnot \EM{IsSnowing} \lor \EM{IsCold} \\
+		\lnot \EM{IsCold} \lor \EM{WearCoat} \\
+		\hline
+		\lnot \EM{IsSnowing} \lor \EM{WearCoat}
+		\end{array}
+		$
+	\end{block}
+	\begin{block}{Intuition}
+		\begin{itemize}
+			\item If \EM{IsCold} is \emph{true}, then \EM{WearCoat} must be \emph{true}
+			\item If \EM{IsCold} is \emph{false}, then \EM{IsSnowing} must be \emph{false}
+			\item So either \EM{IsSnowing} is \emph{false} or \EM{WearCoat} is \emph{true}
+		\end{itemize}
+	\end{block}
+\end{frame}
+\begin{frame}{Resolution}
+	\begin{block}{Resolution Definition}
+	\small
+	$
+	\begin{array}{l}
+		P_1 \lor \ldots \lor P_n \\[.2em]
+		Q_1 \lor \ldots \lor Q_m \\[.2em]
+		P_i = \lnot Q_j \\[.2em]
+		\hline
+		\\[-.8em]
+		P_1 \!\lor\! \ldots \!\lor\! P_{i-1} \!\lor\! P_{i+1} \!\lor\! \ldots \!\lor\! P_n
+		\lor
+		Q_1 \!\lor\! \ldots \!\lor\! Q_{j-1} \!\lor\! Q_{j+1} \!\lor\! \ldots \!\lor\! Q_m
+	\end{array}
+	$
+	\end{block}
+	\begin{block}{Inference by Resolution}
+		\begin{itemize}
+			\item Simplify all statements to use only $\land$, $\lor$ and $\lnot$
+			\item Assume $\EM{KB} \land \lnot\alpha$ (a.k.a $\lnot (\EM{KB} \limpl \alpha)$)
+			\item Apply resolution until \emph{false} is concluded
+		\end{itemize}
+	\end{block}
+\end{frame}
+\begin{frame}{Resolution Example}
+	\begin{columns}[t]
+		\begin{column}{1.5in}
+			Prove: $A$ \\[1em]
+			Given: \\
+			\begin{tabular}{ll}
+				$R_1\!\!:$ & $A \lor B$ \\
+				$R_2\!\!:$ & $C \lor \lnot B$ \\
+				$R_3\!\!:$ & $A \lor \lnot C$ \\
+			\end{tabular}
+		\end{column}
+		\begin{column}{2.5in}
+			Proof: \\[1em]
+			\begin{tabular}{lll}
+				\pause
+				$R_4\!\!:$    & $\lnot A$         & Assumed \\
+				\pause
+				$R_5\!\!:$    & $B$               & $R_1$, $R_4$ \\
+				\pause
+				$R_6\!\!:$    & $\lnot C$         & $R_3$, $R_4$ \\
+				\pause
+				$R_7\!\!:$    & $\lnot B$         & $R_2$, $R_6$ \\
+				\pause
+				$R_8\!\!:$    & \emph{false}      & $R_5$, $R_7$ \\
+			\end{tabular}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{Conjunctive Normal Form}
+	\begin{block}{Goal: Conjunction of Disjunctions of Literals}
+		$(P_1 \lor \ldots \lor P_n) \land (Q_1 \lor \ldots \lor Q_m) \land \ldots$
+	\end{block}
+	\begin{block}{Procedure}
+		\begin{enumerate}
+			\item Replace $\alpha \liff \beta$ with $(\alpha\limpl \beta)\land (\beta\limpl \alpha)$
+			\item Replace $\alpha \limpl \beta$ with $\lnot\alpha \lor \beta$
+			\item Move $\lnot$ inward with De Morgan and Double Negation
+			\item Apply Distributivity of $\lor$ over $\land$
+		\end{enumerate}
+	\end{block}
+\end{frame}
+\begin{frame}{Conjunctive Normal Form Example}
+	\hspace{2em} $B_{1,1} \liff (P_{1,2} \lor P_{2,1})$
+	\begin{enumerate}
+		\pause\vspace{.5em}\item
+			Replace $\alpha \liff \beta$ with $(\alpha \limpl \beta)\land (\beta\limpl \alpha)$ \\
+			\pause
+			$(B_{1,1} \limpl (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \limpl B_{1,1})$
+		
+		\pause\vspace{.5em}\item
+			Replace $\alpha \limpl \beta$ with $\lnot\alpha \lor \beta$ \\
+			\pause
+			$(\lnot B_{1,1} \lor P_{1,2} \lor P_{2,1}) \land (\lnot(P_{1,2} \lor P_{2,1}) \lor B_{1,1})$
+		
+		\pause\vspace{.5em}\item
+			Move $\lnot$ inward with De Morgan and Double Negation \\
+			\pause
+			$(\lnot B_{1,1} \lor P_{1,2} \lor P_{2,1}) \land ((\lnot P_{1,2} \land \lnot P_{2,1}) \lor B_{1,1})$
+		
+		\pause\vspace{.5em}\item
+			Apply Distributivity of $\lor$ over $\land$ \\
+			\pause
+			$(\lnot B_{1,1} \lor P_{1,2} \lor P_{2,1}) \land (\lnot P_{1,2} \lor B_{1,1}) \land (\lnot P_{2,1} \lor B_{1,1})$
+	\end{enumerate}
+\end{frame}
+\begin{frame}{Resolution Exercise}
+	\begin{columns}[T]
+		\begin{column}{2in}
+			Prove using Resolution:\\[.2em]
+			$P_{1, 3}$
+		
+			\bigskip
+			Given: \\[.2em]
+			$B_{1, 2}$ \\
+			$\lnot B_{2, 1}$ \\
+			$B_{1, 2} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{1, 3})$ \\
+			$B_{2, 1} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$
+		\end{column}
+		\begin{column}{2in}
+			\begin{tabular}{|@{}l|l|l|}
+				\hhline{-~~}
+				\wumpcell{}{\scriptsize(1, 3)}{$P?$} & \multicolumn{2}{c}{} \\
+				\hhline{--~}
+				\wumpcell{}{\scriptsize(1, 2)}{$B$} & \wumpcell{}{\scriptsize(2, 2)}{} & \multicolumn{1}{c}{} \\
+				\hline
+				\wumpcell{}{\scriptsize(1, 1)}{} & \wumpcell{}{\scriptsize(2, 1)}{$\lnot B$} & \wumpcell{}{\scriptsize(3, 1)}{} \\
+				\hline
+			\end{tabular}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{Prove: $P_{1, 3}$}
+	\begin{columns}[t]
+		\begin{column}{1.9in}
+			After conversion to CNF: \\[.5em]
+			\small
+			\begin{tabular}{@{}l@{\hspace{.2em}}l@{}}
+				$R_1\!\!:$ & $B_{1, 2}$ \\
+				$R_2\!\!:$ & $\lnot B_{2, 1}$ \\
+				$R_3\!\!:$ & $\lnot B_{1, 2} \!\lor\! P_{1, 1} \!\lor\! P_{2, 2} \!\lor\! P_{1, 3}$ \\
+				$R_4\!\!:$ & $\lnot P_{1, 1} \!\lor\! B_{1, 2}$ \\
+				$R_5\!\!:$ & $\lnot P_{2, 2} \!\lor\! B_{1, 2}$ \\
+				$R_6\!\!:$ & $\lnot P_{1, 3} \!\lor\! B_{1, 2}$ \\
+				$R_7\!\!:$ & $\lnot B_{2, 1} \!\lor\! P_{1, 1} \!\lor\! P_{2, 2} \!\lor\! P_{3, 1}$ \\
+				$R_8\!\!:$ & $\lnot P_{1, 1} \!\lor\! B_{2, 1}$ \\
+				$R_9\!\!:$ & $\lnot P_{2, 2} \!\lor\! B_{2, 1}$ \\
+				$R_{10}\!\!:$ & $\lnot P_{3, 1} \!\lor\! B_{2, 1}$ \\
+			\end{tabular}
+		\end{column}
+		\begin{column}{2.3in}
+			Using resolution: \\[.5em]
+			\small
+			\begin{tabular}{@{}l@{\hspace{.2em}}ll@{}}
+				\pause
+				$R_{11}\!\!:$ & $\lnot P_{1, 3}$                                     & Assumed \\
+				\pause
+				$R_{12}\!\!:$ & $\lnot P_{1, 1}$                                     & $R_{2}$  + $R_{8}$ \\
+				\pause
+				$R_{13}\!\!:$ & $\lnot P_{2, 2}$                                     & $R_{2}$  + $R_{9}$ \\
+				\pause
+				$R_{14}\!\!:$ & $\lnot B_{1, 2} \!\lor\! P_{1, 1} \!\lor\! P_{2, 2}$ & $R_{11}$ + $R_{3}$ \\
+				\pause
+				$R_{15}\!\!:$ & $P_{1, 1} \!\lor\! P_{2, 2}$                         & $R_{14}$ + $R_{1}$  \\
+				\pause
+				$R_{16}\!\!:$ & $P_{2, 2}$                                           & $R_{15}$ + $R_{12}$ \\
+				\pause
+				$R_{17}\!\!:$ & \emph{false}                                         & $R_{16}$ + $R_{13}$\\
+			\end{tabular}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{Resolution Properties}
+	\begin{block}{Properties}
+		\begin{tabular}{@{}l@{\hspace{.5em}}l}
+			\key{Sound?}    & Yes, uses Resolution \\
+			\key{Complete?} & Yes, proof similar to Forward Chaining proof \\
+			\key{Time?}     & Worst case exponential in \# of symbols \\
+		\end{tabular}
+	\end{block}
+	\pause
+	\begin{block}{Notes}
+		\begin{itemize}
+			\item Works for Propositional logic in general
+			\item Not just Horn Clauses!
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\subsection{WalkSAT}
+\begin{frame}{WalkSAT}
+	\begin{block}{Key Ideas}
+		\begin{itemize}
+			\item Treat satisfiability checking as local search
+			\item On each iteration flip a symbol's value
+			\item Choice of symbol to flip is sometimes random, sometimes by \SC{Min-Conflicts}
+			\item Quit after a certain number of steps
+		\end{itemize}
+	\end{block}
+	\begin{block}{Properties}
+		\begin{tabular}{ll}
+			\pause\key{Sound?}    & \pause Yes, only returns when KB is \emph{true} \\
+			\pause\key{Complete?} & \pause No, could stop early  \\
+			\pause\key{Time?}     & \pause Can be quite fast \\
+		\end{tabular}
+	\end{block}
+\end{frame}
+\begin{frame}{WalkSAT Performance}
+	\begin{columns}
+		\begin{column}{3.2in}
+			\includegraphics[width=3.2in]{random-3sat-performance}
+		\end{column}
+		\begin{column}{1in}
+			\key{DPLL} \\
+			Truth table entailment + heuristics and pruning
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\part{Key Points}
+\begin{frame}{Key Points}
+	\begin{block}{Propositional Logic}
+		\begin{itemize}
+			\item Symbols: $P$, $Q$, $R$, $\ldots$
+			\item Connectives: $\land$, $\lor$, $\lnot$, $\limpl$, $\liff$, 
+			\item Entailment: $\alpha \models \beta$ iff $\alpha \limpl \beta$ in all worlds
+		\end{itemize}
+	\end{block}
+	\begin{block}{Inference}
+		\begin{itemize}
+			\item Enumerate all models through truth tables
+			\item Forward/Backward chaining with Horn clauses
+			\item Resolution using conjunctive normal form
+			\item Local search, e.g. \SC{WalkSAT}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+
+\end{document}
+
+

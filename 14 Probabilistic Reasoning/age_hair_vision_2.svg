@@ -1,0 +1,28 @@
+<ns0:svg color-interpolation="auto" color-rendering="auto" fill="black" fill-opacity="1" font-family="&apos;Dialog&apos;" font-size="12" font-style="normal" font-weight="normal" height="140" image-rendering="auto" shape-rendering="auto" stroke="black" stroke-dasharray="none" stroke-dashoffset="0" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10" stroke-opacity="1" stroke-width="1" text-rendering="auto" width="213" xmlns:ns0="http://www.w3.org/2000/svg">
+  
+  <ns0:defs id="genericDefs" />
+  <ns0:g>
+    <ns0:defs id="defs1">
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath1">
+        <ns0:path d="M0 0 L213 0 L213 140 L0 140 L0 0 Z" />
+      </ns0:clipPath>
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath2">
+        <ns0:path d="M72 30 L285 30 L285 170 L72 170 L72 30 Z" />
+      </ns0:clipPath>
+    </ns0:defs>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-72,-30)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="168.5" y="65.1067" xml:space="preserve">Age</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-72,-30)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="180" cy="60" fill="none" rx="18.5" ry="14.9631" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-72,-30)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="94.5" y="105.1067" xml:space="preserve">GrayHair</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-72,-30)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="120" cy="100" fill="none" rx="32.5" ry="14.9631" />
+      <ns0:path clip-path="url(#clipPath2)" d="M165.7243 69.5171 L145.125 83.25" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M138.4686 87.6876 L151.2267 85.1915 L145.957 82.6953 L145.6797 76.871 Z" stroke="none" />
+    </ns0:g>
+  </ns0:g>
+</ns0:svg>

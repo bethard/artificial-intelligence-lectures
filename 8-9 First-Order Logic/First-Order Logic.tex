@@ -1,0 +1,1121 @@
+\documentclass[12pt]{beamer}
+%\includeonlyframes{current}
+
+\mode<presentation>{\usetheme{Warsaw}}
+\setbeamertemplate{footline}[frame number]
+\usepackage[english]{babel}
+\usepackage{times}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hhline}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{synttree}
+\lstloadlanguages{Python}
+\lstset{language=Python}
+\lstset{%
+	basicstyle=\ttfamily\bfseries,
+	keywordstyle=\color{blue}, emph={self}, emphstyle={\color{blue}},
+	identifierstyle=,
+	commentstyle=\color{gray},
+	stringstyle=\color{green!50!black},
+	showstringspaces=false,
+	emph={[2]__init__,__str__}, emphstyle={[2]\color{purple}},
+}
+\newcommand{\key}[1]{{\color{blue}#1}}
+\newcommand{\cmnt}[1]{{\color{gray}#1}}
+\newcommand{\str}[1]{{\color{green!50!black}#1}}
+\newcommand{\defn}[1]{{\color{purple}#1}}
+\newcommand{\SC}[1]{\mbox{\sc#1}}
+\newcommand{\EM}[1]{\mbox{\em#1}}
+\newcommand{\tab}{\hspace{1em}}
+\newcommand{\nl}{\vspace{1em}}
+
+\newcommand{\limpl}{\Rightarrow}
+\newcommand{\liff}{\Leftrightarrow}
+
+\newcommand{\node}[1]{{\parbox{1.25in}{\centering #1}}}
+
+\title{First-Order Logic}
+\subtitle{Introduction to Artificial Intelligence}
+\author{Steven Bethard}
+\institute{
+  Department of Computer Science\\
+  University of Colorado
+}
+\date{CSCI 3202}
+
+\AtBeginSection[]{
+\begin{frame}<beamer>{Outline}
+	\footnotesize
+	\tableofcontents[currentsection]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+\begin{frame}{Outline}
+	\footnotesize
+	\tableofcontents
+\end{frame}
+
+\section{First Order Logic}
+\subsection{Motivation}
+\begin{frame}{What's Wrong with Propositional Logic?}
+	Translate: \\
+	\tab\emph{All squares adjacent to pits are breezy}
+	\pause
+	\begin{block}{Problem: Propositional Logic}
+		$
+		\begin{array}{l}
+		B_{1,1} \liff (P_{1,2} \lor P_{2,1}) \\
+		B_{1,2} \liff (P_{1,1} \lor P_{2,2} \lor P_{1,3}) \\
+		B_{2,1} \liff (P_{1,1} \lor P_{2,2} \lor P_{2,1}) \\
+		\ldots
+		\end{array}
+		$
+	\end{block}
+	\pause
+	\begin{block}{Solution: First Order Logic (Preview)}
+		$\forall s\ \EM{Breezy}(s) \liff \exists r\ \EM{Adjacent}(r, s) \land \EM{Pit}(r)$
+	\end{block}
+\end{frame}
+\begin{frame}{Core Ideas of First Order Logic}
+	\begin{block}{Propositional Logic}
+		\begin{itemize}
+			\item World consists of \emph{facts}
+			\item All facts are either true or false
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{First Order Logic}
+		\begin{itemize}
+			\item World consists of \emph{objects} and \emph{relations}
+			\item Statements that a relation $R$ holds between objects $X_1$, \ldots, $X_n$ are either true or false
+		\end{itemize}
+		\pause
+		\begin{description}
+			\item[Objects] people, numbers, houses, colors, years\ldots
+			\item[Relations]
+				blonde, round, prime, multi-storied\ldots \\
+			  brother-of, comes-between, has-color, after\ldots
+		\end{description}
+	\end{block}
+\end{frame}
+
+\subsection{Core Components}
+%\begin{frame}{Components of First Order Logic}
+%	\extrarowheight=.5em 
+%	\begin{tabular}{ll}
+%		\key{Constants}   & $KingJohn,\ 2,\ UCB,\ \ldots$ \\
+%		\key{Predicates}  & $Brother,\ >,\ \ldots$ \\
+%		\key{Functions}   & $Sqrt,\ LeftLegOf,\ \ldots$ \\
+%		\key{Variables}   & $x,\ y,\ a,\ b,\ \ldots$ \\
+%		\key{Connectives} & $\land\ \lor\ \lnot\ \limpl\ \liff$ \\
+%		\key{Equality}    & $=$ \\
+%		\key{Quantifiers} & $\forall\ \exists$ \\
+%	\end{tabular}
+%\end{frame}
+\begin{frame}{Constants}
+	\begin{block}{Key Idea}
+		\alert{Constants} represent named objects in the world
+	\end{block}
+	\begin{block}{Examples}
+		\em
+		\begin{tabular}{l}
+			RichardTheLionheart \\
+			RonaldMcDonald \\
+			Blue \\
+			42 \\
+			12pm \\
+		\end{tabular}
+	\end{block}
+\end{frame}
+\begin{frame}{Functions}
+	\begin{block}{Key Idea}
+		\alert{Functions} relate object(s) to \emph{exactly one} other object
+	\end{block}
+	\begin{block}{Examples}
+		\begin{tabular}{ll}
+			$\EM{LeftLegOf}(x)$ \\
+			$\EM{LengthOf}(x)$ \\
+			$\EM{SquareRoot}(x)$,      & i.e. $\sqrt{x}$ \\
+			$\EM{Sum}(x, y)$,          & i.e. $x + y$ \\
+			$\EM{Intersection}(x, y)$, & i.e. $x \cap y$ \\
+		\end{tabular}
+	\end{block}
+\end{frame}
+\begin{frame}{Predicates}
+	\begin{block}{Key Idea}
+		\alert{Predicates} describe relations between objects \\
+		\tab(or a property of a single object)
+	\end{block}
+	\begin{block}{Examples}
+		\begin{tabular}{ll}
+			$\EM{Person}(x)$ \\
+			$\EM{Female}(x)$ \\
+			$\EM{BrotherOf}(x, y)$ \\
+			$\EM{Positive}(x)$,     & i.e. $x > 0$ \\
+			$\EM{MemberOf}(x, y)$,  & i.e. $x \in y$ \\
+			$\EM{SubsetOf}(x, y)$,  & i.e. $x \subseteq y$ \\
+		\end{tabular}
+	\end{block}
+\end{frame}
+\begin{frame}{Connectives}
+	\begin{block}{Connectives in First-Order Logic}
+		\begin{itemize}
+			\item Used to construct more complex sentences
+			\item Semantics match those of Propositional Logic
+		\end{itemize}
+	\end{block}
+	\begin{block}{Examples}
+		\extrarowheight=.25em 
+		$
+		\begin{array}{ll}
+			\lnot\EM{Brother}(\EM{LeftLeg}(\EM{Richard}), \EM{John}) \\
+			\EM{Positive}(42) \land \EM{LessThan}(42, 100) \\
+			\EM{Male}(\EM{Pat}) \lor \EM{Female}(Pat) \\
+			\lnot\EM{LaysEggs}(\EM{Whale}) \limpl \lnot\EM{Bird}(\EM{Whale})
+		\end{array}
+		$
+	\end{block}
+\end{frame}
+\begin{frame}{Truth in First Order Logic}
+	\begin{block}{Key Ideas}
+		\begin{itemize}
+			\item Relations are (possibly infinite) sets of tuples
+			\item $\EM{R}(\EM{Term}_1, \ldots, \EM{Term}_n)$ is true iff
+			      $\langle\EM{Term}_1, \ldots, \EM{Term}_n\rangle \in \EM{R}$
+		\end{itemize}
+	\end{block}
+	\begin{block}{Example}
+		Given the relation: \\
+		\tab$\EM{SquareRoot} = \{
+				\langle 1, 1 \rangle,
+				\langle 4, 2 \rangle,
+				\langle 9, 3 \rangle,
+				\ldots \}$ \\
+		\pause
+		Then $\EM{SquareRoot}(4, 2)$ is \pause \alert{true} because \\
+		\tab$\langle 4, 2 \rangle \in \EM{SquareRoot}$ \\
+		\pause
+		And $\EM{SquareRoot}(2, 2)$ is \pause \alert{false} because \\
+		\tab$\langle 2, 2 \rangle \not\in \EM{SquareRoot}$
+	\end{block}
+\end{frame}
+
+\subsection{Quantifiers}
+\begin{frame}{Quantifiers}
+	\begin{block}{Predicating over Constants}
+		If I know: \\
+		\tab$\lnot\EM{LaysEggs}(\EM{Whale}) \limpl \lnot\EM{Bird}(\EM{Whale})$ \\[.5em]
+		What can I say here? \\
+		\tab$\lnot\EM{LaysEggs}(\EM{Steve}) \limpl ?$ \\[.5em]
+		\pause
+		\alert{Nothing!}
+	\end{block}
+	\pause
+	\begin{block}{Quantifiers and Variables}
+		Quantifiers allow statements about classes of objects, e.g. \\
+		\tab$\forall x\ \lnot\EM{LaysEggs}(x) \limpl \lnot\EM{Bird}(x)$
+	\end{block}
+\end{frame}
+\begin{frame}{Universal Quantification ($\forall$)}
+	\begin{block}{Definition}
+		$\forall x\ P$ is true in model $m$ iff: \\
+		\tab\tab$P$ is true when we bind $x$ to \alert{each} of the objects in $m$
+	\end{block}
+	\pause
+	\begin{block}{Example}
+		So $\forall x\ \EM{Bird}(x) \limpl \EM{LaysEggs}(x)$ is true because: \\
+		\tab\tab$\EM{Bird}(\EM{Swallow}) \limpl \EM{LaysEggs}(\EM{Swallow})$ is true \\
+		\tab\tab$\EM{Bird}(\EM{Emu}) \limpl \EM{LaysEggs}(\EM{Emu})$ is true \\
+		\tab\tab$\EM{Bird}(\EM{Badger}) \limpl \EM{LaysEggs}(\EM{Badger})$ is true \\
+		\tab\tab\ldots \\[.5em]
+		\pause
+		But $\forall x\ \EM{LaysEggs}(x) \limpl \EM{Bird}(x)$ is false because: \\
+		\pause
+		\tab\tab$\EM{LaysEggs}(\EM{Platypus}) \limpl \EM{Bird}(\EM{Platypus})$ is false
+	\end{block}
+\end{frame}
+\begin{frame}{Universal Quantification in Translation}
+	\begin{block}{Common Mistake}
+		What does this mean? \\
+		\tab\tab$\forall x\ \EM{Bird}(x) \land \EM{LaysEggs}(x)$ \\
+		\pause
+		Answer: \\
+		\tab\tab\emph{Everything is a bird and everything lays eggs} \\
+		Intended statement: \\
+		\tab\tab$\forall x\ \EM{Bird}(x) \limpl \EM{LaysEggs}(x)$ \\
+	\end{block}
+	\pause
+	\begin{block}{Rule of Thumb}
+		Use implication ($\limpl$) with universal quantification ($\forall$)
+	\end{block}
+\end{frame}
+\begin{frame}{Existential Quantification}
+	\begin{block}{Definition}
+		$\exists x\ P$ is true in model $m$ iff: \\
+		\tab\tab$P$ is true when we bind $x$ to \alert{any} of the objects in $m$
+	\end{block}
+	\pause
+	\begin{block}{Example}
+		So $\exists x\ \EM{Mammal}(x) \land \EM{LaysEggs}(x)$ is true because: \\
+		\pause
+		\tab\tab$\EM{Mammal}(\EM{Platypus}) \land \EM{LaysEggs}(\EM{Platypus})$ is true \\[.5em]
+		\pause
+		But $\exists x\ \EM{Mammal}(x) \land \lnot\EM{Animal}(x)$ is false because: \\
+		\pause
+		\tab\tab$\EM{Mammal}(\EM{Person}) \land \lnot\EM{Animal}(\EM{Person})$ is false \\
+		\tab\tab$\EM{Mammal}(\EM{Platypus}) \land \lnot\EM{Animal}(\EM{Platypus})$ is false \\
+		\tab\tab$\EM{Mammal}(\EM{Spam}) \land \lnot\EM{Animal}(\EM{Spam})$ is false \\
+		\tab\tab\ldots \\
+	\end{block}
+\end{frame}
+\begin{frame}{Existential Quantification in Translation}
+	\begin{block}{Common Mistake}
+		What does this mean? \\
+		\tab\tab$\exists x\ \EM{Mammal}(x) \limpl \EM{LaysEggs}(x)$ \\
+		\pause
+		Answer: \\
+		\tab\tab\emph{There is something that is not a mammal or lays eggs} \\
+		Intended statement: \\
+		\tab\tab$\exists x\ \EM{Mammal}(x) \land \EM{LaysEggs}(x)$ \\
+	\end{block}
+	\pause
+	\begin{block}{Rule of Thumb}
+		Use conjunction ($\land$) with existential quantification ($\exists$)
+	\end{block}
+\end{frame}
+\begin{frame}{Quantifier Properties}
+	\begin{block}{Nesting Quantifiers}
+		Mixed quantifiers cannot be exchanged:
+		\begin{itemize}
+			\item $\forall x\ \exists y\ \EM{Loves}(x, y)$ ``everyone loves someone''
+			\item $\exists x\ \forall y\ \EM{Loves}(x, y)$ ``one person is loved by everyone''
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Relation between $\forall$ and $\exists$}
+		Conversion is roughly like DeMorgan's:
+		\begin{itemize}
+			\item $\forall x\ \EM{Enjoys}(x, \EM{AI}) \equiv \lnot\exists x\ \lnot \EM{Enjoys}(x, \EM{AI})$
+			\item $\exists x\ \EM{Enjoys}(x, \EM{DB}) \equiv \lnot\forall x\ \lnot \EM{Enjoys}(x, \EM{DB})$
+		\end{itemize}
+	\end{block}
+\end{frame}
+\begin{frame}{Equality Relations}
+	\begin{block}{Problem}
+		What's wrong with this definition? \\
+		\tab$\forall x, y\ \EM{Sibling}(x, y) \liff \exists p\ \EM{Parent}(p, x) \land \EM{Parent}(p, y)$ \\[1em]
+		\pause
+		Both $x$ and $y$ can be the same thing! \\
+		\tab$\EM{Sibling}(\EM{Steve}, \EM{Steve})$
+	\end{block}
+	\pause
+	\begin{block}{Solution: Equality}
+		Specify when two variables refer to the same objects: \\[.5em]
+		$\forall x, y\ \EM{Sibling}(x, y) \liff x \neq y \land \exists p\ \EM{Parent}(p, x) \land \EM{Parent}(p, y)$
+	\end{block}
+\end{frame}
+
+\section{Example Translations}
+\subsection{Animal Kingdom}
+\begin{frame}{Animal Kingdom Translations}
+	\begin{itemize}
+		\item
+			All horses are mammals \\
+			\pause
+			$\forall x\ \EM{Horse}(x) \limpl \EM{Mammal}(x)$
+		\pause
+		\item
+			All birds have wings \\
+			\pause
+			$\forall x\ \EM{Bird}(x) \limpl \EM{HasWings}(x)$
+		\pause
+		\item
+			Some mammals lay eggs \\
+			\pause
+			$\exists x\ \EM{Mammal}(x) \land \EM{LaysEggs}(x)$
+		\pause
+		\item
+			Some birds don't fly \\
+			\pause
+			$\exists x\ \EM{Bird}(x) \land \lnot\EM{Flies}(x)$
+		\pause
+		\item
+			Animals that fly have wings \\
+			\pause
+			$\forall x\ \EM{Animal}(x) \land \EM{Flies}(x) \limpl \EM{HasWings}(x)$
+		\pause
+		\item
+			Not all swimming animals have fins \\
+			\pause
+			$\lnot\forall x\ \EM{Animal}(x) \land \EM{Swim}(x) \limpl \EM{HasFins}(x)$
+			\pause
+			$\exists x\ \EM{Animal}(x) \land \EM{Swim}(x) \land \lnot\EM{HasFins}(x)$
+	\end{itemize}
+\end{frame}
+\begin{frame}{Animal Kingdom Translations}
+	\begin{itemize}
+		\item
+			An animal gives birth to animals of the same species \\
+			\pause
+			$
+			\begin{array}{ll}
+			\lefteqn{\forall x,y\ \EM{Animal}(x) \land \EM{GivesBirth}(x, y) \limpl \mbox{}} \\
+			& \EM{Animal}(y) \land \EM{Species}(x) = \EM{Species}(y) \land x \neq y 
+			\end{array}
+			$
+		\nl
+		\pause
+		\item
+			Bats have exactly two wings \\
+			\pause
+			$
+			\begin{array}{lll}
+			\lefteqn{\forall x\ \EM{Bat}(x) \limpl \mbox{}} \\
+			& \lefteqn{\exists y,z\ \EM{HasWing}(x, y) \land \EM{HasWing}(x, z) \land y \neq z \land \mbox{}} \\
+			& & \forall w\ \EM{HasWing}(x, w) \limpl w = y \lor w = z
+			\end{array}
+			$
+	\end{itemize}
+\end{frame}
+
+
+\subsection{Wumpus World}
+\begin{frame}{Wumpus World Translations}
+	\begin{itemize}
+		\item
+			There is a breeze in $[3, 1]$ \\
+			\pause
+			$\EM{Breezy}([3, 1])$
+		\pause
+		\nl
+		\item
+			The Wumpus is lives in $[2, 2]$ \\
+			\pause
+			$\EM{Home}(\EM{Wumpus}) = [2, 2]$
+		\pause
+		\nl
+		\item
+			If you are in the Wumpus's square, he eats you \\
+			\pause
+			$
+			\begin{array}{ll}
+			\lefteqn{\forall t\ \EM{Location}(\EM{Agent}, \EM{Home}(\EM{Wumpus}), t) \limpl \mbox{}} \\
+			& \EM{HasEaten}(\EM{Wumpus}, \EM{Agent}, t)
+			\end{array}
+			$
+		\pause
+		\nl
+		\item
+			You should grab the gold when you are in its square \\
+			\pause
+			$
+			\begin{array}{ll}
+			\lefteqn{\forall s,t\ \EM{HasGold}(s) \land \EM{Location}(\EM{Agent}, s, t) \limpl \mbox{}} \\
+			& \EM{BestAction}(\EM{Grab}, \EM{Agent}, t)
+			\end{array}
+			$
+	\end{itemize}
+\end{frame}
+\begin{frame}{Wumpus World Translations}
+	\begin{block}{Diagnostic Rules}
+		From effect, determine cause: \\
+		\tab\tab$\forall y\ \EM{Breezy}(y) \limpl (\exists x\ \EM{Pit}(x) \land \EM{Adjacent}(x, y))$
+	\end{block}
+	\pause
+	\begin{block}{Causal Rules}
+		From cause, determine effect: \\
+		\tab\tab$\forall x,y\ (\EM{Pit}(x) \land \EM{Adjacent}(x, y)) \limpl \EM{Breezy}(y)$
+	\end{block}
+	\pause
+	\begin{block}{Definition Rules}
+		Bidirectional: \\
+		\tab\tab$\forall y\ \EM{Breezy}(y) \liff (\exists x\ \EM{Pit}(x) \land \EM{Adjacent}(x, y))$
+	\end{block}
+\end{frame}
+
+
+\subsection{Harry Potter}
+\begin{frame}{Harry Potter's 7 Potions Puzzle}
+	\footnotesize
+	\begin{tabular}{l}
+		Danger lies before you, while safety lies behind, \\
+		Two of us will help you, whichever you would find. \\
+		One among us seven will let you move ahead, \\
+		Another will transport the drinker back instead. \\
+		Two among our number hold only nettle wine, \\
+		Three of us are killers, waiting hidden in line. \\
+		Choose, unless you wish to stay here forevermore, \\
+		To help you in your choice, we give you these clues four: \\
+		First, however slyly the poison tries to hide \\
+		You will always find some on nettle wine's left side; \\
+		Second, different are those who stand at either end, \\
+		But if you would move forward, niether is your friend; \\
+		Third, as you see clearly, all are different size, \\
+		Neither dwarf nor giant holds death in their insides; \\
+		Fourth, the second left and second on the right \\
+		Are twins once you taste them, though different at first sight.	 \\
+	\end{tabular}
+\end{frame}
+\begin{frame}{One Harry Potter's 7 Potions Solution}
+	$
+	\begin{array}{lll}
+	\lefteqn{\forall p\ \EM{Potions}(p) \liff \mbox{}} \\
+	& \EM{Permutation}(p, [\EM{Forward}, \EM{Backward}, \EM{Wine}, \EM{Wine}, \\
+	& \hspace{7em}         \EM{Poison}, \EM{Poison}, \EM{Poison}]) \\
+	& \EM{PoisonIsLeftOfWine}(p) \land \mbox{} \\
+	& \EM{EndsAreDifferent}(p) \land \EM{EndsAreNotForward}(p) \land \mbox{} \\
+	& \EM{SmallestIsNotPoison}(p) \land \EM{LargestIsNotPoison}(p) \\
+	& \EM{SecondsAreTheSame}(p) \land \mbox{} \\
+	\lefteqn{\ldots} \\
+	\pause
+	\lefteqn{\forall p\ \EM{EndsAreDifferent}(p) \liff \mbox{}} \\
+	& \exists p_1, p_2, \ldots, p_7\ p = [p_1, p_2, p_3, p_4, p_5, p_6, p_7] \land p_1 \neq p_7 \\
+	\lefteqn{\ldots} \\
+	\pause
+	\lefteqn{\forall p\ \EM{LargestIsNotPoison}(p) \liff \mbox{}} \\
+	& \exists p_i\ \EM{Largest}(p, p_i) \land p_i \neq \EM{Poison}
+	\end{array}
+	$
+\end{frame}
+\begin{frame}
+	\begin{center}
+		\Huge Prolog Demo
+	\end{center}
+\end{frame}
+
+\section{First-Order Logic Inference}
+\subsection{Propositionalization}
+\begin{frame}{Universal Instantiation}
+	\begin{block}{Key Idea}
+		If we know $\forall x\ P(x)$, then we can conclude: \\
+		\begin{itemize}
+			\item $P(\EM{Badger})$
+			\item $P(\EM{Spam})$
+			\item \ldots
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Formal Rule}
+		Given a ground term $g$: \\[.5em]
+		$
+		\begin{array}{l}
+		\forall v\ \alpha \\
+		\hline
+		\SC{Subst}(\{v/g\}, \alpha)
+		\end{array}
+		$
+	\end{block}
+\end{frame}
+\begin{frame}{Existential Instantiation}
+	\begin{block}{Key Idea}
+		If we know $\exists x\ P(x)$, then we can just give a name to $x$: \\
+		\begin{itemize}
+			\item $P(\EM{ThingThatPIsTrueFor})$
+		\end{itemize}
+		This works as long as the name isn't already in use
+	\end{block}
+	\pause
+	\begin{block}{Formal Rule}
+		Given a constant $k$ that is not in the knowledge base: \\[.5em]
+		$
+		\begin{array}{l}
+		\exists v\ \alpha \\
+		\hline
+		\SC{Subst}(\{v/k\}, \alpha)
+		\end{array}
+		$ \\[.5em]
+		The constant $k$ is called a \alert{Skolem constant}
+	\end{block}
+\end{frame}
+\begin{frame}{Reduction to Propositional Logic}
+	\begin{block}{First-Order Logic}
+		$
+		\begin{array}{l}
+			\exists x\ \EM{Mammal}(x) \land \EM{LaysEggs}(x) \\
+			\forall x\ \EM{Mammal}(x) \limpl \EM{WarmBlooded}(x) \\
+			\EM{Mammal}(\EM{Platypus}) \\
+			\lnot \EM{WarmBlooded}(\EM{Crocodile})
+		\end{array}
+		$
+	\end{block}
+	\pause
+	\begin{block}{Propositional Logic}
+		$
+		\begin{array}{l}
+			\pause\EM{Mammal}(\EM{EggLayer}) \land \EM{LaysEggs}(\EM{EggLayer}) \\
+			\pause\EM{Mammal}(\EM{Platypus}) \limpl \EM{WarmBlooded}(\EM{Platypus}) \\
+			\EM{Mammal}(\EM{Crocodile}) \limpl \EM{WarmBlooded}(\EM{Crocodile}) \\
+			\pause\EM{Mammal}(\EM{Platypus}) \\
+			\pause\lnot \EM{WarmBlooded}(\EM{Crocodile})
+		\end{array}
+		$
+	\end{block}
+\end{frame}
+\begin{frame}{Simple First-Order Inference}
+	\begin{block}{Simple Approach}
+		\begin{itemize}
+			\item Remove $\forall$ and $\exists$
+			\item Treat all first-order terms as simple symbols
+			\item Solve using resolution for propositional logic
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Example: $\EM{WarmBlooded}(\EM{Platypus})$?}
+		$
+		\begin{array}{l}
+			\lnot\EM{WarmBlooded}(\EM{Platypus}) \\
+			\lnot\EM{Mammal}(\EM{Platypus}) \lor \EM{WarmBlooded}(\EM{Platypus}) \\
+			\hline
+			\lnot\EM{Mammal}(\EM{Platypus}) \\
+			\EM{Mammal}(\EM{Platypus}) \\
+			\hline
+			\EM{false}
+		\end{array}
+		$
+	\end{block}
+\end{frame}
+\begin{frame}{Simple First-Order Inference}
+	\begin{block}{Problem: Infinite Terms}
+		\begin{itemize}
+			\item $\EM{Mammal}(\EM{Steve})$
+			\item $\EM{Mammal}(\EM{Mother}(\EM{Steve}))$
+			\item $\EM{Mammal}(\EM{Mother}(\EM{Mother}(\EM{Steve})))$
+			\item \ldots
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Solution: Iterative Deepening}
+		\begin{itemize}
+			\item Try proof with terms up to depth 1
+			\item Try proof with terms up to depth 2
+			\item \ldots
+		\end{itemize}
+		\pause
+		Proof found if exists\pause, else infinite loop \pause (\alert{semidecidable})
+	\end{block}
+\end{frame}
+
+
+\subsection{Unification}
+\begin{frame}{Problems with Propositionalization}
+	\begin{block}{Prove: $\EM{WarmBlooded}(\EM{Scooby})$}
+		$
+		\begin{array}{l}
+			\EM{Dog}(\EM{Scooby}) \\
+			\EM{Dog}(\EM{Scrappy}) \\
+			\forall x\ \EM{Dog}(x) \limpl \EM{Mammal}(x) \\
+			\forall y\ \EM{Mammal}(y) \limpl \EM{WarmBlooded}(y) \\
+		\end{array}
+		$
+	\end{block}
+	\begin{block}{Problem: Many Irrelevant Facts Produced}
+		$
+		\begin{array}{l}
+			\EM{Dog}(\EM{Scrappy}) \\
+			\EM{Dog}(\EM{Scrappy}) \limpl \EM{Mammal}(\EM{Scrappy}) \\
+			\EM{Mammal}(\EM{Scrappy}) \limpl \EM{WarmBlooded}(\EM{Scrappy}) \\
+		\end{array}
+		$
+	\end{block}
+\end{frame}
+\begin{frame}{Unification}
+	\begin{block}{Key Idea}
+		Assign variables to make two expressions look the same
+	\end{block}
+	\begin{block}{Formally}
+		$\SC{Unify}(p, q) = \theta \mbox{ where } \SC{Subst}(\theta, p) = \SC{Subst}(\theta, q)$
+	\end{block}
+	\pause
+	\begin{block}{Example: $\EM{Eats}(\EM{Panda}, y)$?}
+		\footnotesize
+		$
+		\begin{array}{@{}l@{\hspace{.2em}}l@{\hspace{.2em}}l@{}}
+			p                              & q                                  &
+				\theta \\
+			\hline
+			\pause\EM{Eats}(\EM{Panda}, y) & \EM{Eats}(\EM{Panda}, \EM{Leaves}) &
+				\pause\{y\!\!=\!\!\EM{Leaves}\} \\
+			\pause\EM{Eats}(\EM{Panda}, y) & \EM{Eats}(x, \EM{Pizza})           &
+				\pause\{x\!\!=\!\!\EM{Panda}, y\!\!=\!\!\EM{Pizza}\} \\
+			\pause\EM{Eats}(\EM{Panda}, y) & \EM{Eats}(x, \EM{FavFood}(x))      &
+				\pause\{x\!\!=\!\!\EM{Panda}, y\!\!=\!\!\EM{FavFood}(\EM{Panda})\}
+		\end{array}
+		$
+	\end{block}
+\end{frame}
+
+\section{Inference Algorithms}
+\subsection{Forward Chaining}
+\begin{frame}{Generalized Modus Ponens}
+	\begin{columns}[T]
+		\begin{column}{1.8in}
+			\begin{block}{Definition}
+				$
+				\begin{array}{l}
+				p_1' \\
+				p_2' \\
+				\ldots \\
+				p_n' \\
+				p_1 \land p_2 \land \ldots \land p_n \limpl q \\
+				\SC{Unify}(p_1', p_1) = \theta \\
+				\SC{Unify}(p_2', p_2) = \theta \\
+				\ldots \\
+				\SC{Unify}(p_n', p_n) = \theta \\
+				\hline
+				\SC{Subst}(\theta, q)
+				\end{array}
+				$
+			\end{block}
+		\end{column}
+		\pause
+		\begin{column}{2.4in}
+			\begin{block}{Example}
+				\extrarowheight=.25em
+				$
+				\begin{array}{l}
+				\EM{Odd}(17) \\
+				\forall x\ \EM{Odd}(x) \limpl \EM{Mod}(x, 2, 1) \\
+				\SC{Unify}(\EM{Odd}(17), \EM{Odd}(x)) = \mbox{}\\
+				\tab\tab \{x = \EM{17}\} \\
+				\hline
+				\EM{Mod}(17, 2, 1)
+				\end{array}
+				$
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{Forward Chaining}
+	\begin{block}{Key Ideas}
+		\begin{itemize}
+			\item Repeatedly apply Generalized Modus Ponens
+			\item Stop when nothing new can be inferred
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Details}
+		KB must be only \alert{first-order definite clauses}, one of:
+		\begin{itemize}
+			\item Atomic clauses, e.g. $\EM{Mammal}(\EM{Platypus})$
+			\item Implications like $p_1 \land p_2 \land \ldots \land p_n \limpl q$
+		\end{itemize}
+	\end{block}
+\end{frame}
+\begin{frame}[fragile]{Forward Chaining Code}
+	\begin{semiverbatim}\bfseries\scriptsize
+		\key{def} \defn{forward_chaining}(knowledge_base, query):
+		    \pause\cmnt{# keep adding to the KB until no new sentences are generated}
+		    new = \key{True}
+		    \key{while} sentences:
+		        new = set()
+		        \key{for} sentence \key{in} knowledge_base:
+		            \pause\cmnt{# find something that unifies with the sentence body}
+		            n = len(sentence.body)
+		            \key{for} subset \key{in} all_subsets(knowledge_base, n):
+		                assignment = unify(subset, sentence.body)
+		                \key{if} assignment \key{is not} \key{None}:
+		                    \pause\cmnt{# conclude the sentence head}
+		                    head = assignment.substitute(sentence.head)
+		                    \key{if} head \key{not in} knowledge_base + new:
+		                        new.add(head)
+		                        \pause\cmnt{# return if the query is concluded}
+		                        result = unify(head, query)
+		                        \key{if} result \key{is not} \key{None}:
+		                            \key{return} result
+		        knowledge_base.update(new)
+	\end{semiverbatim}
+\end{frame}
+\begin{frame}{Forward Chaining Example}
+	\begin{tabular}{p{4in}}
+		If you're rich and someone sells something you want, you buy it \\
+		\tab$\EM{Rich}(x) \land \EM{Wants}(x, y) \land \EM{Sells}(z, y) \limpl \EM{Buys}(x, y)$ \\
+		If you're hot, you want ice cream \\
+		\tab$\EM{Hot}(x) \land \EM{IceCream}(y) \limpl \EM{Wants}(x, y)$ \\
+		Glacier sells all kinds of ice cream \\
+		\tab$\EM{IceCream}(y) \limpl \EM{Sells}(\EM{Glacier}, y)$ \\
+		One flavor of ice cream is mint \\
+		\tab$\EM{IceCream}(\EM{Mint})$ \\
+		Bill is rich \\
+		\tab$\EM{Rich}(\EM{Bill})$ \\
+		Bill is hot \\
+		\tab$\EM{Hot}(\EM{Bill})$
+	\end{tabular}
+\end{frame}
+\begin{frame}{Forward Chaining Example}
+	$
+	\begin{array}{l}
+		\EM{Hot}(\EM{Bill}) \\
+		\EM{IceCream}(\EM{Mint}) \\
+		\EM{Hot}(x) \land \EM{IceCream}(y) \limpl \EM{Wants}(x, y) \\
+		\hline
+		\EM{Wants}(\EM{Bill}, \EM{Mint}) \\[.8em]
+		\pause
+		\EM{IceCream}(\EM{Mint}) \\
+		\EM{IceCream}(y) \limpl \EM{Sells}(\EM{Glacier}, y) \\
+		\hline
+		\EM{Sells}(\EM{Glacier}, \EM{Mint}) \\[.8em]
+		\pause
+		\EM{Rich}(\EM{Bill}) \\
+		\EM{Wants}(\EM{Bill}, \EM{Mint}) \\
+		\EM{Sells}(\EM{Glacier}, \EM{Mint}) \\
+		\EM{Rich}(x) \land \EM{Wants}(x, y) \land \EM{Sells}(z, y) \limpl \EM{Buys}(x, y) \\
+		\hline
+		\EM{Buys}(\EM{Bill}, \EM{Mint})
+	\end{array}
+	$
+\end{frame}
+\begin{frame}{Forward Chaining Properties}
+	\begin{block}{Basic Properties}
+		\begin{itemize}
+			\item Sound - uses Generalized Modus Ponens
+			\item Complete - proof similar to propositional logic
+			\item Works only with definite clauses
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Termination}
+		With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per predicate: \\[.5em]
+		\begin{tabular}{ll}
+			\pause \key{Maximum Facts:}      & \pause $pn^k$ \\
+			\pause \key{Maximum Iterations:} & \pause $pn^k$ \\
+		\end{tabular} \\[.5em]
+		\pause With functions: \pause may never terminate
+	\end{block}
+\end{frame}
+\begin{frame}{Optimizing Forward Chaining}
+	\begin{block}{Indexing}
+		\begin{itemize}
+			\item Treat facts like database relations
+			\item Index by predicate + arguments
+			\item Can get $O(1)$ fact retrieval
+			\item Standard time/space tradeoffs
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Rule Checking}
+		\begin{itemize}
+			\item Don't check all rules on each iteration
+			\item Check rules when new part of premise is satisfied
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\subsection{Backward Chaining}
+\begin{frame}{Backward Chaining}
+	\begin{block}{Key Ideas}
+		\begin{itemize}
+			\item Start with the terms in the query
+			\item Look for sentences that can conclude those terms using Generalized Modus Ponens
+			\item Recurse as necessary to find simple terms
+		\end{itemize}
+	\end{block}
+	\begin{block}{Details}
+		\begin{itemize}
+			\item KB must be only first-order definite clauses
+		\end{itemize}
+	\end{block}
+\end{frame}
+\begin{frame}[fragile]{Backward Chaining Code}
+	\begin{semiverbatim}\bfseries\scriptsize
+		\key{def} \defn{backward_chaining}(knowledge_base, goals, assignment):
+		    \pause\cmnt{# if all goals have been resolved, generate the assignment}
+		    \key{if} \key{not} goals:
+		        \key{yield} assignment
+		    \pause\cmnt{# otherwise, check the first goal and then recurse}
+		    \key{else}:
+		        term = assignment.substitute(goals[0])
+		        \key{for} sentence \key{in} knowledge_base:
+		            \pause\cmnt{# try to unify the sentence with the first goal}
+		            new_assignment = unify(sentence.head, term)
+		            \key{if} new_assignment \key{is} \key{None}:
+		                \key{continue}
+		            \pause\cmnt{# add the sentence's premise to the remaining goals}
+		            new_goals = list(sentence.body)
+		            new_goals.extend(goals[1:])
+		            new_assignment = new_assignment.compose(assignment)
+		            \pause\cmnt{# recursively search for the remaining goals}
+		            args = knowledge_base, new_goals, new_assignment
+		            \key{for} result \key{in} backward_chaining(*args):
+		                \key{yield} result
+	\end{semiverbatim}
+\end{frame}
+\begin{frame}{Backward Chaining Example}
+	Given:
+	\\[.5em]
+	$
+	\begin{array}{l}
+		\EM{Rich}(x) \land \EM{Wants}(x, y) \land \EM{Sells}(z, y) \limpl \EM{Buys}(x, y) \\
+		\EM{Hot}(x) \land \EM{IceCream}(y) \limpl \EM{Wants}(x, y) \\
+		\EM{IceCream}(y) \limpl \EM{Sells}(\EM{Glacier}, y) \\
+		\EM{IceCream}(\EM{Mint}) \\
+		\EM{Rich}(\EM{Bill}) \\
+		\EM{Hot}(\EM{Bill})
+	\end{array}
+	$
+	\\[1em]
+	Query:
+	\\[.5em]
+	$
+	\begin{array}{l}
+		\EM{Buys}(x, y)
+	\end{array}
+	$
+\end{frame}
+\begin{frame}{Backward Chaining Example}
+	\small
+	$
+	\begin{array}{@{}ll@{}}
+		\mbox{Goals}                                                        & \mbox{Assignment} \\
+		\hline
+		\pause\left[\EM{Buys}(x, y)\right]                                  & \{\} \\
+		\pause\left[\EM{Rich}(x), \EM{Wants}(x, y), \EM{Sells}(z, y)\right] & \{\} \\
+		\pause\left[\EM{Wants}(x, y), \EM{Sells}(z, y)\right]               & \{x\!\!=\!\!\EM{Bill}\} \\
+		\pause\left[\EM{Hot}(x), \EM{IceCream}(y), \EM{Sells}(z, y)\right]  & \{x\!\!=\!\!\EM{Bill}\} \\
+		\pause\left[\EM{IceCream}(y), \EM{Sells}(z, y)\right]               & \{x\!\!=\!\!\EM{Bill}\} \\
+		\pause\left[\EM{Sells}(z, y)\right]                                 & \{x\!\!=\!\!\EM{Bill}, y\!\!=\!\!\EM{Mint}\} \\
+		\pause\left[\EM{IceCream}(y)\right]                                 & \{x\!\!=\!\!\EM{Bill}, y\!\!=\!\!\EM{Mint}, z\!\!=\!\!\EM{Glacier}\} \\
+		\pause\left[\right]                                                 & \{x\!\!=\!\!\EM{Bill}, y\!\!=\!\!\EM{Mint}, z\!\!=\!\!\EM{Glacier}\} \\
+	\end{array}
+	$
+\end{frame}
+\begin{frame}{Backward Chaining Properties}
+	\begin{block}{Properties}
+		\begin{tabular}{@{}ll@{}}
+			\pause\key{Sound}       & \pause Yes, uses Generalized Modus Ponens \\[.5em]
+			\pause\key{Complete}    & \pause No, could hit infinite loops \\
+			                        & \pause $\Rightarrow$ fix by keeping track of goals already seen \\[.5em]
+			\pause\key{Space}       & \pause Linear in size of proof (depth-first search) \\
+		\end{tabular}
+	\end{block}
+\end{frame}
+
+\subsection{Prolog}
+\begin{frame}[fragile]{Prolog}
+	\begin{block}{Prolog Overview}
+		\begin{itemize}
+			\item Backward chaining + many optimizations
+			\item Millions of logical inferences per second
+		\end{itemize}
+	\end{block}
+	\pause
+	\begin{block}{Prolog Syntax}
+		\begin{itemize}
+			\item Head first, then body
+			\item Predicates lowercase, variables uppercase
+			\item Comma for $\land$, semicolon for $\lor$
+		\end{itemize}
+		\begin{semiverbatim}\bfseries\footnotesize
+			\defn{factorial}(1, 1).
+			\defn{factorial}(\str{N}, \str{_}) :- \str{N} =< 0, \key{fail}.
+			\defn{factorial}(\str{N}, \str{F}) :- \str{N} > 1, \str{N1} \key{is} \str{N} - 1,
+			                   factorial(\str{N1}, \str{F1}), \str{F} \key{is} \str{F1} * \str{N}.
+		\end{semiverbatim}
+	\end{block}
+\end{frame}
+\begin{frame}
+	\begin{center}
+		\Huge Prolog Examples
+	\end{center}
+\end{frame}
+\begin{frame}{Backwards Chaining Backtracking}
+	\small
+	\extrarowheight=.25em
+	$
+	\begin{array}{@{}l@{\hspace{.3em}}l@{}}
+	\mbox{Prove:}    & \EM{Connected}(A, F) \\
+	\mbox{Given:}    & \forall x,z\ \EM{Edge}(x,z)\!\limpl\!\EM{Connected}(x,z) \\
+	                 & \forall x,y,z\ \EM{Edge}(x,y)\!\land\!\EM{Connected}(y,z)\!\limpl\!\EM{Connected}(x, z) \\
+	                 & \EM{Edge}(A, B) \land \EM{Edge}(B, C) \land \EM{Edge}(B, D) \land \EM{Edge}(D, F)\\
+	\end{array}
+	$ \\	
+	\bigskip
+	\pause
+	\branchheight{2.5em}
+	\synttree
+	[\node{$\EM{Connected}(A, F)$}
+		[\node{\only<-2>{\invisible{$\EM{Edge}(A, F)$}}
+		       \only<3-4>{$\EM{Edge}(A, F)$}
+		       \only<5>{\invisible{$\EM{Edge}(A, F)$}}
+		       \only<6-7>{$\EM{Edge}(A, y)$}
+		       \only<8->{$\EM{Edge}(A, B)$}}
+			[\node{\only<-3>{\invisible{$\EM{Edge}(A, B)$}}
+			       \only<4>{$\EM{fail}$}
+			       \only<7->{$\EM{Edge}(A, B)$}}]]
+		[\node{\only<-5>{\invisible{$\EM{Connected}(B, F)$}}
+		       \only<6-7>{$\EM{Connected}(y, F)$}
+		       \only<8->{$\EM{Connected}(B, F)$}}
+			[\node{\only<-8>{\invisible{$\EM{Edge}(B, y)$}}
+			       \only<9-10>{$\EM{Edge}(B, y)$}
+			       \only<11-12>{$\EM{Edge}(B, C)$}
+			       \only<13-14>{$\EM{Edge}(B, y)$}
+			       \only<15->{$\EM{Edge}(B, D)$}}
+				[\node{\only<-9>{\invisible{$\EM{Edge}(B, C)$}}
+				       \only<10-12>{$\EM{Edge}(B, C)$}
+				       \only<13>{\invisible{$\EM{Edge}(B, C)$}}
+				       \only<14->{$\EM{Edge}(B, D)$}}]]
+			[\node{%\only<-8>{\invisible{$\EM{Connected}(D, F)$}}
+			       \only<9-10>{$\EM{Connected}(y, F)$}
+			       \only<11-12>{$\EM{Connected}(C, F)$}
+			       \only<13-14>{$\EM{Connected}(y, F)$}
+			       \only<15->{$\EM{Connected}(D, F)$}}
+			  [\node{\only<-11>{\invisible{$\EM{Edge}(D, F)$}}
+			         \only<12>{$\ldots\EM{fail}\ldots$}
+			         \only<13-15>{\invisible{$\EM{Edge}(D, F)$}}
+			         \only<16->{$\EM{Edge}(D, F)$}}]]]]
+\end{frame}
+\begin{frame}
+	\begin{center}
+		\Huge Prolog Example
+	\end{center}
+\end{frame}
+
+
+\subsection{Resolution}
+\begin{frame}{Resolution}
+	\begin{block}{Definition}
+		$
+		\begin{array}{l}
+			p_1 \lor \ldots \lor p_n \\
+			q_1 \lor \ldots \lor q_m \\
+			\SC{Unify}(p_i, \lnot q_j) = \theta \\
+			\hline
+			\SC{Subst}(\theta, p_1 \lor \ldots p_{i-1} \lor p_{i+1} \ldots \lor p_n \\
+			\hspace{4.5em} \lor q_1 \lor \ldots q_{j-1} \lor q_{j+1}  \ldots \lor q_m)
+		\end{array}
+		$
+	\end{block}
+	\pause
+	\begin{block}{Example}
+		$
+		\begin{array}{l}
+			\lnot \EM{Mammal}(x) \lor \EM{WarmBlooded}(x) \\
+			\EM{Mammal}(\EM{Platypus}) \\
+			\hline
+			\EM{WarmBlooded}(\EM{Platypus})
+		\end{array}
+		$
+	\end{block}
+\end{frame}
+\begin{frame}{Resolution}
+	\begin{block}{Resolution Procedure}
+		\begin{enumerate}
+			\item Convert knowledge base to CNF
+			\item Convert query to CNF
+			\item Assume $\lnot$ query
+			\item Apply resolution until \EM{false} is concluded
+		\end{enumerate}
+	\end{block}
+	\pause
+	\begin{block}{CNF Complications}
+		\begin{itemize}
+			\item Negations moved through $\forall$ and $\exists$
+			\item All quantifiers must have different variable names
+			\item Quantifier scopes handled through \alert{skolemization}
+		\end{itemize}
+	\end{block}
+\end{frame}
+\begin{frame}{Resolution Example}
+	Given:
+	\\[.5em]
+	$
+	\begin{array}{l}
+		\lnot\EM{Rich}(x) \lor \lnot\EM{Wants}(x, y) \lor \lnot\EM{Sells}(z, y) \lor \EM{Buys}(x, y) \\
+		\lnot\EM{Hot}(x) \lor \lnot\EM{IceCream}(y) \lor \EM{Wants}(x, y) \\
+		\lnot\EM{IceCream}(y) \lor \EM{Sells}(\EM{Glacier}, y) \\
+		\EM{IceCream}(\EM{Mint}) \\
+		\EM{Rich}(\EM{Bill}) \\
+		\EM{Hot}(\EM{Bill})
+	\end{array}
+	$
+	\\[1em]
+	Prove:
+	\\[.5em]
+	$
+	\begin{array}{l}
+		\EM{Buys}(x, y)
+	\end{array}
+	$
+\end{frame}
+\begin{frame}{Resolution Example}
+	$
+	\begin{array}{l}
+		\lnot\EM{Buys}(x, y) \\
+		\pause
+		\lnot\EM{Rich}(x) \lor \lnot\EM{Wants}(x, y) \lor \lnot\EM{Sells}(z, y) \lor \EM{Buys}(x, y) \\
+		\hline
+		\pause
+		\lnot\EM{Rich}(x) \lor \lnot\EM{Wants}(x, y) \lor \lnot\EM{Sells}(z, y)	\\
+		\pause
+		\EM{Rich}(\EM{Bill}) \\
+		\hline
+		\pause
+		\lnot\EM{Wants}(\EM{Bill}, y) \lor \lnot\EM{Sells}(z, y) \\
+		\pause
+		\lnot\EM{Hot}(x) \lor \lnot\EM{IceCream}(y) \lor \EM{Wants}(x, y) \\
+		\hline
+		\pause
+		\lnot\EM{Hot}(\EM{Bill}) \lor \lnot\EM{IceCream}(y) \lor \lnot\EM{Sells}(z, y) \\
+		\pause
+		\lnot\EM{IceCream}(y) \lor \EM{Sells}(\EM{Glacier}, y) \\
+		\hline
+		\pause
+		\lnot\EM{Hot}(\EM{Bill}) \lor \lnot\EM{IceCream}(y) \\
+		\pause
+		\EM{IceCream}(\EM{Mint}) \\
+		\hline
+		\pause
+		\lnot\EM{Hot}(\EM{Bill}) \\
+		\pause
+		\EM{Hot}(\EM{Bill}) \\
+		\hline
+		\pause
+		\EM{false}
+	\end{array}
+	$
+\end{frame}
+\begin{frame}{Resolution Chaining Properties}
+	\begin{block}{Properties}
+		\begin{tabular}{@{}ll@{}}
+			\key{Sound}       & \pause Yes, uses Resolution \\
+			\pause\key{Complete}    & \pause No, if only binary resolution is used \\
+			                        & Yes, with factoring to combine unifiable literals
+		\end{tabular}
+	\end{block}
+	\pause
+	\begin{block}{Other Properties}
+		\begin{itemize}
+			\item Requires extra work to retrieve substitutions
+			\item Can produce useless answers for existential goals
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\part{Key Ideas}
+\begin{frame}{Key Ideas}
+	\begin{block}{Translating First-Order Logic}
+		\begin{itemize}
+			\item Identify objects (terms) and relations (predicates)
+			\item Generally, use $\limpl$ with $\forall$ and $\land$ with $\exists$
+			\item Use inequality to specify unique objects
+		\end{itemize}
+	\end{block}
+	\begin{block}{First-Order Logic Inference}
+		\begin{itemize}
+			\item Forward chaining on definite clauses is \mbox{sound and complete}
+			\item Backward chaining on definite clauses is sound
+			\item Resolution is sound and complete
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\end{document}
+
+

@@ -1,0 +1,68 @@
+<ns0:svg color-interpolation="auto" color-rendering="auto" fill="black" fill-opacity="1" font-family="&apos;Dialog&apos;" font-size="12" font-style="normal" font-weight="normal" height="180" image-rendering="auto" shape-rendering="auto" stroke="black" stroke-dasharray="none" stroke-dashoffset="0" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10" stroke-opacity="1" stroke-width="1" text-rendering="auto" width="323" xmlns:ns0="http://www.w3.org/2000/svg">
+  
+  <ns0:defs id="genericDefs" />
+  <ns0:g>
+    <ns0:defs id="defs1">
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath1">
+        <ns0:path d="M0 0 L323 0 L323 180 L0 180 L0 0 Z" />
+      </ns0:clipPath>
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath2">
+        <ns0:path d="M80 10 L403 10 L403 190 L80 190 L80 10 Z" />
+      </ns0:clipPath>
+    </ns0:defs>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="289" y="45.1067" xml:space="preserve">Fire</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="300" cy="40" fill="none" rx="18" ry="14.9631" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="339.5" y="105.1067" xml:space="preserve">Smoke</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="360" cy="100" fill="none" rx="27.5" ry="14.9631" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="223" y="105.1067" xml:space="preserve">Alarm</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="240" cy="100" fill="none" rx="24" ry="14.9631" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="161.5" y="45.1067" xml:space="preserve">"Joke"</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="180" cy="40" fill="none" rx="25.5" ry="14.9631" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="161" y="165.1067" xml:space="preserve">AllExit</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="180" cy="160" fill="none" rx="26" ry="14.9631" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="102" y="105.1067" xml:space="preserve">Picnic</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="120" cy="100" fill="none" rx="25" ry="14.9631" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="269.5" y="165.1067" xml:space="preserve">FireTrucks</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-80,-10)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="300" cy="160" fill="none" rx="37.5" ry="14.9631" />
+      <ns0:path clip-path="url(#clipPath2)" d="M192.9054 52.9054 L221.6457 81.6457" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M227.3025 87.3025 L222.3528 75.2817 L220.9386 80.9386 L215.2817 82.3528 Z" stroke="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M288.4934 51.5066 L258.3543 81.6457" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M252.6975 87.3025 L264.7183 82.3528 L259.0615 80.9386 L257.6472 75.2817 Z" stroke="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M311.5066 51.5066 L341.1997 81.1997" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M346.8565 86.8565 L341.9068 74.8357 L340.4926 80.4926 L334.8357 81.9068 Z" stroke="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M227.3025 112.6975 L198.6257 141.3743" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M192.9688 147.0312 L204.9896 142.0815 L199.3328 140.6673 L197.9185 135.0104 Z" stroke="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M132.8391 112.8391 L161.3743 141.3743" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M167.0312 147.0312 L162.0815 135.0104 L160.6672 140.6672 L155.0104 142.0815 Z" stroke="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M252.6975 112.6975 L280.4455 140.4455" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M286.1024 146.1024 L281.1526 134.0815 L279.7384 139.7384 L274.0816 141.1526 Z" stroke="none" />
+    </ns0:g>
+  </ns0:g>
+</ns0:svg>

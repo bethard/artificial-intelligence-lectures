@@ -1,0 +1,121 @@
+<ns0:svg color-interpolation="auto" color-rendering="auto" fill="black" fill-opacity="1" font-family="&apos;Dialog&apos;" font-size="12" font-style="normal" font-weight="normal" height="558" image-rendering="auto" shape-rendering="auto" stroke="black" stroke-dasharray="none" stroke-dashoffset="0" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10" stroke-opacity="1" stroke-width="1" text-rendering="auto" width="567" xmlns:ns0="http://www.w3.org/2000/svg">
+  
+  <ns0:defs id="genericDefs" />
+  <ns0:g>
+    <ns0:defs id="defs1">
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath1">
+        <ns0:path d="M0 0 L567 0 L567 558 L0 558 L0 0 Z" />
+      </ns0:clipPath>
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath2">
+        <ns0:path d="M130 37 L697 37 L697 595 L130 595 L130 37 Z" />
+      </ns0:clipPath>
+    </ns0:defs>
+    <ns0:g fill="white" stroke="white" transform="translate(-130,-37)">
+      <ns0:rect clip-path="url(#clipPath2)" height="558" stroke="none" width="567" x="130" y="37" />
+    </ns0:g>
+    <ns0:g fill="blue" stroke="blue" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="180" cy="160" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="180" cy="160" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="blue" stroke="blue" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="220" cy="120" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="220" cy="120" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="blue" stroke="blue" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="200" cy="220" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="200" cy="220" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="blue" stroke="blue" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="280" cy="160" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="280" cy="160" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="blue" stroke="blue" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="260" cy="220" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="260" cy="220" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="blue" stroke="blue" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="300" cy="240" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="300" cy="240" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="blue" stroke="blue" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="220" cy="280" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="220" cy="280" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="blue" stroke="blue" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="160" cy="260" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="160" cy="260" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="red" stroke="red" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="500" cy="360" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="500" cy="360" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="red" stroke="red" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="380" cy="480" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="380" cy="480" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="red" stroke="red" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="560" cy="340" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="560" cy="340" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="red" stroke="red" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="440" cy="480" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="440" cy="480" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="red" stroke="red" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="500" cy="500" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="500" cy="500" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="red" stroke="red" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="500" cy="420" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="500" cy="420" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="red" stroke="red" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="580" cy="400" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="580" cy="400" fill="none" r="15" />
+    </ns0:g>
+    <ns0:g fill="red" stroke="red" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="640" cy="420" r="15" stroke="none" />
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-130,-37)">
+      <ns0:circle clip-path="url(#clipPath2)" cx="640" cy="420" fill="none" r="15" />
+      <ns0:path clip-path="url(#clipPath2)" d="M369.3934 469.3934 L300 400" fill="none" stroke="white" />
+      <ns0:path clip-path="url(#clipPath2)" d="M310.6066 250.6066 L380 320" fill="none" stroke="white" />
+      <ns0:path clip-path="url(#clipPath2)" d="M489.3934 349.3934 L420 280" fill="none" stroke="white" />
+      <ns0:path clip-path="url(#clipPath2)" d="M340 580 L340 60" fill="none" stroke="white" stroke-width="3" />
+      <ns0:path clip-path="url(#clipPath2)" d="M560 580 L680 140" fill="none" stroke="white" stroke-width="3" />
+      <ns0:path clip-path="url(#clipPath2)" d="M315 240 L340 240" fill="none" stroke="white" />
+      <ns0:path clip-path="url(#clipPath2)" d="M365 480 L340 480" fill="none" stroke="white" />
+      <ns0:path clip-path="url(#clipPath2)" d="M180 520 L580 120" fill="none" stroke-width="3" />
+    </ns0:g>
+  </ns0:g>
+</ns0:svg>

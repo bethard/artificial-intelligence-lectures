@@ -1,0 +1,42 @@
+<ns0:svg color-interpolation="auto" color-rendering="auto" fill="black" fill-opacity="1" font-family="&apos;Dialog&apos;" font-size="12" font-style="normal" font-weight="normal" height="120" image-rendering="auto" shape-rendering="auto" stroke="black" stroke-dasharray="none" stroke-dashoffset="0" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10" stroke-opacity="1" stroke-width="1" text-rendering="auto" width="308" xmlns:ns0="http://www.w3.org/2000/svg">
+  
+  <ns0:defs id="genericDefs" />
+  <ns0:g>
+    <ns0:defs id="defs1">
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath1">
+        <ns0:path d="M0 0 L308 0 L308 120 L0 120 L0 0 Z" />
+      </ns0:clipPath>
+      <ns0:clipPath clipPathUnits="userSpaceOnUse" id="clipPath2">
+        <ns0:path d="M52 90 L360 90 L360 210 L52 210 L52 90 Z" />
+      </ns0:clipPath>
+    </ns0:defs>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-52,-90)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="148.5" y="125.1067" xml:space="preserve">Age</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-52,-90)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="160" cy="120" fill="none" rx="18.5" ry="14.9631" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-52,-90)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="74.5" y="185.1067" xml:space="preserve">GrayHair</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-52,-90)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="100" cy="180" fill="none" rx="32.5" ry="14.9631" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-52,-90)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="197" y="185.1067" xml:space="preserve">Bifocals</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-52,-90)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="220" cy="180" fill="none" rx="30" ry="14.9631" />
+    </ns0:g>
+    <ns0:g font-family="sans-serif" font-size="13" transform="matrix(1,0,0,1,-52,-90)">
+      <ns0:text clip-path="url(#clipPath2)" stroke="none" x="262.5" y="125.1067" xml:space="preserve">BroncosWon</ns0:text>
+    </ns0:g>
+    <ns0:g stroke-linecap="butt" stroke-miterlimit="1.45" transform="matrix(1,0,0,1,-52,-90)">
+      <ns0:ellipse clip-path="url(#clipPath2)" cx="300" cy="120" fill="none" rx="44.5" ry="14.9631" />
+      <ns0:path clip-path="url(#clipPath2)" d="M148.366 131.634 L119.2486 160.7514" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M113.5918 166.4082 L125.6126 161.4585 L119.9557 160.0443 L118.5415 154.3874 Z" stroke="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M171.634 131.634 L200.9531 160.9531" fill="none" />
+      <ns0:path clip-path="url(#clipPath2)" d="M206.61 166.61 L201.6602 154.5892 L200.246 160.246 L194.5892 161.6602 Z" stroke="none" />
+    </ns0:g>
+  </ns0:g>
+</ns0:svg>

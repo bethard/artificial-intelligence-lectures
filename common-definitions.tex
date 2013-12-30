@@ -1,0 +1,41 @@
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{listings}
+\lstloadlanguages{Python}
+\lstset{language=Python}
+\lstset{%
+basicstyle=\ttfamily\bfseries,
+keywordstyle=\color{blue}, emph={self}, emphstyle={\color{blue}},
+identifierstyle=,
+commentstyle=\color{brown},
+stringstyle=\color{green!50!black},
+showstringspaces=false,
+emphstyle={[2]\color{purple}},
+}
+
+\mode<presentation>{
+\usetheme{Madrid}
+\definecolor{uabgreen}{cmyk}{.89,.31,.78,.17}
+\usecolortheme[named=uabgreen]{structure}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{section in toc}[square]
+\setbeamertemplate{subsection in toc}[square]
+\setbeamertemplate{items}[square]
+\setbeamercovered{transparent=5}
+}
+
+\author[Dr. Bethard]{Dr. Steven Bethard}
+\institute[UAB CIS]{%
+Computer and Information Sciences\\
+University of Alabama at Birmingham}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}

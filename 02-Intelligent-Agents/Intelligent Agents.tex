@@ -1,38 +1,9 @@
-\documentclass[12pt]{beamer}
-
-\mode<presentation>{\usetheme{Warsaw}\setbeamercovered{transparent=5}}
-\setbeamertemplate{footline}[frame number]
-\usepackage[english]{babel}
-\usepackage{times}
-\usepackage{url}
-\usepackage{graphicx}
-\usepackage{listings}
-\lstloadlanguages{Python}
-\lstset{language=Python}
-\lstset{%
-	basicstyle=\ttfamily\bfseries,
-  keywordstyle=\color{blue}, emph={self}, emphstyle={\color{blue}},
-  identifierstyle=,
-  commentstyle=\color{brown},
-  stringstyle=\color{green!50!black},
-  showstringspaces=false,
-	emph={[2]ReflexVacuumAgent,ReflexWithStateVacuumAgent,take_action,__init__}, emphstyle={[2]\color{purple}},
-}
+\documentclass[14pt]{beamer}
+\input{../common-definitions}
+\lstset{emph={[2]ReflexVacuumAgent,ReflexWithStateVacuumAgent,take_action,__init__}}
 
 \title{Introduction to Artificial Intelligence}
-\author{Steven Bethard}
-\institute{
-  Department of Computer Science\\
-  University of Colorado
-}
-\date{CSCI 3202}
-
-\AtBeginSection[]
-{
-  \begin{frame}<beamer>{Outline}
-    \tableofcontents[currentsection]
-  \end{frame}
-}
+\date[]{7 Jan 2014}
 
 \begin{document}
 
@@ -42,7 +13,7 @@
 
 \section*{Introduction}
 
-\subsection{Who is teaching this course?}
+\subsection*{Who is teaching this course?}
 \begin{frame}{Who is teaching this course?}
 	\begin{block}{Steven Bethard, Ph.D.}
 		\begin{itemize}
@@ -57,7 +28,7 @@
 	\end{block}
 \end{frame}
 
-\subsection{Who is taking this course?}
+\subsection*{Who is taking this course?}
 \begin{frame}{Who is taking this course?}
 	\begin{block}{Index Card Information}
 		\begin{enumerate}
@@ -71,7 +42,7 @@
 	\end{block}
 \end{frame}
 
-\subsection{What is the course about?}
+\subsection*{What is the course about?}
 \begin{frame}{What is the course about?}
 	\begin{block}{Intelligent Agents}
 		\begin{itemize}
@@ -84,7 +55,7 @@
 	\end{block}
 \end{frame}
 
-\subsection{What are the course requirements?}
+\subsection*{What are the course requirements?}
 
 \begin{frame}{General Information}
 	\begin{block}{Times}

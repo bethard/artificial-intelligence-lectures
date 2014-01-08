@@ -84,7 +84,7 @@
 
 \begin{frame}{Defining the Vacuum Problem}
 	\begin{columns}
-		\column{.50\textwidth}
+		\column{.45\textwidth}
 			\begin{block}{Initial State}
 				\key{1}
 			\end{block}
@@ -110,7 +110,7 @@
 	\begin{center}
 		\includegraphics[height=1.5in]{8puzzle.pdf}
 	\end{center}
-	\begin{itemize}
+	\begin{description}
 		\item[States] \uncover<2->{Mappings of tile numbers to tile locations }
 		\item[Initial] \uncover<3->{$\{
 			1\!\!:\!\!9,
@@ -132,24 +132,24 @@
 			7\!\!:\!\!7,
 			8\!\!:\!\!8\}$}
 		\item[Cost] \uncover<6->{1 per move}
-	\end{itemize}
+	\end{description}
 \end{frame}
 
 \begin{frame}{Defining the Robotic Assembly Problem}
 	\begin{center}
 		\includegraphics[height=1.5in]{stanford-arm.pdf}
 	\end{center}
-	\begin{itemize}
+	\begin{description}
 		\item[States] \uncover<2->{real-valued joint angles, parts to assemble}
 		\item[Initial] \uncover<3->{many possible}
 		\item[Actions] \uncover<4->{real-valued adjustments to joint angles}
 		\item[Goal] \uncover<5->{fully assembled part}
 		\item[Cost] \uncover<6->{total duration of all movements}
-	\end{itemize}
+	\end{description}
 \end{frame}
 
 \begin{frame}{Defining the Machine Translation Problem}
-	\begin{itemize}
+	\begin{description}
 		\item[Input] Com\'i la manzana roja porque ten\'ia hambre.
 		\item[Output] I ate the red apple because I was hungry.
 		\bigskip\bigskip
@@ -158,7 +158,7 @@
 		\item[Actions]
 		\item[Goal]
 		\item[Cost]
-	\end{itemize}
+	\end{description}
 \end{frame}
 
 \section{Search Algorithms}

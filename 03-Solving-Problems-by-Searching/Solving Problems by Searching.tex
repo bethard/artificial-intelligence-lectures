@@ -261,14 +261,33 @@ for tree={grow'=east}
 
 \subsection{Breadth-first Search}
 \begin{frame}[label=breadth-first-example]{Breadth-first Search}
-	\begin{center}
-		\only<1>{\includegraphics[height=2in]{breadth-first-1.pdf}}%
-		\only<2>{\includegraphics[height=2in]{breadth-first-2.pdf}}%
-		\only<3>{\includegraphics[height=2in]{breadth-first-3.pdf}}%
-		\only<4>{\includegraphics[height=2in]{breadth-first-4.pdf}}%
-		\only<5>{\includegraphics[height=2in]{breadth-first-5.pdf}}%
-		\only<6>{\includegraphics[height=2in]{breadth-first-6.pdf}}%
-	\end{center}
+\begin{center}
+\begin{forest}
+for tree={circle,draw}
+[A,expanded on={<2->}
+  [B,expanded on={<3->}
+    [D,expanded on={<5->}
+      [H]
+      [I]
+    ]
+    [E,expanded on={<6->}
+      [J]
+      [K]
+    ]
+  ]
+  [C,expanded on={<4->}
+    [F,never expanded
+      [L]
+      [M]
+    ]
+    [G,never expanded
+      [N]
+      [O]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
 \end{frame}
 \begin{frame}{Breadth-first Properties}
 	\footnotesize

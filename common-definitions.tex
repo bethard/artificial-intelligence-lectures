@@ -48,9 +48,17 @@ University of Alabama at Birmingham}
     alt/.code args={<#1>#2#3}{%
       \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
     },
+    filled on/.style={alt=#1{fill=gray}{}},
 }
 \forestset{
+  filled on/.style={
+    /tikz/filled on={#1}},
   visible on/.style={
     for tree={
       /tikz/visible on={#1},
-      edge={/tikz/visible on={#1}}}}}
+      edge={/tikz/visible on={#1}}}},
+  expanded on/.style={
+    filled on={#1},
+    for children={visible on={#1}}},
+  never expanded/.style={
+    for descendants={invisible,edge={invisible}}}}

@@ -186,11 +186,33 @@
 \end{frame}
 
 \begin{frame}{Search Tree Example}
-	\begin{center}
-		\only<1>{\includegraphics[width=4in]{boulder-search-tree-1.pdf}}%
-		\only<2>{\includegraphics[width=4in]{boulder-search-tree-2.pdf}}%
-		\only<3>{\includegraphics[width=4in]{boulder-search-tree-3.pdf}}%
-	\end{center}
+\begin{center}
+\small
+\pgfkeys{/pgf/inner sep=0.25em}
+\begin{forest}
+for tree={grow'=east}
+[Birmingham,for children={visible on=<2->}
+  [Atlanta,for children={visible on=<3->}
+    [Birmingham]
+    [Chattanooga]
+    [Augusta]
+    [\ldots]
+  ]
+  [Montgomery,for children={visible on=<4->}
+    [Birmingham]
+    [Atlanta]
+    [Mobile]
+    [\ldots]
+  ]
+  [Tuscaloosa,for children={visible on=<5->}
+    [Birmingham]
+    [Meridian]
+    [Starkville]
+    [\ldots]
+  ]
+]
+\end{forest}
+\end{center}
 \end{frame}
 
 \subsection{Search Nodes}

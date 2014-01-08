@@ -172,7 +172,7 @@
 
 		    strategy.add(...problem.initial_state...)
 
-		    for node in strategy.get_nodes():
+		    for node in strategy:
 
 		        if problem.is_goal(node.state):
 		            return node.get_actions()

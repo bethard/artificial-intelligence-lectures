@@ -1,126 +1,18 @@
-\documentclass[12pt]{beamer}
+% !TEX TS-program = pdflatexmk
 
-\mode<presentation>{\usetheme{Warsaw}\setbeamercovered{transparent=5}}
-\setbeamertemplate{footline}[frame number]
-\usepackage[english]{babel}
-\usepackage{times}
-\usepackage{url}
-\usepackage{graphicx}
-\usepackage{listings}
-\usepackage{qtree}
-\lstloadlanguages{Python}
-\lstset{language=Python}
-\lstset{%
-	basicstyle=\ttfamily\bfseries,
-	keywordstyle=\color{blue}, emph={self}, emphstyle={\color{blue}},
-	identifierstyle=,
-	commentstyle=\color{gray},
-	stringstyle=\color{green!50!black},
-	showstringspaces=false,
-	emph={[2]__init__,__str__,take_action,ProblemSolvingAgent,tree_search,graph_search}, emphstyle={[2]\color{purple}},
-}
+\documentclass[14pt]{beamer}
+\input{../common-definitions}
+\lstset{emph={[2]__init__,__str__,take_action,ProblemSolvingAgent,tree_search,graph_search}}
 \newcommand{\key}[1]{\mbox{\texttt{\bfseries\color{red}#1}}}
 
-
 \title{Solving Problems by Searching}
-\subtitle{Introduction to Artificial Intelligence}
-\author{Steven Bethard}
-\institute{
-  Department of Computer Science\\
-  University of Colorado
-}
-\date{CSCI 3202}
-
-\AtBeginSection[]{
-  \begin{frame}<beamer>{Outline}
-  	\footnotesize
-    \tableofcontents[currentsection]
-  \end{frame}
-}
+\date[]{9 Jan 2014}
 
 \begin{document}
 
 \begin{frame}
   \titlepage
 \end{frame}
-
-\part{Class Expectations}
-\section*{Things that Won't Be Covered}
-\begin{frame}{Things that Won't Be Covered}
-	\begin{block}{The Apocalypse}
-		\begin{itemize}
-			\item ``\ldots technology/world domination''
-			\item ``\ldots the impending robot revolution''
-			\item ``\ldots Cyberdyne Systems Skynet defense network''
-		\end{itemize}
-	\end{block}
-	\begin{block}{Programming}
-		\begin{itemize}
-			\item Lisp
-			\item Functional Styles
-		\end{itemize}
-	\end{block}
-	\begin{block}{Perception (Chapter 24)}
-		\begin{itemize}
-			\item Computer Vision
-			\item Image Processing
-		\end{itemize}
-	\end{block}
-\end{frame}
-
-\section*{Things that Will Be Covered}
-\begin{frame}{Things that Will Be Covered}
-	\begin{block}{Definitely}
-		\begin{itemize}
-			\item Game AI (Chapter 6+)
-			\item Genetic algorithms (Chapter 4)
-			\item Logic and Reasoning (Chapter 7-9)
-			\item Fuzzy logic a little, but better: \\ probabilistic reasoning (Chapter 14)
-			\item Neural networks a little, but better: decision trees, na\"ive bayes, support vector machines (Chapter 20)
-		\end{itemize}
-	\end{block}
-	\begin{block}{Somewhat}
-		\begin{itemize}
-			\item ``user friendly programs''
-			\item ``human-like decisions''/``human thought process''
-		\end{itemize}
-	\end{block}
-\end{frame}
-
-\section*{Data Structures}
-\begin{frame}{What You Need to Know}
-	\begin{block}{Key Skills}
-		\begin{itemize}
-			\item \alert{Use} stacks, queues, sets, hash tables, priority queues
-			\item \alert{Implement} trees, graphs, search algorithms
-			\item \alert{Understand} Big O Notation
-		\end{itemize}
-	\end{block}
-	\begin{block}{Other Terms to Look Up}
-		\begin{itemize}
-			\item Stack
-			\item Queue
-			\item Heap
-			\item Adjacency list
-			\item Adjacency matrix
-		\end{itemize}
-	\end{block}
-\end{frame}
-\begin{frame}{Python Data Structures}
-	\begin{block}{Names}
-		\begin{tabular}{ll}
-			Stack/Queue      & \texttt{list()}, \texttt{deque()} \\
-			Set              & \texttt{set()} \\
-			Hash Table       & \texttt{dict()}, \texttt{defaultdict()} \\
-			Priority Queue   & \texttt{heapq()} \\
-			Classes/Objects  & \texttt{class} statement \\
-		\end{tabular}
-	\end{block}
-	\begin{block}{Documentation}
-		\url{http://docs.python.org/lib/lib.html}
-	\end{block}
-\end{frame}
-
 
 \part{Solving Problems by Searching}
 

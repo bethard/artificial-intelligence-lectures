@@ -26,7 +26,7 @@
 \subsection{Properties of Search Problems}
 \begin{frame}[plain]
 	\begin{center}
-		\includegraphics[width=3in]{cu-to-africana.pdf}
+		\includegraphics[width=\textwidth]{uab-to-mr-chens.pdf}
 	\end{center}
 \end{frame}
 
@@ -172,7 +172,7 @@
 
 		    strategy.add(...problem.initial_state...)
 
-		    for node in strategy:
+		    for node in strategy.get_nodes():
 
 		        if problem.is_goal(node.state):
 		            return node.get_actions()

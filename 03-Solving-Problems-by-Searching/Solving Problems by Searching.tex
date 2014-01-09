@@ -453,9 +453,7 @@ for tree={circle,draw}
 	\end{block}
 \end{frame}
 
-\section{Advanced Search}
-
-\subsection{Repeated States}
+\subsection*{Repeated States}
 \begin{frame}{Exponential Costs of Repeated States}
 	\begin{center}
 		\includegraphics[width=4in]{ribbon-space.pdf}
@@ -481,28 +479,6 @@ for tree={circle,draw}
 		                    cost=node.cost + cost,
 		                    depth=node.depth + 1))
 	\end{lstlisting}
-\end{frame}
-
-\subsection{Partial Information}
-\begin{frame}{Searching with Partial Information}
-	\begin{columns}
-		\column{.50\textwidth}
-			\begin{block}{Problem}
-				Start in \alert{any state}
-			\end{block}
-			\begin{block}{Solution?}
-				\footnotesize
-				\begin{tabular}{ll}
-					\uncover<2->{Initial}     & \uncover<2->{$\{\key{1}, \key{2}, \key{3}, \key{4}, \key{5}, \key{6}, \key{7}, \key{8}\}$} \\
-					\uncover<3->{\key{Right}} & \uncover<4->{$\{\key{2}, \key{4}, \key{6}, \key{8}\}$} \\
-					\uncover<5->{\key{Suck}}  & \uncover<6->{$\{\key{4}, \key{8}\}$} \\
-					\uncover<7->{\key{Left}}  & \uncover<8->{$\{\key{3}, \key{7}\}$} \\
-					\uncover<9->{\key{Suck}}  & \uncover<10->{$\{\key{7}\}$} \\
-				\end{tabular}
-			\end{block}
-		\column{.50\textwidth}
-			\includegraphics[width=2.1in]{vacuum-space.pdf}
-	\end{columns}
 \end{frame}
 
 \part{Key Points}

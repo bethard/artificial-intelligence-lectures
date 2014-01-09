@@ -188,25 +188,25 @@
 \small
 \pgfkeys{/pgf/inner sep=0.25em}
 \begin{forest}
-for tree={grow'=east}
+for tree={grow'=east,l sep=4em}
 [Birmingham
-  [Atlanta,invisible on={<-2>}
-    [Birmingham,invisible on={<-3>}]
-    [Chattanooga,invisible on={<-3>}]
-    [Augusta,invisible on={<-3>}]
-    [\ldots]
+  [Atlanta,visible on={2-}
+    [Birmingham,visible on={3-}]
+    [Chattanooga,visible on={3-}]
+    [Augusta,visible on={3-}]
+    [\ldots,visible on={3-}]
   ]
-  [Montgomery,invisible on={<-2>}
-    [Birmingham]
-    [Atlanta]
-    [Mobile]
-    [\ldots]
+  [Montgomery,visible on={2-}
+    [Birmingham,visible on={4-}]
+    [Atlanta,visible on={4-}]
+    [Mobile,visible on={4-}]
+    [\ldots,visible on={4-}]
   ]
-  [Tuscaloosa,invisible on={<-2>}
-    [Birmingham]
-    [Meridian]
-    [Starkville]
-    [\ldots]
+  [Tuscaloosa,visible on={2-}
+    [Birmingham,visible on={5-}]
+    [Meridian,visible on={5-}]
+    [Starkville,visible on={5-}]
+    [\ldots,visible on={5-}]
   ]
 ]
 \end{forest}
@@ -262,23 +262,23 @@ for tree={grow'=east}
 \begin{center}
 \begin{forest}
 for tree={circle,draw}
-[A,expanded on={<2->}
-  [B,expanded on={<3->}
-    [D,expanded on={<5->}
-      [H]
-      [I]
+[A,visible on filled on={1-}{2-}
+  [B,visible on filled on={2-}{3-}
+    [D,visible on filled on={3-}{5-}
+      [H,visible on={5-}]
+      [I,visible on={5-}]
     ]
-    [E,expanded on={<6->}
-      [J]
-      [K]
+    [E,visible on filled on={3-}{6-}
+      [J,visible on={6-}]
+      [K,visible on={6-}]
     ]
   ]
-  [C,expanded on={<4->}
-    [F
-      [L,invisible]
-      [M,invisible]
+  [C,visible on filled on={2-}{4-}
+    [F,visible on filled on={4-}{7-}
+      [L,visible on={7-}]
+      [M,visible on={7-}]
     ]
-    [G
+    [G,visible on={4-}
       [N,invisible]
       [O,invisible]
     ]
@@ -311,25 +311,25 @@ for tree={circle,draw}
 \begin{center}
 \begin{forest}
 for tree={circle,draw},
-[A,expanded on={<2->}
-  [B,edge weight={2},expanded on={<4->}
-    [D,edge weight={1},expanded on={<6->}
-      [H,edge weight={2}]
-      [I,edge weight={3}]
+[A,visible on filled on={1-}{2-}
+  [B,edge weight={2},visible on filled on={2-}{4-}
+    [D,edge weight={1},visible on filled on={4-}{6-}
+      [H,edge weight={2},visible on={6-}]
+      [I,edge weight={3},visible on={6-}]
     ]
-    [E,edge weight={1}
+    [E,edge weight={1},visible on={4-}
       [J,edge weight={3},invisible]
       [K,edge weight={2},invisible]
     ]
   ]
-  [C,edge weight={1},expanded on={<3->}
-    [F,edge weight={3}
+  [C,edge weight={1},visible on filled on={2-}{3-}
+    [F,edge weight={3},visible on={3-}
       [L,edge weight={1},invisible]
       [M,edge weight={1},invisible]
     ]
-    [G,edge weight={2},expanded on={<5->}
-      [N,edge weight={1}]
-      [O,edge weight={3}]
+    [G,edge weight={2},visible on filled on={3-}{5-}
+      [N,edge weight={1},visible on={5-}]
+      [O,edge weight={3},visible on={5-}]
     ]
   ]
 ]
@@ -360,18 +360,18 @@ for tree={circle,draw},
 \begin{center}
 \begin{forest}
 for tree={circle,draw}
-[A,expanded on={<2->}
-  [B,expanded on={<3->},invisible on={<10->}
-    [D,expanded on={<4->},invisible on={<7->}
-      [H,expanded on={<5->},invisible on={<6->}]
-      [I,expanded on={<6->},invisible on={<7->}]
+[A,visible on filled on={1-}{2-}
+  [B,visible on filled on={2-9}{3-}
+    [D,visible on filled on={3-6}{4-}
+      [H,visible on filled on={4-5}{5-}]
+      [I,visible on filled on={4-6}{6-}]
     ]
-    [E,expanded on={<7->},invisible on={<10->}
-      [J,expanded on={<8->},invisible on={<9->}]
-      [K,expanded on={<9->},invisible on={<10->}]
+    [E,visible on filled on={3-9}{7-}
+      [J,visible on filled on={7-8}{8-}]
+      [K,visible on filled on={7-9}{9-}]
     ]
   ]
-  [C
+  [C,visible on={2-10}
     [F,invisible
       [L,invisible]
       [M,invisible]
@@ -409,23 +409,23 @@ for tree={circle,draw}
 \begin{center}
 \begin{forest}
 for tree={circle,draw}
-[A,invisible on={<{3,8,17}>},filled on={<{2,5-7,10-}>}
-  [B,invisible on={<{-4,7-9,14-}>},filled on={<{6,11-13}>}
-    [D,invisible on={<{-10,13}>},filled on={<{12}>}
+[A,visible on filled on={1-2,4-7,9-16,18}{2,5-7,10-16}
+  [B,visible on filled on={5-6,10-13}{6,11-13}
+    [D,visible on filled on={11-12}{12}
       [H,invisible]
       [I,invisible]
     ]
-    [E,invisible on={<{-10}>},filled on={<{13}>}
+    [E,visible on filled on={11-13}{13}
       [J,invisible]
       [K,invisible]
     ]
   ]
-  [C,invisible on={<{1-4,8-9}>},filled on={<{7,14-16}>}
-    [F,invisible on={<{-13,16-}>},filled on={<15>}
+  [C,visible on filled on={5-7,10-16}{7,14-16}
+    [F,visible on filled on={14-15}{15}
       [L,invisible]
       [M,invisible]
     ]
-    [G,invisible on={<{-13,17-}>},filled on={<16>}
+    [G,visible on filled on={14-16}{16}
       [N,invisible]
       [O,invisible]
     ]

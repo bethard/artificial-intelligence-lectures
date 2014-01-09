@@ -357,18 +357,33 @@ for tree={circle,draw},
 
 \subsection{Depth-first Search}
 \begin{frame}[label=depth-first-example]{Depth-first Search}
-	\begin{center}
-		\only<1>{\includegraphics[height=2in]{depth-first-1.pdf}}%
-		\only<2>{\includegraphics[height=2in]{depth-first-2.pdf}}%
-		\only<3>{\includegraphics[height=2in]{depth-first-3.pdf}}%
-		\only<4>{\includegraphics[height=2in]{depth-first-4.pdf}}%
-		\only<5>{\includegraphics[height=2in]{depth-first-5.pdf}}%
-		\only<6>{\includegraphics[height=2in]{depth-first-6.pdf}}%
-		\only<7>{\includegraphics[height=2in]{depth-first-7.pdf}}%
-		\only<8>{\includegraphics[height=2in]{depth-first-8.pdf}}%
-		\only<9>{\includegraphics[height=2in]{depth-first-9.pdf}}%
-		\only<10>{\includegraphics[height=2in]{depth-first-10.pdf}}%
-	\end{center}
+\begin{center}
+\begin{forest}
+for tree={circle,draw}
+[A,expanded on={<2->}
+  [B,expanded on={<3->},invisible on=<10->
+    [D,expanded on={<4->},invisible on=<7->
+      [H,expanded on={<5->},invisible on=<6->]
+      [I,expanded on={<6->},invisible on=<7->]
+    ]
+    [E,expanded on=<7->,invisible on=<10->
+      [J,expanded on=<8->,invisible on=<9->]
+      [K,expanded on=<9->,invisible on=<10->]
+    ]
+  ]
+  [C,never expanded
+    [F,never expanded
+      [L]
+      [M]
+    ]
+    [G,never expanded
+      [N]
+      [O]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
 \end{frame}
 \begin{frame}{Depth-first Properties}
 	\footnotesize

@@ -54,18 +54,16 @@ University of Alabama at Birmingham}
 \forestset{
   edge weight/.style={
     edge label={node[midway,above,sloped]{#1}}},
-  filled on/.style={
-    /tikz/filled on={#1}},
-  visible on/.style={
-    for tree={
-      /tikz/visible on={#1},
-      edge={/tikz/visible on={#1}}}},
+  invisible/.style={
+    /tikz/invisible,
+    edge={/tikz/invisible}},
   invisible on/.style={
     for tree={
       /tikz/invisible on={#1},
       edge={/tikz/invisible on={#1}}}},
   expanded on/.style={
-    filled on={#1},
-    for children={visible on={#1}}},
-  never expanded/.style={
-    for descendants={invisible,edge={invisible}}}}
+    /tikz/filled on={#1},
+    for children={
+      /tikz/visible on={#1},
+      edge={/tikz/visible on={#1}}}},
+}

@@ -189,20 +189,20 @@
 \pgfkeys{/pgf/inner sep=0.25em}
 \begin{forest}
 for tree={grow'=east}
-[Birmingham,for children={visible on=<2->}
-  [Atlanta,for children={visible on=<3->}
-    [Birmingham]
-    [Chattanooga]
-    [Augusta]
+[Birmingham
+  [Atlanta,invisible on={<-2>}
+    [Birmingham,invisible on={<-3>}]
+    [Chattanooga,invisible on={<-3>}]
+    [Augusta,invisible on={<-3>}]
     [\ldots]
   ]
-  [Montgomery,for children={visible on=<4->}
+  [Montgomery,invisible on={<-2>}
     [Birmingham]
     [Atlanta]
     [Mobile]
     [\ldots]
   ]
-  [Tuscaloosa,for children={visible on=<5->}
+  [Tuscaloosa,invisible on={<-2>}
     [Birmingham]
     [Meridian]
     [Starkville]
@@ -274,13 +274,13 @@ for tree={circle,draw}
     ]
   ]
   [C,expanded on={<4->}
-    [F,never expanded
-      [L]
-      [M]
+    [F
+      [L,invisible]
+      [M,invisible]
     ]
-    [G,never expanded
-      [N]
-      [O]
+    [G
+      [N,invisible]
+      [O,invisible]
     ]
   ]
 ]
@@ -317,15 +317,15 @@ for tree={circle,draw},
       [H,edge weight={2}]
       [I,edge weight={3}]
     ]
-    [E,edge weight={1},never expanded
-      [J,edge weight={3}]
-      [K,edge weight={2}]
+    [E,edge weight={1}
+      [J,edge weight={3},invisible]
+      [K,edge weight={2},invisible]
     ]
   ]
   [C,edge weight={1},expanded on={<3->}
-    [F,edge weight={3},never expanded
-      [L,edge weight={1}]
-      [M,edge weight={1}]
+    [F,edge weight={3}
+      [L,edge weight={1},invisible]
+      [M,edge weight={1},invisible]
     ]
     [G,edge weight={2},expanded on={<5->}
       [N,edge weight={1}]
@@ -361,24 +361,24 @@ for tree={circle,draw},
 \begin{forest}
 for tree={circle,draw}
 [A,expanded on={<2->}
-  [B,expanded on={<3->},invisible on=<10->
-    [D,expanded on={<4->},invisible on=<7->
-      [H,expanded on={<5->},invisible on=<6->]
-      [I,expanded on={<6->},invisible on=<7->]
+  [B,expanded on={<3->},invisible on={<10->}
+    [D,expanded on={<4->},invisible on={<7->}
+      [H,expanded on={<5->},invisible on={<6->}]
+      [I,expanded on={<6->},invisible on={<7->}]
     ]
-    [E,expanded on=<7->,invisible on=<10->
-      [J,expanded on=<8->,invisible on=<9->]
-      [K,expanded on=<9->,invisible on=<10->]
+    [E,expanded on={<7->},invisible on={<10->}
+      [J,expanded on={<8->},invisible on={<9->}]
+      [K,expanded on={<9->},invisible on={<10->}]
     ]
   ]
-  [C,never expanded
-    [F,never expanded
-      [L]
-      [M]
+  [C
+    [F,invisible
+      [L,invisible]
+      [M,invisible]
     ]
-    [G,never expanded
-      [N]
-      [O]
+    [G,invisible
+      [N,invisible]
+      [O,invisible]
     ]
   ]
 ]
@@ -406,24 +406,33 @@ for tree={circle,draw}
 
 \subsection{Iterative Deepening Search}
 \begin{frame}[label=iterative-deepening-example]{Iterative Deepening Search}
-	\begin{center}
-		\only<1>{\includegraphics[height=2in]{iterative-deepening-0-1.pdf}}%
-		\only<2>{\includegraphics[height=2in]{iterative-deepening-0-2.pdf}}%
-		\only<3>{\includegraphics[height=2in]{iterative-deepening-1-1.pdf}}%
-		\only<4>{\includegraphics[height=2in]{iterative-deepening-1-2.pdf}}%
-		\only<5>{\includegraphics[height=2in]{iterative-deepening-1-3.pdf}}%
-		\only<6>{\includegraphics[height=2in]{iterative-deepening-1-4.pdf}}%
-		\only<7>{\includegraphics[height=2in]{iterative-deepening-1-5.pdf}}%
-		\only<8>{\includegraphics[height=2in]{iterative-deepening-2-1.pdf}}%
-		\only<9>{\includegraphics[height=2in]{iterative-deepening-2-2.pdf}}%
-		\only<10>{\includegraphics[height=2in]{iterative-deepening-2-3.pdf}}%
-		\only<11>{\includegraphics[height=2in]{iterative-deepening-2-4.pdf}}%
-		\only<12>{\includegraphics[height=2in]{iterative-deepening-2-5.pdf}}%
-		\only<13>{\includegraphics[height=2in]{iterative-deepening-2-6.pdf}}%
-		\only<14>{\includegraphics[height=2in]{iterative-deepening-2-7.pdf}}%
-		\only<15>{\includegraphics[height=2in]{iterative-deepening-2-8.pdf}}%
-		\only<16>{\includegraphics[height=2in]{iterative-deepening-2-9.pdf}}%
-	\end{center}
+\begin{center}
+\begin{forest}
+for tree={circle,draw}
+[A,invisible on={<{3,8,17}>},filled on={<{2,5-7,10-}>}
+  [B,invisible on={<{-4,7-9,14-}>},filled on={<{6,11-13}>}
+    [D,invisible on={<{-10,13}>},filled on={<{12}>}
+      [H,invisible]
+      [I,invisible]
+    ]
+    [E,invisible on={<{-10}>},filled on={<{13}>}
+      [J,invisible]
+      [K,invisible]
+    ]
+  ]
+  [C,invisible on={<{1-4,8-9}>},filled on={<{7,14-16}>}
+    [F,invisible on={<{-13,16-}>},filled on={<15>}
+      [L,invisible]
+      [M,invisible]
+    ]
+    [G,invisible on={<{-13,17-}>},filled on={<16>}
+      [N,invisible]
+      [O,invisible]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
 \end{frame}
 \begin{frame}{Iterative Deepening Properties}
 	\footnotesize

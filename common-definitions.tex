@@ -51,6 +51,8 @@ University of Alabama at Birmingham}
     filled on/.style={alt=#1{fill=gray}{}},
 }
 \forestset{
+  edge weight/.style={
+    edge label={node[midway,above,sloped]{#1}}},
   filled on/.style={
     /tikz/filled on={#1}},
   visible on/.style={

@@ -310,14 +310,33 @@ for tree={circle,draw}
 
 \subsection{Uniform-cost Search}
 \begin{frame}[label=uniform-cost-example]{Uniform-cost Search}
-	\begin{center}
-		\only<1>{\includegraphics[height=2in]{uniform-cost-1.pdf}}%
-		\only<2>{\includegraphics[height=2in]{uniform-cost-2.pdf}}%
-		\only<3>{\includegraphics[height=2in]{uniform-cost-3.pdf}}%
-		\only<4>{\includegraphics[height=2in]{uniform-cost-4.pdf}}%
-		\only<5>{\includegraphics[height=2in]{uniform-cost-5.pdf}}%
-		\only<6>{\includegraphics[height=2in]{uniform-cost-6.pdf}}%
-	\end{center}
+\begin{center}
+\begin{forest}
+for tree={circle,draw},
+[A,expanded on={<2->}
+  [B,edge weight={2},expanded on={<4->}
+    [D,edge weight={1},expanded on={<6->}
+      [H,edge weight={2}]
+      [I,edge weight={3}]
+    ]
+    [E,edge weight={1},never expanded
+      [J,edge weight={3}]
+      [K,edge weight={2}]
+    ]
+  ]
+  [C,edge weight={1},expanded on={<3->}
+    [F,edge weight={3},never expanded
+      [L,edge weight={1}]
+      [M,edge weight={1}]
+    ]
+    [G,edge weight={2},expanded on={<5->}
+      [N,edge weight={1}]
+      [O,edge weight={3}]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
 \end{frame}
 \begin{frame}{Uniform-cost Search}
 	\footnotesize

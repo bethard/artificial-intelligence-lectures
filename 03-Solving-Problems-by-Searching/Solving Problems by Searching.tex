@@ -4,6 +4,14 @@
 \input{../common-definitions}
 \lstset{emph={[2]__init__,__str__,take_action,ProblemSolvingAgent,tree_search,graph_search}}
 \newcommand{\key}[1]{\mbox{\texttt{\bfseries\color{red}#1}}}
+\newcommand{\greedynode}[2]{#1\\$h(n) = #2$}
+\newcommand{\astarnode}[3]{%
+#1\\$
+\begin{array}{@{} r @{} c @{} l @{}}
+h(n) & \null = \null & #2\\
+& \null = \null & #3
+\end{array}
+$}
 
 \title{Solving Problems by Searching}
 \date[]{9 Jan 2014}
@@ -22,7 +30,7 @@
 
 \section{Search Problems}
 
-\subsection{Properties of Search Problems}
+\subsection{Describing Search Problems}
 \begin{frame}[plain]
 	\begin{center}
 		\includegraphics[width=\textwidth]{uab-to-mr-chens.pdf}
@@ -103,7 +111,6 @@
 	\end{columns}
 \end{frame}
 
-\subsection{Search Problem Examples}
 \begin{frame}{Defining the 8-Puzzle Problem}
 	\begin{center}
 		\includegraphics[height=1.5in]{8puzzle.pdf}
@@ -159,9 +166,7 @@
 	\end{description}
 \end{frame}
 
-\section{Search Algorithms}
-
-\subsection{Search Trees}
+\subsection{Search Trees and Search Nodes}
 
 \begin{frame}[fragile]{Tree Search}
 	\footnotesize
@@ -213,8 +218,6 @@ for tree={grow'=east,l sep=4em}
 \end{center}
 \end{frame}
 
-\subsection{Search Nodes}
-
 \begin{frame}{The Node Data Structure}
 	\begin{center}
 		\includegraphics[width=4in]{state-vs-node.pdf}
@@ -241,7 +244,7 @@ for tree={grow'=east,l sep=4em}
 	\end{lstlisting}
 \end{frame}
 
-\section{Search Strategies}
+\section{Uninformed Search Strategies}
 \begin{frame}[<+->]{Search Strategy Properties}
 	\begin{block}{Completeness}
 		If a solution exists, is it always found?
@@ -481,6 +484,263 @@ for tree={circle,draw}
 	\end{lstlisting}
 \end{frame}
 
+\section{Informed Search}
+\begin{frame}{All States are not Equal}
+	\includegraphics[width=4in]{romania-distances.pdf}
+\end{frame}
+
+\subsection{Best-First Search}
+
+\begin{frame}[label=greedy-example]{Best-First (Greedy) Search}
+\begin{center}
+\footnotesize
+\begin{forest}
+for tree={draw,rounded corners,align=center}
+[{\greedynode{Arad}{366}},visible on filled on={1-}{2-}
+  [{\greedynode{Sibiu}{253}},visible on filled on={2-}{3-}
+    [{\greedynode{Arad}{366}},visible on={3-}]
+    [{\greedynode{Fagaras}{176}},visible on filled on={3-}{4-}
+      [{\greedynode{Sibiu}{253}},visible on={4-}]
+      [{\greedynode{Bucharest}{0}},visible on filled on={4-}{5-}]
+    ]
+    [{\greedynode{Oradea}{380}},visible on={3-}]
+    [{\greedynode{Rimnicu Vilcea}{193}},visible on={3-}]
+  ]
+  [{\greedynode{Timisoara}{329}},visible on={2-}]
+  [{\greedynode{Zerind}{374}},visible on={2-}]
+]
+\end{forest}
+\end{center}
+\end{frame}
+\begin{frame}[label=greedy-properties]{Best-First (Greedy) Properties}
+	\footnotesize
+	\begin{block}{Strategy?}
+		 \uncover<2->{Priority Queue, $f(n) = h(n)$}
+	\end{block}
+	\begin{block}{Complete?}
+		\uncover<3->{Yes, if finite number of states and no cyclic paths}
+	\end{block}
+	\begin{block}{Optimal?}
+		\uncover<4->{No}
+	\end{block}
+	\begin{block}{Worst Case Time Complexity?}
+		\uncover<5->{$O(b^m)$, but better with good heuristic}
+	\end{block}
+	\begin{block}{Worst Case Space Complexity?}
+		\uncover<6->{$O(b^m)$}
+	\end{block}
+\end{frame}
+
+\subsection{A* Search}
+\begin{frame}[label=a-star-example]{A* Search}
+\begin{center}
+\tiny
+\begin{forest}
+for tree={draw,rounded corners,align=center,l sep=3em}
+[{\astarnode{Arad}{0 + 366}{366}},visible on filled on={1-}{2-}
+  [{\astarnode{Sibiu}{140+253}{393}},edge weight=140,visible on filled on={2-}{3-}
+    [{\astarnode{Arad}{280+366}{646}},edge weight=140,visible on={3-}]
+    [{\astarnode{Fagaras}{239+176}{415}},edge weight=99,visible on filled on={3-}{4-}
+      [{\astarnode{Sibiu}{338+253}{591}},edge weight=99,visible on={4-}]
+      [{\astarnode{Bucharest}{450+0}{450}},edge weight=211,visible on={4-}]
+    ]
+    [{\astarnode{Oradea}{291+380}{671}},edge weight=151,visible on={3-}]
+    [{\astarnode{Rimnicu Vilcea}{220+193}{413}},edge weight=80,visible on filled on={3-}{5-}
+      [{\astarnode{Craiova}{366+160}{526}},edge weight=146,visible on={5-}]
+      [{\astarnode{Pitesti}{317+100}{417}},edge weight=91,visible on filled on={5-}{6-}
+        [{\astarnode{Bucharest}{418+0}{418}},edge weight=101,visible on filled on={6-}{7-}]
+        [{\astarnode{Craiova}{455+160}{615}},edge weight=138,visible on={6-}]
+        [{\astarnode{Rimnicu Vilcea}{414+193}{607}},edge weight=97,visible on={6-}]
+      ]
+      [{\astarnode{Sibiu}{300+253}{553}},edge weight=80,visible on={5-}]
+    ]
+  ]
+  [{\astarnode{Timisoara}{118+329}{447}},edge weight=118,visible on={2-}]
+  [{\astarnode{Zerind}{75+374}{449}},edge weight=75,visible on={2-}]
+]
+\end{forest}
+\end{center}
+\end{frame}
+\begin{frame}[label=a-star-properties]{A* Properties}
+	\footnotesize
+	\begin{block}{Strategy?}
+		 \uncover<2->{Priority Queue, $f(n) = g(n) + h(n)$}
+	\end{block}
+	\begin{block}{Complete?}
+		\uncover<3->{Yes, if there are finite nodes with $f(n) < C^{*}$}
+	\end{block}
+	\begin{block}{Optimal?}
+		\uncover<4->{Yes, if $h$ is consistent}
+	\end{block}
+	\begin{block}{Worst Case Time Complexity?}
+		\uncover<5->{All nodes with $f(n) < C^{*}$, exponential in \texttt{len(path)}}
+	\end{block}
+	\begin{block}{Worst Case Space Complexity?}
+		\uncover<6->{All nodes with $f(n) < C^{*}$}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Proof that A* is Optimal}
+	\begin{columns}[T]
+		\begin{column}{1.75in}
+			Suppose some suboptimal goal $G_2$ has been generated and is in the queue. Let $n$ be an unexpanded node on a shortest path to an optimal goal $G_1$.
+		\end{column}
+		\begin{column}{2.25in}
+			\includegraphics[width=2.25in]{a-star-proof.pdf}
+		\end{column}
+	\end{columns}
+	\bigskip
+	\[
+	\begin{array}{llll}
+	\uncover<2->{f(G_2)} & \uncover<2->{=  }  & \uncover<2->{g(G_2)} & \uncover<2->{\mbox{since $h(G_2) = 0$}} \\
+	\uncover<3->{      } & \uncover<3->{>  }  & \uncover<3->{g(G_1)} & \uncover<3->{\mbox{since $G_2$ is suboptimal}} \\
+	\uncover<4->{      } & \uncover<4->{\geq} & \uncover<4->{f(n)  } & \uncover<4->{\mbox{since $h$ is consistent}}
+	\end{array}
+	\]
+	\bigskip
+	\uncover<5->{Since $f(G_2) > f(n)$, A* will never select $G_2$ for expansion.}
+\end{frame}
+\begin{frame}{A* Contours}
+	\includegraphics[width=4in]{a-star-contours.pdf}
+\end{frame}
+
+\subsection{Heuristic Functions}
+
+\begin{frame}{8-Puzzle Heuristics}
+	\begin{center}
+		\includegraphics[height=1.25in]{8puzzle.pdf}
+	\end{center}
+	\begin{tabular}{ll}
+		\medskip
+		\uncover<2->{\color{blue}Misplaced Tiles}    & \uncover<3->{\footnotesize $h(n) = 6$} \\
+		\medskip
+		\uncover<4->{\color{blue}Manhattan Distance} & \uncover<5->{\footnotesize $h(n) = 4 + 0 + 3 + 3 + 1 + 0 + 2 + 1$} \\
+	\end{tabular}
+\end{frame}
+\begin{frame}{Heuristic Quality}
+	\begin{block}{All heuristics were not created equal}
+		\begin{tabular}{rrr}
+			                      & \color{blue}Misplaced Tiles & \color{blue}Manhattan Distance \\
+			\color{blue} 4 moves  &                    13 nodes &                       12 nodes \\
+			\color{blue} 8 moves  &                    39 nodes &                       25 nodes \\
+			\color{blue}12 moves  &                   227 nodes &                       73 nodes \\
+			\color{blue}16 moves  &                  1301 nodes &                      211 nodes \\
+			\color{blue}20 moves  &                  7276 nodes &                      676 nodes \\
+		\end{tabular}
+	\end{block}
+\end{frame}
+\begin{frame}{Heuristic Dominance}
+	\begin{block}{Dominance}
+		$h_1$ \textbf{dominates} $h_2$ if for all $n$, $h_1(n) \geq h_2(n)$
+		\\ \bigskip
+		Which one dominates?
+		\begin{itemize}
+			\item Misplaced Tiles
+			\item<1-|alert@2-> Manhattan Distance
+		\end{itemize}
+	\end{block}
+	\begin{block}<3->{Dominance = Efficiency}
+		A* with $h_1$ will never expand more nodes than A* with $h_2$
+		\\ \bigskip
+		\alert{Why?} \uncover<4->{Every node with $h(n) < C^{*} - g(n)$ is expanded}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Relaxed Problems}
+	\begin{block}{The 8-Puzzle}
+		\begin{tabular}{ll}
+			\bf Problem                                  & \bf Heuristic\\
+			\hline
+			\uncover<2->{Tiles move anywhere}            & \uncover<3->{Misplaced Tiles} \\
+			\uncover<4->{Tiles move to adjacent squares} & \uncover<5->{Manhattan Distance} \\
+		\end{tabular}
+	\end{block}
+	
+	\begin{block}<6->{Generating heuristics}
+		Exact solution to relaxed problem $\Rightarrow$ consistent heuristic
+		\\ \bigskip
+		\alert{Why?}
+		\uncover<7->{
+		\begin{itemize}
+			\item Solution in original problem is also solution in relaxed
+			\item Heuristic is exact cost in relaxed $\Rightarrow$ triangle inequality
+		\end{itemize}
+		}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Traveling Salesman Problem}
+	\begin{columns}
+		\begin{column}{2in}
+			\begin{block}{Problem}
+				Visit all cities exactly once, minimum distance
+			\end{block}
+			\begin{center}
+				\includegraphics[width=2in]{tsp.pdf}
+			\end{center}
+		\end{column}
+		\pause
+		\begin{column}{2in}
+			\begin{block}{Heuristic}
+				Minimum spanning tree \\
+				Solvable in $O(n^2)$
+			\end{block}
+			\begin{center}
+				\visible<2>{\includegraphics[width=2in]{mst.pdf}}%
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{Bag Generation}
+	\begin{block}{Determine the original order of a bag of words}
+		\begin{description}
+			\item[Initial] Full bag, empty sentence
+			\item[Actions] Pop from bag, add to sentence
+			\item[Goal] Empty bag, full sentence
+			\item[Score] \small $P(w_1|\mbox{Start})P(w_2|w_1)P(w_3|w_2)\ldots P(x_n|x_{n-1})$
+		\end{description}
+	\end{block}
+	\begin{center}
+		\includegraphics[width=4in]{bag-generation-search.pdf}
+	\end{center}
+\end{frame}
+\begin{frame}{A Bag Generation Heuristic}
+	\begin{columns}
+		\begin{column}{2in}
+			\begin{block}{Node}
+				\texttt{$\{$lamp, the$\}$} \\
+				\texttt{[John, broke]}
+			\end{block}
+			\begin{block}{Word Probability Estimates}
+				\begin{tabular}{ll}
+				the  & \uncover<2->{0.005} \\
+				lamp & \uncover<3->{0.004} \\
+				\end{tabular}
+			\end{block}
+			\begin{block}{h(n)}
+				\uncover<4->{$0.005 * 0.004 = 0.00002$}
+			\end{block}
+		\end{column}
+		\begin{column}{2in}
+			\begin{tabular}{|ll|l|}
+			\hline
+			John  & the  & 0.0009 \\
+			broke & the  & 0.005 \\
+			the   & the  & 0.0 \\
+			lamp  & the  & 0.0009 \\
+			\hline
+			\hline
+			John  & lamp & 0.0 \\
+			broke & lamp & 0.0 \\
+			the   & lamp & 0.004 \\
+			lamp  & lamp & 0.0 \\
+			\hline
+			\end{tabular}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
 \part{Key Points}
 \begin{frame}{Key Points}
 	\begin{block}{Search Problems}
@@ -496,7 +756,14 @@ for tree={circle,draw}
 			\item Breadth-first
 			\item Uniform-cost
 			\item Depth-first
-			\item \alert<2->{Iterative Deepening}
+			\item Iterative Deepening
+			\item A* Search
+		\end{itemize}
+	\end{block}
+	\begin{block}{Heuristics}
+		\begin{itemize}
+			\item Dominance
+			\item Relaxed Problems
 		\end{itemize}
 	\end{block}
 \end{frame}

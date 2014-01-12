@@ -12,6 +12,11 @@ h(n) & \null = \null & #2\\
 & \null = \null & #3
 \end{array}
 $}
+\newcommand{\mtnode}[2]{%
+\begin{tabular}{@{} c @{}}
+\{#1\}\\
+{[}#2{]}
+\end{tabular}}
 
 \title{Solving Problems by Searching}
 \date[]{9 Jan 2014}
@@ -691,48 +696,71 @@ for tree={draw,rounded corners,align=center,l sep=3em}
 		\end{column}
 	\end{columns}
 \end{frame}
-\begin{frame}{Bag Generation}
-	\begin{block}{Determine the original order of a bag of words}
-		\begin{description}
-			\item[Initial] Full bag, empty sentence
-			\item[Actions] Pop from bag, add to sentence
-			\item[Goal] Empty bag, full sentence
-			\item[Score] \small $P(w_1|\mbox{Start})P(w_2|w_1)P(w_3|w_2)\ldots P(x_n|x_{n-1})$
-		\end{description}
-	\end{block}
-	\begin{center}
-		\includegraphics[width=4in]{bag-generation-search.pdf}
-	\end{center}
+\begin{frame}[label=bag-generation]{Bag Generation}
+\begin{block}{Determine the original order of a bag of words}
+\begin{description}
+\item[Initial] Full bag, empty sentence
+\item[Actions] Pop from bag, add to sentence
+\item[Goal] Empty bag, full sentence
+\item[Score] \small $P(w_1|\mbox{Start})P(w_2|w_1)P(w_3|w_2)\ldots P(x_n|x_{n-1})$
+\end{description}
+\end{block}
+\begin{center}
+\tiny
+\begin{forest}
+for tree={draw,rounded corners,grow'=east,edge=-latex,l sep=2em}
+[{\mtnode{lamp,John,the,broke}{}}
+  [{\mtnode{lamp,John,broke}{the}}
+    [{\mtnode{lamp,broke}{the,John}}]
+    [{\mtnode{John,broke}{the,lamp}}
+      [{\mtnode{John}{the,lamp,broke}}]
+      [{\mtnode{broke}{the,lamp,John}}
+        [{\mtnode{}{the,lamp,John,broke}}]
+      ]
+    ]
+  ]
+  [{\mtnode{lamp,the,broke}{John}}
+    [{\mtnode{lamp,the}{John,broke}}
+      [{\mtnode{the}{John,broke,lamp}}]
+      [{\mtnode{lamp}{John,broke,the}}
+        [{\mtnode{}{John,broke,the,lamp}}]
+      ]
+    ]
+    [{\mtnode{lamp,broke}{John,the}}]
+  ]
+]
+\end{forest}
+\end{center}
 \end{frame}
-\begin{frame}{A Bag Generation Heuristic}
+\begin{frame}[label=bag-generation-heuristic]{A Bag Generation Heuristic}
 	\begin{columns}
 		\begin{column}{2in}
 			\begin{block}{Node}
 				\texttt{$\{$lamp, the$\}$} \\
 				\texttt{[John, broke]}
 			\end{block}
-			\begin{block}{Word Probability Estimates}
-				\begin{tabular}{ll}
-				the  & \uncover<2->{0.005} \\
-				lamp & \uncover<3->{0.004} \\
+			\begin{block}{Bag-Word Estimates}
+				\begin{tabular}{@{} l l @{}}
+				lamp & \uncover<2->{0.001} \\
+				the  & \uncover<3->{0.002} \\
 				\end{tabular}
 			\end{block}
 			\begin{block}{h(n)}
-				\uncover<4->{$0.005 * 0.004 = 0.00002$}
+				\uncover<4->{$0.001 * 0.002 = 0.000002$}
 			\end{block}
 		\end{column}
 		\begin{column}{2in}
 			\begin{tabular}{|ll|l|}
 			\hline
-			John  & the  & 0.0009 \\
-			broke & the  & 0.005 \\
+			John  & the  & 0.001 \\
+			broke & the  & 0.03 \\
 			the   & the  & 0.0 \\
-			lamp  & the  & 0.0009 \\
+			lamp  & the  & 0.002 \\
 			\hline
 			\hline
-			John  & lamp & 0.0 \\
-			broke & lamp & 0.0 \\
-			the   & lamp & 0.004 \\
+			John  & lamp & 0.0005 \\
+			broke & lamp & 0.001 \\
+			the   & lamp & 0.03 \\
 			lamp  & lamp & 0.0 \\
 			\hline
 			\end{tabular}
@@ -742,13 +770,10 @@ for tree={draw,rounded corners,align=center,l sep=3em}
 
 
 \part{Key Points}
-\begin{frame}{Key Points}
+\begin{frame}[label=key-points]{Key Points}
 	\begin{block}{Search Problems}
 		\begin{itemize}
-			\item Initial State
-			\item Actions
-			\item Goal Test
-			\item Path Cost
+			\item Initial State, Actions, Goal Test, Path Cost
 		\end{itemize}
 	\end{block}
 	\begin{block}{Search Strategies}
@@ -762,8 +787,7 @@ for tree={draw,rounded corners,align=center,l sep=3em}
 	\end{block}
 	\begin{block}{Heuristics}
 		\begin{itemize}
-			\item Dominance
-			\item Relaxed Problems
+			\item Dominance, Relaxed Problems
 		\end{itemize}
 	\end{block}
 \end{frame}

@@ -123,16 +123,15 @@
 		        
 		        # stop when the temperature reaches zero
 		        temperature = get_temperature(time)
-		        if not temperature:
+		        if temperature == 0:
 		            return current
 		        
 		        # select a random neighbor
-		        get_successors = problem.get_successors
-		        successors = get_successors(current.state)
+		        successors = problem.get_successors(current.state)
 		        state, score = random.choice(successors)
 		        
-		        # always move to the neighbor always if it's
-		        # better, and sometimes if it's worse
+		        # always move to the neighbor if it's better,
+		        # and sometimes if it's worse
 		        change = score - current.score
 		        prob = math.exp(change / temperature)
 		        if change > 0 or random.random() < prob:

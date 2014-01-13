@@ -85,7 +85,7 @@
 		        best_score, best_state = max(state_scores)
 		
 		        # if no neighbors are better, return the current
-		        if best_score < current.score:
+		        if best_score <= current.score:
 		            return current.state
 		
 		        # otherwise, move current to the best state

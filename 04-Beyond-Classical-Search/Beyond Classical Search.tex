@@ -164,14 +164,13 @@
 	\scriptsize
 	\begin{lstlisting}
 		def local_beam_search(problem, k):
-		    current = [problem.generate_state() for _ in range(k)]
+		    current = [Node(problem.initial_state)]
 		    while True:
 		        
 		        # get all neighbors of the current states
 		        state_scores = []
 		        for node in current:
-		            get_successors = problem.get_successors
-		            for state, score in get_successors(node.state):
+		            for state, score in problem.get_successors(node.state):
 		                
 		                # return the first goal state generated
 		                if problem.is_goal(state):

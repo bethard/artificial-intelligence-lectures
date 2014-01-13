@@ -80,8 +80,7 @@
 		
 		        # select the neighboring state with the best score
 		        state_scores = []
-		        get_successors = problem.get_successors
-		        for state, score in get_successors(current.state):
+		        for state, score in problem.get_successors(current.state):
 		            state_scores.append((score, state))
 		        best_score, best_state = max(state_scores)
 		

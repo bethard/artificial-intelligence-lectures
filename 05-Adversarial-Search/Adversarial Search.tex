@@ -7,6 +7,16 @@
 \title{Adversarial Search}
 \date[]{16 Jan 2014}
 
+\newcommand{\tictactoe}[9]{
+\begin{tabular}{@{} c @{\hspace{0.2em}} | @{\hspace{0.2em}} c @{\hspace{0.2em}} | @{\hspace{0.2em}} c @{\hspace{0.2em}}}
+#1 & #2 & #3 \\
+\hline
+#4 & #5 & #6 \\
+\hline
+#7 & #8 & #9 \\
+\end{tabular}
+}
+
 \begin{document}
 
 \begin{frame}
@@ -115,7 +125,7 @@ for tree={draw,minimum size=1.5em,l sep=3em,s sep=1.5em}
 \begin{frame}{Minimax Exercise}
 	\begin{columns}
 		\begin{column}{2in}
-			\begin{block}{Build the Minimax Tree}
+			\begin{block}{Build Minimax Tree}
 				\begin{itemize}
 					\item It is X's turn
 					\item Scoring: \\
@@ -128,16 +138,41 @@ for tree={draw,minimum size=1.5em,l sep=3em,s sep=1.5em}
 			\end{block}
 		\end{column}
 		\begin{column}{2in}
-			\centering\Huge
-			\begin{tabular}{c|c|c}
-				O & X & X \\
-				\hline
-				X &   &   \\
-				\hline
-				O & O &   \\
-			\end{tabular}
+			\centering
+			\Huge
+			\tictactoe{O}{X}{X}{X}{ }{ }{O}{O}{ }
 		\end{column}
 	\end{columns}
+\end{frame}
+\begin{frame}{Minimax Exercise}
+\begin{center}
+\scriptsize
+\begin{forest}
+for tree={align=center,s sep=2em}
+[{\tictactoe{O}{X}{X}{X}{ }{ }{O}{O}{ } \\ $f(n) = 0$}
+  [{\tictactoe{O}{X}{X}{X}{X}{ }{O}{O}{ } \\ $f(n) = -1$}
+    [{\tictactoe{O}{X}{X}{X}{X}{O}{O}{O}{ } \\ $f(n) = 0$}
+      [{\tictactoe{O}{X}{X}{X}{X}{O}{O}{O}{X} \\ $f(n) = 0$}]
+    ]
+    [{\tictactoe{O}{X}{X}{X}{X}{ }{O}{O}{O} \\ $f(n) = -1$}]
+  ]
+  [{\tictactoe{O}{X}{X}{X}{ }{X}{O}{O}{ } \\ $f(n) = -1$}
+    [{\tictactoe{O}{X}{X}{X}{O}{X}{O}{O}{ } \\ $f(n) = +1$}
+      [{\tictactoe{O}{X}{X}{X}{O}{X}{O}{O}{X} \\ $f(n) = +1$}]
+    ]
+    [{\tictactoe{O}{X}{X}{X}{ }{X}{O}{O}{O} \\ $f(n) = -1$}]
+  ]
+  [{\tictactoe{O}{X}{X}{X}{ }{ }{O}{O}{X} \\ $f(n) = 0$}
+    [{\tictactoe{O}{X}{X}{X}{O}{ }{O}{O}{X} \\ $f(n) = +1$}
+      [{\tictactoe{O}{X}{X}{X}{O}{X}{O}{O}{X} \\ $f(n) = +1$}]
+    ]
+    [{\tictactoe{O}{X}{X}{X}{ }{O}{O}{O}{X} \\ $f(n) = 0$}
+      [{\tictactoe{O}{X}{X}{X}{X}{O}{O}{O}{X} \\ $f(n) = 0$}]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
 \end{frame}
 \begin{frame}{Minimax Properties}
 	\begin{center}

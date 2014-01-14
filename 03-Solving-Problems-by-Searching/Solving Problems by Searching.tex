@@ -9,7 +9,7 @@
 \newcommand{\astarnode}[3]{%
 #1\\$
 \begin{array}{@{} r @{} c @{} l @{}}
-h(n) & \null = \null & #2\\
+f(n) & \null = \null & #2\\
 & \null = \null & #3
 \end{array}
 $}
@@ -546,19 +546,19 @@ for tree={draw,rounded corners,align=center,l sep=3em}
 [{\astarnode{Arad}{0 + 366}{366}},visible on filled on={1-}{2-}
   [{\astarnode{Sibiu}{140+253}{393}},edge weight=140,visible on filled on={2-}{3-}
     [{\astarnode{Arad}{280+366}{646}},edge weight=140,visible on={3-}]
-    [{\astarnode{Fagaras}{239+176}{415}},edge weight=99,visible on filled on={3-}{4-}
-      [{\astarnode{Sibiu}{338+253}{591}},edge weight=99,visible on={4-}]
-      [{\astarnode{Bucharest}{450+0}{450}},edge weight=211,visible on={4-}]
+    [{\astarnode{Fagaras}{239+176}{415}},edge weight=99,visible on filled on={3-}{5-}
+      [{\astarnode{Sibiu}{338+253}{591}},edge weight=99,visible on={5-}]
+      [{\astarnode{Bucharest}{450+0}{450}},edge weight=211,visible on={5-}]
     ]
     [{\astarnode{Oradea}{291+380}{671}},edge weight=151,visible on={3-}]
-    [{\astarnode{Rimnicu Vilcea}{220+193}{413}},edge weight=80,visible on filled on={3-}{5-}
-      [{\astarnode{Craiova}{366+160}{526}},edge weight=146,visible on={5-}]
-      [{\astarnode{Pitesti}{317+100}{417}},edge weight=91,visible on filled on={5-}{6-}
+    [{\astarnode{Rimnicu Vilcea}{220+193}{413}},edge weight=80,visible on filled on={3-}{4-}
+      [{\astarnode{Craiova}{366+160}{526}},edge weight=146,visible on={4-}]
+      [{\astarnode{Pitesti}{317+100}{417}},edge weight=91,visible on filled on={4-}{6-}
         [{\astarnode{Bucharest}{418+0}{418}},edge weight=101,visible on filled on={6-}{7-}]
         [{\astarnode{Craiova}{455+160}{615}},edge weight=138,visible on={6-}]
         [{\astarnode{Rimnicu Vilcea}{414+193}{607}},edge weight=97,visible on={6-}]
       ]
-      [{\astarnode{Sibiu}{300+253}{553}},edge weight=80,visible on={5-}]
+      [{\astarnode{Sibiu}{300+253}{553}},edge weight=80,visible on={4-}]
     ]
   ]
   [{\astarnode{Timisoara}{118+329}{447}},edge weight=118,visible on={2-}]

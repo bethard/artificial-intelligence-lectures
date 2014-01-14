@@ -16,6 +16,7 @@
 #7 & #8 & #9 \\
 \end{tabular}
 }
+\newcommand{\abcutil}[3]{(#1,#2,#3)}
 
 \begin{document}
 
@@ -220,14 +221,59 @@ Space? & \uncover<6->{$O(bm)$, like depth first search} \\
 \end{tabular}
 \end{frame}
 \begin{frame}{Multiplayer Minimax}
-	\begin{block}{Idea}
-		Store a tuple of utilities for each node
-	\end{block}
-	\pause
-	\begin{block}{Multiplayer Game Tree}
-		\centering
-		\includegraphics[width=4in]{minimax-multi.pdf}
-	\end{block}
+\begin{center}
+\scriptsize
+\begin{forest}
+for tree={align=center,minimum size=1.5em,l sep=3em,s sep=1.25em}
+[{},phantom
+  [{Player 0},edge=invisible
+    [{Player 1},edge=invisible
+      [{Player 2},edge=invisible
+        [{Player 0},edge=invisible]
+      ]
+    ]
+  ]
+  [{\abcutil{1}{2}{6}},for tree={draw},text visible on={8-}
+    [{\abcutil{1}{2}{6}},text visible on={4-}
+      [{\abcutil{1}{2}{6}},text visible on={2-}
+        [{\abcutil{1}{2}{6}}
+          [{\ldots},draw=none]
+        ]
+        [{\abcutil{4}{2}{3}}
+          [{\ldots},draw=none]
+        ]
+      ]
+      [{\abcutil{6}{1}{2}},text visible on={3-}
+        [{\abcutil{6}{1}{2}}
+          [{\ldots},draw=none]
+        ]
+        [{\abcutil{7}{4}{1}}
+          [{\ldots},draw=none]
+        ]
+      ]
+    ]
+    [{\abcutil{1}{5}{2}},text visible on={7-}
+      [{\abcutil{1}{5}{2}},text visible on={5-}
+        [{\abcutil{5}{1}{1}}
+          [{\ldots},draw=none]
+        ]
+        [{\abcutil{1}{5}{2}}
+          [{\ldots},draw=none]
+        ]
+      ]
+      [{\abcutil{5}{4}{5}},text visible on={6-}
+        [{\abcutil{7}{7}{1}}
+          [{\ldots},draw=none]
+        ]
+        [{\abcutil{5}{4}{5}}
+          [{\ldots},draw=none]
+        ]
+      ]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
 \end{frame}
 
 \subsection{Alpha-Beta Pruning}

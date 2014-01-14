@@ -3,7 +3,8 @@
 \documentclass[14pt]{beamer}
 \input{../common-definitions}
 \lstset{emph={[2]__init__,__str__,take_action,ProblemSolvingAgent,tree_search,graph_search}}
-\newcommand{\key}[1]{\mbox{\texttt{\bfseries\color{red}#1}}}
+\newcommand{\searchstate}[1]{\mbox{\texttt{\bfseries\color{red}#1}}}
+\newcommand{\searchaction}[1]{\mbox{\textsc{\bfseries\color{red}#1}}}
 \newcommand{\greedynode}[2]{#1\\$h(n) = #2$}
 \newcommand{\astarnode}[3]{%
 #1\\$
@@ -58,18 +59,18 @@ $}
 		\column{.50\textwidth}
 			\begin{block}{Problem}
 				\begin{itemize}
-					\item Start in \key{1}
+					\item Start in \searchstate{1}
 					\item Left square actions:\\
-					      \key{Suck} or \key{Right}
+					      \searchaction{Suck} or \searchaction{Right}
 					\item Right square actions:\\
-					      \key{Suck} or \key{Left}
-					\item Success: \key{7} or \key{8}
+					      \searchaction{Suck} or \searchaction{Left}
+					\item Success: \searchstate{7} or \searchstate{8}
 					\item Optimal: fewest actions
 				\end{itemize}
 			\end{block}
 			\begin{block}{Solution}<2->
-				\uncover<3->{[\key{Suck}, \key{Right}, \key{Suck}]} \\
-				\uncover<4->{i.e., [\key{1}, \key{5}, \key{6}, \key{8}]}
+				\uncover<3->{[\searchaction{Suck}, \searchaction{Right}, \searchaction{Suck}]} \\
+				\uncover<4->{i.e., [\searchstate{1}, \searchstate{5}, \searchstate{6}, \searchstate{8}]}
 			\end{block}
 		\column{.50\textwidth}
 			\includegraphics[width=2.1in]{vacuum-space.pdf}
@@ -97,16 +98,16 @@ $}
 	\begin{columns}
 		\column{.45\textwidth}
 			\begin{block}{Initial State}
-				\key{1}
+				\searchstate{1}
 			\end{block}
 			\begin{block}{Actions}
 				\small
-	      $S(\key{1}) = \{(\key{Right}, \key{2}), (\key{Suck}, \key{5})\}$ \\
-	      $S(\key{2}) = \{(\key{Left}, \key{1}), (\key{Suck}, \key{4})\}$ \\
+	      $S(\searchstate{1}) = \{(\searchaction{Right}, \searchstate{2}), (\searchaction{Suck}, \searchstate{5})\}$ \\
+	      $S(\searchstate{2}) = \{(\searchaction{Left}, \searchstate{1}), (\searchaction{Suck}, \searchstate{4})\}$ \\
 	      \ldots
 			\end{block}
 			\begin{block}{Goal Test}
-				$G(s) = s \in \{\key{7}, \key{8}\}$
+				$G(s) = s \in \{\searchstate{7}, \searchstate{8}\}$
 			\end{block}
 			\begin{block}{Path Cost}
 				1 per state

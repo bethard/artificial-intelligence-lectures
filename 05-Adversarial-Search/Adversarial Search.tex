@@ -175,16 +175,49 @@ for tree={align=center,s sep=2em}
 \end{forest}
 \end{center}
 \end{frame}
-\begin{frame}{Minimax Properties}
-	\begin{center}
-		\includegraphics[width=3.5in]{minimax.pdf}
-	\end{center}
-	\begin{tabular}{ll}
-		Complete? \pause & Yes, if tree is finite \pause \\
-		Optimal?  \pause & Yes, for optimal opponent \pause \alert{and suboptimal!} \pause \\
-		Time?     \pause & $O(b^m)$, all nodes in the tree \pause \\
-		Space?    \pause & $O(bm)$, like depth first search \\
-	\end{tabular}
+\begin{frame}[fragile]{Minimax Properties}
+\begin{center}
+\small
+\begin{forest}
+left action/.style={
+  edge label={node[midway,left]{\small #1}}},
+middle action/.style={
+  edge label={node[midway,left=-0.25em]{\small #1}}},
+right action/.style={
+  edge label={node[midway,right]{\small #1}}},
+for tree={minimum size=1.5em,l sep=3em,s sep=1.25em}
+[{},phantom
+  [{Max Player},edge=invisible
+    [{Min Player},edge=invisible
+      [{Max Player},invisible]
+    ]
+  ]
+  [{3},text visible on={5-},edge=invisible,for tree={draw}
+    [{3},left action={$a_1$},text visible on={2-}
+      [{3},left action={$b_1$}]
+      [{12},middle action={$b_2$}]
+      [{8},right action={$b_3$}]
+    ]
+    [{2},middle action={$a_2$},text visible on={3-}
+      [{2},left action={$c_1$}]
+      [{4},middle action={$c_2$}]
+      [{6},right action={$c_3$}]
+    ]
+    [{2},right action={$a_3$},text visible on={4-}
+      [{14},left action={$d_1$}]
+      [{5},middle action={$d_2$}]
+      [{2},right action={$d_3$}]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
+\begin{tabular}{ll}
+Complete? & \uncover<2->{Yes, if tree is finite} \\
+Optimal?   & \uncover<3->{Yes, for optimal opponent} \uncover<4->{\alert<4->{and suboptimal!}} \\
+Time? & \uncover<5->{$O(b^m)$, all nodes in the tree} \\
+Space? & \uncover<6->{$O(bm)$, like depth first search} \\
+\end{tabular}
 \end{frame}
 \begin{frame}{Multiplayer Minimax}
 	\begin{block}{Idea}

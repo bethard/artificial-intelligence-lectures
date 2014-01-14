@@ -18,6 +18,8 @@ emphstyle={[2]\color{purple}},
 \usepackage{tikz}
 \usepackage{forest}
 \usetikzlibrary{positioning}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
 \mode<presentation>{
 \usetheme{Madrid}
@@ -30,6 +32,11 @@ emphstyle={[2]\color{purple}},
 \setbeamertemplate{items}[square]
 \setbeamercovered{transparent=5}
 }
+
+\newcommand{\keyword}[1]{{\color{blue}#1}}
+\newcommand{\cmnt}[1]{{\color{gray}#1}}
+\newcommand{\str}[1]{{\color{green!50!black}#1}}
+\newcommand{\defn}[1]{{\color{purple}#1}}
 
 \author[Dr. Bethard]{Dr. Steven Bethard}
 \institute[UAB CIS]{%

@@ -253,26 +253,37 @@
 \end{frame}
 
 \subsection{Online Search}
-\begin{frame}{Online Search}
-	\begin{block}{Problem}
-		Successor function is not available until a state is visited, \\
-		e.g. robot exploration, maze problems
-	\end{block}
-	\begin{block}<2->{Solution: Learning Real-Time A*}
-		Augment hill climbing with memory
-		\begin{center}
-			\only<-2>{\invisible{\includegraphics[width=4in]{lrta-star-1.pdf}}}%
-			\only<3>{\includegraphics[width=4in]{lrta-star-1.pdf}}%
-			\only<4>{\includegraphics[width=4in]{lrta-star-2.pdf}}%
-			\only<5>{\includegraphics[width=4in]{lrta-star-3.pdf}}%
-			\only<6>{\includegraphics[width=4in]{lrta-star-4.pdf}}%
-			\only<7>{\includegraphics[width=4in]{lrta-star-5.pdf}}%
-			\only<8>{\includegraphics[width=4in]{lrta-star-6.pdf}}%
-			\only<9>{\includegraphics[width=4in]{lrta-star-7.pdf}}%
-			\only<10->{\includegraphics[width=4in]{lrta-star-8.pdf}}%
-		\end{center}
-		\uncover<11>{Complete in finite, safely explorable environments}
-	\end{block}
+\begin{frame}[label=real-time-astar]{Online Search}
+\begin{block}{Problem}
+Successor function is not available until a state is visited, \\
+e.g. robot exploration, maze problems
+\end{block}
+\begin{block}<2->{Solution: Learning Real-Time A*}
+Augment hill climbing with memory
+\begin{center}
+\footnotesize
+\begin{tikzpicture}[%
+state/.style={circle,draw},
+action/.style={latex-latex},
+weight/.style={auto,swap},
+]
+\node[state] (1) [visible on={3-}] {$h(x)=9$};
+\node[state] (2) [right=3em of 1,filled on={3,7-8}] {$h(x)=\alt<5->{\alt<10->{5}{3}}{2}$}
+  edge [action,visible on={3-}]
+    node[weight] {1} (1);
+\node[state] (3) [right=3em of 2,visible on={3-},filled on={4-6,9-10}] {$h(x)=\alt<8->{\alt<12->{5}{4}}{2}$}
+  edge [action,visible on={3-}]
+    node[weight] {1} (2);
+\node[state] (4) [right=3em of 3,visible on={6-},filled on={11-}] {$h(x)=4$}
+  edge [action,visible on={6-}]
+    node[weight] {1} (3);
+\node[state] (5) [right=3em of 4,visible on={13-}] {$h(x)=3$}
+  edge [action,visible on={13-}]
+    node[weight] {1} (4);
+\end{tikzpicture}
+\end{center}
+\uncover<14>{Complete in finite, safely explorable environments}
+\end{block}
 \end{frame}
 
 \part{Key Points}

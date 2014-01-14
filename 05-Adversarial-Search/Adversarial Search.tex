@@ -68,34 +68,35 @@
 \begin{center}
 \small
 \begin{forest}
-for tree={minimum size=1.5em,l sep=3em}
-[{Player 1}
-[{Player 2},edge=invisible
-[{Player 1},edge=invisible]]]
-\end{forest}
-\begin{forest}
 left action/.style={
   edge label={node[midway,left]{\small #1}}},
 middle action/.style={
   edge label={node[midway,left=-0.25em]{\small #1}}},
 right action/.style={
   edge label={node[midway,right]{\small #1}}},
-for tree={draw,minimum size=1.5em,l sep=3em,s sep=1.5em}
-[{3},text visible on={5-}
-  [{3},left action={$a_1$},text visible on={2-}
-    [{3},left action={$b_1$}]
-    [{12},middle action={$b_2$}]
-    [{8},right action={$b_3$}]
+for tree={minimum size=1.5em,l sep=3em,s sep=1.25em}
+[{},phantom
+  [{Max Player},edge=invisible
+    [{Min Player},edge=invisible
+      [{Max Player},invisible]
+    ]
   ]
-  [{2},middle action={$a_2$},text visible on={3-}
-    [{2},left action={$c_1$}]
-    [{4},middle action={$c_2$}]
-    [{6},right action={$c_3$}]
-  ]
-  [{2},right action={$a_3$},text visible on={4-}
-    [{14},left action={$d_1$}]
-    [{5},middle action={$d_2$}]
-    [{2},right action={$d_3$}]
+  [{3},text visible on={5-},edge=invisible,for tree={draw}
+    [{3},left action={$a_1$},text visible on={2-}
+      [{3},left action={$b_1$}]
+      [{12},middle action={$b_2$}]
+      [{8},right action={$b_3$}]
+    ]
+    [{2},middle action={$a_2$},text visible on={3-}
+      [{2},left action={$c_1$}]
+      [{4},middle action={$c_2$}]
+      [{6},right action={$c_3$}]
+    ]
+    [{2},right action={$a_3$},text visible on={4-}
+      [{14},left action={$d_1$}]
+      [{5},middle action={$d_2$}]
+      [{2},right action={$d_3$}]
+    ]
   ]
 ]
 \end{forest}

@@ -17,6 +17,12 @@
 \end{tabular}
 }
 \newcommand{\abcutil}[3]{(#1,#2,#3)}
+\newcommand{\utilab}[3]{%
+#1{\tiny
+\begin{tabular}{ l @{} >{\centering\arraybackslash}m{2.2em} @{}}
+$\geq$ & $#2$ \\
+$\leq$ & $#3$
+\end{tabular}}}
 
 \begin{document}
 
@@ -277,17 +283,65 @@ for tree={align=center,minimum size=1.5em,l sep=3em,s sep=1.25em}
 \end{frame}
 
 \subsection{Alpha-Beta Pruning}
-\begin{frame}{Alpha-Beta Pruning}
-	\begin{block}{Idea}
-		Skip branches that have no effect on final values
-	\end{block}
-	\bigskip
-	\only<1>{\invisible{\includegraphics[height=1.5in]{alpha-beta-progress-1.pdf}}}%
-	\only<2>{\includegraphics[height=1.5in]{alpha-beta-progress-1.pdf}}%
-	\only<3>{\includegraphics[height=1.5in]{alpha-beta-progress-2.pdf}}%
-	\only<4>{\includegraphics[height=1.5in]{alpha-beta-progress-3.pdf}}%
-	\only<5>{\includegraphics[height=1.5in]{alpha-beta-progress-4.pdf}}%
-	\only<6>{\includegraphics[height=1.5in]{alpha-beta-progress-5.pdf}}%
+\begin{frame}[label=alpha-beta-pruning-example]{Alpha-Beta Pruning}
+% from http://www.cs.ucla.edu/~rosen/161/notes/alphabeta.html
+\begin{center}
+\footnotesize
+\begin{forest}
+pruned/.style={draw=none,content={---}}
+[{},phantom,for tree={align=center}
+  [{Max},for tree={edge=invisible,l sep*=1.25}
+    [{Min}
+      [{Max}
+	[{Min}
+	  [{Max},invisible]
+	]
+      ]
+    ]
+  ]
+  [{\utilab{\visible<41->{3}}{\alt<25->{3}{-\infty}}{+\infty}},for tree={draw}
+    [{\utilab{\visible<24->{3}}{-\infty}{\alt<16->{3}{+\infty}}},visible on={2-40}
+      [{\utilab{\visible<15->{3}}{\alt<9->{3}{-\infty}}{+\infty}},visible on={3-23}
+        [{\utilab{\visible<8->{3}}{-\infty}{\alt<6->{3}{+\infty}}},visible on={4-14}
+          [{3},visible on={5-7}]
+          [{17},visible on={7}]
+        ]
+        [{\utilab{\visible<14->{2}}{3}{\alt<12->{2}{+\infty}}},visible on={10-14}
+          [{2},visible on={11-13}]
+          [{12},pruned,visible on={13}]
+        ]
+      ]
+      [{\utilab{\visible<23->{15}}{\alt<21->{15}{-\infty}}{3}},visible on={17-23}
+        [{\utilab{\visible<20->{15}}{-\infty}{3}},visible on={18-22}
+          [{15},visible on={19}]
+        ]
+        [{},pruned,visible on={22}
+          [{25},invisible]
+          [{0},invisible]
+        ]
+      ]
+    ]
+    [{\utilab{\visible<40->{3}}{3}{\alt<38->{3}{+\infty}}},visible on={26-40}
+      [{\utilab{\visible<37->{3}}{3}{+\infty}},visible on={27-39}
+        [{\utilab{\visible<32->{2}}{3}{\alt<30->{2}{+\infty}}}, visible on={28-36}
+          [{2},visible on={29-31}]
+          [{5},pruned,visible on={31}]
+        ]
+        [{\utilab{\visible<36->{3}}{3}{\alt<35->{3}{+\infty}}},visible on={33-36}
+          [{3},visible on={34-35}]
+        ]
+      ]
+      [{},pruned,visible on={39}
+        [{},invisible
+          [{2},invisible]
+          [{14},invisible]
+        ]
+      ]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
 \end{frame}
 \begin{frame}{Alpha-Beta Pruning in General}
 	\begin{columns}

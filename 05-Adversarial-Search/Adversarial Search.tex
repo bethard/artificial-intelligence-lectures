@@ -437,23 +437,24 @@ pruned/.style={draw=none,content={---}}
 \end{frame}
 \begin{frame}{Deterministic Games in Practice}
 	\begin{block}{Checkers}
+		% http://webdocs.cs.ualberta.ca/~chinook/
 		\begin{itemize}
-			\item\small 1994: Chinook ``Man-Machine World Champion'' (0-0-6)
+			\item\small 1995: Chinook ``Man-Machine World Champion'' (1-0-31)
 			\item\small 2007: Chinook's creators ``proved'' it cannot lose
-			\item\small End-game database for all $\leq 10$ piece states
+			\item\small End-game database for all $\leq 8$ piece states
 		\end{itemize}
 	\end{block}
 	\begin{block}{Chess}
 		\begin{itemize}
 			\item\small 1997: Deep Blue defeated Garry Kasparov (2-1-3)
-			\item\small 200 million positions per second, searching 6-40 plies
-			\item\small End-game database for all $\leq 5$ piece states
+			\item\small Searches 6-40 plies; end-game database for $\leq 5$ piece states
+			\item\small 2002,'04,'06,'09,'11,'13: Junior wins World Computer Chess
 		\end{itemize}
 	\end{block}
 	\begin{block}{Go}
 		\begin{itemize}
-			\item\small Computers still rank as intermediate amateurs
-			\item\small Go has $\approx 150$–-$250$ moves per turn
+			\item\small Branching factor starts at 361 $\Rightarrow$ Monte Carlo methods
+			\item\small Computers still rank as advanced amateurs (6 dan)
 		\end{itemize}
 	\end{block}
 \end{frame}

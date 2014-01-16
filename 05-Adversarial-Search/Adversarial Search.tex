@@ -65,7 +65,7 @@ $\leq$ & $#3$
 
 \section{Deterministic Games}
 \subsection{Minimax}
-\begin{frame}[fragile]{Minimax}
+\begin{frame}[fragile,label=minimax-example]{Minimax}
 \begin{block}{Idea}
 \begin{itemize}
 \item Expect other player to minimize your utility
@@ -81,28 +81,28 @@ middle action/.style={
   edge label={node[midway,left=-0.25em]{\small #1}}},
 right action/.style={
   edge label={node[midway,right]{\small #1}}},
-for tree={minimum size=1.5em,l sep=3em,s sep=1.25em}
+for tree={minimum size=1.5em,l sep=3em,s sep=1.2em}
 [{},phantom
   [{Max Player},edge=invisible
     [{Min Player},edge=invisible
       [{Max Player},invisible]
     ]
   ]
-  [{3},text visible on={5-},edge=invisible,for tree={draw}
-    [{3},left action={$a_1$},text visible on={2-}
-      [{3},left action={$b_1$}]
-      [{12},middle action={$b_2$}]
-      [{8},right action={$b_3$}]
+  [{3},edge=invisible,for tree={draw},text visible on={11}
+    [{3},left action={$a_1$},visible on={2-10},text visible on={4-10}
+      [{3},left action={$b_1$},visible on={3}]
+      [{12},middle action={$b_2$},visible on={3}]
+      [{8},right action={$b_3$},visible on={3}]
     ]
-    [{2},middle action={$a_2$},text visible on={3-}
-      [{2},left action={$c_1$}]
-      [{4},middle action={$c_2$}]
-      [{6},right action={$c_3$}]
+    [{2},middle action={$a_2$},visible on={5-10},text visible on={7-10}
+      [{2},left action={$c_1$},visible on={6}] 
+      [{4},middle action={$c_2$},visible on={6}]
+      [{6},right action={$c_3$},visible on={6}]
     ]
-    [{2},right action={$a_3$},text visible on={4-}
-      [{14},left action={$d_1$}]
-      [{5},middle action={$d_2$}]
-      [{2},right action={$d_3$}]
+    [{2},right action={$a_3$},visible on={8-10},text visible on={10-10}
+      [{14},left action={$d_1$},visible on={9}]
+      [{5},middle action={$d_2$},visible on={9}]
+      [{2},right action={$d_3$},visible on={9}]
     ]
   ]
 ]
@@ -182,7 +182,7 @@ for tree={align=center,s sep=2em}
 \end{forest}
 \end{center}
 \end{frame}
-\begin{frame}[fragile]{Minimax Properties}
+\begin{frame}[fragile,label=minimax-properties]{Minimax Properties}
 \begin{center}
 \small
 \begin{forest}
@@ -192,25 +192,25 @@ middle action/.style={
   edge label={node[midway,left=-0.25em]{\small #1}}},
 right action/.style={
   edge label={node[midway,right]{\small #1}}},
-for tree={minimum size=1.5em,l sep=3em,s sep=1.25em}
+for tree={minimum size=1.5em,l sep=3em,s sep=1.2em}
 [{},phantom
   [{Max Player},edge=invisible
     [{Min Player},edge=invisible
       [{Max Player},invisible]
     ]
   ]
-  [{3},text visible on={5-},edge=invisible,for tree={draw}
-    [{3},left action={$a_1$},text visible on={2-}
+  [{3},edge=invisible,for tree={draw},text opacity=0
+    [{3},left action={$a_1$},for children=invisible
       [{3},left action={$b_1$}]
       [{12},middle action={$b_2$}]
       [{8},right action={$b_3$}]
     ]
-    [{2},middle action={$a_2$},text visible on={3-}
-      [{2},left action={$c_1$}]
+    [{2},middle action={$a_2$},text opacity=0
+      [{2},left action={$c_1$}] 
       [{4},middle action={$c_2$}]
       [{6},right action={$c_3$}]
     ]
-    [{2},right action={$a_3$},text visible on={4-}
+    [{2},right action={$a_3$},text opacity=0,for children=invisible
       [{14},left action={$d_1$}]
       [{5},middle action={$d_2$}]
       [{2},right action={$d_3$}]
@@ -388,10 +388,38 @@ pruned/.style={draw=none,content={---}}
 		    \keyword{return} value, action
 	\end{semiverbatim}
 \end{frame}
-\begin{frame}{Alpha-Beta Pruning Properties}
-	\begin{center}
-		\includegraphics[height=1.5in]{alpha-beta-progress-5.pdf}
-	\end{center}
+\begin{frame}[label=alpha-beta-pruning-properties]{Alpha-Beta Pruning Properties}
+\begin{center}
+\footnotesize
+\begin{forest}
+pruned/.style={draw=none,content={---}}
+[{},phantom,for tree={align=center}
+  [{Max},for tree={edge=invisible,l sep*=1.25}
+    [{Min}
+      [{Max}
+	[{Min}]
+      ]
+    ]
+  ]
+  [{\utilab{\invisible{3}}{-\infty}{+\infty}},for tree={draw}
+    [{\utilab{\invisible{3}}{-\infty}{3}}
+      [{\utilab{3}{3}{+\infty}}
+        [{\utilab{3}{-\infty}{3}},invisible]
+        [{\utilab{2}{3}{2}},invisible]
+      ]
+      [{\utilab{\invisible{15}}{15}{3}}
+        [{\utilab{15}{-\infty}{3}}]
+        [{},pruned]
+      ]
+    ]
+    [{\utilab{3}{3}{+\infty}},invisible
+      [{\utilab{3}{3}{+\infty}},invisible]
+      [{},pruned,invisible]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
 	\begin{block}{Time Complexity}
 		\begin{itemize}
 			\pause

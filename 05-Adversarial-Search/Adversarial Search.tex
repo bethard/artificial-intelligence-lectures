@@ -534,26 +534,23 @@ pruned/.style={draw=none,content={---}}
 		\end{itemize}
 	\end{block}
 \end{frame}
-\begin{frame}{Using Expectiminimax}
+\begin{frame}[label=using-expectiminimax]{Using Expectiminimax}
 	\begin{block}{Expectiminimax Properties}
 		\begin{tabular}{ll}
-			Complete? \pause & Yes, if tree is finite (both moves and ``rolls'') \pause \\
-			Optimal?  \pause & Yes \pause \\
-			Time?     \pause & $O(b^mn^m)$, all nodes, all ``roll'' sequences \\
+			Complete? & \uncover<2->{Yes, if tree is finite (both moves and ``rolls'')} \\
+			Optimal? & \uncover<3->{Yes} \\
+			Time? & \uncover<4->{$O(b^mn^m)$, all nodes, all ``roll'' sequences} \\
 		\end{tabular}
 	\end{block}
-	\pause
-	\begin{block}{Consequences}
+	\begin{block}{Consequences}<5->
 		\begin{tabular}{ll}
-			Branching Factor?   \pause & Increased by dice rolls \pause \\
-			Node Likelihood?    \pause & Decreases with depth \pause \\
-			Alpha-Beta Pruning? \pause & Effectiveness decreased \\
+			Node Likelihood? & \uncover<6->{Decreases with depth} \\
+			Alpha-Beta Pruning? & \uncover<7->{Effectiveness decreased} \\
 		\end{tabular}
 	\end{block}
-	\pause
-	\begin{block}{Real-World Example: TD-Gammon}
+	\begin{block}{Real-World Example: TD-Gammon}<8->
 		\begin{itemize}
-			\item Depth-2 search, no Alpha-Beta pruning
+			\item Depth 2-3 search, no Alpha-Beta pruning
 			\item Neural network eval function trained by self-play
 		\end{itemize}
 	\end{block}

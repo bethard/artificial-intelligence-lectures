@@ -109,27 +109,6 @@ for tree={minimum size=1.5em,l sep=3em,s sep=1.2em}
 \end{forest}
 \end{center}
 \end{frame}
-\begin{frame}[fragile]{Minimax Code}
-	\begin{semiverbatim}\scriptsize\bfseries
-		\keyword{def} \defn{minimax_decision}(problem, state):
-		    \pause\cmnt{# select the action with the maximum utility}
-		    action, utility = select_action(max, problem, state)
-		    \keyword{return} action
-		\pause
-		\keyword{def} \defn{select_action}(get_best, problem, state):
-		    \pause\cmnt{# for leaf nodes, just return the known utility}
-		    \keyword{if} problem.is_terminal(state):
-		        \keyword{return} \keyword{None}, problem.get_utility(state)
-		    \pause\cmnt{# otherwise, recursively collect utility values for available actions}
-		    items = []
-		    \keyword{for} action, state \keyword{in} problem.get_successors(state):
-		        get_worst = min \keyword{if} get_best == max \keyword{else} max
-		        _, utility = select_action(get_worst, problem, state)
-		        items.append((action, utility))
-		    \pause\cmnt{# return the action with the best utility}
-		    \keyword{return} get_best(items)
-	\end{semiverbatim}
-\end{frame}
 \begin{frame}{Minimax Exercise}
 	\begin{columns}
 		\begin{column}{2in}
@@ -282,7 +261,27 @@ for tree={align=center,minimum size=1.5em,l sep=3em,s sep=1.25em}
 \end{center}
 \end{frame}
 
-\subsection{Alpha-Beta Pruning}
+\begin{frame}{Alpha-Beta Pruning}
+	\begin{columns}
+		\begin{column}{2in}
+			\begin{block}{Idea}
+				If $m$ is a better choice, then $n$ will never be reached
+			\end{block}
+			\begin{block}<2->{Alpha-Beta Bookkeeping}
+				\begin{itemize}
+					\item[$\alpha$] Best value for Player \\ (the highest value)
+					\item[$\beta$] Best value for Opp \\ (the lowest value)
+				\end{itemize}
+			\end{block}
+		\end{column}
+		\begin{column}{2in}
+			\begin{center}
+				\includegraphics[width=2in]{alpha-beta-general.pdf}
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
+\subsection{Alpha-Beta Pruning Example}
 \begin{frame}[label=alpha-beta-pruning-example]{Alpha-Beta Pruning}
 % from http://www.cs.ucla.edu/~rosen/161/notes/alphabeta.html
 \begin{center}
@@ -342,51 +341,6 @@ pruned/.style={draw=none,content={---}}
 ]
 \end{forest}
 \end{center}
-\end{frame}
-\begin{frame}{Alpha-Beta Pruning in General}
-	\begin{columns}
-		\begin{column}{2in}
-			\begin{block}{Idea}
-				If $m$ is a better choice, then $n$ will never be reached
-			\end{block}
-			\begin{block}<2->{Alpha-Beta Bookkeeping}
-				\begin{itemize}
-					\item[$\alpha$] Best value for Player \\ (the highest value)
-					\item[$\beta$] Best value for Opp \\ (the lowest value)
-				\end{itemize}
-			\end{block}
-		\end{column}
-		\begin{column}{2in}
-			\begin{center}
-				\includegraphics[width=2in]{alpha-beta-general.pdf}
-			\end{center}
-		\end{column}
-	\end{columns}
-\end{frame}
-\begin{frame}[fragile]{Alpha-Beta Pruning Code}
-	\begin{semiverbatim}\scriptsize\bfseries
-		\keyword{def} \defn{alpha_beta_search}(problem, state):
-		    \pause\cmnt{# select the action with the maximum utility}
-		    value, action = max_ab(state, neg_inf, pos_inf)
-		    \keyword{return} action
-		\pause
-		\keyword{def} \defn{\alt<9>{\alert{min}}{max}_ab}(problem, state, alpha, beta):
-		    \pause\cmnt{# simply return the known utility for leaf nodes}
-		    \keyword{if} problem.is_terminal(state):
-		        \keyword{return} problem.get_utility(state), \keyword{None}
-		    \pause\cmnt{# examine utility values for each available action}
-		    value, action = neg_inf, \keyword{None}
-		    \keyword{for} action2, state2 \keyword{in} problem.get_successors(state):
-		        value2, _ = \alt<9>{\alert{max}}{min}_ab(problem, state2, alpha, beta)
-		        \pause\cmnt{# return the new value if \alt<9>{\alert{lower }}{higher} than the global \alt<9>{\alert{max}}{min}imum}
-		        value, action = \alt<9>{\alert{min}}{max}([value, action], [value2, action2])
-		        \keyword{if} value\alt<9>{\alert{ <= alpha}}{ >=  beta}:
-		            \keyword{return} value, action
-		        \pause\cmnt{# otherwise, update the global \alt<9>{\alert{min}}{max}imum}
-		        \alt<9>{\alert{beta }}{alpha} = \alt<9>{\alert{min}}{max}(\alt<9>{\alert{beta}, }{alpha,} value)
-		    \pause\cmnt{# return the action with the \alt<9>{\alert{min}}{max}imum utility}
-		    \keyword{return} value, action
-	\end{semiverbatim}
 \end{frame}
 \begin{frame}[label=alpha-beta-pruning-properties]{Alpha-Beta Pruning Properties}
 \begin{center}

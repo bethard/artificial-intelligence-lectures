@@ -734,47 +734,36 @@ utility/.style={draw=none}
 Evaluation function must be linear transform of true utility
 \end{frame}
 
-\subsection{Games with Imperfect Information}
-\begin{frame}[t]{Imperfect Information: Bridge}
-	\bigskip
-	\only<1>{\includegraphics[width=4.2in]{card-tree-1.pdf}}%
-	\only<2>{\includegraphics[width=4.2in]{card-tree-2.pdf}}%
-	\only<3>{\includegraphics[width=4.2in]{card-tree-3.pdf}}%
+\subsection{Partially Observable Games}
+\begin{frame}[label=partially-observable-games]{Partially Observable Games}
+Missing knowledge on opponent state
+\begin{itemize}
+\item Poker, Blackjack, Bridge, etc.
+\item<2-> Just average over all possible unknowns? \visible<9->{\alert<9->{No!}}
+\end{itemize}
+\bigskip
+\uncover<3->{Problems with \emph{averaging over clairvoyance}}
+\begin{itemize}
+\item<3-> \alert<8->{Road A} leads to a small heap of gold
+\item<3-> \alert<4,6>{Road B} leads to a fork:
+	\begin{itemize}
+	\item<3-> \alt<7->{Guess correctly and you'll find a large heap of gold}{
+	\alt<5->{Take the left fork and you'll be run over by a bus}
+	{Take the \alert<4>{left fork} and you'll find a large heap of gold}}
+	\item<3-> \alt<7->{Guess incorrectly and you'll be run over by a bus}{
+	\alt<5->{Take the \alert<6>{right fork} and you'll find a large heap of gold}
+	{Take the right fork and you'll be run over by a bus}}
+	\end{itemize}
+\end{itemize}
 \end{frame}
-\begin{frame}{Imperfect Information: Common Sense}
-	\begin{itemize}
-		\item Road A leads to a small heap of gold pieces
-		\item \alert<2->{Road B} leads to a fork:
-			\begin{itemize}
-				\item Take the \alert<2->{left fork} and you'll find a mound of jewels
-				\item Take the right fork and you'll be run over by a bus
-			\end{itemize}
-	\end{itemize}
-	\begin{itemize}
-		\item<3-> Road A leads to a small heap of gold pieces
-		\item<3-> \alert<4->{Road B} leads to a fork:
-			\begin{itemize}
-				\item<3-> Take the left fork and you'll be run over by a bus
-				\item<3-> Take the \alert<4->{right fork} and you'll find a mound of jewels
-			\end{itemize}
-	\end{itemize}
-	\begin{itemize}
-		\item<5-> \alert<6->{Road A} leads to a small heap of gold pieces
-		\item<5-> Road B leads to a fork:
-			\begin{itemize}
-				\item<5-> Guess correctly and you'll find a mound of jewels
-				\item<5-> Guess incorrectly and you'll be run over by a bus
-			\end{itemize}
-	\end{itemize}
-\end{frame}
-\begin{frame}{Imperfect Information}
+\begin{frame}{Partially Observable Games}
 	\begin{block}{Key Point}
-		Value of an action \alert{is not} the average across all states \\
+		Value of an action is not the average across all states \\
 		\pause
-		Should be searching through a tree of \alert{belief} states, and:
+		Should be searching through a tree of belief states, and:
 		\begin{itemize}
 			\item Acting to obtain information
-			\item Signalling to one's partner
+			\item Signaling to one's partner
 			\item Acting randomly to minimize information disclosure
 		\end{itemize}
 	\end{block}
@@ -783,7 +772,7 @@ Evaluation function must be linear transform of true utility
 		Most programs use Monte-Carlo estimation:
 		\begin{itemize}
 			\item Generate 100+ deals consistent with bidding
-			\item Pick action that wins most tricks on average
+			\item Pick action that wins most on average
 		\end{itemize}
 	\end{block}
 \end{frame}

@@ -534,6 +534,88 @@ pruned/.style={draw=none,content={---}}
 		\end{itemize}
 	\end{block}
 \end{frame}
+\begin{frame}[label=expectiminimax-practice]{Expectiminimax Practice}
+\begin{center}
+\scriptsize
+\begin{forest}
+[{},phantom,for tree={align=center,l sep=3em}
+  [{Chc},for tree={edge=invisible}
+    [{Max}
+      [{Chc}
+        [{Min}
+          [{Chc}]
+        ]
+      ]
+    ]
+  ]
+  [{+$\frac{7}{12}$},for tree={draw,s sep=1.35em}
+    [{+$\frac{1}{3}$},edge weight={J$\frac{1}{4}$}
+      [{-1},edge weight={\textsc{Keep}}]
+      [{+$\frac{1}{3}$},edge weight={\textsc{Draw}}
+        [{0},edge weight={Q$\frac{1}{3}$}
+          [{0},edge weight={\textsc{Keep}}]
+          [{+1},edge weight={\textsc{Draw}}
+            [{+1},edge weight={K$\frac{2}{2}$}]
+          ]
+        ]
+        [{$+\frac{1}{2}$},edge weight={K$\frac{2}{3}$}
+          [{+1},edge weight={\textsc{Keep}}]
+          [{$+\frac{1}{2}$},edge weight={\textsc{Draw}}
+            [{0},edge weight={Q$\frac{1}{2}$}]
+            [{+1},edge weight={K$\frac{1}{2}$}]
+          ]
+        ]
+      ]
+    ]
+    [{0},edge weight={Q$\frac{1}{4}$}
+      [{0},edge weight={\textsc{Keep}}]
+      [{-$\frac{1}{3}$},edge weight={\textsc{Draw}}
+        [{-1},edge weight={J$\frac{1}{3}$}
+          [{-1},edge weight={\textsc{Keep}}]
+          [{+1},edge weight={\textsc{Draw}}
+            [{+1},edge weight={K$\frac{2}{2}$}]
+          ]
+        ]
+        [{0},edge weight={K$\frac{2}{3}$}
+          [{+1},edge weight={\textsc{Keep}}]
+          [{0},edge weight={\textsc{Draw}}
+            [{-1},edge weight={J$\frac{1}{2}$}]
+            [{+1},edge weight={K$\frac{1}{2}$}]
+          ]
+        ]
+      ]
+    ]
+    [{+1},edge weight={K$\frac{2}{4}$}
+      [{+1},edge weight={\textsc{Keep}}]
+      [{-$\frac{1}{2}$},edge weight={\textsc{Draw}}
+        [{-1},edge weight={J$\frac{1}{3}$}
+          [{-1},edge weight={\textsc{Keep}}]
+          [{+$\frac{1}{2}$},edge weight={\textsc{Draw}}
+            [{0},edge weight={Q$\frac{1}{2}$}]
+            [{+1},edge weight={K$\frac{1}{2}$}]
+          ]
+        ]
+        [{0},edge weight={Q$\frac{1}{3}$}
+          [{0},edge weight={\textsc{Keep}}]
+          [{0},edge weight={\textsc{Draw}}
+            [{-1},edge weight={J$\frac{1}{2}$}]
+            [{+1},edge weight={K$\frac{1}{2}$}]
+          ]
+        ]
+        [{-$\frac{1}{2}$},edge weight={K$\frac{1}{3}$}
+          [{+1},edge weight={\textsc{Keep}}]
+          [{-$\frac{1}{2}$},edge weight={\textsc{Draw}}
+            [{-1},edge weight={J$\frac{1}{2}$}]
+            [{0},edge weight={Q$\frac{1}{2}$}]
+          ]
+        ]
+      ]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
+\end{frame}
 \begin{frame}[label=using-expectiminimax]{Using Expectiminimax}
 	\begin{block}{Expectiminimax Properties}
 		\begin{tabular}{ll}

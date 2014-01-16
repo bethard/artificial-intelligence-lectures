@@ -474,13 +474,47 @@ pruned/.style={draw=none,content={---}}
 \end{frame}
 
 \subsection{Expectiminimax}
-\begin{frame}{Expectiminimax}
-	\begin{block}{Expected Values for Chance Nodes}
-		\[\textsc{Expecti}(n) = \sum\limits_{s \in \textsc{\scriptsize Successors}(n)}{P(s) \cdot \textsc{Expecti}(s)}\]
-	\end{block}
-	\begin{center}
-		\includegraphics[height=1.75in]{expectiminimax-simple.pdf}
-	\end{center}
+\begin{frame}[label=expectiminimax]{Expectiminimax}
+\begin{block}{\centering Expected Values for Chance Nodes}
+\[f(n) = \sum\limits_{s \in \textsc{\scriptsize Successors}(n)}{P(s) \cdot f(s)}\]
+\end{block}
+\begin{center}
+\small
+\begin{forest}
+pruned/.style={draw=none,content={---}}
+[{},phantom,for tree={align=center,l sep*=1.1}
+  [{Max},for tree={edge=invisible}
+    [{Chance}
+      [{Min}
+	[{Util},invisible]
+      ]
+    ]
+  ]
+  [{3},for tree={draw},text visible on={15-}
+    [{3},visible on={2-14},text visible on={8-}
+      [{2},edge weight={0.5},visible on={3-7},text visible on={5-}
+        [{2},visible on={4}]
+        [{4},visible on={4}]
+      ]
+      [{4},edge weight={0.5},visible on={3-7},text visible on={7-}
+        [{7},visible on={6}]
+        [{4},visible on={6}]
+      ]
+    ]
+    [{-1},visible on={2-14},text visible on={14-}
+      [{0},edge weight={0.5},visible on={9-13},text visible on={11-}
+        [{6},visible on={10}]
+        [{0},visible on={10}]
+      ]
+      [{-2},edge weight={0.5},visible on={9-13},text visible on={13-}
+        [{5},visible on={12}]
+        [{-2},visible on={12}]
+      ]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
 \end{frame}
 \begin{frame}{Expectiminimax Practice}
 	\begin{block}{A Simple Game}

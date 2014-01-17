@@ -73,9 +73,8 @@
 			$D_{\V{\scriptsize J\&T}} = \{\V{9-11}, \V{10-12}, \ldots\}$ \\
 			$D_{\V{\scriptsize J\&M}} = D_{\V{\scriptsize M\&T}} = \{\V{9-10}, \V{10-11}, \ldots\}$}
 		\item[Constraints] \uncover<4->{
-			$\V{J\&T} \cap \V{J\&M} = \V{J\&M} \cap \V{M\&T} = \ldots = \emptyset$ \\
-			$\V{12-2} \cap \V{J\&T} = \V{12-2} \cap \V{J\&M} = \ldots = \emptyset$ \\
-			\ldots}
+			$\V{J\&T} \cap \V{J\&M} = \emptyset$, $\V{J\&M} \cap \V{M\&T} = \emptyset$, \\
+			$\V{12-2} \cap \V{J\&T} = \emptyset$, $\V{12-2} \cap \V{J\&M} = \emptyset$, \ldots}
 		\item[Solution] \uncover<5->{
 			$\{\V{J\&T}=\V{3-5}, \V{M\&T}=\V{1-2}, \V{J\&M}=\V{10-11}\}$}
 	\end{description}
@@ -98,8 +97,7 @@
 		\item[Domains] \uncover<4->{$D_i = \{\V{red}, \V{green}, \V{blue}\}$}
 		\item[Constraints] \uncover<5->{$\V{WA} \neq \V{NT}, \V{WA} \neq \V{SA}, \V{NT} \neq \V{SA}, \ldots$}
 		\item[Solution] \uncover<6->{$\{\V{WA}=\V{red}, \V{NT}=\V{green}, \V{Q}=\V{red}, \linebreak
-		                                \V{NSW}=\V{green}, \V{V}=\V{red}, \V{SA}=\V{blue}, \linebreak
-		                                \V{T}=\V{green}\}$}
+		                                \V{NSW}=\V{green}, \V{V}=\V{red}, \V{SA}=\V{blue}, \V{T}=\V{green}\}$}
 	\end{description}
 \end{frame}
 \begin{frame}{Example: Cryptarithmetic}
@@ -142,8 +140,8 @@ $
 	\begin{block}{Infinite but Countable Domains}
 		\begin{itemize}
 			\item Examples: scheduling jobs by day or hour
-			\item Need a constraint language, e.g. \\
-			      $\V{Start}_{\V{\scriptsize Job1}} + 5 \leq \V{Start}_{\V{\scriptsize Job3}}$
+			\item Need constraint language, e.g.
+			      \small $\V{Start}_{\V{\scriptsize Job1}} + 5 \leq \V{Start}_{\V{\scriptsize Job3}}$
 		\end{itemize}
 	\end{block}
 	\pause
@@ -169,8 +167,7 @@ $
 	\pause
 	\begin{block}<4->{Higher Order Constraints}
 		\begin{itemize}
-			\item Relate more than two variables
-			\item<5-> Can always be broken down into binary constraints
+			\item Relate more than two variables\uncover<5->{: can convert to binary}
 		\end{itemize}
 	\end{block}
 	\begin{block}<6->{Preferences}
@@ -223,9 +220,7 @@ $
 		\end{itemize}
 	\end{block}
 	\pause
-	\begin{block}{Solution}
-		Consider only one variable at each node
-	\end{block}
+	{\color{blue}Solution}: Consider only one variable at each node
 \end{frame}
 \begin{frame}[fragile]{Backtracking Search Code}
 	\scriptsize

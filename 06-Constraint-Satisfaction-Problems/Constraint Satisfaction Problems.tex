@@ -1,43 +1,13 @@
-\documentclass[12pt]{beamer}
+% !TEX TS-program = pdflatexmk
 
-\mode<presentation>{\usetheme{Warsaw}}
-\setbeamertemplate{footline}[frame number]
-\usepackage[english]{babel}
-\usepackage{times}
-\usepackage{url}
-\usepackage{graphicx}
-\usepackage{listings}
-\lstloadlanguages{Python}
-\lstset{language=Python}
-\lstset{%
-	basicstyle=\ttfamily\bfseries,
-	keywordstyle=\color{blue}, emph={self}, emphstyle={\color{blue}},
-	identifierstyle=,
-	commentstyle=\color{gray},
-	stringstyle=\color{green!50!black},
-	showstringspaces=false,
-	emph={[2]__init__,__str__}, emphstyle={[2]\color{purple}},
-}
-\newcommand{\key}[1]{{\color{blue}#1}}
-\newcommand{\cmnt}[1]{{\color{gray}#1}}
-\newcommand{\str}[1]{{\color{green!50!black}#1}}
-\newcommand{\defn}[1]{{\color{purple}#1}}
-\newcommand{\V}[1]{\mbox{\texttt{#1}}}
+\documentclass[14pt]{beamer}
+\input{../common-definitions}
+\lstset{emph={[2]__init__,__str__}}
 
 \title{Constraint Satisfaction Problems}
-\subtitle{Introduction to Artificial Intelligence}
-\author{Steven Bethard}
-\institute{
-  Department of Computer Science\\
-  University of Colorado
-}
-\date{CSCI 3202}
+\date[]{30 Jan 2014}
 
-\AtBeginSection[]{
-  \begin{frame}<beamer>{Outline}
-    \tableofcontents[currentsection]
-  \end{frame}
-}
+\newcommand{\V}[1]{\mbox{\texttt{#1}}}
 
 \begin{document}
 
@@ -51,8 +21,8 @@
 
 \section{Constraint Satistfaction}
 
-\subsection{Example Problem}
-\begin{frame}{Meeting Scheduling}
+\subsection{Defining Problems}
+\begin{frame}{Example: Meeting Scheduling}
 	\begin{block}{Daily Meetings}
 		\begin{itemize}
 			\item Jim \& Tammy for 2 hours
@@ -68,8 +38,6 @@
 		\end{itemize}
 	\end{block}
 \end{frame}
-
-\subsection{Formal Definition}
 \begin{frame}{Constraint Satisfaction Problem Definition}
 	\begin{block}{Terms}
 		\begin{description}
@@ -90,7 +58,29 @@
 		\end{description}
 	\end{block}
 \end{frame}
-\begin{frame}{Map Coloring}
+\begin{frame}{Example: Meeting Scheduling}
+	\begin{block}{Problem Description}
+		\begin{itemize}
+			\item 2 hour meetings: Jim \& Tammy
+			\item 1 hour meetings: Jim \& Martha, Martha \& Tammy
+			\item 9:00am and 5:00pm, 1 hour between meetings
+			\item Busy: Jim 12-2, Martha 11-1, Tammy 10-11 and 2-3
+		\end{itemize}
+	\end{block}
+	\begin{description}
+		\item[Variables] \uncover<2->{\V{J\&T}, \V{J\&M}, \V{M\&T}}
+		\item[Domains] \uncover<3->{
+			$D_{\V{\scriptsize J\&T}} = \{\V{9-11}, \V{10-12}, \ldots\}$ \\
+			$D_{\V{\scriptsize J\&M}} = D_{\V{\scriptsize M\&T}} = \{\V{9-10}, \V{10-11}, \ldots\}$}
+		\item[Constraints] \uncover<4->{
+			$\V{J\&T} \cap \V{J\&M} = \V{J\&M} \cap \V{M\&T} = \ldots = \emptyset$ \\
+			$\V{12-2} \cap \V{J\&T} = \V{12-2} \cap \V{J\&M} = \ldots = \emptyset$ \\
+			\ldots}
+		\item[Solution] \uncover<5->{
+			$\{\V{J\&T}=\V{3-5}, \V{M\&T}=\V{1-2}, \V{J\&M}=\V{10-11}\}$}
+	\end{description}
+\end{frame}
+\begin{frame}{Example: Map Coloring}
 	\begin{columns}
 		\begin{column}{1.5in}
 			\begin{block}{Problem}
@@ -112,35 +102,30 @@
 		                                \V{T}=\V{green}\}$}
 	\end{description}
 \end{frame}
-\begin{frame}{Visualizing Constraints}
-	\begin{block}{Constraint Graph}
-		\begin{itemize}
-			\item Nodes are variables
-			\item Edges are constraints between variables
-		\end{itemize}
-	\end{block}
-	\hspace{0.5in}\includegraphics[height=2in]{australia-csp.pdf}
-\end{frame}
-\begin{frame}{Meeting Scheduling}
-	\begin{block}{Problem Description}
-		\begin{itemize}
-			\item 2 hour meetings: Jim \& Tammy
-			\item 1 hour meetings: Jim \& Martha, Martha \& Tammy
-			\item 9:00am and 5:00pm, 1 hour between meetings
-			\item Busy: Jim 12-2, Martha 11-1, Tammy 10-11 and 2-3
-		\end{itemize}
-	\end{block}
+\begin{frame}{Example: Cryptarithmetic}
+\begin{center}
+\large
+$
+\begin{array}{ c c c c }
+& T & W & O \\
++ & T & W & O \\
+\hline
+F & O & U & R
+\end{array}
+$
+\end{center}
 	\begin{description}
-		\item[Variables] \uncover<2->{\V{J\&T}, \V{J\&M}, \V{M\&T}}
-		\item[Domains] \uncover<3->{
-			$D_{\V{\scriptsize J\&T}} = \{\V{9-11}, \V{10-12}, \ldots\}$ \\
-			$D_{\V{\scriptsize J\&M}} = D_{\V{\scriptsize M\&T}} = \{\V{9-10}, \V{10-11}, \ldots\}$}
-		\item[Constraints] \uncover<4->{
-			$\V{J\&T} \cap \V{J\&M} = \V{J\&M} \cap \V{M\&T} = \ldots = \emptyset$ \\
-			$\V{12-2} \cap \V{J\&T} = \V{12-2} \cap \V{J\&M} = \ldots = \emptyset$ \\
-			\ldots}
-		\item[Solution] \uncover<5->{
-			$\{\V{J\&T}=\V{3-5}, \V{M\&T}=\V{1-2}, \V{J\&M}=\V{10-11}\}$}
+		\item[Variables] \uncover<2->{$T, W, O, F, U, R, X_1, X_2, X_3$}
+		\item[Domains] \uncover<3->{$\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$}
+		\item[Constraints] \uncover<4->{$
+			\begin{array}[t]{lll}
+			O + O       & = & R + 10 \cdot X_1 \\
+			X_1 + W + W & = & U + 10 \cdot X_2 \\
+			X_2 + T + T & = & O + 10 \cdot X_3 \\
+			X_3         & = & F
+			\end{array}
+			$}
+		\item[Solution] \uncover<5->{$\{T=7, W=3, O=4, F=1, U=6, R=8\}$}
 	\end{description}
 \end{frame}
 
@@ -194,22 +179,7 @@
 		\end{itemize}
 	\end{block}
 \end{frame}
-\begin{frame}{Cryptarithmetic}
-	\includegraphics[width=4in]{cryptarithmetic.pdf}
-	\begin{description}
-		\item[Variables] \uncover<2->{$T, W, O, F, U, R, X_1, X_2, X_3$}
-		\item[Domains] \uncover<3->{$\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$}
-		\item[Constraints] \uncover<4->{$
-			\begin{array}[t]{lll}
-			O + O       & = & R + 10 \cdot X_1 \\
-			X_1 + W + W & = & U + 10 \cdot X_2 \\
-			X_2 + T + T & = & O + 10 \cdot X_3 \\
-			X_3         & = & F
-			\end{array}
-			$}
-		\item[Solution] \uncover<5->{$\{T=7, W=3, O=4, F=1, U=6, R=8\}$}
-	\end{description}
-\end{frame}
+
 
 \section{Backtracking Search}
 
@@ -260,27 +230,27 @@
 \begin{frame}[fragile]{Backtracking Search Code}
 	\scriptsize
 	\begin{semiverbatim}\bfseries
-		\key{def} \defn{csp_search}(csp, heuristic, assignment=\key{None}):
-		    \pause\key{if} assignment \key{is} \key{None}:
+		\keyword{def} \defn{csp_search}(csp, heuristic, assignment=\keyword{None}):
+		    \pause\keyword{if} assignment \keyword{is} \keyword{None}:
 		        assignment = \{\}
 		    \pause\cmnt{# if assignment is complete, return it}
-		    \key{if} len(assignment) == len(csp.variables):
-		        \key{return} assignment
+		    \keyword{if} len(assignment) == len(csp.variables):
+		        \keyword{return} assignment
 		    \pause\cmnt{# select an unassigned variable and order the values}
 		    variable = heuristic.select_variable(csp, assignment)
 		    values = heuristic.order_values(csp, assignment, var)
 		    \pause\cmnt{# try assigning each value to the variable}
-		    \key{for} value \key{in} values:
+		    \keyword{for} value \keyword{in} values:
 		        assignment[variable] = value
 		        \pause\cmnt{# for consistent assignments, recursively check if
 		        # it is possible to assign the remaining variables}
-		        \key{if} csp.is_consistent(assignment):
+		        \keyword{if} csp.is_consistent(assignment):
 		            result = csp_search(csp, heuristic, assignment)
-		            \key{if} result \key{is} \key{not} \key{None}:
-		                \key{return} result
-		        \pause\key{del} assignment[variable]
+		            \keyword{if} result \keyword{is} \keyword{not} \keyword{None}:
+		                \keyword{return} result
+		        \pause\keyword{del} assignment[variable]
 		    \cmnt{# all assignments failed}
-		    \key{return} \key{None}
+		    \keyword{return} \keyword{None}
 	\end{semiverbatim}
 \end{frame}
 \begin{frame}{Backtracking Example}
@@ -404,27 +374,27 @@
 \begin{frame}[fragile]{Arc Consistency Code}
 	\scriptsize
 	\begin{semiverbatim}\bfseries
-		\key{def} \defn{arc_consistency}(csp):
+		\keyword{def} \defn{arc_consistency}(csp):
 		    \pause\cmnt{# check all arcs in the CSP}
 		    queue = collections.deque(csp.get_arcs())
-		    \key{while} queue:
+		    \keyword{while} queue:
 		        var1, var2 = queue.popleft()
 		        \pause\cmnt{# if inconsistent values are found, add all neighbors}
-		        \key{if} remove_inconsistent_values(csp, var1, var2):
-		            \key{for} var3 \key{in} csp.get_neighbors(var1) - set([var2]):
+		        \keyword{if} remove_inconsistent_values(csp, var1, var2):
+		            \keyword{for} var3 \keyword{in} csp.get_neighbors(var1) - set([var2]):
 		                queue.append(var3, var1)
 		\pause
-		\key{def} remove_inconsistent_values(csp, var1, var2):
+		\keyword{def} remove_inconsistent_values(csp, var1, var2):
 		    \pause\cmnt{# search all the values of var1's domain}
-		    removed = \key{False}
-		    \key{for} value1 \key{in} var1.domain:
+		    removed = \keyword{False}
+		    \keyword{for} value1 \keyword{in} var1.domain:
 		        \pause\cmnt{# remove the value if it is inconsistent with var2}
-		        \key{if} all(\key{not} csp.is_consistent(\{var1:value1, var2:value2\})
-		               \key{for} value2 \key{in} var2.domain):
+		        \keyword{if} all(\keyword{not} csp.is_consistent(\{var1:value1, var2:value2\})
+		               \keyword{for} value2 \keyword{in} var2.domain):
 		            var1.domain.remove(value1)
-		            removed = \key{True}
+		            removed = \keyword{True}
 		    \pause\cmnt{# return whether or not any inconsistent values were removed}
-		    \key{return} removed
+		    \keyword{return} removed
 	\end{semiverbatim}
 \end{frame}
 \begin{frame}{Properties of Arc Consistency Checking}
@@ -502,27 +472,27 @@
 \begin{frame}[fragile]{Min-Conflicts Code}
 	\scriptsize
 	\begin{semiverbatim}\bfseries
-		\key{def} \defn{min_conflicts}(csp, max_steps):
+		\keyword{def} \defn{min_conflicts}(csp, max_steps):
 		    \pause\cmnt{# start with an initial complete assignment}
 		    assignment = \{\}
-		    \key{for} variable \key{in} csp.variables:
+		    \keyword{for} variable \keyword{in} csp.variables:
 		        assignment[variable] = random.choice(variable.domain)
 		    \pause\cmnt{# adjust one variable each time through the loop}
-		    \key{for} i \key{in} range(max_steps):
+		    \keyword{for} i \keyword{in} range(max_steps):
 		        \pause\cmnt{# return the assignment when it is consistent}
-		        \key{if} csp.is_consistent(assignment):
-		            \key{return} assignment
+		        \keyword{if} csp.is_consistent(assignment):
+		            \keyword{return} assignment
 		        \pause\cmnt{# otherwise, select a random conflicted variable}
 		        var = random.choice(csp.get_conflicts(assignment))
 		        \pause\cmnt{# assign the variable the value with minimal conflicts}
 		        counts = \{\}
-		        \key{for} value \key{in} var.domain:
+		        \keyword{for} value \keyword{in} var.domain:
 		            assignment[var] = value
 		            conflicts = csp.get_conflicts(assignment)
 		            counts[value] = len(conflicts)
 		        assignment[var] = min(counts, key=counts.get)
 		    \pause\cmnt{# all assignments failed}
-		    \key{return} \key{None}
+		    \keyword{return} \keyword{None}
 	\end{semiverbatim}
 \end{frame}
 \begin{frame}{Min-Conflicts Properties}

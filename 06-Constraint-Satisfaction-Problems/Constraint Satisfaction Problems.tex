@@ -8,6 +8,14 @@
 \date[]{30 Jan 2014}
 
 \newcommand{\V}[1]{\mbox{\texttt{#1}}}
+\newcommand{\VeqV}[2]{$\V{#1} = \V{#2}$}
+\newcommand{\VneqV}[2]{$\V{#1} \neq \V{#2}$}
+\newcommand{\assignment}[1]{%
+$
+\left\{
+\mbox{#1}
+\right\}
+$}
 
 \begin{document}
 
@@ -248,13 +256,41 @@ $
 		    \keyword{return} \keyword{None}
 	\end{semiverbatim}
 \end{frame}
-\begin{frame}{Backtracking Example}
-	\begin{center}
-		\only<1>{\includegraphics[width=4in]{backtrack-progress-1}}%
-		\only<2>{\includegraphics[width=4in]{backtrack-progress-2}}%
-		\only<3>{\includegraphics[width=4in]{backtrack-progress-3}}%
-		\only<4>{\includegraphics[width=4in]{backtrack-progress-4}}%
-	\end{center}
+\begin{frame}[label=backtracking-example]{Backtracking Example}
+\begin{description}[Constraints]
+\item[Variables] \V{WA}, \V{NT}, \V{Q}, \V{SA}, \V{NSW}, \V{V}, \V{T}
+\item[Domains] $D_i = \{\V{red}, \V{green}, \V{blue}\}$
+\item[Constraints] \VneqV{SA}{WA}, \VneqV{SA}{NT}, \VneqV{SA}{Q}, \VneqV{SA}{NSW}, \VneqV{SA}{V}, \VneqV{WA}{NT}, \VneqV{NT}{Q}, \VneqV{Q}{NSW}, \VneqV{NSW}{V}
+\end{description}
+\footnotesize
+\begin{forest}
+[{\assignment{}},visible on={2-}
+  [{\assignment{\V{WA}=\V{red}}},visible on={3-}
+    [{\assignment{
+        \VeqV{WA}{red},
+        \VeqV{NT}{green}}},visible on={4-}
+      [{\assignment{
+          \VeqV{WA}{red},
+          \VeqV{NT}{green},
+          \VeqV{Q}{blue}}},visible on={5-6}
+          [{\assignment{
+          \VeqV{WA}{red},
+          \VeqV{NT}{green},
+          \VeqV{Q}{blue},
+          \VeqV{SA}{???}}},visible on={6}]
+      ]
+      [{\assignment{
+          \VeqV{WA}{red},
+          \VeqV{NT}{green},
+          \VeqV{Q}{red}}},visible on={7-}
+          [{\ldots},visible on={8-}]
+      ]
+    ]
+    [{\ldots},invisible]
+  ]
+  [{\ldots},invisible]
+]
+\end{forest}
 \end{frame}
 
 \subsection{Simple Search Heuristics}

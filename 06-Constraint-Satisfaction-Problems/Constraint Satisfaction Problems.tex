@@ -293,7 +293,7 @@ $
 \end{forest}
 \end{frame}
 
-\subsection{Simple Search Heuristics}
+\subsection{Search Heuristics}
 \begin{frame}{Backtracking Heuristics}
 	\begin{block}{Problem}
 		\begin{itemize}
@@ -309,8 +309,6 @@ $
 			\item In what order should its values be tried?
 			\pause
 			\item Can we detect inevitable failure early?
-			\pause
-			\item Can we take advantage of problem structure?
 		\end{itemize}
 	\end{block}
 \end{frame}
@@ -361,8 +359,6 @@ $
 		$\approx$ & 1000 queens
 	\end{tabular}
 \end{frame}
-
-\subsection{Constraint Propogation}
 \begin{frame}[t]{Forward Checking}
 	\begin{block}{Idea}
 		\begin{itemize}
@@ -374,99 +370,6 @@ $
 	\only<2>{\includegraphics[width=4in]{forward-checking-progress-2.pdf}}%
 	\only<3>{\includegraphics[width=4in]{forward-checking-progress-3.pdf}}%
 	\only<4>{\includegraphics[width=4in]{forward-checking-progress-4.pdf}}%
-\end{frame}
-\begin{frame}{Constraint Propogation}
-	\begin{block}{Problem with Forward Checking}
-		\begin{itemize}
-			\item Only propogates information from assigned variables
-			\item<4-|alert@4-> Need to check constraints on unassigned variables!
-		\end{itemize}
-	\end{block}
-	\begin{center}
-		\visible<2->{\includegraphics[width=4in]{forward-checking-progress-3}} \\
-		\visible<3->{But \V{NT} and \V{SA} cannot both be blue!}
-	\end{center}
-\end{frame}
-\begin{frame}{Arc Consistency}
-	\begin{block}{$X \rightarrow Y$ is consistent iff}
-		For \alert{every} value of $X$ there is \alert{some} legal value for $Y$
-	\end{block}
-	\begin{block}{Keeping Arcs Consistent}
-		\begin{itemize}
-			\item Remove domain values that make an arc inconsistent
-			\item Check neighbors of variables with modified domains
-		\end{itemize}
-	\end{block}
-	\only<1>{\includegraphics[width=4in]{arc-consistency-1.pdf}}%
-	\only<2>{\includegraphics[width=4in]{arc-consistency-2.pdf}}%
-	\only<3>{\includegraphics[width=4in]{arc-consistency-3.pdf}}%
-	\only<4>{\includegraphics[width=4in]{arc-consistency-4.pdf}}%
-\end{frame}
-\begin{frame}[fragile]{Arc Consistency Code}
-	\scriptsize
-	\begin{semiverbatim}\bfseries
-		\keyword{def} \defn{arc_consistency}(csp):
-		    \pause\cmnt{# check all arcs in the CSP}
-		    queue = collections.deque(csp.get_arcs())
-		    \keyword{while} queue:
-		        var1, var2 = queue.popleft()
-		        \pause\cmnt{# if inconsistent values are found, add all neighbors}
-		        \keyword{if} remove_inconsistent_values(csp, var1, var2):
-		            \keyword{for} var3 \keyword{in} csp.get_neighbors(var1) - set([var2]):
-		                queue.append(var3, var1)
-		\pause
-		\keyword{def} remove_inconsistent_values(csp, var1, var2):
-		    \pause\cmnt{# search all the values of var1's domain}
-		    removed = \keyword{False}
-		    \keyword{for} value1 \keyword{in} var1.domain:
-		        \pause\cmnt{# remove the value if it is inconsistent with var2}
-		        \keyword{if} all(\keyword{not} csp.is_consistent(\{var1:value1, var2:value2\})
-		               \keyword{for} value2 \keyword{in} var2.domain):
-		            var1.domain.remove(value1)
-		            removed = \keyword{True}
-		    \pause\cmnt{# return whether or not any inconsistent values were removed}
-		    \keyword{return} removed
-	\end{semiverbatim}
-\end{frame}
-\begin{frame}{Properties of Arc Consistency Checking}
-	Detects failure earlier than forward checking, but\ldots
-	\begin{block}{Given $n$ variables, at most $d$ values per domain}
-		\begin{itemize}
-			\pause
-			\item Maximum arcs in a binary CSP: \\
-			      \pause \hspace{2em} $n^2$, all pairs
-			\pause
-			\item Maximum times an arc could be added to the queue: \\
-			      \pause \hspace{2em} $d$, if all values in domain are deleted
-			\pause
-			\item Checking consistency of a single arc: \\
-			      \pause \hspace{2em} $d^2$, all in $X_1$'s domain with all in $X_2$'s
-			\pause
-			\item Total time: \\
-			      \pause \hspace{2em} $O(n^2d^3)$
-		\end{itemize}
-	\end{block}
-\end{frame}
-\begin{frame}{Arc Consistency Incompleteness}
-	\begin{columns}
-		\begin{column}{2in}
-			\begin{block}{Problem}
-				Arc consistency checking cannot detect some bad assignments, e.g. \\
-				$\{\V{WA}=\V{red}, \V{NSW}=\V{red}\}$
-			\end{block}
-		\end{column}
-		\begin{column}{2in}
-			\includegraphics[height=1.25in]{australia-arc-fail.pdf}
-		\end{column}
-	\end{columns}
-	\pause
-	\begin{block}{Partial Solution: Special Purpose Constraint Handling}
-		\begin{itemize}
-			\item Constraint: $\V{all-different}(\V{SA},\V{NT},\V{Q})$
-			\item After arc consistency: $\V{SA}=\V{NT}=\V{Q}=\{\V{blue},\V{green}\}$
-			\item Failure: \uncover<3>{\alert<3>{fewer values than variables!}}
-		\end{itemize}
-	\end{block}
 \end{frame}
 
 \section{Search Alternatives}

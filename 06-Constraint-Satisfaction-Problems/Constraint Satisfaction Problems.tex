@@ -422,8 +422,7 @@ $
 		        counts = \{\}
 		        \keyword{for} value \keyword{in} var.domain:
 		            assignment[var] = value
-		            conflicts = csp.get_conflicts(assignment)
-		            counts[value] = len(conflicts)
+		            counts[value] = len(csp.get_conflicts(assignment))
 		        assignment[var] = min(counts, key=counts.get)
 		    \pause\cmnt{# all assignments failed}
 		    \keyword{return} \keyword{None}

@@ -30,63 +30,6 @@ $}
 \section{Constraint Satisfaction}
 
 \subsection{Defining Problems}
-\begin{frame}{Example: Meeting Scheduling}
-	\begin{block}{Daily Meetings}
-		\begin{itemize}
-			\item Jim \& Tammy for 2 hours
-			\item Jim \& Martha for 1 hour
-			\item Martha \& Tammy for 1 hour
-		\end{itemize}
-	\end{block}
-	\begin{block}{Constraints}
-		\begin{itemize}
-			\item Between 9:00am and 5:00pm
-			\item Each person needs 1 hour between meetings
-			\item Busy: Jim 12-2, Martha 11-1, Tammy 10-11 and 2-3
-		\end{itemize}
-	\end{block}
-\end{frame}
-\begin{frame}{Constraint Satisfaction Problem Definition}
-	\begin{block}{Terms}
-		\begin{description}
-			\item[Variables] $X_1, X_2, \ldots, X_n$
-			\item[Domains] Allowable values for each variable
-			\item[Constraints] Allowable combinations of variables
-		\end{description}
-	\end{block}
-	\begin{block}{States}
-		\begin{description}
-			\item[Assignment] of values to variables, $\{X_i=v_i, X_j=v_j, \ldots\}$
-		\end{description}
-	\end{block}
-	\begin{block}{Types of States}
-		\begin{description}
-			\item[Consistent] No constraints violated
-			\item[Solution] No constraints violated, all variables assigned
-		\end{description}
-	\end{block}
-\end{frame}
-\begin{frame}{Example: Meeting Scheduling}
-	\begin{block}{Problem Description}
-		\begin{itemize}
-			\item 2 hour meetings: Jim \& Tammy
-			\item 1 hour meetings: Jim \& Martha, Martha \& Tammy
-			\item 9:00am and 5:00pm, 1 hour between meetings
-			\item Busy: Jim 12-2, Martha 11-1, Tammy 10-11 and 2-3
-		\end{itemize}
-	\end{block}
-	\begin{description}
-		\item[Variables] \uncover<2->{\V{J\&T}, \V{J\&M}, \V{M\&T}}
-		\item[Domains] \uncover<3->{
-			$D_{\V{\scriptsize J\&T}} = \{\V{9-11}, \V{10-12}, \ldots\}$ \\
-			$D_{\V{\scriptsize J\&M}} = D_{\V{\scriptsize M\&T}} = \{\V{9-10}, \V{10-11}, \ldots\}$}
-		\item[Constraints] \uncover<4->{
-			$\V{J\&T} \cap \V{J\&M} = \emptyset$, $\V{J\&M} \cap \V{M\&T} = \emptyset$, \\
-			$\V{12-2} \cap \V{J\&T} = \emptyset$, $\V{12-2} \cap \V{J\&M} = \emptyset$, \ldots}
-		\item[Solution] \uncover<5->{
-			$\{\V{J\&T}=\V{3-5}, \V{M\&T}=\V{1-2}, \V{J\&M}=\V{10-11}\}$}
-	\end{description}
-\end{frame}
 \begin{frame}{Example: Map Coloring}
 	\begin{columns}
 		\begin{column}{1.5in}
@@ -100,12 +43,49 @@ $}
 			\only<2->{\includegraphics[height=1.75in]{australia-solution.pdf}}%
 		\end{column}
 	\end{columns}
-	\begin{description}
-		\item[Variables] \uncover<3->{\V{WA}, \V{NT}, \V{Q}, \V{NSW}, \V{V}, \V{SA}, \V{T}}
-		\item[Domains] \uncover<4->{$D_i = \{\V{red}, \V{green}, \V{blue}\}$}
-		\item[Constraints] \uncover<5->{$\V{WA} \neq \V{NT}, \V{WA} \neq \V{SA}, \V{NT} \neq \V{SA}, \ldots$}
-		\item[Solution] \uncover<6->{$\{\V{WA}=\V{red}, \V{NT}=\V{green}, \V{Q}=\V{red}, \linebreak
-		                                \V{NSW}=\V{green}, \V{V}=\V{red}, \V{SA}=\V{blue}, \V{T}=\V{green}\}$}
+\end{frame}
+\begin{frame}{Constraint Satisfaction Problem Definition}
+	\begin{block}{Terms}
+		\begin{description}[Constraints]
+			\item[Variables] $X_1, X_2, \ldots, X_n$
+			\item[Domains] Allowable values for each variable
+			\item[Constraints] Allowable combinations of variables
+		\end{description}
+	\end{block}
+	\begin{block}{States}
+		\begin{description}
+			\item[Assignment] of values to variables, $\{X_i=v_i, X_j=v_j, \ldots\}$
+		\end{description}
+	\end{block}
+	\begin{block}{Types of States}
+		\begin{description}[Consistent]
+			\item[Consistent] No constraints violated
+			\item[Solution] No constraints violated, all variables assigned
+		\end{description}
+	\end{block}
+\end{frame}
+\begin{frame}{Example: Map Coloring}
+	\begin{columns}
+		\begin{column}{1.5in}
+			\begin{block}{Problem}
+				Color all countries with red, green or blue,
+				and with no 2 adjacent countries the same color
+			\end{block}
+		\end{column}
+		\begin{column}{2.5in}
+			\includegraphics[height=1.75in]{australia.pdf}
+		\end{column}
+	\end{columns}
+	\begin{description}[Constraints]
+		\item[Variables] \uncover<2->{\V{WA}, \V{NT}, \V{Q}, \V{NSW}, \V{V}, \V{SA}, \V{T}}
+		\item[Domains] \uncover<3->{$D_i = \{\V{red}, \V{green}, \V{blue}\}$}
+		\item[Constraints] \uncover<4->{\VneqV{WA}{NT}, \VneqV{WA}{SA}, \VneqV{NT}{SA}, \ldots}
+		\item[Solution] \uncover<5->{\assignment{%
+			\begin{tabular}{l}
+			\VeqV{WA}{red}, \VeqV{NT}{green}, \VeqV{Q}{red}, \\
+			\VeqV{NSW}{green}, \VeqV{V}{red}, \VeqV{SA}{blue}, \\
+			\VeqV{T}{green}
+			\end{tabular}}}
 	\end{description}
 \end{frame}
 \begin{frame}{Example: Cryptarithmetic}
@@ -120,7 +100,7 @@ F & O & U & R
 \end{array}
 $
 \end{center}
-	\begin{description}
+	\begin{description}[Constraints]
 		\item[Variables] \uncover<2->{$T, W, O, F, U, R\uncover<5->{, C_1, C_2, C_3$}}
 		\item[Domains] \uncover<3->{$\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$}
 		\item[Constraints] \uncover<4->{$
@@ -132,6 +112,27 @@ $
 			\end{array}
 			$}
 		\item[Solution] \uncover<6->{$\left\{\begin{array}{l}T=7, W=3, O=4, F=1, U=6,\\R=8, C_1=0, C_2=0, C_3=1\end{array}\right\}$}
+	\end{description}
+\end{frame}
+\begin{frame}{Example: Meeting Scheduling}
+	\begin{block}{Problem Description}
+		\begin{itemize}
+			\item 2 hour meetings: Jim \& Tammy
+			\item 1 hour meetings: Jim \& Martha, Martha \& Tammy
+			\item 9:00am and 5:00pm, 1 hour between meetings
+			\item Busy: Jim 12-2, Martha 11-1, Tammy 10-11 and 2-3
+		\end{itemize}
+	\end{block}
+	\begin{description}[Constraints]
+		\item[Variables] \visible<2->{\V{J\&T}, \V{J\&M}, \V{M\&T}}
+		\item[Domains] \visible<2->{
+			$D_{\V{\scriptsize J\&T}} = \{\V{9-11}, \V{10-12}, \ldots\}$ \\
+			$D_{\V{\scriptsize J\&M}} = D_{\V{\scriptsize M\&T}} = \{\V{9-10}, \V{10-11}, \ldots\}$}
+		\item[Constraints] \visible<2->{
+			$\V{J\&T} \cap \V{J\&M} = \emptyset$, $\V{J\&M} \cap \V{M\&T} = \emptyset$, \\
+			$\V{12-2} \cap \V{J\&T} = \emptyset$, $\V{12-2} \cap \V{J\&M} = \emptyset$, \ldots}
+		\item[Solution] \visible<2->{
+			$\{\V{J\&T}=\V{3-5}, \V{M\&T}=\V{1-2}, \V{J\&M}=\V{10-11}\}$}
 	\end{description}
 \end{frame}
 

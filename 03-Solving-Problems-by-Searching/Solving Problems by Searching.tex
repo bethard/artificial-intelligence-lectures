@@ -698,75 +698,102 @@ for tree={draw,rounded corners,align=center,l sep=3em}
 	\end{columns}
 \end{frame}
 \begin{frame}[label=bag-generation]{Bag Generation}
-\begin{block}{Determine the original order of a bag of words}
-\begin{description}
+\vspace{-1em}
+\begin{columns}[t]
+\begin{column}{0.7\textwidth}
+\begin{block}{Order of a bag of words}
+\begin{description}[Actions]
 \item[Initial] Full bag, empty sentence
 \item[Actions] Pop from bag, add to sentence
 \item[Goal] Empty bag, full sentence
-\item[Score] \small $P(w_1|\mbox{Start})P(w_2|w_1)P(w_3|w_2)\ldots P(x_n|x_{n-1})$
+\item[Cost] \footnotesize $c(w_1,w_2) + c(w_2,w_3) + \ldots + c(w_{n-1},w_n)$
 \end{description}
 \end{block}
-\begin{center}
-\tiny
+\end{column}
+\begin{column}{0.25\textwidth}
+\small
+\begin{block}{$c(v,w)$}
+\begin{tabular}{@{} l @{\hspace{0.5em}} l @{\hspace{0.5em}} r @{}}
+\ldots \\
+John & broke & 3.5 \\
+\ldots \\
+the & the & 25.1 \\
+\dots
+\end{tabular}
+\end{block}
+\end{column}
+\end{columns}
+\smallskip
+\centering
+\scriptsize
 \begin{forest}
 for tree={draw,rounded corners,grow'=east,edge=-latex,l sep=2em}
 [{\mtnode{lamp,John,the,broke}{}}
   [{\mtnode{lamp,John,broke}{the}}
-    [{\mtnode{lamp,broke}{the,John}}]
-    [{\mtnode{John,broke}{the,lamp}}
-      [{\mtnode{John}{the,lamp,broke}}]
-      [{\mtnode{broke}{the,lamp,John}}
-        [{\mtnode{}{the,lamp,John,broke}}]
+    [{\mtnode{lamp,broke}{the,John}}
+      [{\ldots},draw=none
+        [{\mtnode{}{the,John,lamp,broke}}]
       ]
+    ]
+    [{\mtnode{John,broke}{the,lamp}}
+      [{\ldots},draw=none]
     ]
   ]
   [{\mtnode{lamp,the,broke}{John}}
     [{\mtnode{lamp,the}{John,broke}}
-      [{\mtnode{the}{John,broke,lamp}}]
-      [{\mtnode{lamp}{John,broke,the}}
+      [{\ldots},draw=none
         [{\mtnode{}{John,broke,the,lamp}}]
       ]
     ]
-    [{\mtnode{lamp,broke}{John,the}}]
+    [{\mtnode{lamp,broke}{John,the}}
+      [{\ldots},draw=none]
+    ]
   ]
 ]
 \end{forest}
-\end{center}
 \end{frame}
 \begin{frame}[label=bag-generation-heuristic]{A Bag Generation Heuristic}
-	\begin{columns}
-		\begin{column}{2in}
-			\begin{block}{Node}
-				\texttt{$\{$lamp, the$\}$} \\
-				\texttt{[John, broke]}
-			\end{block}
-			\begin{block}{Bag-Word Estimates}
-				\begin{tabular}{@{} l l @{}}
-				lamp & \uncover<2->{0.001} \\
-				the  & \uncover<3->{0.002} \\
-				\end{tabular}
-			\end{block}
-			\begin{block}{h(n)}
-				\uncover<4->{$0.001 * 0.002 = 0.000002$}
-			\end{block}
-		\end{column}
-		\begin{column}{2in}
-			\begin{tabular}{|ll|l|}
-			\hline
-			John  & the  & 0.001 \\
-			broke & the  & 0.03 \\
-			the   & the  & 0.0 \\
-			lamp  & the  & 0.002 \\
-			\hline
-			\hline
-			John  & lamp & 0.0005 \\
-			broke & lamp & 0.001 \\
-			the   & lamp & 0.03 \\
-			lamp  & lamp & 0.0 \\
-			\hline
-			\end{tabular}
-		\end{column}
-	\end{columns}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\begin{block}{Node}
+\texttt{$\{$lamp, the$\}$} \\
+\texttt{[John, broke]}
+\end{block}
+\begin{block}{Bag-Word Estimates}
+$
+\begin{array}{@{} l l @{}}
+\alt<2->%
+{\min\limits_{w \in \{\mbox{\scriptsize broke}, \mbox{\scriptsize the}\}} s(w, \mbox{lamp})}
+{\mbox{lamp}}
+& \uncover<3->{3.5} \\
+\alt<2->%
+{\min\limits_{w \in \{\mbox{\scriptsize broke}, \mbox{\scriptsize lamp}\}} s(w, \mbox{the})}
+{\mbox{the}}
+& \uncover<4->{3.2} \\
+\end{array}
+$
+\end{block}
+\begin{block}{h(n)}
+\uncover<5->{$3.5 + 3.2 = 6.7$}
+\end{block}
+\end{column}
+\begin{column}{0.35\textwidth}
+\begin{tabular}{ @{} | l l r | @{}}
+\hline
+John  & lamp & 7.6 \\
+broke & lamp & 6.9 \\
+the   & lamp & 3.5 \\
+lamp  & lamp & 23.0 \\
+\hline
+\hline
+John  & the  & 7.1 \\
+broke & the  & 3.2 \\
+the   & the  & 25.1 \\
+lamp  & the  & 6.2 \\
+\hline
+\end{tabular}
+\end{column}
+\end{columns}
 \end{frame}
 
 

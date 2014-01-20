@@ -75,12 +75,12 @@
 		def hill_climb(problem):
 		
 		    # start at the problem's initial state
-		    current = Node(problem.initial_state)
+		    current = Node(problem.get_random_complete_state())
 		    while True:
 		
 		        # select the neighboring state with the best score
 		        state_scores = []
-		        for state, score in problem.get_successors(current.state):
+		        for state, score in problem.get_neighbors(current.state):
 		            state_scores.append((score, state))
 		        best_score, best_state = max(state_scores)
 		
@@ -118,7 +118,7 @@
 	\scriptsize
 	\begin{lstlisting}
 		def simulated_annealing(problem, get_temperature):
-		    current = Node(problem.initial_state)
+		    current = Node(problem.get_random_complete_state())
 		    for time in itertools.count():
 		        
 		        # stop when the temperature reaches zero
@@ -127,8 +127,8 @@
 		            return current
 		        
 		        # select a random neighbor
-		        successors = problem.get_successors(current.state)
-		        state, score = random.choice(successors)
+		        neighbors = problem.get_neighbors(current.state)
+		        state, score = random.choice(neighbors)
 		        
 		        # always move to the neighbor if it's better,
 		        # and sometimes if it's worse
@@ -164,13 +164,13 @@
 	\scriptsize
 	\begin{lstlisting}
 		def local_beam_search(problem, k):
-		    current = [Node(problem.initial_state)]
+		    current = [Node(problem.get_random_complete_state())]
 		    while True:
 		        
 		        # get all neighbors of the current states
 		        state_scores = []
 		        for node in current:
-		            for state, score in problem.get_successors(node.state):
+		            for state, score in problem.get_neighbors(node.state):
 		                
 		                # return the first goal state generated
 		                if problem.is_goal(state):

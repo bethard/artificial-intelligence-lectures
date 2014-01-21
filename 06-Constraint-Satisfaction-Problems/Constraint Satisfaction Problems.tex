@@ -452,7 +452,7 @@ $
 \end{frame}
 
 \subsection{Tree Search}
-\begin{frame}[label=tree-structured-csps]{Tree-Structured CSPs}
+\begin{frame}[label=tree-csp]{Tree-Structured CSPs}
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 CSPs as graphs:
@@ -488,58 +488,40 @@ CSPs as graphs:
 \end{tikzpicture}
 }
 \item End to start: remove values inconsistent with parent
-\item Start to end: assign any remaining value
+\item Start to end: assign any remaining consistent value
 \end{enumerate}
 \end{block}
 }
 \end{frame}
-\begin{frame}{Tree-Structured CSP Example}
-	\begin{block}{Schedule jobs A, B, C, D, E for 9, 10, 11 or 12}
-		\begin{itemize}
-			\item B must be before 11:00
-			\item D must be after 10:00
-			\item B \& C must be after A
-			\item D \& E must be after C
-		\end{itemize}
-	\end{block}
-	\begin{block}{Algorithm (Again)}
-		\begin{enumerate}
-			\item Choose one variable as the root
-			\item List variables with parents before children
-			\item From the end, remove inconsistent parent values
-			\item From the start, assign values consistent with parents
-		\end{enumerate}
-	\end{block}
-\end{frame}
-\begin{frame}{Tree-Structured CSP Example}
-	\begin{block}{Schedule jobs A, B, C, D, E for 9, 10, 11 or 12}
-		\begin{itemize}
-			\item B must be before 11:00
-			\item D must be after 10:00
-			\item B \& C must be after A
-			\item D \& E must be after C
-		\end{itemize}
-	\end{block}
-	\begin{center}
-		\only<1>{\includegraphics[width=4in]{tree-csp-solution-1.pdf}}%
-		\only<2>{\includegraphics[width=4in]{tree-csp-solution-2.pdf}}%
-		\only<3>{\includegraphics[width=4in]{tree-csp-solution-3.pdf}}%
-		\only<4>{\includegraphics[width=4in]{tree-csp-solution-4.pdf}}%
-		\only<5>{\includegraphics[width=4in]{tree-csp-solution-5.pdf}}%
-		\only<6>{\includegraphics[width=4in]{tree-csp-solution-6.pdf}}%
-		\only<7>{\includegraphics[width=4in]{tree-csp-solution-7.pdf}}%
-		\only<8>{\includegraphics[width=4in]{tree-csp-solution-8.pdf}}%
-		\only<9>{\includegraphics[width=4in]{tree-csp-solution-9.pdf}}%
-		\only<10>{\includegraphics[width=4in]{tree-csp-solution-10.pdf}}%
-		\only<11>{\includegraphics[width=4in]{tree-csp-solution-11.pdf}}%
-		\only<12>{\includegraphics[width=4in]{tree-csp-solution-12.pdf}}%
-		\only<13>{\includegraphics[width=4in]{tree-csp-solution-13.pdf}}%
-		\only<14>{\includegraphics[width=4in]{tree-csp-solution-14.pdf}}%
-		\only<15>{\includegraphics[width=4in]{tree-csp-solution-15.pdf}}%
-		\only<16>{\includegraphics[width=4in]{tree-csp-solution-16.pdf}}%
-		\only<17>{\includegraphics[width=4in]{tree-csp-solution-17.pdf}}%
-		\only<18>{\includegraphics[width=4in]{tree-csp-solution-18.pdf}}%
-	\end{center}
+\begin{frame}[label=tree-csp-example]{Tree-Structured CSP Example}
+\begin{block}{Schedule jobs A, B, C, D, E for 9, 10, 11 or 12}
+\begin{itemize}
+\item B must be before 11:00
+\item D must be after 10:00
+\item B \& C must be after A
+\item D \& E must be after C
+\end{itemize}
+\end{block}
+\begin{center}
+{\footnotesize
+\begin{tikzpicture}[
+  align=center,
+  every node/.style={draw,circle,text width=4.1em,visible on={2-}},
+  every edge/.style={draw,-latex,visible on={2-}}]
+\node[filled on={11}] at (0.0, 0) (A) {{\normalsize A} \\ \scriptsize\{9\only<-9>{,10}\only<-7>{,11,12}\}};
+\node[filled on={9,13}] at (2.3, 0) (B) {{\normalsize B} \\ \scriptsize\{\only<-9>{9,}10\}}
+    edge (A);
+\node[filled on={7,15}] at (4.6, 0) (C) {{\normalsize C} \\ \scriptsize\{\only<-7>{9,}10\only<-15>{,11}\only<-3>{,12}\}}
+    edge[bend right=40] (A);
+\node[filled on={5,17}] at (6.9, 0) (D) {{\normalsize D} \\ \scriptsize\{11\only<-17>{,12}\}}
+    edge (C);
+\node[filled on={3,19}] at (9.2, 0) (E) {{\normalsize E} \\ \scriptsize\{\only<-3>{9,}\only<-19>{10,}11\only<-19>{,12}\}}
+    edge[bend right=40] (C);
+\end{tikzpicture}
+}\\
+\bigskip
+\uncover<21->{Time complexity: \uncover<22->{$O(nd^2)$}}
+\end{center}
 \end{frame}
 \begin{frame}{Subproblems and Decomposition}
 	\begin{columns}

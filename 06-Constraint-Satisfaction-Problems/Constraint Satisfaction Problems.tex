@@ -518,41 +518,39 @@ CSPs as graphs:
 \node[filled on={3,19}] at (9.2, 0) (E) {{\normalsize E} \\ \scriptsize\{\only<-3>{9,}\only<-19>{10,}11\only<-19>{,12}\}}
     edge[bend right=40] (C);
 \end{tikzpicture}
-}\\
-\bigskip
-\uncover<21->{Time complexity: \uncover<22->{$O(nd^2)$}}
+}
+\visible<20>{}% trick Beamer into showing last frame
 \end{center}
 \end{frame}
-\begin{frame}{Subproblems and Decomposition}
-	\begin{columns}
-		\begin{column}{2in}
-			\begin{block}{Example}
-				Tasmania and mainland are separate components
-			\end{block}
-			\includegraphics[width=2in]{australia-csp.pdf}
-		\end{column}
-		\begin{column}{2in}
-			\begin{block}{If each subproblem has $c$ of the $n$ total variables}
-				\begin{itemize}
-					\pause\item Num. of subproblems:\\
-					\pause\hspace{2em}$n/c$
-					\pause\item Time per subproblem:\\
-					\pause\hspace{2em}$d^c$
-					\pause\item Total work: \pause$O(nd^c/c)$
-				\end{itemize}
-			\end{block}
-			\pause
-			\begin{block}{$n=80, d=2, c=20$}
-				At 10 million nodes/sec:
-				\begin{itemize}
-					\item $2^{80} =$ 4 billion years 
-					\item $4 \cdot 2^{20} =$ 0.4 seconds
-				\end{itemize}
-			\end{block}
-		\end{column}
-	\end{columns}
+\begin{frame}[label=decomposition]{Subproblems and Decomposition}
+\begin{columns}[T]
+\begin{column}{0.4\textwidth}
+\begin{block}{Example}
+Tasmania, mainland: separate components
+\end{block}
+\includegraphics[width=\textwidth]{australia-csp.pdf}
+\end{column}
+\pause
+\begin{column}{0.55\textwidth}
+\begin{block}{If each subproblem has $c$ of the $n$ total variables}
+\begin{itemize}
+\item Num. of subproblems: \pause$n/c$
+\pause\item Time per subproblem: \pause$d^c$
+\pause\item Total work: \pause$O(nd^c/c)$
+\end{itemize}
+\end{block}
+\pause
+\begin{block}{$n=80, d=2, c=20$}
+At 10 million nodes/sec:
+\begin{itemize}
+\item $2^{80} =$ 4 billion years 
+\item $4 \cdot 2^{20} =$ 0.4 seconds
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
-\begin{frame}{Tree Decomposition}
+\begin{frame}[label=tree-decomposition]{Tree Decomposition}
 	Convert constraint graphs to trees by assigning variables:
 	\begin{center}
 		\visible<2->{\includegraphics[width=3.5in]{australia-cutset.pdf}}

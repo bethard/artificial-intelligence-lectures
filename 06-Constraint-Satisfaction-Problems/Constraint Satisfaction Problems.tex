@@ -472,12 +472,10 @@ CSPs as graphs:
 \end{tikzpicture}
 \end{column}
 \end{columns}
-\medskip
 \visible<2->{
-\begin{block}{Tree CSPs can be solved in polynomial time}
+\begin{block}{Solver}
 \begin{enumerate}
-\item Choose one variable as the root, e.g. A
-\item List parents before children, e.g. {\small
+\item Choose root variable, list parents before children, e.g. {\small
 \begin{tikzpicture}[every node/.style={draw,circle},every edge/.style={draw,-latex}]
 \node at (0.0, 0) (A) {A};
 \node at (1, 0) (B) {B} edge (A);
@@ -492,6 +490,8 @@ CSPs as graphs:
 \end{enumerate}
 \end{block}
 }
+\medskip
+\visible<3->{Time complexity: \visible<4->{$O(nd^2)$}}
 \end{frame}
 \begin{frame}[label=tree-csp-example]{Tree-Structured CSP Example}
 \begin{block}{Schedule jobs A, B, C, D, E for 9, 10, 11 or 12}

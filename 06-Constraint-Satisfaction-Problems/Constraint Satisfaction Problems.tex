@@ -452,16 +452,46 @@ $
 \end{frame}
 
 \subsection{Tree Search}
-\begin{frame}{Tree-Structured CSPs}
-	\begin{block}{Tree-Structured CSPs can be solved in polynomial time}
-		\begin{enumerate}
-			\item Choose one variable as the root
-			\item List variables with parents before children, e.g.
-				\includegraphics[width=3.5in]{tree-csp-2.pdf}
-			\item Starting from the end, remove domain values inconsistent between parent and child
-			\item Starting from the beginning, assign a value to each variable that is consistent with its parent
-		\end{enumerate}
-	\end{block}
+\begin{frame}[label=tree-structured-csps]{Tree-Structured CSPs}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+CSPs as graphs:
+\begin{itemize}
+\item Nodes = Variables
+\item Edges = Constraints
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{tikzpicture}[every node/.style={draw,circle}]
+\node at (0, 1.5) (A) {A};
+\node at (1.25, 0.75) (B) {B} edge (A);
+\node at (0, 0) (C) {C} edge (B);
+\node at (2.75, 0.75) (D) {D} edge (B);
+\node at (4, 1.5) (E) {E} edge (D);
+\node at (4, 0) (F) {F} edge (D);
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\medskip
+\visible<2->{
+\begin{block}{Tree CSPs can be solved in polynomial time}
+\begin{enumerate}
+\item Choose one variable as the root, e.g. A
+\item List parents before children, e.g. {\small
+\begin{tikzpicture}[every node/.style={draw,circle},every edge/.style={draw,-latex}]
+\node at (0.0, 0) (A) {A};
+\node at (1, 0) (B) {B} edge (A);
+\node at (2, 0) (C) {C} edge (B);
+\node at (3, 0) (D) {D} edge[bend right=40] (B);
+\node at (4, 0) (E) {E} edge (D);
+\node at (5, 0) (F) {F} edge[bend right=40] (D);
+\end{tikzpicture}
+}
+\item End to start: remove values inconsistent with parent
+\item Start to end: assign any remaining value
+\end{enumerate}
+\end{block}
+}
 \end{frame}
 \begin{frame}{Tree-Structured CSP Example}
 	\begin{block}{Schedule jobs A, B, C, D, E for 9, 10, 11 or 12}

@@ -411,8 +411,8 @@ pruned/.style={draw=none,content={---}}
 	\begin{block}{Necessary Properties}
 		\begin{itemize}
 			\item Quickly computable
-			\item Orders terminal states by utility
-			\item Correlated with chances of winning
+			\item For terminals, $\textsc{Eval}(s)$ orders by utility
+			\item For nonterminals, $\textsc{Eval}(s)$ correlates with winning
 		\end{itemize}
 	\end{block}
 	\pause
@@ -434,6 +434,27 @@ pruned/.style={draw=none,content={---}}
 		\end{array}
 		$
 	\end{block}
+\end{frame}
+\begin{frame}[label=evaluation-function-exercise]{Design an Evaluation Function}
+\begin{block}{Extended Tic-Tac-Toe}
+\begin{itemize}
+\item $N \times N$ board
+\item $K$ in a row wins
+\end{itemize}
+\end{block}
+\bigskip
+Must satisfy:
+\begin{itemize}
+\item Quickly computable
+\item 
+$\begin{array}[t]{lll}
+\lefteqn{\forall x,t,o \! \in \! \textsc{Terminals},}\\
+& \lefteqn{\textsc{Util}(x) = +1 \wedge \textsc{Util}(t) = 0 \wedge \textsc{Util}(o) = -1} \\
+& & \implies  \textsc{Eval}(x) > \textsc{Eval}(t) > \textsc{Eval(o)}
+\end{array}$ 
+\item
+$\forall s \! \in \! \textsc{Nonterminals}, \textsc{Eval}(s)$ correlates with chance of +1
+\end{itemize}
 \end{frame}
 \begin{frame}{Deterministic Games in Practice}
 	\begin{block}{Checkers}

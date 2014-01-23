@@ -75,52 +75,45 @@
 
 
 \subsection{The Wumpus World}
-\begin{frame}{The Wumpus World}
-	\begin{columns}
-		\begin{column}{2in}
-			\begin{block}{Overview}
-				\begin{itemize}
-					\item The agent is in a cave with many rooms
-					\item Pits and the wumpus can kill the agent
-					\item The agent has a single arrow than can be fired to kill the wumpus
-					\item There is a heap of gold in one room
-				\end{itemize}
-			\end{block}
-		\end{column}
-		\begin{column}{2in}
-			\includegraphics[width=2in]{wumpus-world}
-		\end{column}
-	\end{columns}
+\begin{frame}[label=wumpus-world]{The Wumpus World}
+\centering
+\includegraphics[height=0.8\textheight]{wumpus-world}
 \end{frame}
-\begin{frame}{Wumpus World Description}
-	\begin{block}{Environment}
-		\begin{itemize}
-			\item Squares adjacent to wumpus (pit) are smelly (breezy)
-			\item \textsc{Shoot} uses the arrow and kills wumpus if facing it
-			\item Gold glitters and \textsc{Grab} picks it up if in same square
-		\end{itemize}
-	\end{block}
-	\pause
-	\begin{block}{Actions}
-		\textsc{Turn-Left}, \textsc{Turn-Right}, \textsc{Forward}, \textsc{Grab}, \textsc{Shoot}
-	\end{block}
-	\pause
-	\begin{block}{Score}
-		\begin{itemize}
-			\item gold +1000, death -1000
-			\item -1 per step, -10 for using the arrow
-		\end{itemize}
-	\end{block}
+\begin{frame}[label=wumpus-world-defined]{Wumpus World Description}
+Environment:
+\begin{itemize}
+\item $4 \times 4$ rooms, 1 with gold, 1 with wumpus, $k$ with pits
+\item Agent starts in (1,1), facing right, holding 1 arrow
+\end{itemize}
+Performance Measure:
+\begin{itemize}
+\item gold +1000, death -1000, -1 per step, -10 per arrow
+\end{itemize}
+\pause
+Percepts:
+\pause
+\begin{itemize}
+\item \textsc{Stench}/\textsc{Breeze} in squares adjacent to wumpus/pit
+\item \textsc{Glitter} in squares with gold
+\item \textsc{Bump} when running into wall
+\item \textsc{Scream} when wumpus is killed by arrow
+\end{itemize}
+\pause
+Actions:
+\pause
+\begin{itemize}
+\item \textsc{Forward}, \textsc{TurnLeft}, \textsc{TurnRight}, \textsc{Grab}, \textsc{Shoot}
+\end{itemize}
 \end{frame}
-\begin{frame}{Wumpus World Properties}
-	\begin{tabular}{ll}
-		\keyword{Observable?}    \pause & No, only local perception \pause \\
-		\keyword{Deterministic?} \pause & Yes, state+action determines outcome \pause \\
-		\keyword{Episodic?}      \pause & No, involves a sequence of actions \pause \\
-		\keyword{Static?}        \pause & Yes, pits and wumpus are stationary \pause \\
-		\keyword{Discrete?}      \pause & Yes, no real-valued states or actions \pause \\
-		\keyword{Single-Agent?}  \pause & Yes, wumpus takes no (real) actions
-	\end{tabular}
+\begin{frame}[label=wumpus-world-properties]{Wumpus World Properties}
+\begin{description}[Deterministic?]
+\item[Observable?] \uncover<2->{No, only local perception}
+\item[Deterministic?] \uncover<3->{Yes, state+action determines outcome}
+\item[Episodic?] \uncover<4->{No, involves a sequence of actions}
+\item[Static?] \uncover<5->{Yes, pits and wumpus are stationary}
+\item[Discrete?] \uncover<6->{Yes, no real-valued states or actions}
+\item[Single-Agent?] \uncover<7->{Yes, wumpus takes no (real) actions}
+\end{description}
 \end{frame}
 
 

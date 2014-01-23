@@ -1,37 +1,12 @@
-\documentclass[12pt,table]{beamer}
-%\includeonlyframes{current}
+% !TEX TS-program = pdflatexmk
 
-\mode<presentation>{\usetheme{Warsaw}}
-\setbeamertemplate{footline}[frame number]
-\usepackage[english]{babel}
-\usepackage{times}
-\usepackage{url}
-\usepackage{graphicx}
-\usepackage{listings}
+\documentclass[14pt]{beamer}
+\input{../slides-preamble}
 \usepackage{hhline}
-\usepackage{array}
-\usepackage{colortbl}
-\lstloadlanguages{Python}
-\lstset{language=Python}
-\lstset{%
-	basicstyle=\ttfamily\bfseries,
-	keywordstyle=\color{blue}, emph={self}, emphstyle={\color{blue}},
-	identifierstyle=,
-	commentstyle=\color{gray},
-	stringstyle=\color{green!50!black},
-	showstringspaces=false,
-	emph={[2]__init__,__str__}, emphstyle={[2]\color{purple}},
-}
-\newcommand{\key}[1]{{\color{blue}#1}}
-\newcommand{\cmnt}[1]{{\color{gray}#1}}
-\newcommand{\str}[1]{{\color{green!50!black}#1}}
-\newcommand{\defn}[1]{{\color{purple}#1}}
-\newcommand{\SC}[1]{\mbox{\sc#1}}
-\newcommand{\EM}[1]{\mbox{\em#1}}
+\lstset{emph={[2]__init__,__str__}}
 
 \newcommand{\limpl}{\Rightarrow}
 \newcommand{\liff}{\Leftrightarrow}
-
 
 \newlength{\cellwidth}
 \setlength{\cellwidth}{.5in}
@@ -44,20 +19,7 @@
 	\parbox[c][.2in]{\cellwidth}{\centering #3}}}
 
 \title{Logical Agents}
-\subtitle{Introduction to Artificial Intelligence}
-\author{Steven Bethard}
-\institute{
-  Department of Computer Science\\
-  University of Colorado
-}
-\date{CSCI 3202}
-
-\AtBeginSection[]{
-  \begin{frame}<beamer>{Outline}
-  	\scriptsize
-    \tableofcontents[currentsection]
-  \end{frame}
-}
+\date{6 Feb 2014}
 
 \begin{document}
 
@@ -67,7 +29,6 @@
 
 
 \begin{frame}{Outline}
-	\scriptsize
   \tableofcontents
 \end{frame}
 
@@ -89,30 +50,30 @@
 	\begin{block}{Knowledge Base (KB) Properties}
 		\begin{itemize}
 			\item Contains a set of ``sentences''
-			\item Can \SC{Tell} it new ``sentences''
-			\item Can \SC{Ask} it ``queries''
+			\item Can \textsc{Tell} it new ``sentences''
+			\item Can \textsc{Ask} it ``queries''
 		\end{itemize}
 	\end{block}
 \end{frame}
 \begin{frame}[fragile]{Knowledge-Based Agents}
 	\begin{semiverbatim}\bfseries\scriptsize
-		\key{class} \defn{KnowledgeBaseAgent}(object):\pause
-		    \key{def} \defn{__init__}(\key{self}, knowledge_base):
-		        \key{self}.knowledge_base = knowledge_base
-		        \key{self}.time = 0
-		    \key{def} \defn{take_action}(\key{self}, percept):
+		\keyword{class} \defn{KnowledgeBaseAgent}(object):\pause
+		    \keyword{def} \defn{__init__}(\keyword{self}, knowledge_base):
+		        \keyword{self}.knowledge_base = knowledge_base
+		        \keyword{self}.time = 0
+		    \keyword{def} \defn{take_action}(\keyword{self}, percept):
 		        \pause\cmnt{# convert the percept to knowledge}
-		        percept_sentence = \key{self}.percept_to_sentence(percept)
-		        \key{self}.knowledge_base.tell(percept_sentence)
+		        percept_sentence = \keyword{self}.percept_to_sentence(percept)
+		        \keyword{self}.knowledge_base.tell(percept_sentence)
 		        \pause\cmnt{# select an action based on the knowledge}
-		        action_query = \key{self}.make_action_query()
-		        action = \key{self}.knowledge_base.ask(action_query)
+		        action_query = \keyword{self}.make_action_query()
+		        action = \keyword{self}.knowledge_base.ask(action_query)
 		        \pause\cmnt{# update the knowledge base with the planned action}
-		        action_sentence = \key{self}.action_to_sentence(action)
-		        \key{self}.knowledge_base.tell(action)
-		        \key{self}.time += 1
+		        action_sentence = \keyword{self}.action_to_sentence(action)
+		        \keyword{self}.knowledge_base.tell(action)
+		        \keyword{self}.time += 1
 		        \pause\cmnt{# perform the action}
-		        \key{return} action
+		        \keyword{return} action
 	\end{semiverbatim}
 \end{frame}
 
@@ -139,13 +100,13 @@
 	\begin{block}{Environment}
 		\begin{itemize}
 			\item Squares adjacent to wumpus (pit) are smelly (breezy)
-			\item \SC{Shoot} uses the arrow and kills wumpus if facing it
-			\item Gold glitters and \SC{Grab} picks it up if in same square
+			\item \textsc{Shoot} uses the arrow and kills wumpus if facing it
+			\item Gold glitters and \textsc{Grab} picks it up if in same square
 		\end{itemize}
 	\end{block}
 	\pause
 	\begin{block}{Actions}
-		\SC{Turn-Left}, \SC{Turn-Right}, \SC{Forward}, \SC{Grab}, \SC{Shoot}
+		\textsc{Turn-Left}, \textsc{Turn-Right}, \textsc{Forward}, \textsc{Grab}, \textsc{Shoot}
 	\end{block}
 	\pause
 	\begin{block}{Score}
@@ -157,12 +118,12 @@
 \end{frame}
 \begin{frame}{Wumpus World Properties}
 	\begin{tabular}{ll}
-		\key{Observable?}    \pause & No, only local perception \pause \\
-		\key{Deterministic?} \pause & Yes, state+action determines outcome \pause \\
-		\key{Episodic?}      \pause & No, involves a sequence of actions \pause \\
-		\key{Static?}        \pause & Yes, pits and wumpus are stationary \pause \\
-		\key{Discrete?}      \pause & Yes, no real-valued states or actions \pause \\
-		\key{Single-Agent?}  \pause & Yes, wumpus takes no (real) actions
+		\keyword{Observable?}    \pause & No, only local perception \pause \\
+		\keyword{Deterministic?} \pause & Yes, state+action determines outcome \pause \\
+		\keyword{Episodic?}      \pause & No, involves a sequence of actions \pause \\
+		\keyword{Static?}        \pause & Yes, pits and wumpus are stationary \pause \\
+		\keyword{Discrete?}      \pause & Yes, no real-valued states or actions \pause \\
+		\keyword{Single-Agent?}  \pause & Yes, wumpus takes no (real) actions
 	\end{tabular}
 \end{frame}
 
@@ -208,7 +169,7 @@
 			\end{tabular}
 			\pause\pause
 			\begin{block}{Solution: Coercion}
-				\SC{Shoot} an arrow
+				\textsc{Shoot} an arrow
 				\begin{itemize}
 					\item Scream $\Rightarrow$ \\
 					      Wumpus ahead
@@ -473,19 +434,19 @@
 \begin{frame}{Evaluating Complex Expressions}
 	\begin{block}{Given}
 		\begin{tabular}{lll}
-			$P=\EM{true}$ & $Q=\EM{false}$ & $R=\EM{true}$ 
+			$P=\textit{true}$ & $Q=\textit{false}$ & $R=\textit{true}$ 
 		\end{tabular}
 	\end{block}
 	\begin{block}{Evaluate}
 		$P \lor R \limpl \lnot (Q \land \lnot R)$
 	\end{block}
 	\begin{enumerate}
-		\pause\item $\EM{true} \lor \EM{true} \limpl \lnot (\EM{false} \land \lnot \EM{true})$
-		\pause\item $\EM{true} \lor \EM{true} \limpl \lnot (\EM{false} \land \EM{false})$
-		\pause\item $\EM{true} \lor \EM{true} \limpl \lnot \EM{false}$
-		\pause\item $\EM{true} \lor \EM{true} \limpl \EM{true}$
-		\pause\item $\EM{true} \limpl \EM{true}$
-		\pause\item $\EM{true}$
+		\pause\item $\textit{true} \lor \textit{true} \limpl \lnot (\textit{false} \land \lnot \textit{true})$
+		\pause\item $\textit{true} \lor \textit{true} \limpl \lnot (\textit{false} \land \textit{false})$
+		\pause\item $\textit{true} \lor \textit{true} \limpl \lnot \textit{false}$
+		\pause\item $\textit{true} \lor \textit{true} \limpl \textit{true}$
+		\pause\item $\textit{true} \limpl \textit{true}$
+		\pause\item $\textit{true}$
 	\end{enumerate}
 \end{frame}
 \begin{frame}{Truth Table Exercise}
@@ -753,27 +714,27 @@
 \end{frame}
 \begin{frame}[fragile]{Truth Table Inference Code}
 	\begin{semiverbatim}\scriptsize\bfseries
-		\key{def} \defn{truth_table_entails}(knowledge_base, query):\pause
+		\keyword{def} \defn{truth_table_entails}(knowledge_base, query):\pause
 		    query_true = query.is_true_for
 		    kb_true = knowledge_base.is_true_for
 		    \cmnt{# check all assignments of knowledge base and query symbols:}
 		    \cmnt{# if the knowledge base is true the query should be true}
 		    symbols = set.union(knowledge_base.symbols, query.symbols)
-		    \key{return} all(
-		        query_true(assignment) \key{if} kb_true(assignment) \key{else} \key{True}
-		        \key{for} assignment \key{in} all_models(symbols))
+		    \keyword{return} all(
+		        query_true(assignment) \keyword{if} kb_true(assignment) \keyword{else} \keyword{True}
+		        \keyword{for} assignment \keyword{in} all_models(symbols))
 		
-		\pause\key{def} \defn{all_models}(symbols):
+		\pause\keyword{def} \defn{all_models}(symbols):
 		    \pause\cmnt{# base case: no symbols, generate an empty assignment}
-		    \key{if} \key{not} symbols:
-		        \key{yield} {}
+		    \keyword{if} \keyword{not} symbols:
+		        \keyword{yield} {}
 		    \pause\cmnt{# recursive case: assign to the first symbol and recurse}
-		    \key{else}:
+		    \keyword{else}:
 		        first, rest = symbols[0], symbols[1:]
-		        \key{for} assignment \key{in} all_models(rest):
-		            \key{for} value \key{in} [True, False]:
+		        \keyword{for} assignment \keyword{in} all_models(rest):
+		            \keyword{for} value \keyword{in} [True, False]:
 		                assignment[first] = value
-		                \key{yield} assignment	
+		                \keyword{yield} assignment	
 	\end{semiverbatim}
 \end{frame}
 \begin{frame}{Truth Table Inference Properties}
@@ -785,9 +746,9 @@
 	\end{block}
 	\begin{block}{Truth Table Inference Properties}
 		\begin{tabular}{@{}l@{\hspace{.3em}}l}
-			\pause\key{Sound?}    & \pause Yes, directly implements entailment definition \\
-			\pause\key{Complete?} & \pause Yes, explores all possibilities \\
-			\pause\key{Time?}     & \pause Given $n$ symbols, takes $O(2^n)$ \\
+			\pause\keyword{Sound?}    & \pause Yes, directly implements entailment definition \\
+			\pause\keyword{Complete?} & \pause Yes, explores all possibilities \\
+			\pause\keyword{Time?}     & \pause Given $n$ symbols, takes $O(2^n)$ \\
 		\end{tabular}
 	\end{block}
 \end{frame}
@@ -837,27 +798,27 @@
 \end{frame}
 \begin{frame}[fragile]{Forward Chaining Code}
 	\begin{semiverbatim}\bfseries\scriptsize
-		\key{def} \defn{forward_chaining_entails}(knowledge_base, query):
+		\keyword{def} \defn{forward_chaining_entails}(knowledge_base, query):
 		    \pause\cmnt{# count the symbols in the body of each clause}
 		    counts = \{\}
-		    \key{for} clause \key{in} knowledge_base.get_clauses():
+		    \keyword{for} clause \keyword{in} knowledge_base.get_clauses():
 		        counts[clause] = len(clause.body)
 		    \pause\cmnt{# start with known symbols and search for non-inferred}
 		    inferred = set()
 		    agenda = knowledge_base.get_true_symbols()
-		    \key{while} agenda:
+		    \keyword{while} agenda:
 		        symbol = agenda.pop()
-		        \key{if} symbol \key{not in} inferred:
+		        \keyword{if} symbol \keyword{not in} inferred:
 		            inferred.add(symbol)
 		            \pause\cmnt{# update counts and infer heads when possible}
-		            \key{for} clause \key{in} knowledge_base.get_clauses():
-		                \key{if} symbol \key{in} clause.body:
+		            \keyword{for} clause \keyword{in} knowledge_base.get_clauses():
+		                \keyword{if} symbol \keyword{in} clause.body:
 		                    counts[clause] -= 1
-		                    \pause\key{if} counts[clause] == 0:
-		                        \key{if} clause.head == query:
-		                            \key{return} \key{True}
+		                    \pause\keyword{if} counts[clause] == 0:
+		                        \keyword{if} clause.head == query:
+		                            \keyword{return} \keyword{True}
 		                        agenda.append(clause.head)
-		    \key{return} \key{False}
+		    \keyword{return} \keyword{False}
 	\end{semiverbatim}
 \end{frame}
 \begin{frame}{Forward Chaining Example}
@@ -893,9 +854,9 @@
 \begin{frame}{Forward Chaining Properties}
 	\begin{block}{Properties}
 		\begin{tabular}{ll}
-			\pause\key{Sound?}    & \pause Yes, uses Modus Ponens \\
-			\pause\key{Complete?} & \pause Yes (more on this in a moment) \\
-			\pause\key{Time?}     & \pause $O(n)$ given $n$ statements in KB \\
+			\pause\keyword{Sound?}    & \pause Yes, uses Modus Ponens \\
+			\pause\keyword{Complete?} & \pause Yes (more on this in a moment) \\
+			\pause\keyword{Time?}     & \pause $O(n)$ given $n$ statements in KB \\
 		\end{tabular}
 	\end{block}
 	\pause
@@ -907,15 +868,15 @@
 	\end{block}
 \end{frame}
 \begin{frame}{Forward Chaining Completeness}
-	\begin{block}{Prove: If $\EM{KB} \models Q$ then $\EM{KB} \vdash_{\EM{\scriptsize forward-chaining}} Q$}
+	\begin{block}{Prove: If $\textit{KB} \models Q$ then $\textit{KB} \vdash_{\textit{\scriptsize forward-chaining}} Q$}
 		\begin{enumerate}
-			\item<2-> $\EM{KB} \models Q$, so $Q$ is \emph{true} in every model of \emph{KB}
+			\item<2-> $\textit{KB} \models Q$, so $Q$ is \emph{true} in every model of \emph{KB}
 			\item<2-> Final \texttt{inferred} set (not inferred = \emph{false}) is a model 
 			\item<4-> So $Q$ is true in the \texttt{inferred} model
-			\item<4-> So $\EM{KB} \vdash_{\EM{\scriptsize forward-chaining}} Q$
+			\item<4-> So $\textit{KB} \vdash_{\textit{\scriptsize forward-chaining}} Q$
 		\end{enumerate}
 	\end{block}
-	\begin{block}<3->{Prove: The final \texttt{inferred} set is a model of $\EM{KB}$}
+	\begin{block}<3->{Prove: The final \texttt{inferred} set is a model of $\textit{KB}$}
 		\begin{enumerate}
 			\item Assume not, i.e. $P_1 \land \ldots \land P_n \limpl Q$ is \emph{false}
 			\item So $P_1 \land \ldots \land P_n$ is \emph{true} and $Q$ is \emph{false} (= not inferred)
@@ -937,9 +898,9 @@
 			\end{block}
 			\begin{block}<12->{Properties}
 				\begin{tabular}{@{\hspace{.1em}}l@{\hspace{.3em}}l}
-					\key{Sound?}    & Yes \\
-					\key{Complete?} & Yes \\
-					\key{Time?}     & Often $\mbox{} < O(n)$ \\
+					\keyword{Sound?}    & Yes \\
+					\keyword{Complete?} & Yes \\
+					\keyword{Time?}     & Often $\mbox{} < O(n)$ \\
 				\end{tabular}
 			\end{block}
 		\end{column}
@@ -965,18 +926,18 @@
 	\begin{block}{Example}
 		$
 		\begin{array}{l}
-		\lnot \EM{IsSnowing} \lor \EM{IsCold} \\
-		\lnot \EM{IsCold} \lor \EM{WearCoat} \\
+		\lnot \textit{IsSnowing} \lor \textit{IsCold} \\
+		\lnot \textit{IsCold} \lor \textit{WearCoat} \\
 		\hline
-		\lnot \EM{IsSnowing} \lor \EM{WearCoat}
+		\lnot \textit{IsSnowing} \lor \textit{WearCoat}
 		\end{array}
 		$
 	\end{block}
 	\begin{block}{Intuition}
 		\begin{itemize}
-			\item If \EM{IsCold} is \emph{true}, then \EM{WearCoat} must be \emph{true}
-			\item If \EM{IsCold} is \emph{false}, then \EM{IsSnowing} must be \emph{false}
-			\item So either \EM{IsSnowing} is \emph{false} or \EM{WearCoat} is \emph{true}
+			\item If \textit{IsCold} is \emph{true}, then \textit{WearCoat} must be \emph{true}
+			\item If \textit{IsCold} is \emph{false}, then \textit{IsSnowing} must be \emph{false}
+			\item So either \textit{IsSnowing} is \emph{false} or \textit{WearCoat} is \emph{true}
 		\end{itemize}
 	\end{block}
 \end{frame}
@@ -999,7 +960,7 @@
 	\begin{block}{Inference by Resolution}
 		\begin{itemize}
 			\item Simplify all statements to use only $\land$, $\lor$ and $\lnot$
-			\item Assume $\EM{KB} \land \lnot\alpha$ (a.k.a $\lnot (\EM{KB} \limpl \alpha)$)
+			\item Assume $\textit{KB} \land \lnot\alpha$ (a.k.a $\lnot (\textit{KB} \limpl \alpha)$)
 			\item Apply resolution until \emph{false} is concluded
 		\end{itemize}
 	\end{block}
@@ -1138,9 +1099,9 @@
 \begin{frame}{Resolution Properties}
 	\begin{block}{Properties}
 		\begin{tabular}{@{}l@{\hspace{.5em}}l}
-			\key{Sound?}    & Yes, uses Resolution \\
-			\key{Complete?} & Yes, proof similar to Forward Chaining proof \\
-			\key{Time?}     & Worst case exponential in \# of symbols \\
+			\keyword{Sound?}    & Yes, uses Resolution \\
+			\keyword{Complete?} & Yes, proof similar to Forward Chaining proof \\
+			\keyword{Time?}     & Worst case exponential in \# of symbols \\
 		\end{tabular}
 	\end{block}
 	\pause
@@ -1158,15 +1119,15 @@
 		\begin{itemize}
 			\item Treat satisfiability checking as local search
 			\item On each iteration flip a symbol's value
-			\item Choice of symbol to flip is sometimes random, sometimes by \SC{Min-Conflicts}
+			\item Choice of symbol to flip is sometimes random, sometimes by \textsc{Min-Conflicts}
 			\item Quit after a certain number of steps
 		\end{itemize}
 	\end{block}
 	\begin{block}{Properties}
 		\begin{tabular}{ll}
-			\pause\key{Sound?}    & \pause Yes, only returns when KB is \emph{true} \\
-			\pause\key{Complete?} & \pause No, could stop early  \\
-			\pause\key{Time?}     & \pause Can be quite fast \\
+			\pause\keyword{Sound?}    & \pause Yes, only returns when KB is \emph{true} \\
+			\pause\keyword{Complete?} & \pause No, could stop early  \\
+			\pause\keyword{Time?}     & \pause Can be quite fast \\
 		\end{tabular}
 	\end{block}
 \end{frame}
@@ -1176,7 +1137,7 @@
 			\includegraphics[width=3.2in]{random-3sat-performance}
 		\end{column}
 		\begin{column}{1in}
-			\key{DPLL} \\
+			\keyword{DPLL} \\
 			Truth table entailment + heuristics and pruning
 		\end{column}
 	\end{columns}
@@ -1196,7 +1157,7 @@
 			\item Enumerate all models through truth tables
 			\item Forward/Backward chaining with Horn clauses
 			\item Resolution using conjunctive normal form
-			\item Local search, e.g. \SC{WalkSAT}
+			\item Local search, e.g. \textsc{WalkSAT}
 		\end{itemize}
 	\end{block}
 \end{frame}

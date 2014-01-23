@@ -59,13 +59,13 @@
 		        \keyword{self}.time = 0
 		    \keyword{def} \defn{take_action}(\keyword{self}, percept):
 		        \pause\cmnt{# convert the percept to knowledge}
-		        percept_sentence = \keyword{self}.percept_to_sentence(percept)
+		        percept_sentence = \keyword{self}.percept_to_sentence(percept, \keyword{self}.time)
 		        \keyword{self}.knowledge_base.tell(percept_sentence)
 		        \pause\cmnt{# select an action based on the knowledge}
-		        action_query = \keyword{self}.make_action_query()
+		        action_query = \keyword{self}.make_action_query(\keyword{self}.time)
 		        action = \keyword{self}.knowledge_base.ask(action_query)
 		        \pause\cmnt{# update the knowledge base with the planned action}
-		        action_sentence = \keyword{self}.action_to_sentence(action)
+		        action_sentence = \keyword{self}.action_to_sentence(action, \keyword{self}.time)
 		        \keyword{self}.knowledge_base.tell(action)
 		        \keyword{self}.time += 1
 		        \pause\cmnt{# perform the action}

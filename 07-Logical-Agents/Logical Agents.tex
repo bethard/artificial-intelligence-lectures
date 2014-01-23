@@ -36,24 +36,20 @@
 \section{Logical Agents}
 \subsection{Knowledge Bases}
 \begin{frame}{Knowledge Bases}
-	\begin{block}{Idea: Separate Knowledge from Reasoning}
-		\arrayrulewidth=2pt
-		\begin{tabular}{|l|l}
-			\hhline{-~}
-			\parbox[c][0.4in]{1.25in}{Inference Engine} & $\leftarrow$ domain-independent algorithms \\
-			\hhline{-~}
-			\parbox[c][0.4in]{1.25in}{Knowledge Base}   & $\leftarrow$ domain-specific content \\
-			\hhline{-~}
-		\end{tabular}
-	\end{block}
-	\pause
-	\begin{block}{Knowledge Base (KB) Properties}
-		\begin{itemize}
-			\item Contains a set of ``sentences''
-			\item Can \textsc{Tell} it new ``sentences''
-			\item Can \textsc{Ask} it ``queries''
-		\end{itemize}
-	\end{block}
+\begin{block}{Idea: Separate Knowledge from Reasoning}
+\begin{description}[Inference Engine]
+\item[Inference Engine:] domain-independent algorithms
+\item[Knowledge Base:] domain-specific content
+\end{description}
+\end{block}
+\pause
+\begin{block}{Knowledge Base (KB) Properties}
+\begin{itemize}
+\item Contains a set of ``sentences''
+\item Can \textsc{Tell} it new ``sentences''
+\item Can \textsc{Ask} it ``queries''
+\end{itemize}
+\end{block}
 \end{frame}
 \begin{frame}[fragile]{Knowledge-Based Agents}
 	\begin{semiverbatim}\bfseries\scriptsize

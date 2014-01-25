@@ -9,13 +9,13 @@
 \newcommand{\liff}{\Leftrightarrow}
 
 \newlength{\cellwidth}
-\setlength{\cellwidth}{.5in}
+\setlength{\cellwidth}{0.18\textheight}
 \newlength{\cellheight}
-\setlength{\cellheight}{.6in}
+\setlength{\cellheight}{0.18\textheight}
 \newcommand{\cell}[1]{\parbox[c][\cellheight]{\cellwidth}{#1}}
 \newcommand{\emptycell}{\cell{\ }}
 \newcommand{\wumpcell}[3]{\cell{%
-	\parbox[c][.1in]{\cellwidth}{\small #1 \hfill #2} \\
+	\parbox[c][.1in]{\cellwidth}{\small \hspace{0.1em} \textcolor{red}{#1} \hfill \textit{#2} \hspace{0.1em}} \\
 	\parbox[c][.2in]{\cellwidth}{\centering #3}}}
 
 \title{Logical Agents}
@@ -75,10 +75,12 @@
 
 
 \subsection{The Wumpus World}
+
 \begin{frame}[label=wumpus-world]{The Wumpus World}
 \centering
 \includegraphics[height=0.8\textheight]{wumpus-world}
 \end{frame}
+
 \begin{frame}[label=wumpus-world-defined]{Wumpus World Description}
 Environment:
 \begin{itemize}
@@ -105,6 +107,7 @@ Actions:
 \item \textsc{Forward}, \textsc{TurnLeft}, \textsc{TurnRight}, \textsc{Grab}, \textsc{Shoot}
 \end{itemize}
 \end{frame}
+
 \begin{frame}[label=wumpus-world-properties]{Wumpus World Properties}
 \begin{description}[Deterministic?]
 \item[Observable?] \uncover<2->{No, only local perception}
@@ -116,80 +119,74 @@ Actions:
 \end{description}
 \end{frame}
 
-
-\subsection{Wumpus World Examples}
-\begin{frame}{Exploring a Wumpus World}
-	\begin{center}
-		\arrayrulewidth=2pt
-		\begin{tabular}{|l|l|l|l|}
-			\hline
-			\emptycell & \emptycell & \emptycell & \emptycell \\
-			\hline
-			\wumpcell{}{\uncover<5-10>{P?}}{\only<11->{\Huge P}} &
-			\wumpcell{}{\uncover<14->{OK}}{} &
-			\emptycell &
-			\emptycell \\
-			\hline
-			\wumpcell{\uncover<4->{B}}{\uncover<2->{OK}}{\only<3-5>{\fbox{A}}} &
-			\wumpcell{}{\uncover<5->{\alt<-9>{P?}{OK}}}{\only<12-14>{\fbox{A}}} &
-			\wumpcell{\uncover<16->{SG}}{\uncover<14->{OK}}{\only<15->{\fbox{A}}} &
-			\emptycell \\
-			\hline
-			\wumpcell{}{\uncover<2->{OK}}{\only<-2,6>{\fbox{A}}} &
-			\wumpcell{\uncover<8->{S}}{\uncover<2->{OK}}{\only<7-11>{\fbox{A}}} &
-			\wumpcell{}{}{\uncover<9->{\Huge W}} &
-			\emptycell \\
-			\hline
-		\end{tabular}
-	\end{center}
+\begin{frame}[label=wumpus-world-example]{Exploring a Wumpus World}
+\begin{center}
+\arrayrulewidth=2pt
+\begin{tabular}{@{} | @{} l @{} | @{} l @{} | @{} l @{} | @{} l @{} | @{} }
+\hline
+\emptycell & \emptycell & \emptycell & \emptycell \\
+\hline
+\wumpcell{}{\visible<4-6>{P?}}{\only<7->{\Huge P}} &
+\wumpcell{}{\visible<9->{OK}}{} &
+\emptycell &
+\emptycell \\
+\hline
+\wumpcell{\visible<3->{B}}{\visible<2->{OK}}{\only<3-4>{\fbox{A}}} &
+\wumpcell{}{\visible<4->{\alt<7->{OK}{P?}}}{\only<8-9>{\fbox{A}}} &
+\wumpcell{\visible<10->{SG}}{\visible<9->{OK}}{\only<10->{\fbox{A}}} &
+\emptycell \\
+\hline
+\wumpcell{}{\visible<2->{OK}}{\only<1-2,5>{\fbox{A}}} &
+\wumpcell{\visible<6->{S}}{\visible<2->{OK}}{\only<6-7>{\fbox{A}}} &
+\wumpcell{}{}{\visible<7->{\Huge W}} &
+\emptycell \\
+\hline
+\end{tabular}
+\end{center}
 \end{frame}
-\begin{frame}{Difficult Wumpus World Situations}
-	\begin{columns}
-		\begin{column}{2in}
-			\cellwidth=.375in
-			\cellheight=.475in
-			\arrayrulewidth=2pt
-			\begin{tabular}{|l|l|}
-				\hhline{-~}
-				\wumpcell{}{\uncover<2->{W?}}{} & \multicolumn{1}{c}{} \\
-				\hhline{--}
-				\wumpcell{S}{}{\fbox{A}} & \wumpcell{}{\uncover<2->{W?}}{}  \\
-				\hline
-			\end{tabular}
-			\pause\pause
-			\begin{block}{Solution: Coercion}
-				\textsc{Shoot} an arrow
-				\begin{itemize}
-					\item Scream $\Rightarrow$ \\
-					      Wumpus ahead
-					\item No scream $\Rightarrow$ \\
-					      Wumpus to the side
-				\end{itemize}
-			\end{block}
-		\end{column}
-		\pause
-		\begin{column}{2in}
-			\cellwidth=.375in
-			\cellheight=.475in
-			\arrayrulewidth=2pt
-			\begin{tabular}{|l|l|l|}
-				\hhline{-~~}
-				\wumpcell{}{\uncover<5->{P?}}{} & \multicolumn{2}{c}{} \\
-				\hhline{--~}
-				\wumpcell{B}{OK}{} & \wumpcell{}{\uncover<5->{P?}}{} & \multicolumn{1}{c}{} \\
-				\hline
-				\wumpcell{}{OK}{\fbox{A}} & \wumpcell{B}{OK}{} & \wumpcell{}{\uncover<5->{P?}}{} \\
-				\hline
-			\end{tabular}
-			\pause\pause
-			\begin{block}{Solution: Probability theory}
-				\begin{itemize}
-					\item 86\% pit in [2,2]
-					\item 31\% pit in [3,1] or [1,3]
-				\end{itemize}
-			\end{block}
-		\end{column}
-	\end{columns}
+
+\begin{frame}[label=wumpus-world-difficult]{Difficult Wumpus World Situations}
+\begin{columns}
+\begin{column}{0.47\textwidth}
+\arrayrulewidth=2pt
+\begin{tabular}{ @{} | @{} l @{} | @{} l @{} | @{} }
+\hhline{-~}
+\wumpcell{}{\uncover<2->{W?}}{} & \multicolumn{1}{c}{} \\
+\hhline{--}
+\wumpcell{S}{}{\fbox{A}} & \wumpcell{}{\uncover<2->{W?}}{}  \\
+\hline
+\end{tabular}\\
+\begin{block}{Solution: Coercion}<3->
+\textsc{Shoot} an arrow
+\begin{itemize}
+\item Scream \\
+$\Rightarrow$ Wumpus above
+\item No scream \\
+$\Rightarrow$ Wumpus on right
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.47\textwidth}<4->
+\arrayrulewidth=2pt
+\begin{tabular}{ @{} | @{} l @{} | @{} l @{} | @{} l @{} | @{} }
+\hhline{-~~}
+\wumpcell{}{\uncover<5->{P?}}{} & \multicolumn{2}{c}{} \\
+\hhline{--~}
+\wumpcell{B}{OK}{} & \wumpcell{}{\uncover<5->{P?}}{} & \multicolumn{1}{c}{} \\
+\hline
+\wumpcell{}{OK}{\fbox{A}} & \wumpcell{B}{OK}{} & \wumpcell{}{\uncover<5->{P?}}{} \\
+\hline
+\end{tabular}
+\begin{block}{Solution: Probability}<6->
+% possible configurations: P_P; _P_; PP_; _PP; PPP
+% configuration probabilities: (.2)(.8)(.2); (.8)(.2)(.8); (.2)(.2)(.8); (.8)(.2)(.2); (.2)(.2)(.2)
+\begin{itemize}
+\item 86\% pit in (2,2) % configurations 2-5
+\item 31\% pit in (3,1) or (1,3) % configurations 1,3 or 1,4
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
 
 

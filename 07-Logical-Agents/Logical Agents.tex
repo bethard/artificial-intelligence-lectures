@@ -195,14 +195,14 @@ $\Rightarrow$ Wumpus on right
 \begin{frame}{Logic}
 	\begin{block}{Key Ideas}
 		Formal language for representing information
-		\begin{description}
+		\begin{description}[Semantics]
 			\item[Syntax] defines structure of sentences
 			\item[Semantics] defines meaning of sentences
 		\end{description}
 	\end{block}
 	\pause
 	\begin{block}{Example: Arithmetic}
-		\begin{description}
+		\begin{description}[Semantics]
 			\item[Syntax] 
 				\begin{tabular}[t]{ll}
 					Valid:   & $x + 2 > y$ \\
@@ -241,29 +241,20 @@ $\Rightarrow$ Wumpus on right
 
 \subsection{Entailment}
 \begin{frame}{Entailment}
-	\begin{columns}
-		\begin{column}{2in}
-			\begin{block}{Idea}
-				\begin{tabular}{ll}
-					\multicolumn{2}{l}{A sentence $\beta$ \alert{entails} a} \\
-					\multicolumn{2}{l}{sentence $\alpha$ if and only if:} \\
-					& $\alpha$ is true in all worlds \\
-					& where $\beta$ is true \\
-				\end{tabular}
-			\end{block}
-			\pause
-			\begin{block}{Definition}
-				$\beta \models \alpha$ if and only if \\
-				\hspace{1em} $M(\beta) \subseteq M(\alpha)$
-			\end{block}
-		\end{column}
-		\pause
-		\begin{column}{2in}
-			\begin{block}{$M(\mbox{KB}) \subseteq M(\alpha)$}
-				\includegraphics[width=2in]{model-inclusion}
-			\end{block}
-		\end{column}
-	\end{columns}
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{block}{Definition}
+$\beta \models \alpha$ if and only if \\
+\hspace{1em} $M(\beta) \subseteq M(\alpha)$\\[1em]
+A sentence $\beta$ entails a sentence $\alpha$ if and only if $\alpha$ is true in all worlds where $\beta$ is true
+\end{block}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{block}{$M(\mbox{KB}) \subseteq M(\alpha)$}
+\includegraphics[width=2in]{model-inclusion}
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
 \begin{frame}{Entailment Examples}
 	\begin{block}{Definition (Again)}

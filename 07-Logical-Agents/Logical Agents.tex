@@ -191,7 +191,8 @@ $\Rightarrow$ Wumpus on right
 
 
 \section{Logic Basics}
-\subsection{Logic}
+\subsection{Logic and Models}
+
 \begin{frame}{Logic}
 	\begin{block}{Key Ideas}
 		Formal language for representing information
@@ -217,8 +218,6 @@ $\Rightarrow$ Wumpus on right
 	\end{block}
 \end{frame}
 
-
-\subsection{Models}
 \begin{frame}{Models}
 	\begin{block}{Definitions}
 		\begin{itemize}
@@ -256,63 +255,61 @@ A sentence $\beta$ entails a sentence $\alpha$ if and only if $\alpha$ is true i
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}{Entailment Examples}
-	\begin{block}{Definition (Again)}
-		$\beta \models \alpha$ if and only if $M(\beta) \subseteq M(\alpha)$
-	\end{block}
-	\pause
-	\begin{block}{Example: Arithmetic}
-		$(x + y = 4) \models (4 = x + y)$
-	\end{block}
-	\pause
-	\begin{block}{Example: English}
-		``The Broncos won and the Avalanche won'' \\
-		$\models$ \\
-		``Either the Broncos won or the Avalanche won''
-	\end{block}
-\end{frame}
-\begin{frame}{Wumpus Entailment Example}
-	\begin{columns}
-		\begin{column}{2.5in}
-			\arrayrulewidth=2pt
-			\begin{tabular}{|l|l|l|}
-				\hhline{--~}
-				\wumpcell{}{}{\only<4->{\Huge ?}} &
-				\wumpcell{}{}{\only<4->{\Huge ?}} &
-				\multicolumn{1}{c}{} \\
-				\hline
-				\wumpcell{}{}{\only<1>{\fbox{A}}} &
-				\wumpcell{\only<3->{B}}{}{\only<2->{\fbox{A}}} &
-				\wumpcell{}{}{\only<4->{\Huge ?}} \\
-				\hline
-			\end{tabular}
-		\end{column}
-		\begin{column}{1.5in}
-			\begin{block}<5->{Models}
-				Number of possible models when placing pits in three squares: \\
-				\hspace{1em} \uncover<6->{\alert{$2^3 = 8$}}
-			\end{block}
-		\end{column}
-	\end{columns}
-\end{frame}
-\begin{frame}{Wumpus Entailment Example}
-	\begin{columns}
-		\begin{column}{3.25in}
-			\only<1>{\includegraphics[height=2.25in]{wumpus-models1}}%
-			\only<2>{\includegraphics[height=2.25in]{wumpus-models2}}%
-			\only<3-4>{\includegraphics[height=2.25in]{wumpus-models3}}%
-			\only<5-6>{\includegraphics[height=2.25in]{wumpus-models4}}%
-		\end{column}
-		\begin{column}{1in}
-			\uncover<2->{KB = rules + observations} \\[1em]
-			
-			\uncover<3->{$\alpha$ = \\ ``[1,2] is safe''} \\
-			\uncover<4->{$\mbox{KB} \models \alpha$} \\[1em]
 
-			\uncover<5->{$\beta$ = \\ ``[2,2] is safe''} \\
-			\uncover<6->{$\mbox{KB} \not\models \beta$}
-		\end{column}
-	\end{columns}
+\begin{frame}{Entailment Examples}
+\begin{block}{Definition (Again)}
+$\beta \models \alpha$ if and only if $M(\beta) \subseteq M(\alpha)$
+\end{block}
+\pause
+\begin{itemize}[<+->]
+\item $(x + y = 4) \models (4 = x + y)$
+\item $(x = 0) \models (xy = 0)$
+\item ``The Crimson Tide won and the Blazers won'' \\
+\hspace{1em} $\models$ ``The Crimson Tide won or the Blazers won''
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Wumpus Entailment Example}
+\begin{columns}
+\begin{column}{2.5in}
+\arrayrulewidth=2pt
+\begin{tabular}{ @{} | @{} l @{} | @{} l @{} | @{} l @{} | @{} }
+\hhline{--~}
+\wumpcell{}{}{\only<4->{\Huge ?}} &
+\wumpcell{}{}{\only<4->{\Huge ?}} &
+\multicolumn{1}{c}{} \\
+\hline
+\wumpcell{}{}{\only<1>{\fbox{A}}} &
+\wumpcell{\only<3->{B}}{}{\only<2->{\fbox{A}}} &
+\wumpcell{}{}{\only<4->{\Huge ?}} \\
+\hline
+\end{tabular}
+\end{column}
+\begin{column}{1.5in}
+\begin{block}<5->{Models}
+Number of possible models when placing pits in three squares: \\
+\hspace{1em} \uncover<6->{\alert{$2^3 = 8$}}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Wumpus Entailment Example}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\only<1>{\includegraphics[width=\textwidth]{wumpus-models1}}%
+\only<2>{\includegraphics[width=\textwidth]{wumpus-models2}}%
+\only<3-4>{\includegraphics[width=\textwidth]{wumpus-models3}}%
+\only<5-6>{\includegraphics[width=\textwidth]{wumpus-models4}}%
+\end{column}
+\begin{column}{0.35\textwidth}
+\uncover<2->{KB = rules + observations} \\[1em]
+\uncover<3->{$\alpha_1$ = ``[1,2] is safe''} \\
+\uncover<4->{$\mbox{KB} \models \alpha_1$} \\[1em]
+\uncover<5->{$\alpha_2$ = ``[2,2] is safe''} \\
+\uncover<6->{$\mbox{KB} \not\models \alpha_2$}
+\end{column}
+\end{columns}
 \end{frame}
 
 

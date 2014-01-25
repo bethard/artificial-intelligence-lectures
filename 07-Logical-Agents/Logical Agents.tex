@@ -315,30 +315,33 @@ Number of possible models when placing pits in three squares: \\
 
 \section{Propositional Logic}
 \subsection{Definitions}
+
 \begin{frame}{Propositional Logic Syntax}
-	\begin{block}{Basics}
-		\begin{itemize}
-			\item Symbols look like $P$, $Q$, $R$, etc.
-			\item Connectives look like:\\[0.5em]
-				\begin{tabular}{ll}
-					$\lnot$  & negation, a.k.a. ``not'' \\
-					$\land$  & conunction, a.k.a. ``and'' \\
-					$\lor$   & disjunction, a.k.a. ``or'' \\
-					$\limpl$ & implication, a.k.a. ``implies'' \\
-					$\liff$  & biconditional, a.k.a. ``equivalent''
-				\end{tabular}
-		\end{itemize}
-	\end{block}
-	\pause
-	\begin{block}{Examples}
-		\begin{tabular}{p{.5in}p{.75in}p{1in}p{1in}}
-			$P$ \pause &
-			$\lnot Q$ \pause &
-			$\lnot Q \land P$ \pause &
-			$R \limpl \lnot Q \land P$
-		\end{tabular}
-	\end{block}
+\begin{block}{Basics}
+\begin{itemize}
+\item Symbols look like $P$, $Q$, $R$, etc.
+\item Connectives look like:\\[0.5em]
+\begin{tabular}{ll}
+$\lnot$  & negation, a.k.a. ``not'' \\
+$\land$  & conunction, a.k.a. ``and'' \\
+$\lor$   & disjunction, a.k.a. ``or'' \\
+$\limpl$ & implication, a.k.a. ``implies'' \\
+$\liff$  & biconditional, a.k.a. ``equivalent''
+\end{tabular}
+\end{itemize}
+\end{block}
+\pause
+\begin{block}{Examples}
+\setlength{\tabcolsep}{1.5em}
+\begin{tabular}{ l l l l }
+$P$ &
+$\lnot Q$ &
+$\lnot Q \land P$ &
+$R \limpl \lnot Q \land P$
+\end{tabular}
+\end{block}
 \end{frame}
+
 \begin{frame}{Propositional Logic Semantics}
 	\begin{block}{Symbols}
 		A model specifies \emph{true} or \emph{false} for each symbol \\

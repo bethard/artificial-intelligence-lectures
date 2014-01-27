@@ -746,9 +746,9 @@ $P_{1, 3}$ & Resolution \\
 \end{block}
 \begin{block}{Truth Table Inference Properties}
 \begin{description}[Complete?]
-\pause\item[Sound?] \pause Yes, directly implements entailment definition
-\pause\item[Complete?] \pause Yes, explores all possibilities
-\pause\item[Time?] \pause Given $n$ symbols, takes $O(2^n)$
+\item[Sound?] \uncover<2->{Yes, directly implements entailment definition}
+\item[Complete?] \uncover<3->{Yes, explores all possibilities}
+\item[Time?] \uncover<4->{Given $n$ symbols, takes $O(2^n)$}
 \end{description}
 \end{block}
 \end{frame}
@@ -879,21 +879,21 @@ $
 \end{frame}
 
 \begin{frame}{Forward Chaining Properties}
-	\begin{block}{Properties}
-		\begin{tabular}{ll}
-			\pause\keyword{Sound?}    & \pause Yes, uses Modus Ponens \\
-			\pause\keyword{Complete?} & \pause Yes (more on this in a moment) \\
-			\pause\keyword{Time?}     & \pause $O(n)$ given $n$ statements in KB \\
-		\end{tabular}
-	\end{block}
-	\pause
-	\begin{block}{Reminder}
-		\begin{itemize}
-			\item Requires Horn Clauses
-			\item Won't work with Propositional logic in general
-		\end{itemize}
-	\end{block}
+\begin{block}{Properties}
+\begin{description}[Complete?]
+\item[Sound?] \uncover<2->{Yes, uses Modus Ponens}
+\item[Complete?] \uncover<3->{Yes (more on this in a moment)}
+\item[Time?] \uncover<4->{$O(n)$ given $n$ statements in KB}
+\end{description}
+\end{block}
+\begin{block}{Reminder}<5->
+\begin{itemize}
+\item Requires Horn Clauses
+\item Won't work with Propositional logic in general
+\end{itemize}
+\end{block}
 \end{frame}
+
 \begin{frame}{Forward Chaining Completeness}
 	\begin{block}{Prove: If $\textit{KB} \models Q$ then $\textit{KB} \vdash_{\textit{\scriptsize forward-chaining}} Q$}
 		\begin{enumerate}

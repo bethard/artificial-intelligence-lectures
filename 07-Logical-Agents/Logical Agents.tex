@@ -18,6 +18,16 @@
 	\parbox[c][.1in]{\cellwidth}{\small \hspace{0.1em} \textcolor{red}{#1} \hfill \textit{#2} \hspace{0.1em}} \\
 	\parbox[c][.2in]{\cellwidth}{\centering #3}}}
 
+\tikzset{
+  red edge on/.code={%
+    \only<#1>{\pgfkeysalso{draw=red,ultra thick}}
+  },
+  pink fill on/.code={%
+    \only<#1>{\pgfkeysalso{fill=red!25!white}}
+  },
+}
+
+
 \title{Logical Agents}
 \date{6 Feb 2014}
 
@@ -811,36 +821,63 @@ $
 		    \pause\keyword{return} \keyword{False}
 	\end{semiverbatim}
 \end{frame}
-\begin{frame}{Forward Chaining Example}
-	\begin{columns}
-		\begin{column}{2in}
-			\large
-			\hspace{2em} $
-			\begin{array}{l}
-				P \limpl Q \\
-				L \land M \limpl P \\
-				B \land L \limpl M \\
-				A \land P \limpl L \\
-				A \land B \limpl L \\
-				A \\
-				B
-			\end{array}
-			$
-		\end{column}
-		\begin{column}{2in}
-			\parbox[b][2.5in]{1.5in}{
-			\only<1>{\includegraphics[width=1.5in]{fc-horn-example01c}}%
-			\only<2>{\includegraphics[width=1.5in]{fc-horn-example02c}}%
-			\only<3>{\includegraphics[width=1.5in]{fc-horn-example03c}}%
-			\only<4>{\includegraphics[width=1.5in]{fc-horn-example04c}}%
-			\only<5>{\includegraphics[width=1.5in]{fc-horn-example05c}}%
-			\only<6>{\includegraphics[width=1.5in]{fc-horn-example06c}}%
-			\only<7>{\includegraphics[width=1.5in]{fc-horn-example07c}}%
-			\only<8>{\includegraphics[width=1.5in]{fc-horn-example08c}}%
-			}
-		\end{column}
-	\end{columns}
+
+\begin{frame}[label=forward-chaining-example]{Forward Chaining Example}
+\begin{columns}
+\begin{column}{0.3\textwidth}
+\large
+\hspace{2em} $
+\begin{array}{l}
+P \limpl Q \\
+L \land M \limpl P \\
+B \land L \limpl M \\
+A \land P \limpl L \\
+A \land B \limpl L \\
+A \\
+B
+\end{array}
+$
+\end{column}
+\begin{column}{0.65\textwidth}
+\small
+\begin{tikzpicture}[
+  every edge/.style={draw,-latex},
+  every label/.style={color=red},
+  symbol/.style={draw,circle},
+  clause/.style={draw}]
+\node[symbol,red edge on={2-4},pink fill on={3-4}] at (0, 0) (A) {$A$};
+\node[symbol,red edge on={2-7},pink fill on={5-7}] at (5, 0) (B) {$B$};
+\node[symbol,red edge on={7-10,16-17},pink fill on={8-10,17}] at (2.5, 2) (L) {$L$};
+\node[symbol,red edge on={10-13},pink fill on={11-13}] at (5, 4) (M) {$M$};
+\node[symbol,red edge on={13-16},pink fill on={14-16}] at (0, 4) (P) {$P$};
+\node[symbol,red edge on={16-,18-},pink fill on={18-}] at (2.5, 6) (Q) {$Q$};
+
+\node[clause,label=30:{\only<1-3>{2}\only<4-5>{1}\only<6->{0}}] at (2.5, 0) (ABL) {$A \land B \limpl L$};
+\node[clause,label=30:{\only<1-3>{2}\only<4-14>{1}\only<15->{0}}] at (0, 2) (APL) {$A \land P \limpl L$};
+\node[clause,label=30:{\only<1-5>{2}\only<6-8>{1}\only<9->{0}}] at (5, 2) (BLM) {$B \land L \limpl M$};
+\node[clause,label=30:{\only<1-8>{2}\only<9-11>{1}\only<12->{0}}] at (2.5, 4) (LMP) {$L \land M \limpl P$};
+\node[clause,label=30:{\only<1-14>{1}\only<15->{0}}] at (0, 6) (PQ) {$P \limpl Q$};
+
+\path (A) edge (ABL);
+\path (B) edge (ABL);
+\path (ABL) edge (L);
+\path (A) edge (APL);
+\path (P) edge (APL);
+\path (APL) edge (L);
+\path (B) edge (BLM);
+\path (L) edge (BLM);
+\path (BLM) edge (M);
+\path (L) edge (LMP);
+\path (M) edge (LMP);
+\path (LMP) edge (P);
+\path (P) edge (PQ);
+\path (PQ) edge (Q);
+
+\end{tikzpicture}
+\end{column}
+\end{columns}
 \end{frame}
+
 \begin{frame}{Forward Chaining Properties}
 	\begin{block}{Properties}
 		\begin{tabular}{ll}

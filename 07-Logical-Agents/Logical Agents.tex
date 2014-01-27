@@ -787,26 +787,28 @@ $
 \begin{frame}[fragile]{Forward Chaining Code}
 	\begin{semiverbatim}\bfseries\scriptsize
 		\keyword{def} \defn{forward_chaining_entails}(knowledge_base, query):
-		    \pause\cmnt{# count the symbols in the body of each clause}
+		    \pause\cmnt{# count the symbols in the premise of each clause}
 		    counts = \{\}
 		    \keyword{for} clause \keyword{in} knowledge_base.get_clauses():
-		        counts[clause] = len(clause.body)
+		        counts[clause] = len(clause.premise)
 		    \pause\cmnt{# start with known symbols and search for non-inferred}
 		    inferred = set()
 		    agenda = knowledge_base.get_true_symbols()
 		    \keyword{while} agenda:
 		        symbol = agenda.pop()
+		        \pause\cmnt{# if the query was on the agenda, it is known to be true}
+		        \keyword{if} symbol == query:
+		            \keyword{return} \keyword{True}
+		        \pause\cmnt{# do not repeat symbols that have already been checked}
 		        \keyword{if} symbol \keyword{not in} inferred:
 		            inferred.add(symbol)
-		            \pause\cmnt{# update counts and infer heads when possible}
+		            \pause\cmnt{# update counts and infer conclusions when possible}
 		            \keyword{for} clause \keyword{in} knowledge_base.get_clauses():
-		                \keyword{if} symbol \keyword{in} clause.body:
+		                \keyword{if} symbol \keyword{in} clause.premise:
 		                    counts[clause] -= 1
-		                    \pause\keyword{if} counts[clause] == 0:
-		                        \keyword{if} clause.head == query:
-		                            \keyword{return} \keyword{True}
+		                    \keyword{if} counts[clause] == 0:
 		                        agenda.append(clause.head)
-		    \keyword{return} \keyword{False}
+		    \pause\keyword{return} \keyword{False}
 	\end{semiverbatim}
 \end{frame}
 \begin{frame}{Forward Chaining Example}

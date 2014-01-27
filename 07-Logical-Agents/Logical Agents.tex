@@ -474,27 +474,29 @@ false & false & false & \visible<10->{true} \\
 
 
 \subsection{Reasoning Patterns}
+
 \begin{frame}{Reasoning}
-	\begin{block}{Key Ideas}
-		\begin{itemize}
-			\item Use logical equivalences etc. to prove things
-			\item No need for a truth table!
-		\end{itemize}
-	\end{block}
-	\pause
-	\begin{block}{Example}
-		Prove: $\lnot (P \land R \land Q)$ \\
-		Given: $P \land R \limpl \lnot Q$ \\
-	\end{block}
-	\bigskip
-	\pause
-	\begin{tabular}{l@{\hspace{2em}}l}
-		$P \land R \limpl \lnot Q$          & Given \pause\\
-		$\lnot (P \land R) \lor \lnot Q$    & Implication Elimination \pause\\
-		$\lnot P \lor \lnot R \lor \lnot Q$ & De Morgan \pause\\
-		$\lnot (P \land R \land Q)$         & De Morgan \\
-	\end{tabular}
+\begin{block}{Key Ideas}
+\begin{itemize}
+\item Use logical equivalences etc. to prove things
+\item No need for a truth table!
+\end{itemize}
+\end{block}
+\pause
+\begin{block}{Example}
+Prove: $\lnot (P \land R \land Q)$ \\
+Given: $P \land R \limpl \lnot Q$ \\
+\end{block}
+\bigskip
+\pause
+\begin{tabular}{ l @{\hspace{2em}} l }
+Given & $P \land R \limpl \lnot Q$  \\
+\pause Implication Elimination & \pause $\lnot (P \land R) \lor \lnot Q$ \\
+\pause De Morgan & \pause $\lnot P \lor \lnot R \lor \lnot Q$ \\
+\pause De Morgan & \pause $\lnot (P \land R \land Q)$ \\
+\end{tabular}
 \end{frame}
+
 \begin{frame}{Additional Reasoning Patterns}
 	\begin{columns}[T]
 		\begin{column}{1.4in}

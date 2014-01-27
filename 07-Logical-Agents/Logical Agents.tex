@@ -498,74 +498,75 @@ Given & $P \land R \limpl \lnot Q$  \\
 \end{frame}
 
 \begin{frame}{Additional Reasoning Patterns}
-	\begin{columns}[T]
-		\begin{column}{1.4in}
-			\begin{block}{Modus Ponens}
-				\[
-				\begin{array}{l}
-					\alpha \limpl \beta \\
-					\alpha \\
-					\hline
-					\beta
-				\end{array}
-				\]
-				\bigskip
-				\[
-				\begin{array}{l}
-					x > 2 \limpl x \neq 1 \\
-					x > 2 \\
-					\hline
-					x \neq 1
-				\end{array}
-				\]
-			\end{block}
-		\end{column}
-		\pause
-		\begin{column}{1.4in}
-			\begin{block}{And-Elimination}
-				\vspace{1.2em}
-				\[
-				\begin{array}{l}
-					\alpha \land \beta \\
-					\hline
-					\beta
-				\end{array}
-				\]
-				\bigskip
-				\vspace{1.2em}
-				\[
-				\begin{array}{l}
-					x = 0 \land y = 42 \\
-					\hline
-					y = 42
-				\end{array}
-				\]
-			\end{block}
-		\end{column}
-		\pause
-		\begin{column}{1.4in}
-			\begin{block}{Resolution}
-				\[
-				\begin{array}{l}
-					\alpha \lor \beta \\
-					\lnot\alpha \\
-					\hline
-					\beta
-				\end{array}
-				\]
-				\bigskip
-				\[
-				\begin{array}{l}
-					x = 1 \lor x = 2 \\
-					x \neq 1 \\
-					\hline
-					x = 2
-				\end{array}
-				\]
-			\end{block}
-		\end{column}
-	\end{columns}
+\begin{columns}[T]
+\begin{column}{0.31\textwidth}
+\begin{block}{Modus Ponens}
+\[
+\begin{array}{l}
+\alpha \limpl \beta \\
+\alpha \\
+\hline
+\beta
+\end{array}
+\]
+\bigskip
+\[
+\begin{array}{l}
+x > 2 \limpl x \neq 1 \\
+x > 2 \\
+\hline
+x \neq 1
+\end{array}
+\]
+\end{block}
+\end{column}
+\pause
+\begin{column}{0.31\textwidth}
+\begin{block}{And elimination}
+\[
+\begin{array}{l}
+\\
+\alpha \land \beta \\
+\hline
+\beta
+\end{array}
+\]
+\bigskip
+\[
+\begin{array}{l}
+\\
+x = 0 \land y = 42 \\
+\hline
+y = 42
+\end{array}
+\]
+\end{block}
+\end{column}
+\pause
+\begin{column}{0.31\textwidth}
+\begin{block}{Resolution}
+\[
+\begin{array}{l}
+\alpha \lor \beta \\
+\lnot\alpha \\
+\hline
+\beta
+\end{array}
+\]
+\bigskip
+\[
+\begin{array}{l}
+x = 1 \lor x = 2 \\
+x \neq 1 \\
+\hline
+x = 2
+\end{array}
+\]
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
+
 \begin{frame}{Reasoning Exercise}
 	\begin{columns}
 		\begin{column}{2in}

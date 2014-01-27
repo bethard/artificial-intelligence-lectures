@@ -358,6 +358,26 @@ $R \limpl \lnot Q \land P$
 		\end{tabular}
 	\end{block}
 \end{frame}
+
+\begin{frame}{Propositional Logic Complex Expressions}
+	\begin{block}{Given}
+		\begin{tabular}{lll}
+			$P=\textit{true}$ & $Q=\textit{false}$ & $R=\textit{true}$ 
+		\end{tabular}
+	\end{block}
+	\begin{block}{Evaluate}
+		$P \lor R \limpl \lnot (Q \land \lnot R)$
+	\end{block}
+	\begin{enumerate}
+		\pause\item $\textit{true} \lor \textit{true} \limpl \lnot (\textit{false} \land \lnot \textit{true})$
+		\pause\item $\textit{true} \lor \textit{true} \limpl \lnot (\textit{false} \land \textit{false})$
+		\pause\item $\textit{true} \lor \textit{true} \limpl \lnot \textit{false}$
+		\pause\item $\textit{true} \lor \textit{true} \limpl \textit{true}$
+		\pause\item $\textit{true} \limpl \textit{true}$
+		\pause\item $\textit{true}$
+	\end{enumerate}
+\end{frame}
+
 \begin{frame}{Implication vs. Entailment}
 	\begin{block}{Implication ($\alpha \limpl \beta$)}
 		\begin{itemize}
@@ -406,24 +426,6 @@ $R \limpl \lnot Q \land P$
 	true  & true  & false     & true        & true       & true         & true \\
 	\hline
 	\end{tabular}
-\end{frame}
-\begin{frame}{Evaluating Complex Expressions}
-	\begin{block}{Given}
-		\begin{tabular}{lll}
-			$P=\textit{true}$ & $Q=\textit{false}$ & $R=\textit{true}$ 
-		\end{tabular}
-	\end{block}
-	\begin{block}{Evaluate}
-		$P \lor R \limpl \lnot (Q \land \lnot R)$
-	\end{block}
-	\begin{enumerate}
-		\pause\item $\textit{true} \lor \textit{true} \limpl \lnot (\textit{false} \land \lnot \textit{true})$
-		\pause\item $\textit{true} \lor \textit{true} \limpl \lnot (\textit{false} \land \textit{false})$
-		\pause\item $\textit{true} \lor \textit{true} \limpl \lnot \textit{false}$
-		\pause\item $\textit{true} \lor \textit{true} \limpl \textit{true}$
-		\pause\item $\textit{true} \limpl \textit{true}$
-		\pause\item $\textit{true}$
-	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Truth Table Exercise}

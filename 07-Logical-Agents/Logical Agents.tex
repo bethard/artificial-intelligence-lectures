@@ -585,7 +585,7 @@ x = 2
 			The reasoning patterns are in your book on pages 249, 250 and 252
 		\end{column}
 		\begin{column}{2in}
-			\begin{tabular}{|@{}l|l|l|}
+			\begin{tabular}{ @{} | @{} l @{} | @{} l @{} | @{} l @{} | @{} }
 				\hhline{-~~}
 				\wumpcell{}{\scriptsize(1, 3)}{$P?$} & \multicolumn{2}{c}{} \\
 				\hhline{--~}
@@ -597,22 +597,27 @@ x = 2
 		\end{column}
 	\end{columns}
 \end{frame}
-\begin{frame}{Prove: $P_{1, 3}$}
-	\begin{tabular}{ll}
-		$B_{1, 2} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{1, 3})$             & Given \pause\\
-		$B_{1, 2} \limpl (P_{1, 1} \lor P_{2, 2} \lor P_{1, 3})$            & Biconditional Elimination \pause\\
-		$B_{1, 2}$                                                          & Given \pause\\
-		$P_{1, 1} \lor P_{2, 2} \lor P_{1, 3}$                              & Modus Ponens \pause\\[1em]
-		
-		$B_{2, 1} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$             & Given \pause\\
-		$(P_{1, 1} \lor P_{2, 2} \lor P_{3, 1}) \limpl B_{2, 1}$            & Biconditional Elimination \pause\\
-		$\lnot B_{2, 1} \limpl \lnot(P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$ & Contraposition \pause\\
-		$\lnot B_{2, 1}$                                                    & Given \pause\\
-		$\lnot(P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$                       & Modus Ponens \pause\\
-		$\lnot P_{1, 1} \land \lnot P_{2, 2} \land \lnot P_{3, 1}$          & De Morgan \pause\\[1em]
 
-		$P_{1, 3}$                                                          & Resolution \\
-	\end{tabular}
+\begin{frame}{Prove: $P_{1, 3}$}
+\small
+\begin{tabular}{ll}
+$B_{1, 2} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{1, 3})$ & Given \\
+$B_{1, 2} \limpl (P_{1, 1} \lor P_{2, 2} \lor P_{1, 3})$ & Biconditional Elimination \\
+$B_{1, 2}$ & Given \\
+$P_{1, 1} \lor P_{2, 2} \lor P_{1, 3}$ & Modus Ponens \\
+\hline
+$B_{2, 1} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$ & Given \\
+$(P_{1, 1} \lor P_{2, 2} \lor P_{3, 1}) \limpl B_{2, 1}$ & Biconditional Elimination \\
+$\lnot B_{2, 1} \limpl \lnot(P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$ & Contraposition \\
+$\lnot B_{2, 1}$ & Given \\
+$\lnot(P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$ & Modus Ponens \\
+$\lnot P_{1, 1} \land \lnot P_{2, 2} \land \lnot P_{3, 1}$ & De Morgan \\
+\hline
+$\lnot P_{1, 1}$ & And-Elimination \\
+$P_{2, 2} \lor P_{1, 3}$ & Resolution \\
+$\lnot P_{2, 2}$ & And-Elimination \\
+$P_{1, 3}$ & Resolution \\
+\end{tabular}
 \end{frame}
 
 

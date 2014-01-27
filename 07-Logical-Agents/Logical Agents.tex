@@ -426,28 +426,32 @@ $R \limpl \lnot Q \land P$
 		\pause\item $\textit{true}$
 	\end{enumerate}
 \end{frame}
+
 \begin{frame}{Truth Table Exercise}
-	\begin{block}{Problem}
-		Construct a truth table for $P \lor R \limpl \lnot (Q \land \lnot R)$
-	\end{block}
-	\pause
-	\medskip
-	\em
-	\begin{tabular}{|ccc||c|}
-		\hline
-		$P$   & $Q$   & $R$          & $P \lor R \limpl \lnot (Q \land \lnot R)$ \\
-		\hline
-		true  & true  & true  \pause & true  \pause\\
-		true  & true  & false \pause & false \pause\\
-		true  & false & true  \pause & true  \pause\\
-		true  & false & false \pause & true  \pause\\
-		false & true  & true  \pause & true  \pause\\
-		false & true  & false \pause & true  \pause\\
-		false & false & true  \pause & true  \pause\\
-		false & false & false \pause & true \\
-		\hline
-	\end{tabular}
+\begin{block}{Problem}
+Construct a truth table for $P \lor R \limpl \lnot (Q \land \lnot R)$
+\end{block}
+\pause
+\medskip
+\em
+\visible<2->{
+\begin{tabular}{|ccc||c|}
+\hline
+$P$   & $Q$   & $R$          & $P \lor R \limpl \lnot (Q \land \lnot R)$ \\
+\hline
+true  & true  & true  & \visible<3->{true} \\
+true  & true  & false & \visible<4->{false} \\
+true  & false & true  & \visible<5->{true} \\
+true  & false & false & \visible<6->{true} \\
+false & true  & true  & \visible<7->{true} \\
+false & true  & false & \visible<8->{true} \\
+false & false & true  & \visible<9->{true} \\
+false & false & false & \visible<10->{true} \\
+\hline
+\end{tabular}
+}
 \end{frame}
+
 \begin{frame}{Logical Equivalences}
 	\footnotesize
 	$

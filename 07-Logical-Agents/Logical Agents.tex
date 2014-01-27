@@ -453,21 +453,21 @@ false & false & false & \visible<10->{true} \\
 \end{frame}
 
 \begin{frame}{Logical Equivalences}
-	\footnotesize
+	\small
 	$
 	\begin{array}{@{}r@{\hspace{.25em}}c@{\hspace{.25em}}l@{\hspace{.25em}}l}
-	(\alpha \land \beta)                &\liff& (\beta \land \alpha)                             & \mbox{Commutativity of} \land\\
-	(\alpha \lor \beta)                 &\liff& (\beta\lor \alpha)                               & \mbox{Commutativity of} \lor\\
-	((\alpha \land \beta)\land \gamma)  &\liff& (\alpha\land (\beta\land \gamma))                & \mbox{Associativity of} \land\\
-	((\alpha \lor \beta)\lor \gamma)    &\liff& (\alpha\lor (\beta\lor \gamma))                  & \mbox{Associativity of} \lor\\
+	(\alpha \land \beta)                &\liff& (\beta \land \alpha)                             & \mbox{Commutativity of } \land\\
+	(\alpha \lor \beta)                 &\liff& (\beta\lor \alpha)                               & \mbox{Commutativity of } \lor\\
+	((\alpha \land \beta)\land \gamma)  &\liff& (\alpha\land (\beta\land \gamma))                & \mbox{Associativity of } \land\\
+	((\alpha \lor \beta)\lor \gamma)    &\liff& (\alpha\lor (\beta\lor \gamma))                  & \mbox{Associativity of } \lor\\
 	\lnot(\lnot \alpha)                 &\liff& \alpha                                           & \mbox{Double-negation elimination}\\
 	(\alpha \limpl \beta)               &\liff& (\lnot \beta \limpl \lnot \alpha)                & \mbox{Contraposition}\\
 	(\alpha \limpl \beta)               &\liff& (\lnot \alpha \lor \beta)                        & \mbox{Implication elimination}\\
 	(\alpha \liff \beta)                &\liff& ((\alpha\limpl \beta)\land (\beta\limpl \alpha)) & \mbox{Biconditional elimination}\\
 	\lnot(\alpha \land \beta)           &\liff& (\lnot \alpha \lor \lnot \beta)                  & \mbox{De Morgan}\\
 	\lnot(\alpha \lor \beta)            &\liff& (\lnot \alpha \land \lnot \beta)                 & \mbox{De Morgan}\\
-	(\alpha \land (\beta \lor \gamma))  &\liff& ((\alpha\land \beta)\lor (\alpha\land \gamma))   & \mbox{Distributivity of} \land \mbox{over} \lor\\
-	(\alpha \lor (\beta \land \gamma))  &\liff& ((\alpha\lor \beta)\land (\alpha\lor \gamma))    & \mbox{Distributivity of} \lor \mbox{over} \land
+	(\alpha \land (\beta \lor \gamma))  &\liff& ((\alpha\land \beta)\lor (\alpha\land \gamma))   & \mbox{Distributivity of} \land \mbox{over } \lor\\
+	(\alpha \lor (\beta \land \gamma))  &\liff& ((\alpha\lor \beta)\land (\alpha\lor \gamma))    & \mbox{Distributivity of} \lor \mbox{over } \land
 	\end{array}
 	$
 \end{frame}

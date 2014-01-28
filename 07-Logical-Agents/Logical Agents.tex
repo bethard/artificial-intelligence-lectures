@@ -1159,23 +1159,25 @@ Proof: \\[1em]
 \end{frame}
 
 \subsection{WalkSAT}
+
 \begin{frame}{WalkSAT}
-	\begin{block}{Key Ideas}
-		\begin{itemize}
-			\item Treat satisfiability checking as local search
-			\item On each iteration flip a symbol's value
-			\item Choice of symbol to flip is sometimes random, sometimes by \textsc{Min-Conflicts}
-			\item Quit after a certain number of steps
-		\end{itemize}
-	\end{block}
-	\begin{block}{Properties}
-		\begin{tabular}{ll}
-			\pause\keyword{Sound?}    & \pause Yes, only returns when KB is \emph{true} \\
-			\pause\keyword{Complete?} & \pause No, could stop early  \\
-			\pause\keyword{Time?}     & \pause Can be quite fast \\
-		\end{tabular}
-	\end{block}
+\begin{block}{Key Ideas}
+\begin{itemize}
+\item Treat satisfiability checking as local search
+\item On each iteration flip a symbol's value
+\item Choice of symbol to flip is sometimes random, sometimes by \textsc{Min-Conflicts}
+\item Quit after a certain number of steps
+\end{itemize}
+\end{block}
+\begin{block}{Properties}
+\begin{description}[Complete?]
+\item[Sound?] \uncover<2->{Yes, only returns when KB is \emph{true}}
+\item[Complete?] \uncover<3->{No, could stop early}
+\item[Time?] \uncover<4->{Can be quite fast}
+\end{description}
+\end{block}
 \end{frame}
+
 \begin{frame}{WalkSAT Performance}
 	\begin{columns}
 		\begin{column}{3.2in}

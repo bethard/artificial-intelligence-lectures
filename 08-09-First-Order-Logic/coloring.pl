@@ -1,10 +1,12 @@
 color(X) :- X = blue; X = green; X = red.
-color_australia(A) :-
-	A = [WA, NT, Q, NSW, V, SA, T],
-	color(WA), color(NT), color(Q), 
-	color(NSW), color(V), color(SA), color(T),
+color_australia(_{western_australia:WA,
+		  northern_territory:NT,
+		  queensland:Q,
+		  new_south_wales:NSW,
+		  victoria:V,
+		  south_australia:SA,
+		  tasmania:TA}) :-
+	color(WA), color(NT), color(Q),
+	color(NSW), color(V), color(SA), color(TA),
 	WA \= NT, NT \= Q, Q \= NSW, NSW \= V,
-	WA \= SA, NT \= SA, Q \= SA, NSW \= SA, V \= SA,
-	writef('WA=%7l NT=%7l Q=%7l NSW=%7l V=%7l SA=%7l T=%7l\n', A),
-	fail.
-
+	WA \= SA, NT \= SA, Q \= SA, NSW \= SA, V \= SA.

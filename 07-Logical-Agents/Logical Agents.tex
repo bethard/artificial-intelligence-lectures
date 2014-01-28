@@ -1018,34 +1018,31 @@ $
 		\end{itemize}
 	\end{block}
 \end{frame}
-\begin{frame}{Resolution Example}
-	\begin{columns}[t]
-		\begin{column}{1.5in}
-			Prove: $A$ \\[1em]
-			Given: \\
-			\begin{tabular}{ll}
-				$R_1\!\!:$ & $A \lor B$ \\
-				$R_2\!\!:$ & $C \lor \lnot B$ \\
-				$R_3\!\!:$ & $A \lor \lnot C$ \\
-			\end{tabular}
-		\end{column}
-		\begin{column}{2.5in}
-			Proof: \\[1em]
-			\begin{tabular}{lll}
-				\pause
-				$R_4\!\!:$    & $\lnot A$         & Assumed \\
-				\pause
-				$R_5\!\!:$    & $B$               & $R_1$, $R_4$ \\
-				\pause
-				$R_6\!\!:$    & $\lnot C$         & $R_3$, $R_4$ \\
-				\pause
-				$R_7\!\!:$    & $\lnot B$         & $R_2$, $R_6$ \\
-				\pause
-				$R_8\!\!:$    & \emph{false}      & $R_5$, $R_7$ \\
-			\end{tabular}
-		\end{column}
-	\end{columns}
+
+\begin{frame}[label=resolution-example]{Resolution Example}
+\begin{columns}[t]
+\begin{column}{1.5in}
+Prove: $A$ \\[1em]
+Given: \\
+\begin{tabular}{ll}
+$R_1\!\!:$ & $A \lor B$ \\
+$R_2\!\!:$ & $C \lor \lnot B$ \\
+$R_3\!\!:$ & $A \lor \lnot C$ \\
+\end{tabular}
+\end{column}
+\begin{column}{2.5in}
+Proof: \\[1em]
+\begin{tabular}{lll}
+\visible<2->{$R_4\!\!:$    & $\lnot A$         & Assumed} \\
+\visible<3->{$R_5\!\!:$    & $B$               & $R_1$, $R_4$} \\
+\visible<4->{$R_6\!\!:$    & $\lnot C$         & $R_3$, $R_4$} \\
+\visible<5->{$R_7\!\!:$    & $\lnot B$         & $R_2$, $R_6$} \\
+\visible<6->{$R_8\!\!:$    & \emph{false}      & $R_5$, $R_7$} \\
+\end{tabular}
+\end{column}
+\end{columns}
 \end{frame}
+
 \begin{frame}{Conjunctive Normal Form}
 	\begin{block}{Goal: Conjunction of Disjunctions of Literals}
 		$(P_1 \lor \ldots \lor P_n) \land (Q_1 \lor \ldots \lor Q_m) \land \ldots$

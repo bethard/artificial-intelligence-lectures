@@ -1,57 +1,15 @@
-\documentclass[12pt]{beamer}
-%\includeonlyframes{current}
+% !TEX TS-program = pdflatexmk
 
-\mode<presentation>{\usetheme{Warsaw}}
-\setbeamertemplate{footline}[frame number]
-\usepackage[english]{babel}
-\usepackage{times}
-\usepackage{url}
-\usepackage{graphicx}
-\usepackage{listings}
+\documentclass[14pt]{beamer}
+\input{../slides-preamble}
 \usepackage{hhline}
-\usepackage{array}
-\usepackage{colortbl}
+\lstset{emph={[2]__init__,__str__}}
+
 \usepackage{synttree}
-\lstloadlanguages{Python}
-\lstset{language=Python}
-\lstset{%
-	basicstyle=\ttfamily\bfseries,
-	keywordstyle=\color{blue}, emph={self}, emphstyle={\color{blue}},
-	identifierstyle=,
-	commentstyle=\color{gray},
-	stringstyle=\color{green!50!black},
-	showstringspaces=false,
-	emph={[2]__init__,__str__}, emphstyle={[2]\color{purple}},
-}
-\newcommand{\key}[1]{{\color{blue}#1}}
-\newcommand{\cmnt}[1]{{\color{gray}#1}}
-\newcommand{\str}[1]{{\color{green!50!black}#1}}
-\newcommand{\defn}[1]{{\color{purple}#1}}
-\newcommand{\SC}[1]{\mbox{\sc#1}}
-\newcommand{\EM}[1]{\mbox{\em#1}}
-\newcommand{\tab}{\hspace{1em}}
-\newcommand{\nl}{\vspace{1em}}
-
-\newcommand{\limpl}{\Rightarrow}
-\newcommand{\liff}{\Leftrightarrow}
-
 \newcommand{\node}[1]{{\parbox{1.25in}{\centering #1}}}
 
 \title{First-Order Logic}
-\subtitle{Introduction to Artificial Intelligence}
-\author{Steven Bethard}
-\institute{
-  Department of Computer Science\\
-  University of Colorado
-}
-\date{CSCI 3202}
-
-\AtBeginSection[]{
-\begin{frame}<beamer>{Outline}
-	\footnotesize
-	\tableofcontents[currentsection]
-\end{frame}
-}
+\date{18 Feb 2014}
 
 \begin{document}
 
@@ -59,7 +17,6 @@
 	\titlepage
 \end{frame}
 \begin{frame}{Outline}
-	\footnotesize
 	\tableofcontents
 \end{frame}
 
@@ -81,7 +38,7 @@
 	\end{block}
 	\pause
 	\begin{block}{Solution: First Order Logic (Preview)}
-		$\forall s\ \EM{Breezy}(s) \liff \exists r\ \EM{Adjacent}(r, s) \land \EM{Pit}(r)$
+		$\forall s\ \textit{Breezy}(s) \liff \exists r\ \textit{Adjacent}(r, s) \land \textit{Pit}(r)$
 	\end{block}
 \end{frame}
 \begin{frame}{Core Ideas of First Order Logic}
@@ -111,13 +68,13 @@
 %\begin{frame}{Components of First Order Logic}
 %	\extrarowheight=.5em 
 %	\begin{tabular}{ll}
-%		\key{Constants}   & $KingJohn,\ 2,\ UCB,\ \ldots$ \\
-%		\key{Predicates}  & $Brother,\ >,\ \ldots$ \\
-%		\key{Functions}   & $Sqrt,\ LeftLegOf,\ \ldots$ \\
-%		\key{Variables}   & $x,\ y,\ a,\ b,\ \ldots$ \\
-%		\key{Connectives} & $\land\ \lor\ \lnot\ \limpl\ \liff$ \\
-%		\key{Equality}    & $=$ \\
-%		\key{Quantifiers} & $\forall\ \exists$ \\
+%		\keyword{Constants}   & $KingJohn,\ 2,\ UCB,\ \ldots$ \\
+%		\keyword{Predicates}  & $Brother,\ >,\ \ldots$ \\
+%		\keyword{Functions}   & $Sqrt,\ LeftLegOf,\ \ldots$ \\
+%		\keyword{Variables}   & $x,\ y,\ a,\ b,\ \ldots$ \\
+%		\keyword{Connectives} & $\land\ \lor\ \lnot\ \limpl\ \liff$ \\
+%		\keyword{Equality}    & $=$ \\
+%		\keyword{Quantifiers} & $\forall\ \exists$ \\
 %	\end{tabular}
 %\end{frame}
 \begin{frame}{Constants}
@@ -141,11 +98,11 @@
 	\end{block}
 	\begin{block}{Examples}
 		\begin{tabular}{ll}
-			$\EM{LeftLegOf}(x)$ \\
-			$\EM{LengthOf}(x)$ \\
-			$\EM{SquareRoot}(x)$,      & i.e. $\sqrt{x}$ \\
-			$\EM{Sum}(x, y)$,          & i.e. $x + y$ \\
-			$\EM{Intersection}(x, y)$, & i.e. $x \cap y$ \\
+			$\textit{LeftLegOf}(x)$ \\
+			$\textit{LengthOf}(x)$ \\
+			$\textit{SquareRoot}(x)$,      & i.e. $\sqrt{x}$ \\
+			$\textit{Sum}(x, y)$,          & i.e. $x + y$ \\
+			$\textit{Intersection}(x, y)$, & i.e. $x \cap y$ \\
 		\end{tabular}
 	\end{block}
 \end{frame}
@@ -156,12 +113,12 @@
 	\end{block}
 	\begin{block}{Examples}
 		\begin{tabular}{ll}
-			$\EM{Person}(x)$ \\
-			$\EM{Female}(x)$ \\
-			$\EM{BrotherOf}(x, y)$ \\
-			$\EM{Positive}(x)$,     & i.e. $x > 0$ \\
-			$\EM{MemberOf}(x, y)$,  & i.e. $x \in y$ \\
-			$\EM{SubsetOf}(x, y)$,  & i.e. $x \subseteq y$ \\
+			$\textit{Person}(x)$ \\
+			$\textit{Female}(x)$ \\
+			$\textit{BrotherOf}(x, y)$ \\
+			$\textit{Positive}(x)$,     & i.e. $x > 0$ \\
+			$\textit{MemberOf}(x, y)$,  & i.e. $x \in y$ \\
+			$\textit{SubsetOf}(x, y)$,  & i.e. $x \subseteq y$ \\
 		\end{tabular}
 	\end{block}
 \end{frame}
@@ -176,10 +133,10 @@
 		\extrarowheight=.25em 
 		$
 		\begin{array}{ll}
-			\lnot\EM{Brother}(\EM{LeftLeg}(\EM{Richard}), \EM{John}) \\
-			\EM{Positive}(42) \land \EM{LessThan}(42, 100) \\
-			\EM{Male}(\EM{Pat}) \lor \EM{Female}(Pat) \\
-			\lnot\EM{LaysEggs}(\EM{Whale}) \limpl \lnot\EM{Bird}(\EM{Whale})
+			\lnot\textit{Brother}(\textit{LeftLeg}(\textit{Richard}), \textit{John}) \\
+			\textit{Positive}(42) \land \textit{LessThan}(42, 100) \\
+			\textit{Male}(\textit{Pat}) \lor \textit{Female}(Pat) \\
+			\lnot\textit{LaysEggs}(\textit{Whale}) \limpl \lnot\textit{Bird}(\textit{Whale})
 		\end{array}
 		$
 	\end{block}
@@ -188,23 +145,23 @@
 	\begin{block}{Key Ideas}
 		\begin{itemize}
 			\item Relations are (possibly infinite) sets of tuples
-			\item $\EM{R}(\EM{Term}_1, \ldots, \EM{Term}_n)$ is true iff
-			      $\langle\EM{Term}_1, \ldots, \EM{Term}_n\rangle \in \EM{R}$
+			\item $\textit{R}(\textit{Term}_1, \ldots, \textit{Term}_n)$ is true iff
+			      $\langle\textit{Term}_1, \ldots, \textit{Term}_n\rangle \in \textit{R}$
 		\end{itemize}
 	\end{block}
 	\begin{block}{Example}
 		Given the relation: \\
-		\tab$\EM{SquareRoot} = \{
+		\tab$\textit{SquareRoot} = \{
 				\langle 1, 1 \rangle,
 				\langle 4, 2 \rangle,
 				\langle 9, 3 \rangle,
 				\ldots \}$ \\
 		\pause
-		Then $\EM{SquareRoot}(4, 2)$ is \pause \alert{true} because \\
-		\tab$\langle 4, 2 \rangle \in \EM{SquareRoot}$ \\
+		Then $\textit{SquareRoot}(4, 2)$ is \pause \alert{true} because \\
+		\tab$\langle 4, 2 \rangle \in \textit{SquareRoot}$ \\
 		\pause
-		And $\EM{SquareRoot}(2, 2)$ is \pause \alert{false} because \\
-		\tab$\langle 2, 2 \rangle \not\in \EM{SquareRoot}$
+		And $\textit{SquareRoot}(2, 2)$ is \pause \alert{false} because \\
+		\tab$\langle 2, 2 \rangle \not\in \textit{SquareRoot}$
 	\end{block}
 \end{frame}
 
@@ -212,16 +169,16 @@
 \begin{frame}{Quantifiers}
 	\begin{block}{Predicating over Constants}
 		If I know: \\
-		\tab$\lnot\EM{LaysEggs}(\EM{Whale}) \limpl \lnot\EM{Bird}(\EM{Whale})$ \\[.5em]
+		\tab$\lnot\textit{LaysEggs}(\textit{Whale}) \limpl \lnot\textit{Bird}(\textit{Whale})$ \\[.5em]
 		What can I say here? \\
-		\tab$\lnot\EM{LaysEggs}(\EM{Steve}) \limpl ?$ \\[.5em]
+		\tab$\lnot\textit{LaysEggs}(\textit{Steve}) \limpl ?$ \\[.5em]
 		\pause
 		\alert{Nothing!}
 	\end{block}
 	\pause
 	\begin{block}{Quantifiers and Variables}
 		Quantifiers allow statements about classes of objects, e.g. \\
-		\tab$\forall x\ \lnot\EM{LaysEggs}(x) \limpl \lnot\EM{Bird}(x)$
+		\tab$\forall x\ \lnot\textit{LaysEggs}(x) \limpl \lnot\textit{Bird}(x)$
 	\end{block}
 \end{frame}
 \begin{frame}{Universal Quantification ($\forall$)}
@@ -231,26 +188,26 @@
 	\end{block}
 	\pause
 	\begin{block}{Example}
-		So $\forall x\ \EM{Bird}(x) \limpl \EM{LaysEggs}(x)$ is true because: \\
-		\tab\tab$\EM{Bird}(\EM{Swallow}) \limpl \EM{LaysEggs}(\EM{Swallow})$ is true \\
-		\tab\tab$\EM{Bird}(\EM{Emu}) \limpl \EM{LaysEggs}(\EM{Emu})$ is true \\
-		\tab\tab$\EM{Bird}(\EM{Badger}) \limpl \EM{LaysEggs}(\EM{Badger})$ is true \\
+		So $\forall x\ \textit{Bird}(x) \limpl \textit{LaysEggs}(x)$ is true because: \\
+		\tab\tab$\textit{Bird}(\textit{Swallow}) \limpl \textit{LaysEggs}(\textit{Swallow})$ is true \\
+		\tab\tab$\textit{Bird}(\textit{Emu}) \limpl \textit{LaysEggs}(\textit{Emu})$ is true \\
+		\tab\tab$\textit{Bird}(\textit{Badger}) \limpl \textit{LaysEggs}(\textit{Badger})$ is true \\
 		\tab\tab\ldots \\[.5em]
 		\pause
-		But $\forall x\ \EM{LaysEggs}(x) \limpl \EM{Bird}(x)$ is false because: \\
+		But $\forall x\ \textit{LaysEggs}(x) \limpl \textit{Bird}(x)$ is false because: \\
 		\pause
-		\tab\tab$\EM{LaysEggs}(\EM{Platypus}) \limpl \EM{Bird}(\EM{Platypus})$ is false
+		\tab\tab$\textit{LaysEggs}(\textit{Platypus}) \limpl \textit{Bird}(\textit{Platypus})$ is false
 	\end{block}
 \end{frame}
 \begin{frame}{Universal Quantification in Translation}
 	\begin{block}{Common Mistake}
 		What does this mean? \\
-		\tab\tab$\forall x\ \EM{Bird}(x) \land \EM{LaysEggs}(x)$ \\
+		\tab\tab$\forall x\ \textit{Bird}(x) \land \textit{LaysEggs}(x)$ \\
 		\pause
 		Answer: \\
 		\tab\tab\emph{Everything is a bird and everything lays eggs} \\
 		Intended statement: \\
-		\tab\tab$\forall x\ \EM{Bird}(x) \limpl \EM{LaysEggs}(x)$ \\
+		\tab\tab$\forall x\ \textit{Bird}(x) \limpl \textit{LaysEggs}(x)$ \\
 	\end{block}
 	\pause
 	\begin{block}{Rule of Thumb}
@@ -264,27 +221,27 @@
 	\end{block}
 	\pause
 	\begin{block}{Example}
-		So $\exists x\ \EM{Mammal}(x) \land \EM{LaysEggs}(x)$ is true because: \\
+		So $\exists x\ \textit{Mammal}(x) \land \textit{LaysEggs}(x)$ is true because: \\
 		\pause
-		\tab\tab$\EM{Mammal}(\EM{Platypus}) \land \EM{LaysEggs}(\EM{Platypus})$ is true \\[.5em]
+		\tab\tab$\textit{Mammal}(\textit{Platypus}) \land \textit{LaysEggs}(\textit{Platypus})$ is true \\[.5em]
 		\pause
-		But $\exists x\ \EM{Mammal}(x) \land \lnot\EM{Animal}(x)$ is false because: \\
+		But $\exists x\ \textit{Mammal}(x) \land \lnot\textit{Animal}(x)$ is false because: \\
 		\pause
-		\tab\tab$\EM{Mammal}(\EM{Person}) \land \lnot\EM{Animal}(\EM{Person})$ is false \\
-		\tab\tab$\EM{Mammal}(\EM{Platypus}) \land \lnot\EM{Animal}(\EM{Platypus})$ is false \\
-		\tab\tab$\EM{Mammal}(\EM{Spam}) \land \lnot\EM{Animal}(\EM{Spam})$ is false \\
+		\tab\tab$\textit{Mammal}(\textit{Person}) \land \lnot\textit{Animal}(\textit{Person})$ is false \\
+		\tab\tab$\textit{Mammal}(\textit{Platypus}) \land \lnot\textit{Animal}(\textit{Platypus})$ is false \\
+		\tab\tab$\textit{Mammal}(\textit{Spam}) \land \lnot\textit{Animal}(\textit{Spam})$ is false \\
 		\tab\tab\ldots \\
 	\end{block}
 \end{frame}
 \begin{frame}{Existential Quantification in Translation}
 	\begin{block}{Common Mistake}
 		What does this mean? \\
-		\tab\tab$\exists x\ \EM{Mammal}(x) \limpl \EM{LaysEggs}(x)$ \\
+		\tab\tab$\exists x\ \textit{Mammal}(x) \limpl \textit{LaysEggs}(x)$ \\
 		\pause
 		Answer: \\
 		\tab\tab\emph{There is something that is not a mammal or lays eggs} \\
 		Intended statement: \\
-		\tab\tab$\exists x\ \EM{Mammal}(x) \land \EM{LaysEggs}(x)$ \\
+		\tab\tab$\exists x\ \textit{Mammal}(x) \land \textit{LaysEggs}(x)$ \\
 	\end{block}
 	\pause
 	\begin{block}{Rule of Thumb}
@@ -295,31 +252,31 @@
 	\begin{block}{Nesting Quantifiers}
 		Mixed quantifiers cannot be exchanged:
 		\begin{itemize}
-			\item $\forall x\ \exists y\ \EM{Loves}(x, y)$ ``everyone loves someone''
-			\item $\exists x\ \forall y\ \EM{Loves}(x, y)$ ``one person is loved by everyone''
+			\item $\forall x\ \exists y\ \textit{Loves}(x, y)$ ``everyone loves someone''
+			\item $\exists x\ \forall y\ \textit{Loves}(x, y)$ ``one person is loved by everyone''
 		\end{itemize}
 	\end{block}
 	\pause
 	\begin{block}{Relation between $\forall$ and $\exists$}
 		Conversion is roughly like DeMorgan's:
 		\begin{itemize}
-			\item $\forall x\ \EM{Enjoys}(x, \EM{AI}) \equiv \lnot\exists x\ \lnot \EM{Enjoys}(x, \EM{AI})$
-			\item $\exists x\ \EM{Enjoys}(x, \EM{DB}) \equiv \lnot\forall x\ \lnot \EM{Enjoys}(x, \EM{DB})$
+			\item $\forall x\ \textit{Enjoys}(x, \textit{AI}) \equiv \lnot\exists x\ \lnot \textit{Enjoys}(x, \textit{AI})$
+			\item $\exists x\ \textit{Enjoys}(x, \textit{DB}) \equiv \lnot\forall x\ \lnot \textit{Enjoys}(x, \textit{DB})$
 		\end{itemize}
 	\end{block}
 \end{frame}
 \begin{frame}{Equality Relations}
 	\begin{block}{Problem}
 		What's wrong with this definition? \\
-		\tab$\forall x, y\ \EM{Sibling}(x, y) \liff \exists p\ \EM{Parent}(p, x) \land \EM{Parent}(p, y)$ \\[1em]
+		\tab$\forall x, y\ \textit{Sibling}(x, y) \liff \exists p\ \textit{Parent}(p, x) \land \textit{Parent}(p, y)$ \\[1em]
 		\pause
 		Both $x$ and $y$ can be the same thing! \\
-		\tab$\EM{Sibling}(\EM{Steve}, \EM{Steve})$
+		\tab$\textit{Sibling}(\textit{Steve}, \textit{Steve})$
 	\end{block}
 	\pause
 	\begin{block}{Solution: Equality}
 		Specify when two variables refer to the same objects: \\[.5em]
-		$\forall x, y\ \EM{Sibling}(x, y) \liff x \neq y \land \exists p\ \EM{Parent}(p, x) \land \EM{Parent}(p, y)$
+		$\forall x, y\ \textit{Sibling}(x, y) \liff x \neq y \land \exists p\ \textit{Parent}(p, x) \land \textit{Parent}(p, y)$
 	\end{block}
 \end{frame}
 
@@ -330,34 +287,34 @@
 		\item
 			All horses are mammals \\
 			\pause
-			$\forall x\ \EM{Horse}(x) \limpl \EM{Mammal}(x)$
+			$\forall x\ \textit{Horse}(x) \limpl \textit{Mammal}(x)$
 		\pause
 		\item
 			All birds have wings \\
 			\pause
-			$\forall x\ \EM{Bird}(x) \limpl \EM{HasWings}(x)$
+			$\forall x\ \textit{Bird}(x) \limpl \textit{HasWings}(x)$
 		\pause
 		\item
 			Some mammals lay eggs \\
 			\pause
-			$\exists x\ \EM{Mammal}(x) \land \EM{LaysEggs}(x)$
+			$\exists x\ \textit{Mammal}(x) \land \textit{LaysEggs}(x)$
 		\pause
 		\item
 			Some birds don't fly \\
 			\pause
-			$\exists x\ \EM{Bird}(x) \land \lnot\EM{Flies}(x)$
+			$\exists x\ \textit{Bird}(x) \land \lnot\textit{Flies}(x)$
 		\pause
 		\item
 			Animals that fly have wings \\
 			\pause
-			$\forall x\ \EM{Animal}(x) \land \EM{Flies}(x) \limpl \EM{HasWings}(x)$
+			$\forall x\ \textit{Animal}(x) \land \textit{Flies}(x) \limpl \textit{HasWings}(x)$
 		\pause
 		\item
 			Not all swimming animals have fins \\
 			\pause
-			$\lnot\forall x\ \EM{Animal}(x) \land \EM{Swim}(x) \limpl \EM{HasFins}(x)$
+			$\lnot\forall x\ \textit{Animal}(x) \land \textit{Swim}(x) \limpl \textit{HasFins}(x)$
 			\pause
-			$\exists x\ \EM{Animal}(x) \land \EM{Swim}(x) \land \lnot\EM{HasFins}(x)$
+			$\exists x\ \textit{Animal}(x) \land \textit{Swim}(x) \land \lnot\textit{HasFins}(x)$
 	\end{itemize}
 \end{frame}
 \begin{frame}{Animal Kingdom Translations}
@@ -367,20 +324,20 @@
 			\pause
 			$
 			\begin{array}{ll}
-			\lefteqn{\forall x,y\ \EM{Animal}(x) \land \EM{GivesBirth}(x, y) \limpl \mbox{}} \\
-			& \EM{Animal}(y) \land \EM{Species}(x) = \EM{Species}(y) \land x \neq y 
+			\lefteqn{\forall x,y\ \textit{Animal}(x) \land \textit{GivesBirth}(x, y) \limpl \mbox{}} \\
+			& \textit{Animal}(y) \land \textit{Species}(x) = \textit{Species}(y) \land x \neq y 
 			\end{array}
 			$
-		\nl
+		\bigskip
 		\pause
 		\item
 			Bats have exactly two wings \\
 			\pause
 			$
 			\begin{array}{lll}
-			\lefteqn{\forall x\ \EM{Bat}(x) \limpl \mbox{}} \\
-			& \lefteqn{\exists y,z\ \EM{HasWing}(x, y) \land \EM{HasWing}(x, z) \land y \neq z \land \mbox{}} \\
-			& & \forall w\ \EM{HasWing}(x, w) \limpl w = y \lor w = z
+			\lefteqn{\forall x\ \textit{Bat}(x) \limpl \mbox{}} \\
+			& \lefteqn{\exists y,z\ \textit{HasWing}(x, y) \land \textit{HasWing}(x, z) \land y \neq z \land \mbox{}} \\
+			& & \forall w\ \textit{HasWing}(x, w) \limpl w = y \lor w = z
 			\end{array}
 			$
 	\end{itemize}
@@ -393,33 +350,33 @@
 		\item
 			There is a breeze in $[3, 1]$ \\
 			\pause
-			$\EM{Breezy}([3, 1])$
+			$\textit{Breezy}([3, 1])$
 		\pause
-		\nl
+		\bigskip
 		\item
 			The Wumpus is lives in $[2, 2]$ \\
 			\pause
-			$\EM{Home}(\EM{Wumpus}) = [2, 2]$
+			$\textit{Home}(\textit{Wumpus}) = [2, 2]$
 		\pause
-		\nl
+		\bigskip
 		\item
 			If you are in the Wumpus's square, he eats you \\
 			\pause
 			$
 			\begin{array}{ll}
-			\lefteqn{\forall t\ \EM{Location}(\EM{Agent}, \EM{Home}(\EM{Wumpus}), t) \limpl \mbox{}} \\
-			& \EM{HasEaten}(\EM{Wumpus}, \EM{Agent}, t)
+			\lefteqn{\forall t\ \textit{Location}(\textit{Agent}, \textit{Home}(\textit{Wumpus}), t) \limpl \mbox{}} \\
+			& \textit{HasEaten}(\textit{Wumpus}, \textit{Agent}, t)
 			\end{array}
 			$
 		\pause
-		\nl
+		\bigskip
 		\item
 			You should grab the gold when you are in its square \\
 			\pause
 			$
 			\begin{array}{ll}
-			\lefteqn{\forall s,t\ \EM{HasGold}(s) \land \EM{Location}(\EM{Agent}, s, t) \limpl \mbox{}} \\
-			& \EM{BestAction}(\EM{Grab}, \EM{Agent}, t)
+			\lefteqn{\forall s,t\ \textit{HasGold}(s) \land \textit{Location}(\textit{Agent}, s, t) \limpl \mbox{}} \\
+			& \textit{BestAction}(\textit{Grab}, \textit{Agent}, t)
 			\end{array}
 			$
 	\end{itemize}
@@ -427,17 +384,17 @@
 \begin{frame}{Wumpus World Translations}
 	\begin{block}{Diagnostic Rules}
 		From effect, determine cause: \\
-		\tab\tab$\forall y\ \EM{Breezy}(y) \limpl (\exists x\ \EM{Pit}(x) \land \EM{Adjacent}(x, y))$
+		\tab\tab$\forall y\ \textit{Breezy}(y) \limpl (\exists x\ \textit{Pit}(x) \land \textit{Adjacent}(x, y))$
 	\end{block}
 	\pause
 	\begin{block}{Causal Rules}
 		From cause, determine effect: \\
-		\tab\tab$\forall x,y\ (\EM{Pit}(x) \land \EM{Adjacent}(x, y)) \limpl \EM{Breezy}(y)$
+		\tab\tab$\forall x,y\ (\textit{Pit}(x) \land \textit{Adjacent}(x, y)) \limpl \textit{Breezy}(y)$
 	\end{block}
 	\pause
 	\begin{block}{Definition Rules}
 		Bidirectional: \\
-		\tab\tab$\forall y\ \EM{Breezy}(y) \liff (\exists x\ \EM{Pit}(x) \land \EM{Adjacent}(x, y))$
+		\tab\tab$\forall y\ \textit{Breezy}(y) \liff (\exists x\ \textit{Pit}(x) \land \textit{Adjacent}(x, y))$
 	\end{block}
 \end{frame}
 
@@ -467,21 +424,21 @@
 \begin{frame}{One Harry Potter's 7 Potions Solution}
 	$
 	\begin{array}{lll}
-	\lefteqn{\forall p\ \EM{Potions}(p) \liff \mbox{}} \\
-	& \EM{Permutation}(p, [\EM{Forward}, \EM{Backward}, \EM{Wine}, \EM{Wine}, \\
-	& \hspace{7em}         \EM{Poison}, \EM{Poison}, \EM{Poison}]) \\
-	& \EM{PoisonIsLeftOfWine}(p) \land \mbox{} \\
-	& \EM{EndsAreDifferent}(p) \land \EM{EndsAreNotForward}(p) \land \mbox{} \\
-	& \EM{SmallestIsNotPoison}(p) \land \EM{LargestIsNotPoison}(p) \\
-	& \EM{SecondsAreTheSame}(p) \land \mbox{} \\
+	\lefteqn{\forall p\ \textit{Potions}(p) \liff \mbox{}} \\
+	& \textit{Permutation}(p, [\textit{Forward}, \textit{Backward}, \textit{Wine}, \textit{Wine}, \\
+	& \hspace{7em}         \textit{Poison}, \textit{Poison}, \textit{Poison}]) \\
+	& \textit{PoisonIsLeftOfWine}(p) \land \mbox{} \\
+	& \textit{EndsAreDifferent}(p) \land \textit{EndsAreNotForward}(p) \land \mbox{} \\
+	& \textit{SmallestIsNotPoison}(p) \land \textit{LargestIsNotPoison}(p) \\
+	& \textit{SecondsAreTheSame}(p) \land \mbox{} \\
 	\lefteqn{\ldots} \\
 	\pause
-	\lefteqn{\forall p\ \EM{EndsAreDifferent}(p) \liff \mbox{}} \\
+	\lefteqn{\forall p\ \textit{EndsAreDifferent}(p) \liff \mbox{}} \\
 	& \exists p_1, p_2, \ldots, p_7\ p = [p_1, p_2, p_3, p_4, p_5, p_6, p_7] \land p_1 \neq p_7 \\
 	\lefteqn{\ldots} \\
 	\pause
-	\lefteqn{\forall p\ \EM{LargestIsNotPoison}(p) \liff \mbox{}} \\
-	& \exists p_i\ \EM{Largest}(p, p_i) \land p_i \neq \EM{Poison}
+	\lefteqn{\forall p\ \textit{LargestIsNotPoison}(p) \liff \mbox{}} \\
+	& \exists p_i\ \textit{Largest}(p, p_i) \land p_i \neq \textit{Poison}
 	\end{array}
 	$
 \end{frame}
@@ -497,8 +454,8 @@
 	\begin{block}{Key Idea}
 		If we know $\forall x\ P(x)$, then we can conclude: \\
 		\begin{itemize}
-			\item $P(\EM{Badger})$
-			\item $P(\EM{Spam})$
+			\item $P(\textit{Badger})$
+			\item $P(\textit{Spam})$
 			\item \ldots
 		\end{itemize}
 	\end{block}
@@ -509,7 +466,7 @@
 		\begin{array}{l}
 		\forall v\ \alpha \\
 		\hline
-		\SC{Subst}(\{v/g\}, \alpha)
+		\textsc{Subst}(\{v/g\}, \alpha)
 		\end{array}
 		$
 	\end{block}
@@ -518,7 +475,7 @@
 	\begin{block}{Key Idea}
 		If we know $\exists x\ P(x)$, then we can just give a name to $x$: \\
 		\begin{itemize}
-			\item $P(\EM{ThingThatPIsTrueFor})$
+			\item $P(\textit{ThingThatPIsTrueFor})$
 		\end{itemize}
 		This works as long as the name isn't already in use
 	\end{block}
@@ -529,7 +486,7 @@
 		\begin{array}{l}
 		\exists v\ \alpha \\
 		\hline
-		\SC{Subst}(\{v/k\}, \alpha)
+		\textsc{Subst}(\{v/k\}, \alpha)
 		\end{array}
 		$ \\[.5em]
 		The constant $k$ is called a \alert{Skolem constant}
@@ -539,10 +496,10 @@
 	\begin{block}{First-Order Logic}
 		$
 		\begin{array}{l}
-			\exists x\ \EM{Mammal}(x) \land \EM{LaysEggs}(x) \\
-			\forall x\ \EM{Mammal}(x) \limpl \EM{WarmBlooded}(x) \\
-			\EM{Mammal}(\EM{Platypus}) \\
-			\lnot \EM{WarmBlooded}(\EM{Crocodile})
+			\exists x\ \textit{Mammal}(x) \land \textit{LaysEggs}(x) \\
+			\forall x\ \textit{Mammal}(x) \limpl \textit{WarmBlooded}(x) \\
+			\textit{Mammal}(\textit{Platypus}) \\
+			\lnot \textit{WarmBlooded}(\textit{Crocodile})
 		\end{array}
 		$
 	\end{block}
@@ -550,11 +507,11 @@
 	\begin{block}{Propositional Logic}
 		$
 		\begin{array}{l}
-			\pause\EM{Mammal}(\EM{EggLayer}) \land \EM{LaysEggs}(\EM{EggLayer}) \\
-			\pause\EM{Mammal}(\EM{Platypus}) \limpl \EM{WarmBlooded}(\EM{Platypus}) \\
-			\EM{Mammal}(\EM{Crocodile}) \limpl \EM{WarmBlooded}(\EM{Crocodile}) \\
-			\pause\EM{Mammal}(\EM{Platypus}) \\
-			\pause\lnot \EM{WarmBlooded}(\EM{Crocodile})
+			\pause\textit{Mammal}(\textit{EggLayer}) \land \textit{LaysEggs}(\textit{EggLayer}) \\
+			\pause\textit{Mammal}(\textit{Platypus}) \limpl \textit{WarmBlooded}(\textit{Platypus}) \\
+			\textit{Mammal}(\textit{Crocodile}) \limpl \textit{WarmBlooded}(\textit{Crocodile}) \\
+			\pause\textit{Mammal}(\textit{Platypus}) \\
+			\pause\lnot \textit{WarmBlooded}(\textit{Crocodile})
 		\end{array}
 		$
 	\end{block}
@@ -568,16 +525,16 @@
 		\end{itemize}
 	\end{block}
 	\pause
-	\begin{block}{Example: $\EM{WarmBlooded}(\EM{Platypus})$?}
+	\begin{block}{Example: $\textit{WarmBlooded}(\textit{Platypus})$?}
 		$
 		\begin{array}{l}
-			\lnot\EM{WarmBlooded}(\EM{Platypus}) \\
-			\lnot\EM{Mammal}(\EM{Platypus}) \lor \EM{WarmBlooded}(\EM{Platypus}) \\
+			\lnot\textit{WarmBlooded}(\textit{Platypus}) \\
+			\lnot\textit{Mammal}(\textit{Platypus}) \lor \textit{WarmBlooded}(\textit{Platypus}) \\
 			\hline
-			\lnot\EM{Mammal}(\EM{Platypus}) \\
-			\EM{Mammal}(\EM{Platypus}) \\
+			\lnot\textit{Mammal}(\textit{Platypus}) \\
+			\textit{Mammal}(\textit{Platypus}) \\
 			\hline
-			\EM{false}
+			\textit{false}
 		\end{array}
 		$
 	\end{block}
@@ -585,9 +542,9 @@
 \begin{frame}{Simple First-Order Inference}
 	\begin{block}{Problem: Infinite Terms}
 		\begin{itemize}
-			\item $\EM{Mammal}(\EM{Steve})$
-			\item $\EM{Mammal}(\EM{Mother}(\EM{Steve}))$
-			\item $\EM{Mammal}(\EM{Mother}(\EM{Mother}(\EM{Steve})))$
+			\item $\textit{Mammal}(\textit{Steve})$
+			\item $\textit{Mammal}(\textit{Mother}(\textit{Steve}))$
+			\item $\textit{Mammal}(\textit{Mother}(\textit{Mother}(\textit{Steve})))$
 			\item \ldots
 		\end{itemize}
 	\end{block}
@@ -606,22 +563,22 @@
 
 \subsection{Unification}
 \begin{frame}{Problems with Propositionalization}
-	\begin{block}{Prove: $\EM{WarmBlooded}(\EM{Scooby})$}
+	\begin{block}{Prove: $\textit{WarmBlooded}(\textit{Scooby})$}
 		$
 		\begin{array}{l}
-			\EM{Dog}(\EM{Scooby}) \\
-			\EM{Dog}(\EM{Scrappy}) \\
-			\forall x\ \EM{Dog}(x) \limpl \EM{Mammal}(x) \\
-			\forall y\ \EM{Mammal}(y) \limpl \EM{WarmBlooded}(y) \\
+			\textit{Dog}(\textit{Scooby}) \\
+			\textit{Dog}(\textit{Scrappy}) \\
+			\forall x\ \textit{Dog}(x) \limpl \textit{Mammal}(x) \\
+			\forall y\ \textit{Mammal}(y) \limpl \textit{WarmBlooded}(y) \\
 		\end{array}
 		$
 	\end{block}
 	\begin{block}{Problem: Many Irrelevant Facts Produced}
 		$
 		\begin{array}{l}
-			\EM{Dog}(\EM{Scrappy}) \\
-			\EM{Dog}(\EM{Scrappy}) \limpl \EM{Mammal}(\EM{Scrappy}) \\
-			\EM{Mammal}(\EM{Scrappy}) \limpl \EM{WarmBlooded}(\EM{Scrappy}) \\
+			\textit{Dog}(\textit{Scrappy}) \\
+			\textit{Dog}(\textit{Scrappy}) \limpl \textit{Mammal}(\textit{Scrappy}) \\
+			\textit{Mammal}(\textit{Scrappy}) \limpl \textit{WarmBlooded}(\textit{Scrappy}) \\
 		\end{array}
 		$
 	\end{block}
@@ -631,22 +588,22 @@
 		Assign variables to make two expressions look the same
 	\end{block}
 	\begin{block}{Formally}
-		$\SC{Unify}(p, q) = \theta \mbox{ where } \SC{Subst}(\theta, p) = \SC{Subst}(\theta, q)$
+		$\textsc{Unify}(p, q) = \theta \mbox{ where } \textsc{Subst}(\theta, p) = \textsc{Subst}(\theta, q)$
 	\end{block}
 	\pause
-	\begin{block}{Example: $\EM{Eats}(\EM{Panda}, y)$?}
+	\begin{block}{Example: $\textit{Eats}(\textit{Panda}, y)$?}
 		\footnotesize
 		$
 		\begin{array}{@{}l@{\hspace{.2em}}l@{\hspace{.2em}}l@{}}
 			p                              & q                                  &
 				\theta \\
 			\hline
-			\pause\EM{Eats}(\EM{Panda}, y) & \EM{Eats}(\EM{Panda}, \EM{Leaves}) &
-				\pause\{y\!\!=\!\!\EM{Leaves}\} \\
-			\pause\EM{Eats}(\EM{Panda}, y) & \EM{Eats}(x, \EM{Pizza})           &
-				\pause\{x\!\!=\!\!\EM{Panda}, y\!\!=\!\!\EM{Pizza}\} \\
-			\pause\EM{Eats}(\EM{Panda}, y) & \EM{Eats}(x, \EM{FavFood}(x))      &
-				\pause\{x\!\!=\!\!\EM{Panda}, y\!\!=\!\!\EM{FavFood}(\EM{Panda})\}
+			\pause\textit{Eats}(\textit{Panda}, y) & \textit{Eats}(\textit{Panda}, \textit{Leaves}) &
+				\pause\{y\!\!=\!\!\textit{Leaves}\} \\
+			\pause\textit{Eats}(\textit{Panda}, y) & \textit{Eats}(x, \textit{Pizza})           &
+				\pause\{x\!\!=\!\!\textit{Panda}, y\!\!=\!\!\textit{Pizza}\} \\
+			\pause\textit{Eats}(\textit{Panda}, y) & \textit{Eats}(x, \textit{FavFood}(x))      &
+				\pause\{x\!\!=\!\!\textit{Panda}, y\!\!=\!\!\textit{FavFood}(\textit{Panda})\}
 		\end{array}
 		$
 	\end{block}
@@ -665,12 +622,12 @@
 				\ldots \\
 				p_n' \\
 				p_1 \land p_2 \land \ldots \land p_n \limpl q \\
-				\SC{Unify}(p_1', p_1) = \theta \\
-				\SC{Unify}(p_2', p_2) = \theta \\
+				\textsc{Unify}(p_1', p_1) = \theta \\
+				\textsc{Unify}(p_2', p_2) = \theta \\
 				\ldots \\
-				\SC{Unify}(p_n', p_n) = \theta \\
+				\textsc{Unify}(p_n', p_n) = \theta \\
 				\hline
-				\SC{Subst}(\theta, q)
+				\textsc{Subst}(\theta, q)
 				\end{array}
 				$
 			\end{block}
@@ -681,12 +638,12 @@
 				\extrarowheight=.25em
 				$
 				\begin{array}{l}
-				\EM{Odd}(17) \\
-				\forall x\ \EM{Odd}(x) \limpl \EM{Mod}(x, 2, 1) \\
-				\SC{Unify}(\EM{Odd}(17), \EM{Odd}(x)) = \mbox{}\\
-				\tab\tab \{x = \EM{17}\} \\
+				\textit{Odd}(17) \\
+				\forall x\ \textit{Odd}(x) \limpl \textit{Mod}(x, 2, 1) \\
+				\textsc{Unify}(\textit{Odd}(17), \textit{Odd}(x)) = \mbox{}\\
+				\tab\tab \{x = \textit{17}\} \\
 				\hline
-				\EM{Mod}(17, 2, 1)
+				\textit{Mod}(17, 2, 1)
 				\end{array}
 				$
 			\end{block}
@@ -704,71 +661,71 @@
 	\begin{block}{Details}
 		KB must be only \alert{first-order definite clauses}, one of:
 		\begin{itemize}
-			\item Atomic clauses, e.g. $\EM{Mammal}(\EM{Platypus})$
+			\item Atomic clauses, e.g. $\textit{Mammal}(\textit{Platypus})$
 			\item Implications like $p_1 \land p_2 \land \ldots \land p_n \limpl q$
 		\end{itemize}
 	\end{block}
 \end{frame}
 \begin{frame}[fragile]{Forward Chaining Code}
 	\begin{semiverbatim}\bfseries\scriptsize
-		\key{def} \defn{forward_chaining}(knowledge_base, query):
+		\keyword{def} \defn{forward_chaining}(knowledge_base, query):
 		    \pause\cmnt{# keep adding to the KB until no new sentences are generated}
-		    new = \key{True}
-		    \key{while} sentences:
+		    new = \keyword{True}
+		    \keyword{while} sentences:
 		        new = set()
-		        \key{for} sentence \key{in} knowledge_base:
+		        \keyword{for} sentence \keyword{in} knowledge_base:
 		            \pause\cmnt{# find something that unifies with the sentence body}
 		            n = len(sentence.body)
-		            \key{for} subset \key{in} all_subsets(knowledge_base, n):
+		            \keyword{for} subset \keyword{in} all_subsets(knowledge_base, n):
 		                assignment = unify(subset, sentence.body)
-		                \key{if} assignment \key{is not} \key{None}:
+		                \keyword{if} assignment \keyword{is not} \keyword{None}:
 		                    \pause\cmnt{# conclude the sentence head}
 		                    head = assignment.substitute(sentence.head)
-		                    \key{if} head \key{not in} knowledge_base + new:
+		                    \keyword{if} head \keyword{not in} knowledge_base + new:
 		                        new.add(head)
 		                        \pause\cmnt{# return if the query is concluded}
 		                        result = unify(head, query)
-		                        \key{if} result \key{is not} \key{None}:
-		                            \key{return} result
+		                        \keyword{if} result \keyword{is not} \keyword{None}:
+		                            \keyword{return} result
 		        knowledge_base.update(new)
 	\end{semiverbatim}
 \end{frame}
 \begin{frame}{Forward Chaining Example}
 	\begin{tabular}{p{4in}}
 		If you're rich and someone sells something you want, you buy it \\
-		\tab$\EM{Rich}(x) \land \EM{Wants}(x, y) \land \EM{Sells}(z, y) \limpl \EM{Buys}(x, y)$ \\
+		\tab$\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y)$ \\
 		If you're hot, you want ice cream \\
-		\tab$\EM{Hot}(x) \land \EM{IceCream}(y) \limpl \EM{Wants}(x, y)$ \\
+		\tab$\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y)$ \\
 		Glacier sells all kinds of ice cream \\
-		\tab$\EM{IceCream}(y) \limpl \EM{Sells}(\EM{Glacier}, y)$ \\
+		\tab$\textit{IceCream}(y) \limpl \textit{Sells}(\textit{Glacier}, y)$ \\
 		One flavor of ice cream is mint \\
-		\tab$\EM{IceCream}(\EM{Mint})$ \\
+		\tab$\textit{IceCream}(\textit{Mint})$ \\
 		Bill is rich \\
-		\tab$\EM{Rich}(\EM{Bill})$ \\
+		\tab$\textit{Rich}(\textit{Bill})$ \\
 		Bill is hot \\
-		\tab$\EM{Hot}(\EM{Bill})$
+		\tab$\textit{Hot}(\textit{Bill})$
 	\end{tabular}
 \end{frame}
 \begin{frame}{Forward Chaining Example}
 	$
 	\begin{array}{l}
-		\EM{Hot}(\EM{Bill}) \\
-		\EM{IceCream}(\EM{Mint}) \\
-		\EM{Hot}(x) \land \EM{IceCream}(y) \limpl \EM{Wants}(x, y) \\
+		\textit{Hot}(\textit{Bill}) \\
+		\textit{IceCream}(\textit{Mint}) \\
+		\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y) \\
 		\hline
-		\EM{Wants}(\EM{Bill}, \EM{Mint}) \\[.8em]
+		\textit{Wants}(\textit{Bill}, \textit{Mint}) \\[.8em]
 		\pause
-		\EM{IceCream}(\EM{Mint}) \\
-		\EM{IceCream}(y) \limpl \EM{Sells}(\EM{Glacier}, y) \\
+		\textit{IceCream}(\textit{Mint}) \\
+		\textit{IceCream}(y) \limpl \textit{Sells}(\textit{Glacier}, y) \\
 		\hline
-		\EM{Sells}(\EM{Glacier}, \EM{Mint}) \\[.8em]
+		\textit{Sells}(\textit{Glacier}, \textit{Mint}) \\[.8em]
 		\pause
-		\EM{Rich}(\EM{Bill}) \\
-		\EM{Wants}(\EM{Bill}, \EM{Mint}) \\
-		\EM{Sells}(\EM{Glacier}, \EM{Mint}) \\
-		\EM{Rich}(x) \land \EM{Wants}(x, y) \land \EM{Sells}(z, y) \limpl \EM{Buys}(x, y) \\
+		\textit{Rich}(\textit{Bill}) \\
+		\textit{Wants}(\textit{Bill}, \textit{Mint}) \\
+		\textit{Sells}(\textit{Glacier}, \textit{Mint}) \\
+		\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y) \\
 		\hline
-		\EM{Buys}(\EM{Bill}, \EM{Mint})
+		\textit{Buys}(\textit{Bill}, \textit{Mint})
 	\end{array}
 	$
 \end{frame}
@@ -784,8 +741,8 @@
 	\begin{block}{Termination}
 		With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per predicate: \\[.5em]
 		\begin{tabular}{ll}
-			\pause \key{Maximum Facts:}      & \pause $pn^k$ \\
-			\pause \key{Maximum Iterations:} & \pause $pn^k$ \\
+			\pause \keyword{Maximum Facts:}      & \pause $pn^k$ \\
+			\pause \keyword{Maximum Iterations:} & \pause $pn^k$ \\
 		\end{tabular} \\[.5em]
 		\pause With functions: \pause may never terminate
 	\end{block}
@@ -825,26 +782,26 @@
 \end{frame}
 \begin{frame}[fragile]{Backward Chaining Code}
 	\begin{semiverbatim}\bfseries\scriptsize
-		\key{def} \defn{backward_chaining}(knowledge_base, goals, assignment):
+		\keyword{def} \defn{backward_chaining}(knowledge_base, goals, assignment):
 		    \pause\cmnt{# if all goals have been resolved, generate the assignment}
-		    \key{if} \key{not} goals:
-		        \key{yield} assignment
+		    \keyword{if} \keyword{not} goals:
+		        \keyword{yield} assignment
 		    \pause\cmnt{# otherwise, check the first goal and then recurse}
-		    \key{else}:
+		    \keyword{else}:
 		        term = assignment.substitute(goals[0])
-		        \key{for} sentence \key{in} knowledge_base:
+		        \keyword{for} sentence \keyword{in} knowledge_base:
 		            \pause\cmnt{# try to unify the sentence with the first goal}
 		            new_assignment = unify(sentence.head, term)
-		            \key{if} new_assignment \key{is} \key{None}:
-		                \key{continue}
+		            \keyword{if} new_assignment \keyword{is} \keyword{None}:
+		                \keyword{continue}
 		            \pause\cmnt{# add the sentence's premise to the remaining goals}
 		            new_goals = list(sentence.body)
 		            new_goals.extend(goals[1:])
 		            new_assignment = new_assignment.compose(assignment)
 		            \pause\cmnt{# recursively search for the remaining goals}
 		            args = knowledge_base, new_goals, new_assignment
-		            \key{for} result \key{in} backward_chaining(*args):
-		                \key{yield} result
+		            \keyword{for} result \keyword{in} backward_chaining(*args):
+		                \keyword{yield} result
 	\end{semiverbatim}
 \end{frame}
 \begin{frame}{Backward Chaining Example}
@@ -852,12 +809,12 @@
 	\\[.5em]
 	$
 	\begin{array}{l}
-		\EM{Rich}(x) \land \EM{Wants}(x, y) \land \EM{Sells}(z, y) \limpl \EM{Buys}(x, y) \\
-		\EM{Hot}(x) \land \EM{IceCream}(y) \limpl \EM{Wants}(x, y) \\
-		\EM{IceCream}(y) \limpl \EM{Sells}(\EM{Glacier}, y) \\
-		\EM{IceCream}(\EM{Mint}) \\
-		\EM{Rich}(\EM{Bill}) \\
-		\EM{Hot}(\EM{Bill})
+		\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y) \\
+		\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y) \\
+		\textit{IceCream}(y) \limpl \textit{Sells}(\textit{Glacier}, y) \\
+		\textit{IceCream}(\textit{Mint}) \\
+		\textit{Rich}(\textit{Bill}) \\
+		\textit{Hot}(\textit{Bill})
 	\end{array}
 	$
 	\\[1em]
@@ -865,7 +822,7 @@
 	\\[.5em]
 	$
 	\begin{array}{l}
-		\EM{Buys}(x, y)
+		\textit{Buys}(x, y)
 	\end{array}
 	$
 \end{frame}
@@ -875,24 +832,24 @@
 	\begin{array}{@{}ll@{}}
 		\mbox{Goals}                                                        & \mbox{Assignment} \\
 		\hline
-		\pause\left[\EM{Buys}(x, y)\right]                                  & \{\} \\
-		\pause\left[\EM{Rich}(x), \EM{Wants}(x, y), \EM{Sells}(z, y)\right] & \{\} \\
-		\pause\left[\EM{Wants}(x, y), \EM{Sells}(z, y)\right]               & \{x\!\!=\!\!\EM{Bill}\} \\
-		\pause\left[\EM{Hot}(x), \EM{IceCream}(y), \EM{Sells}(z, y)\right]  & \{x\!\!=\!\!\EM{Bill}\} \\
-		\pause\left[\EM{IceCream}(y), \EM{Sells}(z, y)\right]               & \{x\!\!=\!\!\EM{Bill}\} \\
-		\pause\left[\EM{Sells}(z, y)\right]                                 & \{x\!\!=\!\!\EM{Bill}, y\!\!=\!\!\EM{Mint}\} \\
-		\pause\left[\EM{IceCream}(y)\right]                                 & \{x\!\!=\!\!\EM{Bill}, y\!\!=\!\!\EM{Mint}, z\!\!=\!\!\EM{Glacier}\} \\
-		\pause\left[\right]                                                 & \{x\!\!=\!\!\EM{Bill}, y\!\!=\!\!\EM{Mint}, z\!\!=\!\!\EM{Glacier}\} \\
+		\pause\left[\textit{Buys}(x, y)\right]                                  & \{\} \\
+		\pause\left[\textit{Rich}(x), \textit{Wants}(x, y), \textit{Sells}(z, y)\right] & \{\} \\
+		\pause\left[\textit{Wants}(x, y), \textit{Sells}(z, y)\right]               & \{x\!\!=\!\!\textit{Bill}\} \\
+		\pause\left[\textit{Hot}(x), \textit{IceCream}(y), \textit{Sells}(z, y)\right]  & \{x\!\!=\!\!\textit{Bill}\} \\
+		\pause\left[\textit{IceCream}(y), \textit{Sells}(z, y)\right]               & \{x\!\!=\!\!\textit{Bill}\} \\
+		\pause\left[\textit{Sells}(z, y)\right]                                 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}\} \\
+		\pause\left[\textit{IceCream}(y)\right]                                 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{Glacier}\} \\
+		\pause\left[\right]                                                 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{Glacier}\} \\
 	\end{array}
 	$
 \end{frame}
 \begin{frame}{Backward Chaining Properties}
 	\begin{block}{Properties}
 		\begin{tabular}{@{}ll@{}}
-			\pause\key{Sound}       & \pause Yes, uses Generalized Modus Ponens \\[.5em]
-			\pause\key{Complete}    & \pause No, could hit infinite loops \\
+			\pause\keyword{Sound}       & \pause Yes, uses Generalized Modus Ponens \\[.5em]
+			\pause\keyword{Complete}    & \pause No, could hit infinite loops \\
 			                        & \pause $\Rightarrow$ fix by keeping track of goals already seen \\[.5em]
-			\pause\key{Space}       & \pause Linear in size of proof (depth-first search) \\
+			\pause\keyword{Space}       & \pause Linear in size of proof (depth-first search) \\
 		\end{tabular}
 	\end{block}
 \end{frame}
@@ -914,9 +871,9 @@
 		\end{itemize}
 		\begin{semiverbatim}\bfseries\footnotesize
 			\defn{factorial}(1, 1).
-			\defn{factorial}(\str{N}, \str{_}) :- \str{N} =< 0, \key{fail}.
-			\defn{factorial}(\str{N}, \str{F}) :- \str{N} > 1, \str{N1} \key{is} \str{N} - 1,
-			                   factorial(\str{N1}, \str{F1}), \str{F} \key{is} \str{F1} * \str{N}.
+			\defn{factorial}(\str{N}, \str{_}) :- \str{N} =< 0, \keyword{fail}.
+			\defn{factorial}(\str{N}, \str{F}) :- \str{N} > 1, \str{N1} \keyword{is} \str{N} - 1,
+			                   factorial(\str{N1}, \str{F1}), \str{F} \keyword{is} \str{F1} * \str{N}.
 		\end{semiverbatim}
 	\end{block}
 \end{frame}
@@ -930,46 +887,46 @@
 	\extrarowheight=.25em
 	$
 	\begin{array}{@{}l@{\hspace{.3em}}l@{}}
-	\mbox{Prove:}    & \EM{Connected}(A, F) \\
-	\mbox{Given:}    & \forall x,z\ \EM{Edge}(x,z)\!\limpl\!\EM{Connected}(x,z) \\
-	                 & \forall x,y,z\ \EM{Edge}(x,y)\!\land\!\EM{Connected}(y,z)\!\limpl\!\EM{Connected}(x, z) \\
-	                 & \EM{Edge}(A, B) \land \EM{Edge}(B, C) \land \EM{Edge}(B, D) \land \EM{Edge}(D, F)\\
+	\mbox{Prove:}    & \textit{Connected}(A, F) \\
+	\mbox{Given:}    & \forall x,z\ \textit{Edge}(x,z)\!\limpl\!\textit{Connected}(x,z) \\
+	                 & \forall x,y,z\ \textit{Edge}(x,y)\!\land\!\textit{Connected}(y,z)\!\limpl\!\textit{Connected}(x, z) \\
+	                 & \textit{Edge}(A, B) \land \textit{Edge}(B, C) \land \textit{Edge}(B, D) \land \textit{Edge}(D, F)\\
 	\end{array}
 	$ \\	
 	\bigskip
 	\pause
 	\branchheight{2.5em}
 	\synttree
-	[\node{$\EM{Connected}(A, F)$}
-		[\node{\only<-2>{\invisible{$\EM{Edge}(A, F)$}}
-		       \only<3-4>{$\EM{Edge}(A, F)$}
-		       \only<5>{\invisible{$\EM{Edge}(A, F)$}}
-		       \only<6-7>{$\EM{Edge}(A, y)$}
-		       \only<8->{$\EM{Edge}(A, B)$}}
-			[\node{\only<-3>{\invisible{$\EM{Edge}(A, B)$}}
-			       \only<4>{$\EM{fail}$}
-			       \only<7->{$\EM{Edge}(A, B)$}}]]
-		[\node{\only<-5>{\invisible{$\EM{Connected}(B, F)$}}
-		       \only<6-7>{$\EM{Connected}(y, F)$}
-		       \only<8->{$\EM{Connected}(B, F)$}}
-			[\node{\only<-8>{\invisible{$\EM{Edge}(B, y)$}}
-			       \only<9-10>{$\EM{Edge}(B, y)$}
-			       \only<11-12>{$\EM{Edge}(B, C)$}
-			       \only<13-14>{$\EM{Edge}(B, y)$}
-			       \only<15->{$\EM{Edge}(B, D)$}}
-				[\node{\only<-9>{\invisible{$\EM{Edge}(B, C)$}}
-				       \only<10-12>{$\EM{Edge}(B, C)$}
-				       \only<13>{\invisible{$\EM{Edge}(B, C)$}}
-				       \only<14->{$\EM{Edge}(B, D)$}}]]
-			[\node{%\only<-8>{\invisible{$\EM{Connected}(D, F)$}}
-			       \only<9-10>{$\EM{Connected}(y, F)$}
-			       \only<11-12>{$\EM{Connected}(C, F)$}
-			       \only<13-14>{$\EM{Connected}(y, F)$}
-			       \only<15->{$\EM{Connected}(D, F)$}}
-			  [\node{\only<-11>{\invisible{$\EM{Edge}(D, F)$}}
-			         \only<12>{$\ldots\EM{fail}\ldots$}
-			         \only<13-15>{\invisible{$\EM{Edge}(D, F)$}}
-			         \only<16->{$\EM{Edge}(D, F)$}}]]]]
+	[\node{$\textit{Connected}(A, F)$}
+		[\node{\only<-2>{\invisible{$\textit{Edge}(A, F)$}}
+		       \only<3-4>{$\textit{Edge}(A, F)$}
+		       \only<5>{\invisible{$\textit{Edge}(A, F)$}}
+		       \only<6-7>{$\textit{Edge}(A, y)$}
+		       \only<8->{$\textit{Edge}(A, B)$}}
+			[\node{\only<-3>{\invisible{$\textit{Edge}(A, B)$}}
+			       \only<4>{$\textit{fail}$}
+			       \only<7->{$\textit{Edge}(A, B)$}}]]
+		[\node{\only<-5>{\invisible{$\textit{Connected}(B, F)$}}
+		       \only<6-7>{$\textit{Connected}(y, F)$}
+		       \only<8->{$\textit{Connected}(B, F)$}}
+			[\node{\only<-8>{\invisible{$\textit{Edge}(B, y)$}}
+			       \only<9-10>{$\textit{Edge}(B, y)$}
+			       \only<11-12>{$\textit{Edge}(B, C)$}
+			       \only<13-14>{$\textit{Edge}(B, y)$}
+			       \only<15->{$\textit{Edge}(B, D)$}}
+				[\node{\only<-9>{\invisible{$\textit{Edge}(B, C)$}}
+				       \only<10-12>{$\textit{Edge}(B, C)$}
+				       \only<13>{\invisible{$\textit{Edge}(B, C)$}}
+				       \only<14->{$\textit{Edge}(B, D)$}}]]
+			[\node{%\only<-8>{\invisible{$\textit{Connected}(D, F)$}}
+			       \only<9-10>{$\textit{Connected}(y, F)$}
+			       \only<11-12>{$\textit{Connected}(C, F)$}
+			       \only<13-14>{$\textit{Connected}(y, F)$}
+			       \only<15->{$\textit{Connected}(D, F)$}}
+			  [\node{\only<-11>{\invisible{$\textit{Edge}(D, F)$}}
+			         \only<12>{$\ldots\textit{fail}\ldots$}
+			         \only<13-15>{\invisible{$\textit{Edge}(D, F)$}}
+			         \only<16->{$\textit{Edge}(D, F)$}}]]]]
 \end{frame}
 \begin{frame}
 	\begin{center}
@@ -985,9 +942,9 @@
 		\begin{array}{l}
 			p_1 \lor \ldots \lor p_n \\
 			q_1 \lor \ldots \lor q_m \\
-			\SC{Unify}(p_i, \lnot q_j) = \theta \\
+			\textsc{Unify}(p_i, \lnot q_j) = \theta \\
 			\hline
-			\SC{Subst}(\theta, p_1 \lor \ldots p_{i-1} \lor p_{i+1} \ldots \lor p_n \\
+			\textsc{Subst}(\theta, p_1 \lor \ldots p_{i-1} \lor p_{i+1} \ldots \lor p_n \\
 			\hspace{4.5em} \lor q_1 \lor \ldots q_{j-1} \lor q_{j+1}  \ldots \lor q_m)
 		\end{array}
 		$
@@ -996,10 +953,10 @@
 	\begin{block}{Example}
 		$
 		\begin{array}{l}
-			\lnot \EM{Mammal}(x) \lor \EM{WarmBlooded}(x) \\
-			\EM{Mammal}(\EM{Platypus}) \\
+			\lnot \textit{Mammal}(x) \lor \textit{WarmBlooded}(x) \\
+			\textit{Mammal}(\textit{Platypus}) \\
 			\hline
-			\EM{WarmBlooded}(\EM{Platypus})
+			\textit{WarmBlooded}(\textit{Platypus})
 		\end{array}
 		$
 	\end{block}
@@ -1010,7 +967,7 @@
 			\item Convert knowledge base to CNF
 			\item Convert query to CNF
 			\item Assume $\lnot$ query
-			\item Apply resolution until \EM{false} is concluded
+			\item Apply resolution until \textit{false} is concluded
 		\end{enumerate}
 	\end{block}
 	\pause
@@ -1027,12 +984,12 @@
 	\\[.5em]
 	$
 	\begin{array}{l}
-		\lnot\EM{Rich}(x) \lor \lnot\EM{Wants}(x, y) \lor \lnot\EM{Sells}(z, y) \lor \EM{Buys}(x, y) \\
-		\lnot\EM{Hot}(x) \lor \lnot\EM{IceCream}(y) \lor \EM{Wants}(x, y) \\
-		\lnot\EM{IceCream}(y) \lor \EM{Sells}(\EM{Glacier}, y) \\
-		\EM{IceCream}(\EM{Mint}) \\
-		\EM{Rich}(\EM{Bill}) \\
-		\EM{Hot}(\EM{Bill})
+		\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y) \\
+		\lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y) \\
+		\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{Glacier}, y) \\
+		\textit{IceCream}(\textit{Mint}) \\
+		\textit{Rich}(\textit{Bill}) \\
+		\textit{Hot}(\textit{Bill})
 	\end{array}
 	$
 	\\[1em]
@@ -1040,52 +997,52 @@
 	\\[.5em]
 	$
 	\begin{array}{l}
-		\EM{Buys}(x, y)
+		\textit{Buys}(x, y)
 	\end{array}
 	$
 \end{frame}
 \begin{frame}{Resolution Example}
 	$
 	\begin{array}{l}
-		\lnot\EM{Buys}(x, y) \\
+		\lnot\textit{Buys}(x, y) \\
 		\pause
-		\lnot\EM{Rich}(x) \lor \lnot\EM{Wants}(x, y) \lor \lnot\EM{Sells}(z, y) \lor \EM{Buys}(x, y) \\
+		\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y) \\
 		\hline
 		\pause
-		\lnot\EM{Rich}(x) \lor \lnot\EM{Wants}(x, y) \lor \lnot\EM{Sells}(z, y)	\\
+		\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y)	\\
 		\pause
-		\EM{Rich}(\EM{Bill}) \\
+		\textit{Rich}(\textit{Bill}) \\
 		\hline
 		\pause
-		\lnot\EM{Wants}(\EM{Bill}, y) \lor \lnot\EM{Sells}(z, y) \\
+		\lnot\textit{Wants}(\textit{Bill}, y) \lor \lnot\textit{Sells}(z, y) \\
 		\pause
-		\lnot\EM{Hot}(x) \lor \lnot\EM{IceCream}(y) \lor \EM{Wants}(x, y) \\
+		\lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y) \\
 		\hline
 		\pause
-		\lnot\EM{Hot}(\EM{Bill}) \lor \lnot\EM{IceCream}(y) \lor \lnot\EM{Sells}(z, y) \\
+		\lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \lor \lnot\textit{Sells}(z, y) \\
 		\pause
-		\lnot\EM{IceCream}(y) \lor \EM{Sells}(\EM{Glacier}, y) \\
+		\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{Glacier}, y) \\
 		\hline
 		\pause
-		\lnot\EM{Hot}(\EM{Bill}) \lor \lnot\EM{IceCream}(y) \\
+		\lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \\
 		\pause
-		\EM{IceCream}(\EM{Mint}) \\
+		\textit{IceCream}(\textit{Mint}) \\
 		\hline
 		\pause
-		\lnot\EM{Hot}(\EM{Bill}) \\
+		\lnot\textit{Hot}(\textit{Bill}) \\
 		\pause
-		\EM{Hot}(\EM{Bill}) \\
+		\textit{Hot}(\textit{Bill}) \\
 		\hline
 		\pause
-		\EM{false}
+		\textit{false}
 	\end{array}
 	$
 \end{frame}
 \begin{frame}{Resolution Chaining Properties}
 	\begin{block}{Properties}
 		\begin{tabular}{@{}ll@{}}
-			\key{Sound}       & \pause Yes, uses Resolution \\
-			\pause\key{Complete}    & \pause No, if only binary resolution is used \\
+			\keyword{Sound}       & \pause Yes, uses Resolution \\
+			\pause\keyword{Complete}    & \pause No, if only binary resolution is used \\
 			                        & Yes, with factoring to combine unifiable literals
 		\end{tabular}
 	\end{block}

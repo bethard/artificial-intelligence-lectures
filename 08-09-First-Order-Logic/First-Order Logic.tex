@@ -181,30 +181,30 @@ $\textit{SquareRoot} = \{
 \begin{frame}{Universal Quantification ($\forall$)}
 	\begin{block}{Definition}
 		$\forall x\ P$ is true in model $m$ iff: \\
-		\tab\tab$P$ is true when we bind $x$ to \alert{each} of the objects in $m$
+		\tab$P$ is true when we bind $x$ to \alert{each} of the objects in $m$
 	\end{block}
 	\pause
 	\begin{block}{Example}
 		So $\forall x\ \textit{Bird}(x) \limpl \textit{LaysEggs}(x)$ is true because: \\
-		\tab\tab$\textit{Bird}(\textit{Swallow}) \limpl \textit{LaysEggs}(\textit{Swallow})$ is true \\
-		\tab\tab$\textit{Bird}(\textit{Emu}) \limpl \textit{LaysEggs}(\textit{Emu})$ is true \\
-		\tab\tab$\textit{Bird}(\textit{Badger}) \limpl \textit{LaysEggs}(\textit{Badger})$ is true \\
-		\tab\tab\ldots \\[.5em]
+		\tab$\textit{Bird}(\textit{Swallow}) \limpl \textit{LaysEggs}(\textit{Swallow})$ is true \\
+		\tab$\textit{Bird}(\textit{Emu}) \limpl \textit{LaysEggs}(\textit{Emu})$ is true \\
+		\tab$\textit{Bird}(\textit{Badger}) \limpl \textit{LaysEggs}(\textit{Badger})$ is true \\
+		\tab\ldots \\[.5em]
 		\pause
 		But $\forall x\ \textit{LaysEggs}(x) \limpl \textit{Bird}(x)$ is false because: \\
 		\pause
-		\tab\tab$\textit{LaysEggs}(\textit{Platypus}) \limpl \textit{Bird}(\textit{Platypus})$ is false
+		\tab$\textit{LaysEggs}(\textit{Platypus}) \limpl \textit{Bird}(\textit{Platypus})$ is false
 	\end{block}
 \end{frame}
 \begin{frame}{Universal Quantification in Translation}
 	\begin{block}{Common Mistake}
 		What does this mean? \\
-		\tab\tab$\forall x\ \textit{Bird}(x) \land \textit{LaysEggs}(x)$ \\
+		\tab$\forall x\ \textit{Bird}(x) \land \textit{LaysEggs}(x)$ \\
 		\pause
 		Answer: \\
-		\tab\tab\emph{Everything is a bird and everything lays eggs} \\
+		\tab\emph{Everything is a bird and everything lays eggs} \\
 		Intended statement: \\
-		\tab\tab$\forall x\ \textit{Bird}(x) \limpl \textit{LaysEggs}(x)$ \\
+		\tab$\forall x\ \textit{Bird}(x) \limpl \textit{LaysEggs}(x)$ \\
 	\end{block}
 	\pause
 	\begin{block}{Rule of Thumb}
@@ -214,31 +214,31 @@ $\textit{SquareRoot} = \{
 \begin{frame}{Existential Quantification}
 	\begin{block}{Definition}
 		$\exists x\ P$ is true in model $m$ iff: \\
-		\tab\tab$P$ is true when we bind $x$ to \alert{any} of the objects in $m$
+		\tab$P$ is true when we bind $x$ to \alert{any} of the objects in $m$
 	\end{block}
 	\pause
 	\begin{block}{Example}
 		So $\exists x\ \textit{Mammal}(x) \land \textit{LaysEggs}(x)$ is true because: \\
 		\pause
-		\tab\tab$\textit{Mammal}(\textit{Platypus}) \land \textit{LaysEggs}(\textit{Platypus})$ is true \\[.5em]
+		\tab$\textit{Mammal}(\textit{Platypus}) \land \textit{LaysEggs}(\textit{Platypus})$ is true \\[.5em]
 		\pause
 		But $\exists x\ \textit{Mammal}(x) \land \lnot\textit{Animal}(x)$ is false because: \\
 		\pause
-		\tab\tab$\textit{Mammal}(\textit{Person}) \land \lnot\textit{Animal}(\textit{Person})$ is false \\
-		\tab\tab$\textit{Mammal}(\textit{Platypus}) \land \lnot\textit{Animal}(\textit{Platypus})$ is false \\
-		\tab\tab$\textit{Mammal}(\textit{Spam}) \land \lnot\textit{Animal}(\textit{Spam})$ is false \\
-		\tab\tab\ldots \\
+		\tab$\textit{Mammal}(\textit{Person}) \land \lnot\textit{Animal}(\textit{Person})$ is false \\
+		\tab$\textit{Mammal}(\textit{Platypus}) \land \lnot\textit{Animal}(\textit{Platypus})$ is false \\
+		\tab$\textit{Mammal}(\textit{Spam}) \land \lnot\textit{Animal}(\textit{Spam})$ is false \\
+		\tab\ldots \\
 	\end{block}
 \end{frame}
 \begin{frame}{Existential Quantification in Translation}
 	\begin{block}{Common Mistake}
 		What does this mean? \\
-		\tab\tab$\exists x\ \textit{Mammal}(x) \limpl \textit{LaysEggs}(x)$ \\
+		\tab$\exists x\ \textit{Mammal}(x) \limpl \textit{LaysEggs}(x)$ \\
 		\pause
 		Answer: \\
-		\tab\tab\emph{There is something that is not a mammal or lays eggs} \\
+		\tab\emph{There is something that is not a mammal or lays eggs} \\
 		Intended statement: \\
-		\tab\tab$\exists x\ \textit{Mammal}(x) \land \textit{LaysEggs}(x)$ \\
+		\tab$\exists x\ \textit{Mammal}(x) \land \textit{LaysEggs}(x)$ \\
 	\end{block}
 	\pause
 	\begin{block}{Rule of Thumb}
@@ -378,17 +378,17 @@ $\textit{SquareRoot} = \{
 \begin{frame}{Wumpus World Translations}
 	\begin{block}{Diagnostic Rules}
 		From effect, determine cause: \\
-		\tab\tab$\forall y\ \textit{Breezy}(y) \limpl (\exists x\ \textit{Pit}(x) \land \textit{Adjacent}(x, y))$
+		\tab$\forall y\ \textit{Breezy}(y) \limpl (\exists x\ \textit{Pit}(x) \land \textit{Adjacent}(x, y))$
 	\end{block}
 	\pause
 	\begin{block}{Causal Rules}
 		From cause, determine effect: \\
-		\tab\tab$\forall x,y\ (\textit{Pit}(x) \land \textit{Adjacent}(x, y)) \limpl \textit{Breezy}(y)$
+		\tab$\forall x,y\ (\textit{Pit}(x) \land \textit{Adjacent}(x, y)) \limpl \textit{Breezy}(y)$
 	\end{block}
 	\pause
 	\begin{block}{Definition Rules}
 		Bidirectional: \\
-		\tab\tab$\forall y\ \textit{Breezy}(y) \liff (\exists x\ \textit{Pit}(x) \land \textit{Adjacent}(x, y))$
+		\tab$\forall y\ \textit{Breezy}(y) \liff (\exists x\ \textit{Pit}(x) \land \textit{Adjacent}(x, y))$
 	\end{block}
 \end{frame}
 
@@ -633,7 +633,7 @@ $\textit{SquareRoot} = \{
 				\textit{Odd}(17) \\
 				\forall x\ \textit{Odd}(x) \limpl \textit{Mod}(x, 2, 1) \\
 				\textsc{Unify}(\textit{Odd}(17), \textit{Odd}(x)) = \mbox{}\\
-				\tab\tab \{x = \textit{17}\} \\
+				\tab \{x = \textit{17}\} \\
 				\hline
 				\textit{Mod}(17, 2, 1)
 				\end{array}

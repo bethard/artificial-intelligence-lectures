@@ -140,28 +140,26 @@
 		$
 	\end{block}
 \end{frame}
+
 \begin{frame}{Truth in First Order Logic}
-	\begin{block}{Key Ideas}
-		\begin{itemize}
-			\item Relations are (possibly infinite) sets of tuples
-			\item $\textit{R}(\textit{Term}_1, \ldots, \textit{Term}_n)$ is true iff
-			      $\langle\textit{Term}_1, \ldots, \textit{Term}_n\rangle \in \textit{R}$
-		\end{itemize}
-	\end{block}
-	\begin{block}{Example}
-		Given the relation: \\
-		\tab$\textit{SquareRoot} = \{
-				\langle 1, 1 \rangle,
-				\langle 4, 2 \rangle,
-				\langle 9, 3 \rangle,
-				\ldots \}$ \\
-		\pause
-		Then $\textit{SquareRoot}(4, 2)$ is \pause \alert{true} because \\
-		\tab$\langle 4, 2 \rangle \in \textit{SquareRoot}$ \\
-		\pause
-		And $\textit{SquareRoot}(2, 2)$ is \pause \alert{false} because \\
-		\tab$\langle 2, 2 \rangle \not\in \textit{SquareRoot}$
-	\end{block}
+\begin{block}{Key Ideas}
+\begin{itemize}
+\item Relations are (possibly infinite) sets of tuples
+\item $\textit{R}(\textit{Term}_1, \ldots, \textit{Term}_n)$ true iff $\langle\textit{Term}_1, \ldots, \textit{Term}_n\rangle \in \textit{R}$
+\end{itemize}
+\end{block}
+\begin{block}{Example}
+Given relation
+$\textit{SquareRoot} = \{
+\langle 1, 1 \rangle,
+\langle 4, 2 \rangle,
+\langle 9, 3 \rangle,
+\ldots \}$
+\begin{description}[$\textit{SquareRoot}(X, X)$]
+\pause\item[$\textit{SquareRoot}(4, 2)$?] \pause true
+\pause\item[$\textit{SquareRoot}(2, 2)$?] \pause false
+\end{description}
+\end{block}
 \end{frame}
 
 \subsection{Quantifiers}

@@ -22,8 +22,17 @@
   red edge on/.code={%
     \only<#1>{\pgfkeysalso{draw=red,ultra thick}}
   },
-  pink fill on/.code={%
+  red fill on/.code={%
     \only<#1>{\pgfkeysalso{fill=red!25!white}}
+  },
+  red edge fill on/.code={%
+    \only<#1>{\pgfkeysalso{draw=red,ultra thick,fill=red!25!white}}
+  },
+  blue edge on/.code={%
+    \only<#1>{\pgfkeysalso{draw=blue,ultra thick}}
+  },
+  blue fill on/.code={%
+    \only<#1>{\pgfkeysalso{fill=blue!25!white}}
   },
 }
 
@@ -845,19 +854,17 @@ $
   every label/.style={color=red},
   symbol/.style={draw,circle},
   clause/.style={draw}]
-\node[symbol,red edge on={2-4},pink fill on={3-4}] at (0, 0) (A) {$A$};
-\node[symbol,red edge on={2-7},pink fill on={5-7}] at (5, 0) (B) {$B$};
-\node[symbol,red edge on={7-10,16-17},pink fill on={8-10,17}] at (2.5, 2) (L) {$L$};
-\node[symbol,red edge on={10-13},pink fill on={11-13}] at (5, 4) (M) {$M$};
-\node[symbol,red edge on={13-16},pink fill on={14-16}] at (0, 4) (P) {$P$};
-\node[symbol,red edge on={16-,18-},pink fill on={18-}] at (2.5, 6) (Q) {$Q$};
-
+\node[symbol,red edge on={2-4},red fill on={3-4}] at (0, 0) (A) {$A$};
+\node[symbol,red edge on={2-7},red fill on={5-7}] at (5, 0) (B) {$B$};
+\node[symbol,red edge on={7-10,16-17},red fill on={8-10,17}] at (2.5, 2) (L) {$L$};
+\node[symbol,red edge on={10-13},red fill on={11-13}] at (5, 4) (M) {$M$};
+\node[symbol,red edge on={13-16},red fill on={14-16}] at (0, 4) (P) {$P$};
+\node[symbol,red edge on={16-,18-},red fill on={18-}] at (2.5, 6) (Q) {$Q$};
 \node[clause,label=30:{\only<1-3>{2}\only<4-5>{1}\only<6->{0}}] at (2.5, 0) (ABL) {$A \land B \limpl L$};
 \node[clause,label=30:{\only<1-3>{2}\only<4-14>{1}\only<15->{0}}] at (0, 2) (APL) {$A \land P \limpl L$};
 \node[clause,label=30:{\only<1-5>{2}\only<6-8>{1}\only<9->{0}}] at (5, 2) (BLM) {$B \land L \limpl M$};
 \node[clause,label=30:{\only<1-8>{2}\only<9-11>{1}\only<12->{0}}] at (2.5, 4) (LMP) {$L \land M \limpl P$};
 \node[clause,label=30:{\only<1-14>{1}\only<15->{0}}] at (0, 6) (PQ) {$P \limpl Q$};
-
 \path (A) edge (ABL);
 \path (B) edge (ABL);
 \path (ABL) edge (L);
@@ -872,7 +879,6 @@ $
 \path (LMP) edge (P);
 \path (P) edge (PQ);
 \path (PQ) edge (Q);
-
 \end{tikzpicture}
 \end{column}
 \end{columns}
@@ -912,43 +918,63 @@ $
 		\end{enumerate}
 	\end{block}
 \end{frame}
-\begin{frame}{Backward Chaining}
-	\begin{columns}
-		\begin{column}{2in}
-			\begin{block}{Key Idea}
-				\begin{itemize}
-					\item Start with query $Q$
-					\item If not \emph{true}, try to prove all rules of the form: \\
-						\hspace{1em} $P_1 \land \ldots \land P_n \limpl Q$
-					\item Recurse as necessary
-				\end{itemize}
-			\end{block}
-			\begin{block}<12->{Properties}
-				\begin{tabular}{@{\hspace{.1em}}l@{\hspace{.3em}}l}
-					\keyword{Sound?}    & Yes \\
-					\keyword{Complete?} & Yes \\
-					\keyword{Time?}     & Often $\mbox{} < O(n)$ \\
-				\end{tabular}
-			\end{block}
-		\end{column}
-		\begin{column}{2in}
-			\only<1>{\invisible<1>{\includegraphics[width=1.5in]{bc-horn-example01c}}}%
-			\only<2>{\includegraphics[width=1.5in]{bc-horn-example01c}}%
-			\only<3>{\includegraphics[width=1.5in]{bc-horn-example02c}}%
-			\only<4>{\includegraphics[width=1.5in]{bc-horn-example03c}}%
-			\only<5>{\includegraphics[width=1.5in]{bc-horn-example04c}}%
-			\only<6>{\includegraphics[width=1.5in]{bc-horn-example05c}}%
-			\only<7>{\includegraphics[width=1.5in]{bc-horn-example06c}}%
-			\only<8>{\includegraphics[width=1.5in]{bc-horn-example07c}}%
-			\only<9>{\includegraphics[width=1.5in]{bc-horn-example08c}}%
-			\only<10>{\includegraphics[width=1.5in]{bc-horn-example09c}}%
-			\only<11->{\includegraphics[width=1.5in]{bc-horn-example10c}}%
-		\end{column}
-	\end{columns}
+
+\begin{frame}[label=backward-chaining]{Backward Chaining}
+\begin{block}{Key Idea: Recursion}
+\begin{itemize}
+\item Start by trying to prove query $Q$
+\item If not \emph{true}, try to prove $P_1 \land \ldots \land P_n \limpl Q$ (recurse)
+\end{itemize}
+\end{block}
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\small
+\begin{tikzpicture}[
+  every edge/.style={draw,-latex},
+  every label/.style={color=red},
+  symbol/.style={draw,circle},
+  clause/.style={draw}]
+\node[symbol,red edge fill on={2-}] at (0, 0) (A) {$A$};
+\node[symbol,red edge fill on={2-}] at (4, 0) (B) {$B$};
+\node[symbol,blue edge on={6-11},blue fill on={7-11},red edge fill on={12-}] at (2, 1.5) (L) {$L$};
+\node[symbol,blue edge on={6-14},blue fill on={13-14},red edge fill on={15-}] at (4, 3) (M) {$M$};
+\node[symbol,blue edge on={4-16},blue fill on={5-16},red edge fill on={17-}] at (0, 3) (P) {$P$};
+\node[symbol,blue edge on={2-18},blue fill on={3-18},red edge fill on={19-}] at (2, 4.5) (Q) {$Q$};
+\node[clause,blue edge on={7-},blue fill on={10},red edge fill on={11-}] at (2, 0) (ABL) {$A \land B \limpl L$};
+\node[clause,blue edge on={7-8},blue fill on={8}] at (0, 1.5) (APL) {$A \land P \limpl L$};
+\node[clause,blue edge on={13},red edge fill on={14-}] at (4, 1.5) (BLM) {$B \land L \limpl M$};
+\node[clause,blue edge on={5-15},blue fill on={6-15},red edge fill on={16-}] at (2, 3) (LMP) {$L \land M \limpl P$};
+\node[clause,blue edge on={3-17},blue fill on={4-17},red edge fill on={18-}] at (0, 4.5) (PQ) {$P \limpl Q$};
+\path (A) edge (ABL);
+\path (B) edge (ABL);
+\path (ABL) edge (L);
+\path (A) edge (APL);
+\path (P) edge (APL);
+\path (APL) edge (L);
+\path (B) edge (BLM);
+\path (L) edge (BLM);
+\path (BLM) edge (M);
+\path (L) edge (LMP);
+\path (M) edge (LMP);
+\path (LMP) edge (P);
+\path (P) edge (PQ);
+\path (PQ) edge (Q);
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.4\textwidth}<20->
+\begin{block}{Properties}
+\begin{description}[Complete?]
+\item[Sound?] Yes
+\item[Complete?] Yes
+\item[Time?] $O(n)$ and often less
+\end{description}
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
 
-
 \subsection{Resolution}
+
 \begin{frame}{Resolution (Again)}
 	\begin{block}{Example}
 		$

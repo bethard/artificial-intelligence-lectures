@@ -1143,20 +1143,19 @@ Proof: \\[1em]
 \end{frame}
 
 \begin{frame}{Resolution Properties}
-	\begin{block}{Properties}
-		\begin{tabular}{@{}l@{\hspace{.5em}}l}
-			\keyword{Sound?}    & Yes, uses Resolution \\
-			\keyword{Complete?} & Yes, proof similar to Forward Chaining proof \\
-			\keyword{Time?}     & Worst case exponential in \# of symbols \\
-		\end{tabular}
-	\end{block}
-	\pause
-	\begin{block}{Notes}
-		\begin{itemize}
-			\item Works for Propositional logic in general
-			\item Not just Horn Clauses!
-		\end{itemize}
-	\end{block}
+\begin{block}{Properties}
+\begin{description}[Complete?]
+\item[Sound?] \uncover<2->{Yes, uses Resolution}
+\item[Complete?] \uncover<3->{Yes, proof similar to Forward Chaining proof}
+\item[Time?] \uncover<4->{Worst case exponential in \# of symbols}
+\end{description}
+\end{block}
+\begin{block}{Notes}<5->
+\begin{itemize}
+\item Works for Propositional logic in general
+\item Not just Horn Clauses!
+\end{itemize}
+\end{block}
 \end{frame}
 
 \subsection{WalkSAT}

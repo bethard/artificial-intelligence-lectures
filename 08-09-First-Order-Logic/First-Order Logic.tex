@@ -564,43 +564,40 @@ $
 \end{frame}
 
 \begin{frame}{Generalized Modus Ponens}
-	\begin{columns}[T]
-		\begin{column}{1.8in}
-			\begin{block}{Definition}
-				$
-				\begin{array}{l}
-				p_1' \\
-				p_2' \\
-				\ldots \\
-				p_n' \\
-				p_1 \land p_2 \land \ldots \land p_n \limpl q \\
-				\textsc{Unify}(p_1', p_1) = \theta \\
-				\textsc{Unify}(p_2', p_2) = \theta \\
-				\ldots \\
-				\textsc{Unify}(p_n', p_n) = \theta \\
-				\hline
-				\textsc{Subst}(\theta, q)
-				\end{array}
-				$
-			\end{block}
-		\end{column}
-		\pause
-		\begin{column}{2.4in}
-			\begin{block}{Example}
-				\extrarowheight=.25em
-				$
-				\begin{array}{l}
-				\textit{Odd}(17) \\
-				\forall x\ \textit{Odd}(x) \limpl \textit{Mod}(x, 2, 1) \\
-				\textsc{Unify}(\textit{Odd}(17), \textit{Odd}(x)) = \mbox{}\\
-				\tab \{x = \textit{17}\} \\
-				\hline
-				\textit{Mod}(17, 2, 1)
-				\end{array}
-				$
-			\end{block}
-		\end{column}
-	\end{columns}
+\small
+\extrarowheight=.25em
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{block}{Definition}
+$
+\begin{array}{l}
+p_1' \\
+p_2' \\
+\ldots \\
+p_n' \\
+p_1 \land p_2 \land \ldots \land p_n \limpl q \\
+\theta : \forall i\ \textsc{Subst}(\theta, p_i') = \textsc{Subst}(\theta, p_i)\\
+\hline
+\textsc{Subst}(\theta, q)
+\end{array}
+$
+\end{block}
+\end{column}
+\pause
+\begin{column}{0.45\textwidth}
+\begin{block}{Example}
+$
+\begin{array}{l}
+\textit{Odd}(17) \\
+\forall x\ \textit{Odd}(x) \limpl \textit{Mod}(x, 2, 1) \\
+\theta = \{x = \textit{17}\} \\
+\hline
+\pause\textit{Mod}(17, 2, 1)
+\end{array}
+$
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Unification}

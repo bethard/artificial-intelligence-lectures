@@ -558,30 +558,34 @@ $
 		$
 	\end{block}
 \end{frame}
+
 \begin{frame}{Unification}
-	\begin{block}{Key Idea}
-		Assign variables to make two expressions look the same
-	\end{block}
-	\begin{block}{Formally}
-		$\textsc{Unify}(p, q) = \theta \mbox{ where } \textsc{Subst}(\theta, p) = \textsc{Subst}(\theta, q)$
-	\end{block}
-	\pause
-	\begin{block}{Example: $\textit{Eats}(\textit{Panda}, y)$?}
-		\footnotesize
-		$
-		\begin{array}{@{}l@{\hspace{.2em}}l@{\hspace{.2em}}l@{}}
-			p                              & q                                  &
-				\theta \\
-			\hline
-			\pause\textit{Eats}(\textit{Panda}, y) & \textit{Eats}(\textit{Panda}, \textit{Leaves}) &
-				\pause\{y\!\!=\!\!\textit{Leaves}\} \\
-			\pause\textit{Eats}(\textit{Panda}, y) & \textit{Eats}(x, \textit{Pizza})           &
-				\pause\{x\!\!=\!\!\textit{Panda}, y\!\!=\!\!\textit{Pizza}\} \\
-			\pause\textit{Eats}(\textit{Panda}, y) & \textit{Eats}(x, \textit{FavFood}(x))      &
-				\pause\{x\!\!=\!\!\textit{Panda}, y\!\!=\!\!\textit{FavFood}(\textit{Panda})\}
-		\end{array}
-		$
-	\end{block}
+\begin{block}{Key Idea}
+Assign variables to make two expressions look the same
+\end{block}
+\begin{block}{Formally}
+$\textsc{Unify}(p, q) = \theta \mbox{ where } \textsc{Subst}(\theta, p) = \textsc{Subst}(\theta, q)$
+\end{block}
+\begin{block}{Example: $\textit{Eats}(\textit{Panda}, y)$?}<2->
+\footnotesize
+$
+\begin{array}{@{} l l l @{}}
+p & q & \theta \\
+\hline
+\textit{Eats}(\textit{Panda}, y)
+& \textit{Eats}(\textit{Panda}, \textit{Leaves})
+& \uncover<3->{\{y=\textit{Leaves}\}}
+\\
+\textit{Eats}(\textit{Panda}, y)
+& \textit{Eats}(x, \textit{Pizza})
+& \uncover<4->{\{x=\textit{Panda}, y=\textit{Pizza}\}}
+\\
+\textit{Eats}(\textit{Panda}, y)
+& \textit{Eats}(x, \textit{FavFood}(x))
+& \uncover<5->{\{x=\textit{Panda}, y=\textit{FavFood}(\textit{Panda})\}}
+\end{array}
+$
+\end{block}
 \end{frame}
 
 \section{Inference Algorithms}

@@ -422,7 +422,9 @@ $}
 \end{frame}
 
 \section{First-Order Logic Inference}
+
 \subsection{Propositionalization}
+
 \begin{frame}{Universal Instantiation}
 	\begin{block}{Key Idea}
 		If we know $\forall x\ P(x)$, then we can conclude: \\
@@ -444,6 +446,7 @@ $}
 		$
 	\end{block}
 \end{frame}
+
 \begin{frame}{Existential Instantiation}
 	\begin{block}{Key Idea}
 		If we know $\exists x\ P(x)$, then we can just give a name to $x$: \\
@@ -514,6 +517,7 @@ $
 		$
 	\end{block}
 \end{frame}
+
 \begin{frame}{Simple First-Order Inference}
 	\begin{block}{Problem: Infinite Terms}
 		\begin{itemize}
@@ -535,8 +539,8 @@ $
 	\end{block}
 \end{frame}
 
+\subsection{Generalized Modus Ponens}
 
-\subsection{Unification}
 \begin{frame}{Problems with Propositionalization}
 	\begin{block}{Prove: $\textit{WarmBlooded}(\textit{Scooby})$}
 		$
@@ -559,37 +563,6 @@ $
 	\end{block}
 \end{frame}
 
-\begin{frame}{Unification}
-\begin{block}{Key Idea}
-Assign variables to make two expressions look the same
-\end{block}
-\begin{block}{Formally}
-$\textsc{Unify}(p, q) = \theta \mbox{ where } \textsc{Subst}(\theta, p) = \textsc{Subst}(\theta, q)$
-\end{block}
-\begin{block}{Example: $\textit{Eats}(\textit{Panda}, y)$?}<2->
-\footnotesize
-$
-\begin{array}{@{} l l l @{}}
-p & q & \theta \\
-\hline
-\textit{Eats}(\textit{Panda}, y)
-& \textit{Eats}(\textit{Panda}, \textit{Leaves})
-& \uncover<3->{\{y=\textit{Leaves}\}}
-\\
-\textit{Eats}(\textit{Panda}, y)
-& \textit{Eats}(x, \textit{Pizza})
-& \uncover<4->{\{x=\textit{Panda}, y=\textit{Pizza}\}}
-\\
-\textit{Eats}(\textit{Panda}, y)
-& \textit{Eats}(x, \textit{FavFood}(x))
-& \uncover<5->{\{x=\textit{Panda}, y=\textit{FavFood}(\textit{Panda})\}}
-\end{array}
-$
-\end{block}
-\end{frame}
-
-\section{Inference Algorithms}
-\subsection{Forward Chaining}
 \begin{frame}{Generalized Modus Ponens}
 	\begin{columns}[T]
 		\begin{column}{1.8in}
@@ -629,6 +602,38 @@ $
 		\end{column}
 	\end{columns}
 \end{frame}
+
+\begin{frame}{Unification}
+\begin{block}{Key Idea}
+Assign variables to make two expressions look the same
+\end{block}
+\begin{block}{Formally}
+$\textsc{Unify}(p, q) = \theta \mbox{ where } \textsc{Subst}(\theta, p) = \textsc{Subst}(\theta, q)$
+\end{block}
+\begin{block}{Example: $\textit{Eats}(\textit{Panda}, y)$?}<2->
+\footnotesize
+$
+\begin{array}{@{} l l l @{}}
+p & q & \theta \\
+\hline
+\textit{Eats}(\textit{Panda}, y)
+& \textit{Eats}(\textit{Panda}, \textit{Leaves})
+& \uncover<3->{\{y=\textit{Leaves}\}}
+\\
+\textit{Eats}(\textit{Panda}, y)
+& \textit{Eats}(x, \textit{Pizza})
+& \uncover<4->{\{x=\textit{Panda}, y=\textit{Pizza}\}}
+\\
+\textit{Eats}(\textit{Panda}, y)
+& \textit{Eats}(x, \textit{FavFood}(x))
+& \uncover<5->{\{x=\textit{Panda}, y=\textit{FavFood}(\textit{Panda})\}}
+\end{array}
+$
+\end{block}
+\end{frame}
+
+\subsection{Forward Chaining}
+
 \begin{frame}{Forward Chaining}
 	\begin{block}{Key Ideas}
 		\begin{itemize}

@@ -601,28 +601,24 @@ $
 \end{frame}
 
 \begin{frame}{Unification}
-\begin{block}{Key Idea}
-Assign variables to make two expressions look the same
-\end{block}
 \begin{block}{Formally}
 $\textsc{Unify}(p, q) = \theta \mbox{ where } \textsc{Subst}(\theta, p) = \textsc{Subst}(\theta, q)$
 \end{block}
-\begin{block}{Example: $\textit{Eats}(\textit{Panda}, y)$?}<2->
-\footnotesize
+\bigskip
+\begin{block}{Example: $p=\textit{Eats}(\textit{Panda}, y)$}<2->
+\thickmuskip=0mu
+\medskip
 $
-\begin{array}{@{} l l l @{}}
-p & q & \theta \\
+\begin{array}{@{} l l @{}}
+q & \textsc{Unify}(p, q) \\
 \hline
-\textit{Eats}(\textit{Panda}, y)
-& \textit{Eats}(\textit{Panda}, \textit{Leaves})
+\textit{Eats}(\textit{Panda}, \textit{Leaves})
 & \uncover<3->{\{y=\textit{Leaves}\}}
 \\
-\textit{Eats}(\textit{Panda}, y)
-& \textit{Eats}(x, \textit{Pizza})
+\textit{Eats}(x, \textit{Pizza})
 & \uncover<4->{\{x=\textit{Panda}, y=\textit{Pizza}\}}
 \\
-\textit{Eats}(\textit{Panda}, y)
-& \textit{Eats}(x, \textit{FavFood}(x))
+\textit{Eats}(x, \textit{FavFood}(x))
 & \uncover<5->{\{x=\textit{Panda}, y=\textit{FavFood}(\textit{Panda})\}}
 \end{array}
 $

@@ -465,30 +465,32 @@ $}
 		The constant $k$ is called a \alert{Skolem constant}
 	\end{block}
 \end{frame}
+
 \begin{frame}{Reduction to Propositional Logic}
-	\begin{block}{First-Order Logic}
-		$
-		\begin{array}{l}
-			\exists x\ \textit{Mammal}(x) \land \textit{LaysEggs}(x) \\
-			\forall x\ \textit{Mammal}(x) \limpl \textit{WarmBlooded}(x) \\
-			\textit{Mammal}(\textit{Platypus}) \\
-			\lnot \textit{WarmBlooded}(\textit{Crocodile})
-		\end{array}
-		$
-	\end{block}
-	\pause
-	\begin{block}{Propositional Logic}
-		$
-		\begin{array}{l}
-			\pause\textit{Mammal}(\textit{EggLayer}) \land \textit{LaysEggs}(\textit{EggLayer}) \\
-			\pause\textit{Mammal}(\textit{Platypus}) \limpl \textit{WarmBlooded}(\textit{Platypus}) \\
-			\textit{Mammal}(\textit{Crocodile}) \limpl \textit{WarmBlooded}(\textit{Crocodile}) \\
-			\pause\textit{Mammal}(\textit{Platypus}) \\
-			\pause\lnot \textit{WarmBlooded}(\textit{Crocodile})
-		\end{array}
-		$
-	\end{block}
+\begin{block}{First-Order Logic}
+$
+\begin{array}{l}
+\exists x\ \textit{Mammal}(x) \land \textit{LaysEggs}(x) \\
+\forall x\ \textit{Mammal}(x) \limpl \textit{WarmBlooded}(x) \\
+\textit{Mammal}(\textit{Platypus}) \\
+\lnot \textit{WarmBlooded}(\textit{Crocodile})
+\end{array}
+$
+\end{block}
+\pause
+\begin{block}{Propositional Logic}
+$
+\begin{array}{l}
+\textit{Mammal9X23B} \land \textit{LaysEggs9E23B} \\
+\textit{MammalPlatypus} \limpl \textit{WarmBloodedPlatypus} \\
+\textit{MammalCrocodile} \limpl \textit{WarmBloodedCrocodile} \\
+\textit{MammalPlatypus} \\
+\lnot \textit{WarmBloodedCrocodile}
+\end{array}
+$
+\end{block}
 \end{frame}
+
 \begin{frame}{Simple First-Order Inference}
 	\begin{block}{Simple Approach}
 		\begin{itemize}

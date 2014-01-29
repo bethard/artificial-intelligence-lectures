@@ -278,103 +278,84 @@ $\textit{SquareRoot} = \{
 \end{frame}
 
 \subsection{Example Translations}
+
 \begin{frame}{Animal Kingdom Translations}
-	\begin{itemize}
-		\item
-			All horses are mammals \\
-			\pause
-			$\forall x\ \textit{Horse}(x) \limpl \textit{Mammal}(x)$
-		\pause
-		\item
-			All birds have wings \\
-			\pause
-			$\forall x\ \textit{Bird}(x) \limpl \textit{HasWings}(x)$
-		\pause
-		\item
-			Some mammals lay eggs \\
-			\pause
-			$\exists x\ \textit{Mammal}(x) \land \textit{LaysEggs}(x)$
-		\pause
-		\item
-			Some birds don't fly \\
-			\pause
-			$\exists x\ \textit{Bird}(x) \land \lnot\textit{Flies}(x)$
-		\pause
-		\item
-			Animals that fly have wings \\
-			\pause
-			$\forall x\ \textit{Animal}(x) \land \textit{Flies}(x) \limpl \textit{HasWings}(x)$
-		\pause
-		\item
-			Not all swimming animals have fins \\
-			\pause
-			$\lnot\forall x\ \textit{Animal}(x) \land \textit{Swim}(x) \limpl \textit{HasFins}(x)$
-			\pause
-			$\exists x\ \textit{Animal}(x) \land \textit{Swim}(x) \land \lnot\textit{HasFins}(x)$
-	\end{itemize}
+\begin{itemize}
+\item
+All horses are mammals \\
+\uncover<2->{$\forall x\ \textit{Horse}(x) \limpl \textit{Mammal}(x)$}
+\item
+All birds have wings \\
+\uncover<3->{$\forall x\ \textit{Bird}(x) \limpl \textit{HasWings}(x)$}
+\item
+Some mammals lay eggs \\
+\uncover<4->{$\exists x\ \textit{Mammal}(x) \land \textit{LaysEggs}(x)$}
+\item
+Some birds don't fly \\
+\uncover<5->{$\exists x\ \textit{Bird}(x) \land \lnot\textit{Flies}(x)$}
+\item
+Animals that fly have wings \\
+\uncover<6->{$\forall x\ \textit{Animal}(x) \land \textit{Flies}(x) \limpl \textit{HasWings}(x)$}
+\item
+Not all swimming animals have fins \\
+\uncover<7->{$\lnot\forall x\ \textit{Animal}(x) \land \textit{Swim}(x) \limpl \textit{HasFins}(x)$ \\
+$\exists x\ \textit{Animal}(x) \land \textit{Swim}(x) \land \lnot\textit{HasFins}(x)$}
+\end{itemize}
 \end{frame}
+
 \begin{frame}{Animal Kingdom Translations}
-	\begin{itemize}
-		\item
-			An animal gives birth to animals of the same species \\
-			\pause
-			$
-			\begin{array}{ll}
-			\lefteqn{\forall x,y\ \textit{Animal}(x) \land \textit{GivesBirth}(x, y) \limpl \mbox{}} \\
-			& \textit{Animal}(y) \land \textit{Species}(x) = \textit{Species}(y) \land x \neq y 
-			\end{array}
-			$
-		\bigskip
-		\pause
-		\item
-			Bats have exactly two wings \\
-			\pause
-			$
-			\begin{array}{lll}
-			\lefteqn{\forall x\ \textit{Bat}(x) \limpl \mbox{}} \\
-			& \lefteqn{\exists y,z\ \textit{HasWing}(x, y) \land \textit{HasWing}(x, z) \land y \neq z \land \mbox{}} \\
-			& & \forall w\ \textit{HasWing}(x, w) \limpl w = y \lor w = z
-			\end{array}
-			$
-	\end{itemize}
+\begin{itemize}
+\item
+An animal gives birth to animals of the same species \\
+\uncover<2->{$
+\begin{array}{ll}
+\lefteqn{\forall x,y\ \textit{Animal}(x) \land \textit{GivesBirth}(x, y) \limpl \mbox{}} \\
+& \textit{Animal}(y) \land \textit{Species}(x) = \textit{Species}(y) \land x \neq y 
+\end{array}
+$}
+\bigskip
+\item
+Bats have exactly two wings \\
+\uncover<3->{$
+\begin{array}{lll}
+\lefteqn{\forall x\ \textit{Bat}(x) \limpl \mbox{}} \\
+& \lefteqn{\exists y,z\ \textit{HasWing}(x, y) \land \textit{HasWing}(x, z) \land y \neq z \land \mbox{}} \\
+& & \forall w\ \textit{HasWing}(x, w) \limpl w = y \lor w = z
+\end{array}
+$}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Wumpus World Translations}
-	\begin{itemize}
-		\item
-			There is a breeze in $[3, 1]$ \\
-			\pause
-			$\textit{Breezy}([3, 1])$
-		\pause
-		\bigskip
-		\item
-			The Wumpus is lives in $[2, 2]$ \\
-			\pause
-			$\textit{Home}(\textit{Wumpus}) = [2, 2]$
-		\pause
-		\bigskip
-		\item
-			If you are in the Wumpus's square, he eats you \\
-			\pause
-			$
-			\begin{array}{ll}
-			\lefteqn{\forall t\ \textit{Location}(\textit{Agent}, \textit{Home}(\textit{Wumpus}), t) \limpl \mbox{}} \\
-			& \textit{HasEaten}(\textit{Wumpus}, \textit{Agent}, t)
-			\end{array}
-			$
-		\pause
-		\bigskip
-		\item
-			You should grab the gold when you are in its square \\
-			\pause
-			$
-			\begin{array}{ll}
-			\lefteqn{\forall s,t\ \textit{HasGold}(s) \land \textit{Location}(\textit{Agent}, s, t) \limpl \mbox{}} \\
-			& \textit{BestAction}(\textit{Grab}, \textit{Agent}, t)
-			\end{array}
-			$
-	\end{itemize}
+\begin{itemize}
+\item
+There is a breeze in $[3, 1]$ \\
+\uncover<2->{$\textit{Breezy}([3, 1])$}
+\bigskip
+\item
+The Wumpus is lives in $[2, 2]$ \\
+\uncover<3->{$\textit{Home}(\textit{Wumpus}) = [2, 2]$}
+\bigskip
+\item
+If you are in the Wumpus's square, he eats you \\
+\uncover<4->{$
+\begin{array}{ll}
+\lefteqn{\forall t\ \textit{Location}(\textit{Agent}, \textit{Home}(\textit{Wumpus}), t) \limpl \mbox{}} \\
+& \textit{HasEaten}(\textit{Wumpus}, \textit{Agent}, t)
+\end{array}
+$}
+\bigskip
+\item
+You should grab the gold when you are in its square \\
+\uncover<5->{$
+\begin{array}{ll}
+\lefteqn{\forall s,t\ \textit{HasGold}(s) \land \textit{Location}(\textit{Agent}, s, t) \limpl \mbox{}} \\
+& \textit{BestAction}(\textit{Grab}, \textit{Agent}, t)
+\end{array}
+$}
+\end{itemize}
 \end{frame}
+
 \begin{frame}{Wumpus World Translations}
 	\begin{block}{Diagnostic Rules}
 		From effect, determine cause: \\

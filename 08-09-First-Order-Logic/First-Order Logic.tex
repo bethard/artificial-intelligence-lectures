@@ -884,31 +884,34 @@ l sep=1em
 
 
 \subsection{Resolution}
+
 \begin{frame}{Resolution}
-	\begin{block}{Definition}
-		$
-		\begin{array}{l}
-			p_1 \lor \ldots \lor p_n \\
-			q_1 \lor \ldots \lor q_m \\
-			\textsc{Unify}(p_i, \lnot q_j) = \theta \\
-			\hline
-			\textsc{Subst}(\theta, p_1 \lor \ldots p_{i-1} \lor p_{i+1} \ldots \lor p_n \\
-			\hspace{4.5em} \lor q_1 \lor \ldots q_{j-1} \lor q_{j+1}  \ldots \lor q_m)
-		\end{array}
-		$
-	\end{block}
-	\pause
-	\begin{block}{Example}
-		$
-		\begin{array}{l}
-			\lnot \textit{Mammal}(x) \lor \textit{WarmBlooded}(x) \\
-			\textit{Mammal}(\textit{Platypus}) \\
-			\hline
-			\textit{WarmBlooded}(\textit{Platypus})
-		\end{array}
-		$
-	\end{block}
+\begin{block}{Definition}
+$
+\begin{array}{l}
+p_1 \lor \ldots \lor p_n \\
+q_1 \lor \ldots \lor q_m \\
+\theta : \textsc{Subst}(\theta, p_i) = \lnot\textsc{Subst}(\theta, q_j)\\
+\hline
+\textsc{Subst}(\theta, p_1 \lor \ldots p_{i-1} \lor p_{i+1} \ldots \lor p_n \\
+\hspace{4em} \null \lor q_1 \lor \ldots q_{j-1} \lor q_{j+1}  \ldots \lor q_m)
+\end{array}
+$
+\end{block}
+\pause
+\begin{block}{Example}
+$
+\begin{array}{l}
+\lnot \textit{Mammal}(x) \lor \textit{WarmBlooded}(x) \\
+\textit{Mammal}(\textit{Platypus}) \\
+\theta = \{x = \textit{Platypus}\} \\
+\hline
+\textit{WarmBlooded}(\textit{Platypus})
+\end{array}
+$
+\end{block}
 \end{frame}
+
 \begin{frame}{Resolution}
 	\begin{block}{Resolution Procedure}
 		\begin{enumerate}

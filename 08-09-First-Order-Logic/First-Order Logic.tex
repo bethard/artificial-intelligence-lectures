@@ -689,23 +689,23 @@ $
 \end{frame}
 
 \begin{frame}{Forward Chaining Properties}
-	\begin{block}{Basic Properties}
-		\begin{itemize}
-			\item Sound - uses Generalized Modus Ponens
-			\item Complete - proof similar to propositional logic
-			\item Works only with definite clauses
-		\end{itemize}
-	\end{block}
-	\pause
-	\begin{block}{Termination}
-		With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per predicate: \\[.5em]
-		\begin{tabular}{ll}
-			\pause \keyword{Maximum Facts:}      & \pause $pn^k$ \\
-			\pause \keyword{Maximum Iterations:} & \pause $pn^k$ \\
-		\end{tabular} \\[.5em]
-		\pause With functions: \pause may never terminate
-	\end{block}
+\begin{block}{Basic Properties}
+\begin{itemize}
+\item Sound - uses Generalized Modus Ponens
+\item Complete - proof similar to propositional logic
+\item Works only with definite clauses
+\end{itemize}
+\end{block}
+\begin{block}{Termination}<2->
+With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per predicate: \\[.5em]
+\begin{description}[Maximum Iterations?]
+\item[Maximum Facts?] \uncover<3->{$pn^k$}
+\item[Maximum Iterations?] \uncover<4->{$pn^k$}
+\item[With $f$ functions?] \uncover<5->{May never terminate}
+\end{description}
+\end{block}
 \end{frame}
+
 \begin{frame}{Optimizing Forward Chaining}
 	\begin{block}{Indexing}
 		\begin{itemize}

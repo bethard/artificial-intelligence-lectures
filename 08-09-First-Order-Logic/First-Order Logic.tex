@@ -738,6 +738,7 @@ With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per 
 		\end{itemize}
 	\end{block}
 \end{frame}
+
 \begin{frame}[fragile]{Backward Chaining Code}
 	\begin{semiverbatim}\bfseries\scriptsize
 		\keyword{def} \defn{backward_chaining}(knowledge_base, goals, assignment):
@@ -749,11 +750,11 @@ With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per 
 		        term = assignment.substitute(goals[0])
 		        \keyword{for} sentence \keyword{in} knowledge_base:
 		            \pause\cmnt{# try to unify the sentence with the first goal}
-		            new_assignment = unify(sentence.head, term)
+		            new_assignment = unify(sentence.conclusion, term)
 		            \keyword{if} new_assignment \keyword{is} \keyword{None}:
 		                \keyword{continue}
 		            \pause\cmnt{# add the sentence's premise to the remaining goals}
-		            new_goals = list(sentence.body)
+		            new_goals = list(sentence.premise)
 		            new_goals.extend(goals[1:])
 		            new_assignment = new_assignment.compose(assignment)
 		            \pause\cmnt{# recursively search for the remaining goals}
@@ -823,7 +824,7 @@ With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per 
 	\pause
 	\begin{block}{Prolog Syntax}
 		\begin{itemize}
-			\item Head first, then body
+			\item Conclusion first, then premise
 			\item Predicates lowercase, variables uppercase
 			\item Comma for $\land$, semicolon for $\lor$
 		\end{itemize}

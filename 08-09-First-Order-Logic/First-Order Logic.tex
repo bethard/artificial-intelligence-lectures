@@ -930,65 +930,59 @@ $
 		\end{itemize}
 	\end{block}
 \end{frame}
-\begin{frame}{Resolution Example}
-	Given:
-	\\[.5em]
-	$
-	\begin{array}{l}
-		\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y) \\
-		\lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y) \\
-		\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y) \\
-		\textit{IceCream}(\textit{Mint}) \\
-		\textit{Rich}(\textit{Bill}) \\
-		\textit{Hot}(\textit{Bill})
-	\end{array}
-	$
-	\\[1em]
-	Prove:
-	\\[.5em]
-	$
-	\begin{array}{l}
-		\textit{Buys}(x, y)
-	\end{array}
-	$
+
+\begin{frame}[label=resolution-example]{Resolution Example}
+\setbeamercovered{invisible}
+\footnotesize
+Given:\\
+\tab$
+\begin{array}{ @{} l @{\hspace{4em}} l @{\hspace{4em}} l @{} }
+\lefteqn{\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y)} \\
+\lefteqn{\lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y)} \\
+\lefteqn{\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y)} \\
+\textit{IceCream}(\textit{Mint})
+& \textit{Rich}(\textit{Bill})
+& \textit{Hot}(\textit{Bill})
+\end{array}
+$
+\\[0.5em]
+Prove $\textit{Buys}(x, y)$:\\
+\pause
+\tab$
+\begin{array}{ @{} l @{} }
+\lnot\textit{Buys}(x, y) \\
+\pause
+\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y) \\
+\hline
+\pause
+\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y)\\
+\pause
+\textit{Rich}(\textit{Bill}) \\
+\hline
+\pause
+\lnot\textit{Wants}(\textit{Bill}, y) \lor \lnot\textit{Sells}(z, y) \\
+\pause
+\lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y) \\
+\hline
+\pause
+\lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \lor \lnot\textit{Sells}(z, y) \\
+\pause
+\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y) \\
+\hline
+\pause
+\lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \\
+\pause
+\textit{IceCream}(\textit{Mint}) \\
+\hline
+\pause
+\lnot\textit{Hot}(\textit{Bill}) \\
+\pause
+\textit{Hot}(\textit{Bill}) \\
+\hline
+\end{array}
+$
 \end{frame}
-\begin{frame}{Resolution Example}
-	$
-	\begin{array}{l}
-		\lnot\textit{Buys}(x, y) \\
-		\pause
-		\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y) \\
-		\hline
-		\pause
-		\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y)	\\
-		\pause
-		\textit{Rich}(\textit{Bill}) \\
-		\hline
-		\pause
-		\lnot\textit{Wants}(\textit{Bill}, y) \lor \lnot\textit{Sells}(z, y) \\
-		\pause
-		\lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y) \\
-		\hline
-		\pause
-		\lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \lor \lnot\textit{Sells}(z, y) \\
-		\pause
-		\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y) \\
-		\hline
-		\pause
-		\lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \\
-		\pause
-		\textit{IceCream}(\textit{Mint}) \\
-		\hline
-		\pause
-		\lnot\textit{Hot}(\textit{Bill}) \\
-		\pause
-		\textit{Hot}(\textit{Bill}) \\
-		\hline
-		\pause
-		\textit{false}
-	\end{array}
-	$
-\end{frame}
+
 \begin{frame}{Resolution Chaining Properties}
 	\begin{block}{Properties}
 		\begin{tabular}{@{}ll@{}}

@@ -643,30 +643,7 @@ $
 		\end{itemize}
 	\end{block}
 \end{frame}
-\begin{frame}[fragile]{Forward Chaining Code}
-	\begin{semiverbatim}\bfseries\scriptsize
-		\keyword{def} \defn{forward_chaining}(knowledge_base, query):
-		    \pause\cmnt{# keep adding to the KB until no new sentences are generated}
-		    new = \keyword{True}
-		    \keyword{while} sentences:
-		        new = set()
-		        \keyword{for} sentence \keyword{in} knowledge_base:
-		            \pause\cmnt{# find something that unifies with the sentence body}
-		            n = len(sentence.body)
-		            \keyword{for} subset \keyword{in} all_subsets(knowledge_base, n):
-		                assignment = unify(subset, sentence.body)
-		                \keyword{if} assignment \keyword{is not} \keyword{None}:
-		                    \pause\cmnt{# conclude the sentence head}
-		                    head = assignment.substitute(sentence.head)
-		                    \keyword{if} head \keyword{not in} knowledge_base + new:
-		                        new.add(head)
-		                        \pause\cmnt{# return if the query is concluded}
-		                        result = unify(head, query)
-		                        \keyword{if} result \keyword{is not} \keyword{None}:
-		                            \keyword{return} result
-		        knowledge_base.update(new)
-	\end{semiverbatim}
-\end{frame}
+
 \begin{frame}{Forward Chaining Example}
 	\begin{tabular}{p{4in}}
 		If you're rich and someone sells something you want, you buy it \\

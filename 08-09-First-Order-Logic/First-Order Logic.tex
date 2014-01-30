@@ -650,8 +650,8 @@ $
 		\tab$\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y)$ \\
 		If you're hot, you want ice cream \\
 		\tab$\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y)$ \\
-		Glacier sells all kinds of ice cream \\
-		\tab$\textit{IceCream}(y) \limpl \textit{Sells}(\textit{Glacier}, y)$ \\
+		HaagenDazs sells all kinds of ice cream \\
+		\tab$\textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y)$ \\
 		One flavor of ice cream is mint \\
 		\tab$\textit{IceCream}(\textit{Mint})$ \\
 		Bill is rich \\
@@ -670,13 +670,13 @@ $
 		\textit{Wants}(\textit{Bill}, \textit{Mint}) \\[.8em]
 		\pause
 		\textit{IceCream}(\textit{Mint}) \\
-		\textit{IceCream}(y) \limpl \textit{Sells}(\textit{Glacier}, y) \\
+		\textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y) \\
 		\hline
-		\textit{Sells}(\textit{Glacier}, \textit{Mint}) \\[.8em]
+		\textit{Sells}(\textit{HaagenDazs}, \textit{Mint}) \\[.8em]
 		\pause
 		\textit{Rich}(\textit{Bill}) \\
 		\textit{Wants}(\textit{Bill}, \textit{Mint}) \\
-		\textit{Sells}(\textit{Glacier}, \textit{Mint}) \\
+		\textit{Sells}(\textit{HaagenDazs}, \textit{Mint}) \\
 		\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y) \\
 		\hline
 		\textit{Buys}(\textit{Bill}, \textit{Mint})
@@ -765,7 +765,7 @@ $
 	\begin{array}{l}
 		\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y) \\
 		\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y) \\
-		\textit{IceCream}(y) \limpl \textit{Sells}(\textit{Glacier}, y) \\
+		\textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y) \\
 		\textit{IceCream}(\textit{Mint}) \\
 		\textit{Rich}(\textit{Bill}) \\
 		\textit{Hot}(\textit{Bill})
@@ -792,8 +792,8 @@ $
 		\pause\left[\textit{Hot}(x), \textit{IceCream}(y), \textit{Sells}(z, y)\right]  & \{x\!\!=\!\!\textit{Bill}\} \\
 		\pause\left[\textit{IceCream}(y), \textit{Sells}(z, y)\right]               & \{x\!\!=\!\!\textit{Bill}\} \\
 		\pause\left[\textit{Sells}(z, y)\right]                                 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}\} \\
-		\pause\left[\textit{IceCream}(y)\right]                                 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{Glacier}\} \\
-		\pause\left[\right]                                                 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{Glacier}\} \\
+		\pause\left[\textit{IceCream}(y)\right]                                 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{HaagenDazs}\} \\
+		\pause\left[\right]                                                 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{HaagenDazs}\} \\
 	\end{array}
 	$
 \end{frame}
@@ -940,7 +940,7 @@ $
 	\begin{array}{l}
 		\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y) \\
 		\lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y) \\
-		\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{Glacier}, y) \\
+		\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y) \\
 		\textit{IceCream}(\textit{Mint}) \\
 		\textit{Rich}(\textit{Bill}) \\
 		\textit{Hot}(\textit{Bill})
@@ -975,7 +975,7 @@ $
 		\pause
 		\lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \lor \lnot\textit{Sells}(z, y) \\
 		\pause
-		\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{Glacier}, y) \\
+		\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y) \\
 		\hline
 		\pause
 		\lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \\

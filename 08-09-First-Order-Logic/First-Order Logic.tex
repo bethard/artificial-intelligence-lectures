@@ -5,8 +5,8 @@
 \usepackage{hhline}
 \lstset{emph={[2]__init__,__str__}}
 
-\usepackage{synttree}
-\newcommand{\node}[1]{{\parbox{1.25in}{\centering #1}}}
+\newcommand{\connected}[2]{$\textit{Connected}(#1, #2)$}
+\newcommand{\edge}[2]{$\textit{Edge}(#1, #2)$}
 
 \title{First-Order Logic}
 \date{18 Feb 2014}
@@ -838,52 +838,44 @@ Cache proven goals:
 		\Huge Prolog Examples
 	\end{center}
 \end{frame}
-\begin{frame}{Backwards Chaining Backtracking}
-	\small
-	\extrarowheight=.25em
-	$
-	\begin{array}{@{}l@{\hspace{.3em}}l@{}}
-	\mbox{Prove:}    & \textit{Connected}(A, F) \\
-	\mbox{Given:}    & \forall x,z\ \textit{Edge}(x,z)\!\limpl\!\textit{Connected}(x,z) \\
-	                 & \forall x,y,z\ \textit{Edge}(x,y)\!\land\!\textit{Connected}(y,z)\!\limpl\!\textit{Connected}(x, z) \\
-	                 & \textit{Edge}(A, B) \land \textit{Edge}(B, C) \land \textit{Edge}(B, D) \land \textit{Edge}(D, F)\\
-	\end{array}
-	$ \\	
-	\bigskip
-	\pause
-	\branchheight{2.5em}
-	\synttree
-	[\node{$\textit{Connected}(A, F)$}
-		[\node{\only<-2>{\invisible{$\textit{Edge}(A, F)$}}
-		       \only<3-4>{$\textit{Edge}(A, F)$}
-		       \only<5>{\invisible{$\textit{Edge}(A, F)$}}
-		       \only<6-7>{$\textit{Edge}(A, y)$}
-		       \only<8->{$\textit{Edge}(A, B)$}}
-			[\node{\only<-3>{\invisible{$\textit{Edge}(A, B)$}}
-			       \only<4>{$\textit{fail}$}
-			       \only<7->{$\textit{Edge}(A, B)$}}]]
-		[\node{\only<-5>{\invisible{$\textit{Connected}(B, F)$}}
-		       \only<6-7>{$\textit{Connected}(y, F)$}
-		       \only<8->{$\textit{Connected}(B, F)$}}
-			[\node{\only<-8>{\invisible{$\textit{Edge}(B, y)$}}
-			       \only<9-10>{$\textit{Edge}(B, y)$}
-			       \only<11-12>{$\textit{Edge}(B, C)$}
-			       \only<13-14>{$\textit{Edge}(B, y)$}
-			       \only<15->{$\textit{Edge}(B, D)$}}
-				[\node{\only<-9>{\invisible{$\textit{Edge}(B, C)$}}
-				       \only<10-12>{$\textit{Edge}(B, C)$}
-				       \only<13>{\invisible{$\textit{Edge}(B, C)$}}
-				       \only<14->{$\textit{Edge}(B, D)$}}]]
-			[\node{%\only<-8>{\invisible{$\textit{Connected}(D, F)$}}
-			       \only<9-10>{$\textit{Connected}(y, F)$}
-			       \only<11-12>{$\textit{Connected}(C, F)$}
-			       \only<13-14>{$\textit{Connected}(y, F)$}
-			       \only<15->{$\textit{Connected}(D, F)$}}
-			  [\node{\only<-11>{\invisible{$\textit{Edge}(D, F)$}}
-			         \only<12>{$\ldots\textit{fail}\ldots$}
-			         \only<13-15>{\invisible{$\textit{Edge}(D, F)$}}
-			         \only<16->{$\textit{Edge}(D, F)$}}]]]]
+
+\begin{frame}[label=backwards-chaining-backtracking]{Backwards Chaining Backtracking}
+\small
+\extrarowheight=.25em
+$
+\begin{array}{ @{} l l @{} }
+\mbox{Prove:} & \textit{Connected}(A, D) \\
+\mbox{Given:}
+& \forall x,z\ \textit{Edge}(x,z) \limpl \textit{Connected}(x,z) \\
+& \forall x,y,z\ \textit{Edge}(x,y)\!\land\!\textit{Connected}(y,z) \limpl \textit{Connected}(x, z) \\
+& \textit{Edge}(A, B) \land \textit{Edge}(B, C) \land \textit{Edge}(B, D) \land \textit{Edge}(D, F)\\
+\end{array}
+$ \\
+\begin{center}
+\begin{forest}
+connected/.style={minimum width=8em},
+cedge/.style={minimum width=6em},
+l sep=1em
+[{\connected{A}{F}},connected,visible on={2-}
+  [{\edge{A}{\alt<6->{\alt<8->{B}{y}}{F}}},cedge,visible on={3-4,6-}
+    [{\alt<7->{\edge{A}{B}}{fail}},cedge,visible on={4,7}]
+  ]
+  [{\connected{\alt<8->{B}{y}}{F}},connected,visible on={6-}
+    [{\edge{B}{\alt<12->{\alt<14-20>{C}{\alt<23->{D}{y}}}{F}}},cedge,visible on={9-10,12-}
+      [{\alt<13->{\edge{B}{\alt<22->{D}{C}}}{fail}},cedge,visible on={10,13,22}]
+    ]
+    [{\connected{\alt<14-20>{C}{\alt<23->{D}{y}}}{F}},connected,visible on={12-}
+      [{\edge{\alt<24->{D}{C}}{\alt<18-19>{y}{F}}},cedge,visible on={15-16,18-19,24}
+        [{fail},cedge,visible on={16,19}]
+      ]
+      [{\connected{y}{F}},connected,visible on={18-19}]
+    ]
+  ]
+]
+\end{forest}
+\end{center}
 \end{frame}
+
 \begin{frame}
 	\begin{center}
 		\Huge Prolog Example

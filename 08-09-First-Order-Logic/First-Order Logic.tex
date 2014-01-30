@@ -739,45 +739,53 @@ With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per 
 	\end{block}
 \end{frame}
 
-\begin{frame}{Backward Chaining Example}
-	Given:
-	\\[.5em]
-	$
-	\begin{array}{l}
-		\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y) \\
-		\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y) \\
-		\textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y) \\
-		\textit{IceCream}(\textit{Mint}) \\
-		\textit{Rich}(\textit{Bill}) \\
-		\textit{Hot}(\textit{Bill})
-	\end{array}
-	$
-	\\[1em]
-	Query:
-	\\[.5em]
-	$
-	\begin{array}{l}
-		\textit{Buys}(x, y)
-	\end{array}
-	$
+\begin{frame}[label=backward-chaining-example]{Backward Chaining Example}
+\setbeamercovered{invisible}
+\small
+Knowledge Base:\\
+{\arraycolsep=1em$
+\begin{array}{ l l l }
+\lefteqn{\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y)} \\
+\lefteqn{\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y)} \\
+\lefteqn{\textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y)} \\
+\textit{IceCream}(\textit{Mint})
+& \textit{Rich}(\textit{Bill})
+& \textit{Hot}(\textit{Bill})
+\end{array}
+$}\\
+Query: $\textit{Buys}(x, y)$\\[1em]
+\pause
+$
+\begin{array}{@{}ll@{}}
+\mbox{Goals} & \mbox{Assignment} \\
+\hline
+\left[\textit{Buys}(x, y)\right]
+& \{\}
+\\\pause
+\left[\textit{Rich}(x), \textit{Wants}(x, y), \textit{Sells}(z, y)\right]
+& \{\}
+\\\pause
+\left[\textit{Wants}(x, y), \textit{Sells}(z, y)\right]
+& \{x\!\!=\!\!\textit{Bill}\}
+\\\pause
+\left[\textit{Hot}(x), \textit{IceCream}(y), \textit{Sells}(z, y)\right]
+& \{x\!\!=\!\!\textit{Bill}\}
+\\\pause
+\left[\textit{IceCream}(y), \textit{Sells}(z, y)\right]
+& \{x\!\!=\!\!\textit{Bill}\}
+\\\pause
+\left[\textit{Sells}(z, y)\right]
+& \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}\}
+\\\pause
+\left[\textit{IceCream}(y)\right]
+& \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{HaagenDazs}\}
+\\\pause
+\left[\right]
+& \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{HaagenDazs}\}
+\end{array}
+$
 \end{frame}
-\begin{frame}{Backward Chaining Example}
-	\small
-	$
-	\begin{array}{@{}ll@{}}
-		\mbox{Goals}                                                        & \mbox{Assignment} \\
-		\hline
-		\pause\left[\textit{Buys}(x, y)\right]                                  & \{\} \\
-		\pause\left[\textit{Rich}(x), \textit{Wants}(x, y), \textit{Sells}(z, y)\right] & \{\} \\
-		\pause\left[\textit{Wants}(x, y), \textit{Sells}(z, y)\right]               & \{x\!\!=\!\!\textit{Bill}\} \\
-		\pause\left[\textit{Hot}(x), \textit{IceCream}(y), \textit{Sells}(z, y)\right]  & \{x\!\!=\!\!\textit{Bill}\} \\
-		\pause\left[\textit{IceCream}(y), \textit{Sells}(z, y)\right]               & \{x\!\!=\!\!\textit{Bill}\} \\
-		\pause\left[\textit{Sells}(z, y)\right]                                 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}\} \\
-		\pause\left[\textit{IceCream}(y)\right]                                 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{HaagenDazs}\} \\
-		\pause\left[\right]                                                 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{HaagenDazs}\} \\
-	\end{array}
-	$
-\end{frame}
+
 \begin{frame}{Backward Chaining Properties}
 	\begin{block}{Properties}
 		\begin{tabular}{@{}ll@{}}

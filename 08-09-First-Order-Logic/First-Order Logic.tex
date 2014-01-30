@@ -739,30 +739,6 @@ With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per 
 	\end{block}
 \end{frame}
 
-\begin{frame}[fragile]{Backward Chaining Code}
-	\begin{semiverbatim}\bfseries\scriptsize
-		\keyword{def} \defn{backward_chaining}(knowledge_base, goals, assignment):
-		    \pause\cmnt{# if all goals have been resolved, generate the assignment}
-		    \keyword{if} \keyword{not} goals:
-		        \keyword{yield} assignment
-		    \pause\cmnt{# otherwise, check the first goal and then recurse}
-		    \keyword{else}:
-		        term = assignment.substitute(goals[0])
-		        \keyword{for} sentence \keyword{in} knowledge_base:
-		            \pause\cmnt{# try to unify the sentence with the first goal}
-		            new_assignment = unify(sentence.conclusion, term)
-		            \keyword{if} new_assignment \keyword{is} \keyword{None}:
-		                \keyword{continue}
-		            \pause\cmnt{# add the sentence's premise to the remaining goals}
-		            new_goals = list(sentence.premise)
-		            new_goals.extend(goals[1:])
-		            new_assignment = new_assignment.compose(assignment)
-		            \pause\cmnt{# recursively search for the remaining goals}
-		            args = knowledge_base, new_goals, new_assignment
-		            \keyword{for} result \keyword{in} backward_chaining(*args):
-		                \keyword{yield} result
-	\end{semiverbatim}
-\end{frame}
 \begin{frame}{Backward Chaining Example}
 	Given:
 	\\[.5em]

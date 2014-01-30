@@ -742,9 +742,9 @@ With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per 
 \begin{frame}[label=backward-chaining-example]{Backward Chaining Example}
 \setbeamercovered{invisible}
 \small
-Knowledge Base:\\
-{\arraycolsep=1em$
-\begin{array}{ l l l }
+Given:\\
+\tab$
+\begin{array}{ @{} l @{\hspace{4em}} l @{\hspace{4em}} l @{}}
 \lefteqn{\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y)} \\
 \lefteqn{\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y)} \\
 \lefteqn{\textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y)} \\
@@ -752,8 +752,9 @@ Knowledge Base:\\
 & \textit{Rich}(\textit{Bill})
 & \textit{Hot}(\textit{Bill})
 \end{array}
-$}\\
-Query: $\textit{Buys}(x, y)$\\[1em]
+$\\[0.5em]
+Prove $\textit{Buys}(x, y)$:
+\\[0.5em]
 \pause
 $
 \begin{array}{@{}ll@{}}
@@ -839,7 +840,7 @@ Cache proven goals:
 	\end{center}
 \end{frame}
 
-\begin{frame}[label=backwards-chaining-backtracking]{Backwards Chaining Backtracking}
+\begin{frame}[label=backward-chaining-backtracking]{Backward Chaining Backtracking}
 \small
 \extrarowheight=.25em
 $
@@ -983,7 +984,7 @@ Prove $\textit{Buys}(x, y)$:\\
 $
 \end{frame}
 
-\begin{frame}{Resolution Chaining Properties}
+\begin{frame}{Resolution Properties}
 \begin{block}{Properties}
 \begin{description}[Complete?]
 \item[Sound?]

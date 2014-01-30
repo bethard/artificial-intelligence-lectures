@@ -787,14 +787,24 @@ $
 \end{frame}
 
 \begin{frame}{Backward Chaining Properties}
-	\begin{block}{Properties}
-		\begin{tabular}{@{}ll@{}}
-			\pause\keyword{Sound}       & \pause Yes, uses Generalized Modus Ponens \\[.5em]
-			\pause\keyword{Complete}    & \pause No, could hit infinite loops \\
-			                        & \pause $\Rightarrow$ fix by keeping track of goals already seen \\[.5em]
-			\pause\keyword{Space}       & \pause Linear in size of proof (depth-first search) \\
-		\end{tabular}
-	\end{block}
+\begin{block}{Properties}
+\begin{description}[Complete?]
+\item[Sound?]
+\uncover<3->{Yes, uses Generalized Modus Ponens}
+\item[Complete?]
+\uncover<3->{No, possible infinite loops}
+\item[Space?]
+\uncover<4->{Linear in size of proof (depth-first search)}
+\end{description}
+\end{block}
+\bigskip
+\uncover<5->{
+Cache proven goals:
+\begin{itemize}
+\item Complete for knowledge bases without functions
+\item Memory footprint increased
+\end{itemize}
+}
 \end{frame}
 
 \subsection{Prolog}

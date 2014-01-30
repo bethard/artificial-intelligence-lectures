@@ -660,29 +660,34 @@ $
 		\tab$\textit{Hot}(\textit{Bill})$
 	\end{tabular}
 \end{frame}
+
 \begin{frame}{Forward Chaining Example}
-	$
-	\begin{array}{l}
-		\textit{Hot}(\textit{Bill}) \\
-		\textit{IceCream}(\textit{Mint}) \\
-		\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y) \\
-		\hline
-		\textit{Wants}(\textit{Bill}, \textit{Mint}) \\[.8em]
-		\pause
-		\textit{IceCream}(\textit{Mint}) \\
-		\textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y) \\
-		\hline
-		\textit{Sells}(\textit{HaagenDazs}, \textit{Mint}) \\[.8em]
-		\pause
-		\textit{Rich}(\textit{Bill}) \\
-		\textit{Wants}(\textit{Bill}, \textit{Mint}) \\
-		\textit{Sells}(\textit{HaagenDazs}, \textit{Mint}) \\
-		\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y) \\
-		\hline
-		\textit{Buys}(\textit{Bill}, \textit{Mint})
-	\end{array}
-	$
+$
+\begin{array}{l}
+\textit{Hot}(\textit{Bill}) \\
+\textit{IceCream}(\textit{Mint}) \\
+\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y) \\
+\hline
+\visible<2->{
+\textit{Wants}(\textit{Bill}, \textit{Mint}) \\[.8em]}
+\visible<3->{
+\textit{IceCream}(\textit{Mint}) \\
+\textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y) \\
+\hline}
+\visible<4->{
+\textit{Sells}(\textit{HaagenDazs}, \textit{Mint}) \\[.8em]}
+\visible<5->{
+\textit{Rich}(\textit{Bill}) \\
+\textit{Wants}(\textit{Bill}, \textit{Mint}) \\
+\textit{Sells}(\textit{HaagenDazs}, \textit{Mint}) \\
+\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y) \\
+\hline}
+\visible<6->{
+\textit{Buys}(\textit{Bill}, \textit{Mint})}
+\end{array}
+$
 \end{frame}
+
 \begin{frame}{Forward Chaining Properties}
 	\begin{block}{Basic Properties}
 		\begin{itemize}

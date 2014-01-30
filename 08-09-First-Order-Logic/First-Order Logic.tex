@@ -984,20 +984,18 @@ $
 \end{frame}
 
 \begin{frame}{Resolution Chaining Properties}
-	\begin{block}{Properties}
-		\begin{tabular}{@{}ll@{}}
-			\keyword{Sound}       & \pause Yes, uses Resolution \\
-			\pause\keyword{Complete}    & \pause No, if only binary resolution is used \\
-			                        & Yes, with factoring to combine unifiable literals
-		\end{tabular}
-	\end{block}
-	\pause
-	\begin{block}{Other Properties}
-		\begin{itemize}
-			\item Requires extra work to retrieve substitutions
-			\item Can produce useless answers for existential goals
-		\end{itemize}
-	\end{block}
+\begin{block}{Properties}
+\begin{description}[Complete?]
+\item[Sound?]
+\uncover<2->{Yes, uses Resolution}
+\item[Complete?]
+\uncover<3->{
+No, if only binary resolution is used \\
+Yes, with subset resolution or factoring}
+\end{description}
+\bigskip
+Retrieving existential goals may require adding $\textit{Answer}(x)$
+\end{block}
 \end{frame}
 
 \part{Key Ideas}

@@ -5,7 +5,7 @@
 \lstset{emph={[2]__init__,__str__}}
 
 \title{Constraint Satisfaction Problems}
-\date[]{30 Jan 2014}
+\date[]{6 Feb 2014}
 
 \newcommand{\V}[1]{\mbox{\texttt{#1}}}
 \newcommand{\VeqV}[2]{$\V{#1} = \V{#2}$}
@@ -242,9 +242,8 @@ $
 		        \keyword{return} assignment
 		    \pause\cmnt{# select an unassigned variable and order the values}
 		    variable = heuristic.select_variable(csp, assignment)
-		    values = heuristic.order_values(csp, assignment, var)
 		    \pause\cmnt{# try assigning each value to the variable}
-		    \keyword{for} value \keyword{in} values:
+		    \keyword{for} value \keyword{in} heuristic.order_values(csp, assignment, variable):
 		        assignment[variable] = value
 		        \pause\cmnt{# for consistent assignments, recursively check if
 		        # it is possible to assign the remaining variables}

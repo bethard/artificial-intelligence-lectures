@@ -1,36 +1,12 @@
-\documentclass[12pt]{beamer}
-%\includeonlyframes{current}
+% !TEX TS-program = pdflatexmk
 
-\mode<presentation>{\usetheme{Warsaw}}
-\setbeamertemplate{footline}[frame number]
-\usepackage[english]{babel}
-\usepackage{times}
-\usepackage{url}
-\usepackage{graphicx}
-\usepackage{listings}
+\documentclass[14pt]{beamer}
+\input{../slides-preamble}
 \usepackage{hhline}
-\usepackage{array}
-\usepackage{colortbl}
-\usepackage{changepage}
-\lstloadlanguages{Python}
-\lstset{language=Python}
-\lstset{%
-	basicstyle=\ttfamily\bfseries,
-	keywordstyle=\color{blue}, emph={self}, emphstyle={\color{blue}},
-	identifierstyle=,
-	commentstyle=\color{gray},
-	stringstyle=\color{green!50!black},
-	showstringspaces=false,
-	emph={[2]__init__,__str__}, emphstyle={[2]\color{purple}},
-}
-\newcommand{\key}[1]{{\color{blue}#1}}
-\newcommand{\cmnt}[1]{{\color{gray}#1}}
-\newcommand{\str}[1]{{\color{green!50!black}#1}}
-\newcommand{\defn}[1]{{\color{purple}#1}}
-\newcommand{\SC}[1]{\mbox{\sc#1}}
-\newcommand{\EM}[1]{\mbox{\em#1}}
-\newcommand{\EMSCR}[1]{\mbox{\em\scriptsize#1}}
-\newcommand{\tab}{\hspace{1em}}
+
+\title{Uncertainty}
+\date{4 Mar 2014}
+
 
 \newlength{\cellwidth}
 \setlength{\cellwidth}{.5in}
@@ -64,23 +40,6 @@
 	\end{tabular}
 }
 
-
-\title{Uncertainty}
-\subtitle{Introduction to Artificial Intelligence}
-\author{Steven Bethard}
-\institute{
-  Department of Computer Science\\
-  University of Colorado
-}
-\date{CSCI 3202}
-
-
-\AtBeginSection[]{
-\begin{frame}<beamer>{Outline}
-	\tableofcontents[currentsection]
-\end{frame}
-}
-
 \begin{document}
 
 \begin{frame}
@@ -96,9 +55,9 @@
 	\begin{block}{Rules}
 		$
 		\begin{array}{l}
-			\forall d\ \EM{Sunny}(d) \Rightarrow \EM{Warm}(d) \\
+			\forall d\ \textit{Sunny}(d) \Rightarrow \textit{Warm}(d) \\
 			\pause \mbox{Wrong; it can be sunny but cold} \\
-			\pause \forall d\ \EM{Warm}(d) \Rightarrow \EM{Sunny}(d) \\
+			\pause \forall d\ \textit{Warm}(d) \Rightarrow \textit{Sunny}(d) \\
 			\pause\mbox{Wrong; it can be warm and cloudy} \\
 		\end{array}
 		$
@@ -118,17 +77,17 @@
 	\bigskip
 	\begin{tabular}{@{}l@{\hspace{.5em}}l@{}}
 		\pause
-		\key{Random Variable} & An interesting part of the world \\
-		                      & e.g. $\EM{Sky}$ or $\EM{Temp}$ \\[.5em]
+		\keyword{Random Variable} & An interesting part of the world \\
+		                      & e.g. $\textit{Sky}$ or $\textit{Temp}$ \\[.5em]
 		\pause
-		\key{Domain}          & Possible values of a random variable \\
-		                      & e.g. $\EM{domain}(\EM{Temp})=\langle\EM{warm}, \EM{cold}, \ldots\rangle$ \\[.5em]
+		\keyword{Domain}          & Possible values of a random variable \\
+		                      & e.g. $\textit{domain}(\textit{Temp})=\langle\textit{warm}, \textit{cold}, \ldots\rangle$ \\[.5em]
 		\pause
-		\key{Proposition}     & A statement, like propositional logic \\
-		                      & e.g. $\EM{Sky}\!=\!\EM{sunny} \land \EM{Temp}\!=\!\EM{warm}$ \\[.5em]
+		\keyword{Proposition}     & A statement, like propositional logic \\
+		                      & e.g. $\textit{Sky}\!=\!\textit{sunny} \land \textit{Temp}\!=\!\textit{warm}$ \\[.5em]
 		\pause
-		\key{Probability}     & The degree of belief in a proposition \\
-		                      & e.g. $P(\EM{Temp}\!=\!\EM{warm}) = 0.7$
+		\keyword{Probability}     & The degree of belief in a proposition \\
+		                      & e.g. $P(\textit{Temp}\!=\!\textit{warm}) = 0.7$
 	\end{tabular}
 \end{frame}
 \begin{frame}{Aside: Fuzzy Logic}
@@ -141,14 +100,14 @@
 	\pause
 	\begin{block}{Fuzzy Logic}
 		\begin{itemize}
-			\item Propositions are \EM{true} to a certain degree
-			\item \EM{Truth} values range from [0, 1]
+			\item Propositions are \textit{true} to a certain degree
+			\item \textit{Truth} values range from [0, 1]
 		\end{itemize}
 		\pause
 		For example:
 		\begin{itemize}
-			\item $T(\EM{Tall}(\EM{Steve})) = 0.5$
-			\item $T(\EM{Fat}(\EM{Steve})) = 0.1$
+			\item $T(\textit{Tall}(\textit{Steve})) = 0.5$
+			\item $T(\textit{Fat}(\textit{Steve})) = 0.1$
 		\end{itemize}
 		\pause
 		Better for describing indefinite classes than for reasoning
@@ -162,8 +121,8 @@
 	\begin{block}{Propositions Known to be True or False}
 		$
 		\begin{array}{lll}
-			P(\EM{true})  & = & 1 \\
-			P(\EM{false}) & = & 0 \\
+			P(\textit{true})  & = & 1 \\
+			P(\textit{false}) & = & 0 \\
 		\end{array}
 		$
 	\end{block}
@@ -184,18 +143,18 @@
 \end{frame}
 \begin{frame}{Random Variables}
 	\begin{block}{Boolean Random Variables}
-		Have the domain $\langle \EM{true}, \EM{false} \rangle$, e.g.
+		Have the domain $\langle \textit{true}, \textit{false} \rangle$, e.g.
 		\begin{itemize}
-			\item \EM{IsSunny}
+			\item \textit{IsSunny}
 		\end{itemize}
 	\end{block}
 	\pause
 	\begin{block}{Discrete Random Variables}
 		Have a countable domain, e.g.
 		\begin{itemize}
-			\item $\EM{domain}(\EM{Sky}) =
-			       \langle \EM{sunny}, \EM{cloudy}, \ldots \rangle$
-			\item $\EM{domain}(\EM{DieRoll}) =
+			\item $\textit{domain}(\textit{Sky}) =
+			       \langle \textit{sunny}, \textit{cloudy}, \ldots \rangle$
+			\item $\textit{domain}(\textit{DieRoll}) =
 			       \langle 1, 2, 3, 4, 5, 6 \rangle$
 		\end{itemize}
 	\end{block}
@@ -203,7 +162,7 @@
 	\begin{block}{Continuous Random Variables}
 		Have a real-valued domain, e.g.
 		\begin{itemize}
-			\item $\EM{domain}(\EM{Temperature}) =
+			\item $\textit{domain}(\textit{Temperature}) =
 			       \langle \ldots, -40^{\circ}, \ldots, 98.6^{\circ}, \ldots \rangle$
 		\end{itemize}
 	\end{block}
@@ -223,11 +182,11 @@
 	\begin{block}{Examples}
 		$
 		\begin{array}{lll}
-			P(\EM{DieRoll} \!=\! 5)                    & = & \pause 1/6 \\
+			P(\textit{DieRoll} \!=\! 5)                    & = & \pause 1/6 \\
 			\pause
-			P(\EM{CardDrawn} \!=\! \mbox{A}\spadesuit) & = & \pause 1/52 \\
+			P(\textit{CardDrawn} \!=\! \mbox{A}\spadesuit) & = & \pause 1/52 \\
 			\pause
-			P(\EM{SkyInBoulder} \!=\! \EM{sunny})      & = & \pause 300/365
+			P(\textit{SkyInBoulder} \!=\! \textit{sunny})      & = & \pause 300/365
 		\end{array}
 		$
 	\end{block}
@@ -244,12 +203,12 @@
 	\begin{block}{Examples}
 		$
 		\begin{array}{lll}
-			\lefteqn{P(\EM{Sky} \!=\! \EM{sunny}, \EM{Temp} \!=\! \EM{warm})} \\
-			& = & P(\EM{Sky} \!=\! \EM{sunny} \land \EM{Temp} \!=\! \EM{warm}) \\
+			\lefteqn{P(\textit{Sky} \!=\! \textit{sunny}, \textit{Temp} \!=\! \textit{warm})} \\
+			& = & P(\textit{Sky} \!=\! \textit{sunny} \land \textit{Temp} \!=\! \textit{warm}) \\
 			& = & 0.6 \\
 			\pause
-			\lefteqn{P(\EM{DieRoll}_1 \!=\! 4, \EM{DieRoll}_2 \!=\! 6)} \\
-			& = & P(\EM{DieRoll}_1 \!=\! 4 \land \EM{DieRoll}_2 \!=\! 6) \\
+			\lefteqn{P(\textit{DieRoll}_1 \!=\! 4, \textit{DieRoll}_2 \!=\! 6)} \\
+			& = & P(\textit{DieRoll}_1 \!=\! 4 \land \textit{DieRoll}_2 \!=\! 6) \\
 			& = & \pause 1/36 \\
 		\end{array}
 		$
@@ -267,13 +226,13 @@
 	\begin{block}{Examples}
 		$
 		\begin{array}{lll}
-			P(\EM{Temp} \!=\! \EM{warm}|\EM{Sky} \!=\! \EM{sunny})
+			P(\textit{Temp} \!=\! \textit{warm}|\textit{Sky} \!=\! \textit{sunny})
 			 & = & 0.73 \\
 			\pause
-			P(\EM{Card} \!=\! \mbox{A}\spadesuit|\EM{CardSuit} \!=\! \spadesuit)
+			P(\textit{Card} \!=\! \mbox{A}\spadesuit|\textit{CardSuit} \!=\! \spadesuit)
 			 & = & \pause 1/13 \\
 			\pause
-			P(\EM{DieRoll}_2 \!=\! 5|\EM{DieRoll}_1 \!=\! 5)
+			P(\textit{DieRoll}_2 \!=\! 5|\textit{DieRoll}_1 \!=\! 5)
 			 & = & \pause 1/6 \\
 		\end{array}
 		$
@@ -282,22 +241,22 @@
 \begin{frame}{Prior, Joint or Conditional?}
 	\begin{enumerate}
 		\item Probability of a having a cavity? \\
-			\pause \tab Prior, $P(\EM{Cavity}\!=\!\EM{true})$
+			\pause \tab Prior, $P(\textit{Cavity}\!=\!\textit{true})$
 		\pause
 		\item Probability of it being warm and cloudy? \\
-			\pause \tab Joint, $P(\EM{Temp}\!=\!\EM{warm}, \EM{Sky}\!=\!\EM{cloudy})$
+			\pause \tab Joint, $P(\textit{Temp}\!=\!\textit{warm}, \textit{Sky}\!=\!\textit{cloudy})$
 		\pause
 		\item Probability of car being stolen? \\
-			\pause \tab Prior, $P(\EM{CarStolen}\!=\!\EM{true})$
+			\pause \tab Prior, $P(\textit{CarStolen}\!=\!\textit{true})$
 		\pause
 		\item Probability of car being stolen and being in Boulder? \\
-			\pause \tab Joint, $P(\EM{CarStolen}\!=\!\EM{true}, \EM{InBoulder}\!=\!\EM{true})$
+			\pause \tab Joint, $P(\textit{CarStolen}\!=\!\textit{true}, \textit{InBoulder}\!=\!\textit{true})$
 		\pause
 		\item The car is in Boulder. Probability of car being stolen? \\
-			\pause \tab Conditional, $P(\EM{CarStolen}\!=\!\EM{true}|\EM{InBoulder}\!=\!\EM{true})$
+			\pause \tab Conditional, $P(\textit{CarStolen}\!=\!\textit{true}|\textit{InBoulder}\!=\!\textit{true})$
 		\pause
 		\item It's cloudy. Probability of it being warm? \\
-			\pause \tab Conditional, $P(\EM{Temp}\!=\!\EM{warm}| \EM{Sky}\!=\!\EM{cloudy})$
+			\pause \tab Conditional, $P(\textit{Temp}\!=\!\textit{warm}| \textit{Sky}\!=\!\textit{cloudy})$
 	\end{enumerate}
 \end{frame}
 \begin{frame}{Relation between Joint and Conditional}
@@ -334,11 +293,11 @@
 	\begin{block}{Example}
 		$
 		\begin{array}{lll}
-		\lefteqn{P(\EM{sunny}, \EM{dry}, \EM{warm})} \\
+		\lefteqn{P(\textit{sunny}, \textit{dry}, \textit{warm})} \\
 		\pause
-		& = & P(\EM{sunny}|\EM{dry}, \EM{warm})P(\EM{dry}, \EM{warm})\\
+		& = & P(\textit{sunny}|\textit{dry}, \textit{warm})P(\textit{dry}, \textit{warm})\\
 		\pause
-		& = & P(\EM{sunny}|\EM{dry}, \EM{warm})P(\EM{dry}|\EM{warm})P(\EM{warm}) \\
+		& = & P(\textit{sunny}|\textit{dry}, \textit{warm})P(\textit{dry}|\textit{warm})P(\textit{warm}) \\
 		\end{array}
 		$
 	\end{block}
@@ -357,11 +316,11 @@
 	\end{block}
 	\pause
 	\begin{block}{Example}
-		$\mathbf{P}(\EM{SkyInBoulder}) = \langle 300/365, 65/365 \rangle$ means \\[.25em]
+		$\mathbf{P}(\textit{SkyInBoulder}) = \langle 300/365, 65/365 \rangle$ means \\[.25em]
 		$
 		\begin{array}{llll}
-			& P(\EM{SkyInBoulder}\!=\!\EM{sunny})  & = & 300/365 \\
-			& P(\EM{SkyInBoulder}\!=\!\EM{cloudy}) & = & 65/365 \\
+			& P(\textit{SkyInBoulder}\!=\!\textit{sunny})  & = & 300/365 \\
+			& P(\textit{SkyInBoulder}\!=\!\textit{cloudy}) & = & 65/365 \\
 		\end{array}
 		$
 	\end{block}
@@ -385,10 +344,10 @@
 	\begin{block}{Example}
 		$
 		\begin{array}{lll}
-			\lefteqn{\sum\limits_{x}{P(\EM{Die}\!=\!x)}} \\
+			\lefteqn{\sum\limits_{x}{P(\textit{Die}\!=\!x)}} \\
 			\pause
-			& = & P(\EM{Die}\!=\!1) + P(\EM{Die}\!=\!2) + P(\EM{Die}\!=\!3) + \mbox{}\\
-			&   & P(\EM{Die}\!=\!4) + P(\EM{Die}\!=\!5) + P(\EM{Die}\!=\!6) \\
+			& = & P(\textit{Die}\!=\!1) + P(\textit{Die}\!=\!2) + P(\textit{Die}\!=\!3) + \mbox{}\\
+			&   & P(\textit{Die}\!=\!4) + P(\textit{Die}\!=\!5) + P(\textit{Die}\!=\!6) \\
 			\pause
 			& = & \frac{1}{6} + \frac{1}{6} + \frac{1}{6} + \frac{1}{6} + \frac{1}{6} + \frac{1}{6} \\
 			\pause
@@ -423,13 +382,13 @@
 	\end{block}
 	\pause
 	\begin{block}{Example}
-		$\mathbf{P}(\EM{Sex},\EM{Smoker}) = \mbox{}$ \\[.25em]
+		$\mathbf{P}(\textit{Sex},\textit{Smoker}) = \mbox{}$ \\[.25em]
 		\tab
 		$
 		\begin{array}{lcc}
-			                           & \EM{Sex}\!=\!\EM{male} & \EM{Sex}\!=\!\EM{female} \\
-			\EM{Smoker}\!=\!\EM{true}  & 0.113                  & 0.107 \\
-			\EM{Smoker}\!=\!\EM{false} & 0.377                  & 0.403 \\
+			                           & \textit{Sex}\!=\!\textit{male} & \textit{Sex}\!=\!\textit{female} \\
+			\textit{Smoker}\!=\!\textit{true}  & 0.113                  & 0.107 \\
+			\textit{Smoker}\!=\!\textit{false} & 0.377                  & 0.403 \\
 		\end{array}
 		$
 	\end{block}
@@ -440,10 +399,10 @@
 	\end{block}
 	\pause
 	\begin{block}{Example}
-		$P(\EM{Sky},\EM{Temp}
-		 \only<3->{,\EM{InBoulder}
-		 \only<4->{,\EM{CarStolen}
-		 \only<5->{,\EM{Cavity}
+		$P(\textit{Sky},\textit{Temp}
+		 \only<3->{,\textit{InBoulder}
+		 \only<4->{,\textit{CarStolen}
+		 \only<5->{,\textit{Cavity}
 		 \only<6->{,\ldots}}}})$
 	\end{block}
 	\begin{block}<7>{More Seriously}
@@ -461,24 +420,24 @@
 		Sum entries in joint distribution where proposition is true
 	\end{block}
 	\pause
-	\begin{block}{Example: $P(\EM{Sex}\!=\!\EM{female} \lor \EM{Smoker}\!=\!\EM{false})$}
+	\begin{block}{Example: $P(\textit{Sex}\!=\!\textit{female} \lor \textit{Smoker}\!=\!\textit{false})$}
 		\tab\tab
 		$
 		\begin{array}{lcc}
-			                           & \EM{Sex}\!=\!\EM{male} & \EM{Sex}\!=\!\EM{female} \\
-			\EM{Smoker}\!=\!\EM{true}  & 0.113                  & 0.107 \\
-			\EM{Smoker}\!=\!\EM{false} & 0.377                  & 0.403 \\
+			                           & \textit{Sex}\!=\!\textit{male} & \textit{Sex}\!=\!\textit{female} \\
+			\textit{Smoker}\!=\!\textit{true}  & 0.113                  & 0.107 \\
+			\textit{Smoker}\!=\!\textit{false} & 0.377                  & 0.403 \\
 		\end{array}
 		$
 		\\ \medskip
 		\pause
 		$
 		\begin{array}{lll}
-			\lefteqn{P(\EM{Sex}\!=\!\EM{female} \lor \EM{Smoker}\!=\!\EM{false})} \\
+			\lefteqn{P(\textit{Sex}\!=\!\textit{female} \lor \textit{Smoker}\!=\!\textit{false})} \\
 			\pause
-			& = & P(\EM{Sex}\!=\!\EM{male},\EM{Smoker}\!=\!\EM{false}) + \mbox{}\\
-			&   & P(\EM{Sex}\!=\!\EM{female},\EM{Smoker}\!=\!\EM{true}) + \mbox{}\\
-			&   & P(\EM{Sex}\!=\!\EM{female},\EM{Smoker}\!=\!\EM{false})\\
+			& = & P(\textit{Sex}\!=\!\textit{male},\textit{Smoker}\!=\!\textit{false}) + \mbox{}\\
+			&   & P(\textit{Sex}\!=\!\textit{female},\textit{Smoker}\!=\!\textit{true}) + \mbox{}\\
+			&   & P(\textit{Sex}\!=\!\textit{female},\textit{Smoker}\!=\!\textit{false})\\
 			\pause
 			& = & 0.377 + 0.107 + 0.403 \pause = 0.887
 		\end{array}
@@ -497,13 +456,13 @@
 		\end{tabular}
 	\end{block}
 	\pause
-	\begin{block}{Example: $P(\EM{Sex}\!=\!\EM{female})$}
-		The other variable is $\EM{Smoker}$, so: \\[.5em]
+	\begin{block}{Example: $P(\textit{Sex}\!=\!\textit{female})$}
+		The other variable is $\textit{Smoker}$, so: \\[.5em]
 		$
 		\begin{array}{lll}
-			\lefteqn{P(\EM{Sex}\!=\!\EM{female})} \\
-			\pause & = & P(\EM{Sex}\!=\!\EM{female},\EM{Smoker}\!=\!\EM{true}) + \mbox{}\\
-			       &   & P(\EM{Sex}\!=\!\EM{female},\EM{Smoker}\!=\!\EM{false})\\
+			\lefteqn{P(\textit{Sex}\!=\!\textit{female})} \\
+			\pause & = & P(\textit{Sex}\!=\!\textit{female},\textit{Smoker}\!=\!\textit{true}) + \mbox{}\\
+			       &   & P(\textit{Sex}\!=\!\textit{female},\textit{Smoker}\!=\!\textit{false})\\
 			\pause & = & 0.107 + 0.403 \pause = 0.51
 		\end{array}
 		$
@@ -514,24 +473,24 @@
 		\small
 		$
 		\begin{array}{@{}l@{\hspace{.5em}}l@{\hspace{.5em}}l@{\hspace{.5em}}l@{}}
-			\EM{sunny}  & \EM{warm} & \EM{snow}      & 0.01 \\
-			\EM{sunny}  & \EM{warm} & \lnot\EM{snow} & 0.59 \\
-			\EM{sunny}  & \EM{cold} & \EM{snow}      & 0.08 \\
-			\EM{sunny}  & \EM{cold} & \lnot\EM{snow} & 0.14 \\
-			\EM{cloudy} & \EM{warm} & \EM{snow}      & 0.03 \\
-			\EM{cloudy} & \EM{warm} & \lnot\EM{snow} & 0.07 \\
-			\EM{cloudy} & \EM{cold} & \EM{snow}      & 0.06 \\
-			\EM{cloudy} & \EM{cold} & \lnot\EM{snow} & 0.02
+			\textit{sunny}  & \textit{warm} & \textit{snow}      & 0.01 \\
+			\textit{sunny}  & \textit{warm} & \lnot\textit{snow} & 0.59 \\
+			\textit{sunny}  & \textit{cold} & \textit{snow}      & 0.08 \\
+			\textit{sunny}  & \textit{cold} & \lnot\textit{snow} & 0.14 \\
+			\textit{cloudy} & \textit{warm} & \textit{snow}      & 0.03 \\
+			\textit{cloudy} & \textit{warm} & \lnot\textit{snow} & 0.07 \\
+			\textit{cloudy} & \textit{cold} & \textit{snow}      & 0.06 \\
+			\textit{cloudy} & \textit{cold} & \lnot\textit{snow} & 0.02
 		\end{array}
 		$
 		&
 		\begin{enumerate}
-			\item\small $P(\EM{sunny}) = \uncover<2>{0.82}$
-			\item\small $P(\EM{warm}) = \uncover<2>{0.70}$
-			\item\small $P(\EM{snow}) = \uncover<2>{0.18}$
-			\item\small $P(\EM{sunny} \lor \lnot\EM{snow}) = \uncover<2>{0.91}$
-			\item\small $P(\EM{sunny}|\EM{snow}) = \uncover<2>{0.50}$
-			\item\small $P(\EM{snow}|\EM{sunny},\EM{cold}) = \uncover<2>{0.36}$
+			\item\small $P(\textit{sunny}) = \uncover<2>{0.82}$
+			\item\small $P(\textit{warm}) = \uncover<2>{0.70}$
+			\item\small $P(\textit{snow}) = \uncover<2>{0.18}$
+			\item\small $P(\textit{sunny} \lor \lnot\textit{snow}) = \uncover<2>{0.91}$
+			\item\small $P(\textit{sunny}|\textit{snow}) = \uncover<2>{0.50}$
+			\item\small $P(\textit{snow}|\textit{sunny},\textit{cold}) = \uncover<2>{0.36}$
 		\end{enumerate}
 	\end{tabular}
 \end{frame}
@@ -539,9 +498,9 @@
 	\begin{block}{Properties}
 		Given $n$ random variables with maximum domain size $d$: \\[1em]
 		\begin{tabular}{ll}
-			\key{Time Complexity?}  & \pause $O(d^{n})$ \\
+			\keyword{Time Complexity?}  & \pause $O(d^{n})$ \\
 			\pause
-			\key{Space Complexity?} & \pause $O(d^{n})$
+			\keyword{Space Complexity?} & \pause $O(d^{n})$
 		\end{tabular}
 	\end{block}
 	\pause
@@ -569,11 +528,11 @@
 		$
 		\begin{array}{lll}
 			\pause
-			P(\EM{EyeColor},\EM{Gender}) & = & P(\EM{EyeColor})P(\EM{Gender}) \\
+			P(\textit{EyeColor},\textit{Gender}) & = & P(\textit{EyeColor})P(\textit{Gender}) \\
 			\pause
-			P(\EM{Cavity},\EM{BroncosWon}) & = & P(\EM{Cavity})P(\EM{BroncosWon}) \\
+			P(\textit{Cavity},\textit{BroncosWon}) & = & P(\textit{Cavity})P(\textit{BroncosWon}) \\
 			\pause
-			P(\EM{DieRoll}_{1},\EM{DieRoll}_{2}) & = & P(\EM{DieRoll}_{1})P(\EM{DieRoll}_{2}) \\
+			P(\textit{DieRoll}_{1},\textit{DieRoll}_{2}) & = & P(\textit{DieRoll}_{1})P(\textit{DieRoll}_{2}) \\
 		\end{array}
 		$
 	\end{block}
@@ -589,17 +548,17 @@
 	\begin{block}{Examples}
 		$
 		\begin{array}{ll}
-		\mbox{\key{Distribution for}}              & \mbox{\key{Table Size}} \\
-		\pause\mathbf{P}(\EM{DieRoll}_{1},
-		                 \EM{DieRoll}_{2})         & \pause 6 \cdot 6 = 36 \\
-		\pause\mathbf{P}(\EM{DieRoll}_{1})
-		      \mathbf{P}(\EM{DieRoll}_{2})         & \pause 6 + 6 = 12 \\[.5em]
+		\mbox{\keyword{Distribution for}}              & \mbox{\keyword{Table Size}} \\
+		\pause\mathbf{P}(\textit{DieRoll}_{1},
+		                 \textit{DieRoll}_{2})         & \pause 6 \cdot 6 = 36 \\
+		\pause\mathbf{P}(\textit{DieRoll}_{1})
+		      \mathbf{P}(\textit{DieRoll}_{2})         & \pause 6 + 6 = 12 \\[.5em]
 		\pause
-		\mbox{\key{Distribution for}}              & \mbox{\key{Table Size}} \\
-		\pause\mathbf{P}(\EM{Age}, \EM{Sex},
-		                 \EM{BroncosWon})          & \pause 125 \cdot 2 \cdot 2 = 500 \\
-		\pause\mathbf{P}(\EM{Age}, \EM{Sex})
-		      \mathbf{P}(\EM{BroncosWon})          & \pause 125 \cdot 2 + 2 = 252 \\
+		\mbox{\keyword{Distribution for}}              & \mbox{\keyword{Table Size}} \\
+		\pause\mathbf{P}(\textit{Age}, \textit{Sex},
+		                 \textit{BroncosWon})          & \pause 125 \cdot 2 \cdot 2 = 500 \\
+		\pause\mathbf{P}(\textit{Age}, \textit{Sex})
+		      \mathbf{P}(\textit{BroncosWon})          & \pause 125 \cdot 2 + 2 = 252 \\
 		\end{array}
 		$
 	\end{block}
@@ -616,16 +575,16 @@
 	\end{block}
 \end{frame}
 \begin{frame}{Conditional Independence Example}
-	\begin{block}{Is $\EM{GrayHair}$ indpendent of $\EM{Bifocals}$?}
+	\begin{block}{Is $\textit{GrayHair}$ indpendent of $\textit{Bifocals}$?}
 		\pause
 		No, we expect the two to often come together, e.g.: \\[.5em]
-		$P(\EM{gray-hair}, \EM{bifocals}) > P(\EM{gray-hair})P(\EM{bifocals})$
+		$P(\textit{gray-hair}, \textit{bifocals}) > P(\textit{gray-hair})P(\textit{bifocals})$
 	\end{block}
 	\pause
-	\begin{block}{Is $\EM{GreyHair}$ independent of $\EM{Bifocals}$ given $\EM{Age}$?}
+	\begin{block}{Is $\textit{GreyHair}$ independent of $\textit{Bifocals}$ given $\textit{Age}$?}
 		\pause
 		Yes, the bifocals add nothing if we know the age, e.g.: \\[.5em]
-		$P(\EM{gray-hair}|\EM{bifocals},\EM{Age}=x) = P(\EM{gray-hair}|\EM{Age}=x)$
+		$P(\textit{gray-hair}|\textit{bifocals},\textit{Age}=x) = P(\textit{gray-hair}|\textit{Age}=x)$
 	\end{block}
 \end{frame}
 \begin{frame}{Conditional Independence Example}
@@ -674,30 +633,30 @@
 	\begin{block}{Making Diagnoses Based on Causal Knowledge}
 		$
 		\displaystyle
-		P(\EM{Cause}|\EM{Effect}) =
-			\frac{\displaystyle P(\EM{Effect}|\EM{Cause})P(\EM{Cause})}
-			     {\displaystyle P(\EM{Effect})}
+		P(\textit{Cause}|\textit{Effect}) =
+			\frac{\displaystyle P(\textit{Effect}|\textit{Cause})P(\textit{Cause})}
+			     {\displaystyle P(\textit{Effect})}
 		$
 	\end{block}
 	\pause
 	\begin{block}{Example}
 		\small
-		$P(\EM{meningitis}|\EM{stiff{\scriptsize -}neck}) = 
-			\frac{\displaystyle P(\EM{stiff{\scriptsize -}neck}|\EM{meningitis})
-			                    P(\EM{meningitis})}
-		       {\displaystyle P(\EM{stiff{\scriptsize -}neck})}
+		$P(\textit{meningitis}|\textit{stiff{\scriptsize -}neck}) = 
+			\frac{\displaystyle P(\textit{stiff{\scriptsize -}neck}|\textit{meningitis})
+			                    P(\textit{meningitis})}
+		       {\displaystyle P(\textit{stiff{\scriptsize -}neck})}
 		$
 		\\[1em]
 		\pause
-		In an epidemic, where $P(\EM{meningitis})$ rises: \\[.5em]
+		In an epidemic, where $P(\textit{meningitis})$ rises: \\[.5em]
 		\begin{tabular}{@{}l@{}l@{\hspace{.5em}}l@{}}
-			\pause \key{+}&\key{Bayes}
+			\pause \keyword{+}&\keyword{Bayes}
 			&
-			\pause $P(\EM{meningitis}|\EM{stiff-neck})$ rises proportionally
+			\pause $P(\textit{meningitis}|\textit{stiff-neck})$ rises proportionally
 			\\
-			\pause \key{-}&\key{Bayes}
+			\pause \keyword{-}&\keyword{Bayes}
 			&
-			\pause Collect data, re-estimate $P(\EM{meningitis}|\EM{stiff-neck})$
+			\pause Collect data, re-estimate $P(\textit{meningitis}|\textit{stiff-neck})$
 		\end{tabular}
 	\end{block}
 \end{frame}
@@ -727,14 +686,14 @@
 	\begin{block}{Deriving More Manageable Models}
 		$
 		\begin{array}{lll}
-		\lefteqn{P(\EM{Cavity}|\EM{toothache}, \EM{catch})} \\
+		\lefteqn{P(\textit{Cavity}|\textit{toothache}, \textit{catch})} \\
 		\pause
-		& = & \alpha\displaystyle P(\EM{toothache}, \EM{catch}|\EM{Cavity})
-		                          P(\EM{Cavity}) \\
+		& = & \alpha\displaystyle P(\textit{toothache}, \textit{catch}|\textit{Cavity})
+		                          P(\textit{Cavity}) \\
 		\pause
-		& = & \alpha\displaystyle P(\EM{toothache}|\EM{Cavity})
-		                          P(\EM{catch}|\EM{Cavity})
-		                          P(\EM{Cavity}) \\
+		& = & \alpha\displaystyle P(\textit{toothache}|\textit{Cavity})
+		                          P(\textit{catch}|\textit{Cavity})
+		                          P(\textit{Cavity}) \\
 		\end{array}
 		$
 	\end{block}
@@ -742,8 +701,8 @@
 	\begin{block}{Naive Bayes Models}
 		\small
 		$
-		P(\EM{Cause},\EM{Effect}_{1},\ldots,\EM{Effect}_{n})
-		 = P(\EM{Cause})\prod_{i}{P(\EM{Effect}_{i}|\EM{Cause})}
+		P(\textit{Cause},\textit{Effect}_{1},\ldots,\textit{Effect}_{n})
+		 = P(\textit{Cause})\prod_{i}{P(\textit{Effect}_{i}|\textit{Cause})}
 		$
 		\normalsize
 		\begin{itemize}
@@ -892,10 +851,9 @@
 		\end{column}
 	\end{columns}
 	\medskip
-	\uncover<3->{$\mathbf{P}(b_{12}, b_{21}|\lnot p_{11}, \lnot p_{12}, \lnot p_{21}, P_{13}, P_{\EMSCR{fringe}}, P_{\EMSCR{other}}) = \mathbf{P}(b_{12}, b_{21}|\lnot p_{11}, \lnot p_{12}, \lnot p_{21}, P_{13}, P_{\EMSCR{fringe}})$}
+	\uncover<3->{$\mathbf{P}(b_{12}, b_{21}|\lnot p_{11}, \lnot p_{12}, \lnot p_{21}, P_{13}, P_{\textit{\scriptsize fringe}}, P_{\textit{\scriptsize other}}) = \mathbf{P}(b_{12}, b_{21}|\lnot p_{11}, \lnot p_{12}, \lnot p_{21}, P_{13}, P_{\textit{\scriptsize fringe}})$}
 \end{frame}
 \begin{frame}{Wumpus World Equation Manipulation}
-	\begin{adjustwidth}{-1em}{-2em}
 	\footnotesize
 	$
 	\begin{array}{lll}
@@ -912,104 +870,103 @@
 	\pause
 	& = & \alpha
 	      P(p_{13},
-	        p_{\EM{\tiny known}},
+	        p_{\textit{\tiny known}},
 	        b_{12}, b_{21})
 	\\
 	\pause
 	& = & \alpha
-	      \sum\limits_{\EM{\tiny fringe} + \EM{\tiny other}}
+	      \sum\limits_{\textit{\tiny fringe} + \textit{\tiny other}}
 	      P(p_{13},
-	        p_{\EM{\tiny known}},
-	        p_{\EM{\tiny fringe} + \EM{\tiny other}},
+	        p_{\textit{\tiny known}},
+	        p_{\textit{\tiny fringe} + \textit{\tiny other}},
 	        b_{12}, b_{21})
 	\\
 	\pause
 	& = & \alpha
-	      \sum\limits_{\EM{\tiny fringe}}
-	      \sum\limits_{\EM{\tiny other}}
+	      \sum\limits_{\textit{\tiny fringe}}
+	      \sum\limits_{\textit{\tiny other}}
 	      P(p_{13},
-	        p_{\EM{\tiny known}},
-	        p_{\EM{\tiny fringe}},
-	        p_{\EM{\tiny other}},
+	        p_{\textit{\tiny known}},
+	        p_{\textit{\tiny fringe}},
+	        p_{\textit{\tiny other}},
 	        b_{12}, b_{21})
 	\\
 	\pause
 	& = & \alpha
-	      \sum\limits_{\EM{\tiny fringe}}
-	      \sum\limits_{\EM{\tiny other}}
+	      \sum\limits_{\textit{\tiny fringe}}
+	      \sum\limits_{\textit{\tiny other}}
 	      P(b_{12}, b_{21}|
 	        p_{13},
-	        p_{\EM{\tiny known}},
-	        p_{\EM{\tiny fringe}},
-	        p_{\EM{\tiny other}})
+	        p_{\textit{\tiny known}},
+	        p_{\textit{\tiny fringe}},
+	        p_{\textit{\tiny other}})
 	      P(p_{13},
-	        p_{\EM{\tiny known}},
-	        p_{\EM{\tiny fringe}},
-	        p_{\EM{\tiny other}})
+	        p_{\textit{\tiny known}},
+	        p_{\textit{\tiny fringe}},
+	        p_{\textit{\tiny other}})
 	\\
 	\pause
 	& = & \alpha
-	      \sum\limits_{\EM{\tiny fringe}}
-	      \sum\limits_{\EM{\tiny other}}
+	      \sum\limits_{\textit{\tiny fringe}}
+	      \sum\limits_{\textit{\tiny other}}
 	      P(b_{12}, b_{21}|
 	        p_{13},
-	        p_{\EM{\tiny known}},
-	        p_{\EM{\tiny fringe}})
+	        p_{\textit{\tiny known}},
+	        p_{\textit{\tiny fringe}})
 	      P(p_{13},
-	        p_{\EM{\tiny known}},
-	        p_{\EM{\tiny fringe}},
-	        p_{\EM{\tiny other}})
+	        p_{\textit{\tiny known}},
+	        p_{\textit{\tiny fringe}},
+	        p_{\textit{\tiny other}})
 	\\
 	\pause
 	& = & \alpha
-	      \sum\limits_{\EM{\tiny fringe}}
-	      \sum\limits_{\EM{\tiny other}}
+	      \sum\limits_{\textit{\tiny fringe}}
+	      \sum\limits_{\textit{\tiny other}}
 	      P(b_{12}, b_{21}|
 	        p_{13},
-	        p_{\EM{\tiny known}},
-	        p_{\EM{\tiny fringe}})
+	        p_{\textit{\tiny known}},
+	        p_{\textit{\tiny fringe}})
 	      P(p_{13})
-	      P(p_{\EM{\tiny known}})
-	      P(p_{\EM{\tiny fringe}})
-	      P(p_{\EM{\tiny other}})
+	      P(p_{\textit{\tiny known}})
+	      P(p_{\textit{\tiny fringe}})
+	      P(p_{\textit{\tiny other}})
 	\\
 	\pause
 	& = & \alpha
-	      \sum\limits_{\EM{\tiny fringe}}
+	      \sum\limits_{\textit{\tiny fringe}}
 	      P(b_{12}, b_{21}|
 	        p_{13},
-	        p_{\EM{\tiny known}},
-	        p_{\EM{\tiny fringe}})
+	        p_{\textit{\tiny known}},
+	        p_{\textit{\tiny fringe}})
 	      P(p_{13})
-	      P(p_{\EM{\tiny known}})
-	      P(p_{\EM{\tiny fringe}})
-	      \sum\limits_{\EM{\tiny other}}
-	      P(p_{\EM{\tiny other}})
+	      P(p_{\textit{\tiny known}})
+	      P(p_{\textit{\tiny fringe}})
+	      \sum\limits_{\textit{\tiny other}}
+	      P(p_{\textit{\tiny other}})
 	\\
 	\pause
 	& = & \alpha
-	      \sum\limits_{\EM{\tiny fringe}}
+	      \sum\limits_{\textit{\tiny fringe}}
 	      P(b_{12}, b_{21}|
 	        p_{13},
-	        p_{\EM{\tiny known}},
-	        p_{\EM{\tiny fringe}})
+	        p_{\textit{\tiny known}},
+	        p_{\textit{\tiny fringe}})
 	      P(p_{13})
-	      P(p_{\EM{\tiny known}})
-	      P(p_{\EM{\tiny fringe}})
+	      P(p_{\textit{\tiny known}})
+	      P(p_{\textit{\tiny fringe}})
 	\\
 	\pause
 	& = & \alpha
 	      P(p_{13})
-	      P(p_{\EM{\tiny known}})
-	      \sum\limits_{\EM{\tiny fringe}}
+	      P(p_{\textit{\tiny known}})
+	      \sum\limits_{\textit{\tiny fringe}}
 	      P(b_{12}, b_{21}|
 	        p_{13},
-	        p_{\EM{\tiny known}},
-	        p_{\EM{\tiny fringe}})
-	      P(p_{\EM{\tiny fringe}})
+	        p_{\textit{\tiny known}},
+	        p_{\textit{\tiny fringe}})
+	      P(p_{\textit{\tiny fringe}})
 	\end{array}
 	$
-	\end{adjustwidth}
 \end{frame}
 \begin{frame}{Wumpus World Probability Calculation}
 	\begin{block}{Goal: Calculate the Summation}
@@ -1306,7 +1263,7 @@
 \end{frame}
 \begin{frame}{Key Ideas}
 	\begin{block}{Probability Measures Belief}
-		$P(\EM{false}) = 0$ \tab $P(\EM{true}) = 1$ \tab\tab\tab $\sum\limits_{x}P(X\!=\!x) = 1$
+		$P(\textit{false}) = 0$ \tab $P(\textit{true}) = 1$ \tab\tab\tab $\sum\limits_{x}P(X\!=\!x) = 1$
 	\end{block}
 	\begin{block}{Types of probabilities}
 		\begin{itemize}

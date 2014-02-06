@@ -119,34 +119,37 @@ e.g. $P(\textit{Temp} = \textit{warm}) = 0.7$
 		Better for describing indefinite classes than for reasoning
 	\end{block}
 \end{frame}
-\begin{frame}{Probability Rules}
-	\begin{block}{Range of Probabilities}
-		$0 \leq P(a) \leq 1$
-	\end{block}
-	\pause
-	\begin{block}{Propositions Known to be True or False}
-		$
-		\begin{array}{lll}
-			P(\textit{true})  & = & 1 \\
-			P(\textit{false}) & = & 0 \\
-		\end{array}
-		$
-	\end{block}
-	\pause
-	\begin{block}{Probability of Disjunctions}
-		\begin{tabular}{lc}
-			$
-			\begin{array}{lc}
-				\lefteqn{P(a \lor b) = \mbox{}} \\[.5em]
-				& P(a) + P(b) - P(a \land b)
-			\end{array}
-			$
-			&
-			\pause
-			\parbox{1.25in}{\includegraphics[width=1.25in]{venn}}
-		\end{tabular}
-	\end{block}
+
+\begin{frame}[label=probability-rules]{Probability Rules}
+\begin{block}{Range of Probabilities}
+$0 \leq P(a) \leq 1$
+\end{block}
+\begin{block}{Propositions Known to be True or False}<2->
+$
+\begin{array}{@{} l l l @{} }
+P(\textit{true})  & = & 1 \\
+P(\textit{false}) & = & 0 \\
+\end{array}
+$
+\end{block}
+\begin{block}{Probability of Disjunctions}<3->
+\begin{tabular}{@{} l @{} l @{} }
+$P(a \lor b) = P(a) + P(b) - P(a \land b)$
+&
+\uncover<4->{
+\small
+\raisebox{-.5\height}{
+\begin{tikzpicture}
+\draw[red,fill=red,opacity=0.5] (0.4,0) circle [radius=1.25];
+\draw[blue,fill=blue,opacity=0.5] (1.6,0) circle [radius=1.25];
+\node at (-0.2,0) {$a$};
+\node at (1,0) {$a \land b$};
+\node at (2.2,0) {$b$};
+\end{tikzpicture}}}
+\end{tabular}
+\end{block}
 \end{frame}
+
 \begin{frame}{Random Variables}
 	\begin{block}{Boolean Random Variables}
 		Have the domain $\langle \textit{true}, \textit{false} \rangle$, e.g.

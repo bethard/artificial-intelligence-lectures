@@ -540,57 +540,50 @@ How do you fill in a table of $O(d^{n})$ probabilities?
 
 
 \begin{frame}{Independence}
-	\begin{block}{Key Ideas}
-		\begin{itemize}
-			\item Sometimes no connection exists between variables
-			\pause
-			\item Such independence determined by world knowledge
-		\end{itemize}
-	\end{block}
-	\pause
-	\begin{block}{Formal Independence}
-		$P(a, b) = P(a)P(b)$ \tab or \tab $P(a|b) = P(a)$
-	\end{block}
-	\pause
-	\begin{block}{Examples}
-		$
-		\begin{array}{lll}
-			\pause
-			P(\textit{EyeColor},\textit{Gender}) & = & P(\textit{EyeColor})P(\textit{Gender}) \\
-			\pause
-			P(\textit{Cavity},\textit{BroncosWon}) & = & P(\textit{Cavity})P(\textit{BroncosWon}) \\
-			\pause
-			P(\textit{DieRoll}_{1},\textit{DieRoll}_{2}) & = & P(\textit{DieRoll}_{1})P(\textit{DieRoll}_{2}) \\
-		\end{array}
-		$
-	\end{block}
+\begin{block}{Key Ideas}
+\begin{itemize}
+\item Sometimes no connection exists between variables
+\item Such independence determined by world knowledge
+\end{itemize}
+\end{block}
+\pause
+\begin{block}{Formal Independence}
+$P(a, b) = P(a)P(b)$ \tab or \tab $P(a|b) = P(a)$
+\end{block}
+\pause
+\begin{block}{Examples}
+$
+\begin{array}{lll}
+P(\textit{EyeColor},\textit{Gender}) & = & P(\textit{EyeColor})P(\textit{Gender}) \\
+P(\textit{Cavity},\textit{BlazersWon}) & = & P(\textit{Cavity})P(\textit{BlazersWon}) \\
+P(\textit{DieRoll}_{1},\textit{DieRoll}_{2}) & = & P(\textit{DieRoll}_{1})P(\textit{DieRoll}_{2}) \\
+\end{array}
+$
+\end{block}
 \end{frame}
+
 \begin{frame}{Independence}
-	\begin{block}{Using Independence}
-		\begin{itemize}
-			\item No need to store entire joint probability table
-			\item Can store several smaller independent tables
-		\end{itemize}
-	\end{block}
-	\pause
-	\begin{block}{Examples}
-		$
-		\begin{array}{ll}
-		\mbox{\keyword{Distribution for}}              & \mbox{\keyword{Table Size}} \\
-		\pause\mathbf{P}(\textit{DieRoll}_{1},
-		                 \textit{DieRoll}_{2})         & \pause 6 \cdot 6 = 36 \\
-		\pause\mathbf{P}(\textit{DieRoll}_{1})
-		      \mathbf{P}(\textit{DieRoll}_{2})         & \pause 6 + 6 = 12 \\[.5em]
-		\pause
-		\mbox{\keyword{Distribution for}}              & \mbox{\keyword{Table Size}} \\
-		\pause\mathbf{P}(\textit{Age}, \textit{Sex},
-		                 \textit{BroncosWon})          & \pause 125 \cdot 2 \cdot 2 = 500 \\
-		\pause\mathbf{P}(\textit{Age}, \textit{Sex})
-		      \mathbf{P}(\textit{BroncosWon})          & \pause 125 \cdot 2 + 2 = 252 \\
-		\end{array}
-		$
-	\end{block}
+\setbeamercovered{invisible}
+\begin{block}{Using Independence}
+\begin{itemize}
+\item No need to store entire joint probability table
+\item Can store several smaller independent tables
+\end{itemize}
+\end{block}
+\pause
+\begin{block}{Examples}
+$
+\begin{array}{ll}
+& \mbox{\textcolor{uabgreen}{Table Size}} \\
+\pause\mathbf{P}(\textit{DieRoll}_{1}, \textit{DieRoll}_{2}) & \pause 6 \cdot 6 = 36 \\
+\pause\mathbf{P}(\textit{DieRoll}_{1})\mathbf{P}(\textit{DieRoll}_{2}) & \pause 6 + 6 = 12 \\
+\pause\mathbf{P}(\textit{Age}, \textit{Sex}, \textit{BlazersWon}) & \pause 125 \cdot 2 \cdot 2 = 500 \\
+\pause\mathbf{P}(\textit{Age}, \textit{Sex})\mathbf{P}(\textit{BlazersWon}) & \pause 125 \cdot 2 + 2 = 252 \\
+\end{array}
+$
+\end{block}
 \end{frame}
+
 \begin{frame}{Conditional Independence}
 	\begin{block}{Key Idea}
 		Two variables can sometimes become independent after the value of a third variable is observed

@@ -633,25 +633,27 @@ $P(N_{C}=1|N_{B}=2,N_{A}=1) = P(N_{C}=1|N_{A}=1)$
 
 
 \subsection{Bayes' Rule}
+
+
 \begin{frame}{Bayes' Rule}
-	\begin{block}{Key Idea}
-		Swap the conditioned and conditioning variables
-	\end{block}
-	\begin{block}{Bayes' Rule}
-		\tab $\displaystyle P(b|a) = \frac{\displaystyle P(a|b)P(b)}{\displaystyle P(a)}$
-	\end{block}
-	\pause
-	\begin{block}{Derivation}
-		$
-		\begin{array}{llll}
-			P(b|a) & = & \pause\frac{\displaystyle P(a \land b)}
-			                        {\displaystyle P(a)}         & \mbox{Definition} \\[1em]
-			       & = & \pause\frac{\displaystyle P(a|b)P(b)}
-			                        {\displaystyle P(a)}         & \mbox{Product Rule}
-		\end{array}
-		$
-	\end{block}
+\begin{block}{Key Idea}
+Swap the conditioned and conditioning variables
+\end{block}
+\begin{block}{Bayes' Rule}
+\tab $P(b|a) = \dfrac{P(a|b)P(b)}{P(a)}$
+\end{block}
+\pause
+\begin{block}{Derivation}
+$
+\begin{array}{llll}
+P(b|a)
+& = & \dfrac{P(a \land b)} {P(a)} & \mbox{Definition} \\[1em]
+& = & \dfrac{P(a|b)P(b)} {P(a)} & \mbox{Product Rule}
+\end{array}
+$
+\end{block}
 \end{frame}
+
 \begin{frame}{Why Use Bayes' Rule?}
 	\begin{block}{Making Diagnoses Based on Causal Knowledge}
 		$

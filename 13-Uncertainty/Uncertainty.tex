@@ -426,36 +426,40 @@ e^{-\frac{(x - {\only<3->{\color{blue}}\mu})^{2}}{2{\only<3->{\color{red}}\sigma
 	\end{block}
 \end{frame}
 
+
 \subsection{Inference from Joint Distributions}
-\begin{frame}{Inference with Joint Probability Distributions}
-	\begin{block}{Key Idea}
-		Sum entries in joint distribution where proposition is true
-	\end{block}
-	\pause
-	\begin{block}{Example: $P(\textit{Sex}=\textit{female} \lor \textit{Smoker}=\textit{false})$}
-		\tab\tab
-		$
-		\begin{array}{lcc}
-			                           & \textit{Sex}=\textit{male} & \textit{Sex}=\textit{female} \\
-			\textit{Smoker}=\textit{true}  & 0.113                  & 0.107 \\
-			\textit{Smoker}=\textit{false} & 0.377                  & 0.403 \\
-		\end{array}
-		$
-		\\ \medskip
-		\pause
-		$
-		\begin{array}{lll}
-			\lefteqn{P(\textit{Sex}=\textit{female} \lor \textit{Smoker}=\textit{false})} \\
-			\pause
-			& = & P(\textit{Sex}=\textit{male},\textit{Smoker}=\textit{false}) + \mbox{}\\
-			&   & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{true}) + \mbox{}\\
-			&   & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{false})\\
-			\pause
-			& = & 0.377 + 0.107 + 0.403 \pause = 0.887
-		\end{array}
-		$
-	\end{block}
+
+
+\begin{frame}[label=inference-joint-distributions]{\large Inference with Joint Probability Distributions}
+\setbeamercovered{invisible}
+\begin{block}{Key Idea}
+Sum entries in joint distribution where proposition is true
+\end{block}
+\pause
+\begin{block}{Example: $P(\textit{Sex}=\textit{female} \lor \textit{Smoker}=\textit{false})$}
+$
+\begin{array}{lcc}
+& \textit{Sex}=\textit{male} & \textit{Sex}=\textit{female} \\
+\textit{Smoker}=\textit{true}  & 0.113                  & 0.107 \\
+\textit{Smoker}=\textit{false} & 0.377                  & 0.403 \\
+\end{array}
+$
+\\[0.5em]
+\pause
+$
+\begin{array}{lll}
+\lefteqn{P(\textit{Sex}=\textit{female} \lor \textit{Smoker}=\textit{false})} \\
+\pause
+& = & P(\textit{Sex}=\textit{male},\textit{Smoker}=\textit{false}) + \mbox{}\\
+&   & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{true}) + \mbox{}\\
+&   & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{false})\\
+\pause
+& = & 0.377 + 0.107 + 0.403 \pause = 0.887
+\end{array}
+$
+\end{block}
 \end{frame}
+
 \begin{frame}{Marginalization}
 	\begin{block}{Key Idea}
 		\begin{tabular}{lm{2.5in}}

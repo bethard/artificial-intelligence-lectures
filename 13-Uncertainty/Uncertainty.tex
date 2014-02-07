@@ -461,55 +461,60 @@ $
 \end{frame}
 
 \begin{frame}{Marginalization}
-	\begin{block}{Key Idea}
-		\begin{tabular}{lm{2.5in}}
-			$
-			\mathbf{P}(\mathbf{Y})
-				= \sum\limits_{\mathbf{z}}{\mathbf{P}(\mathbf{Y}, \mathbf{z})}
-			$
-			&
-			\alert{Marginalization} removes all variables but $\mathbf{Y}$ by summing over the values of the other variables
-		\end{tabular}
-	\end{block}
-	\pause
-	\begin{block}{Example: $P(\textit{Sex}=\textit{female})$}
-		The other variable is $\textit{Smoker}$, so: \\[.5em]
-		$
-		\begin{array}{lll}
-			\lefteqn{P(\textit{Sex}=\textit{female})} \\
-			\pause & = & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{true}) + \mbox{}\\
-			       &   & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{false})\\
-			\pause & = & 0.107 + 0.403 \pause = 0.51
-		\end{array}
-		$
-	\end{block}
+\setbeamercovered{invisible}
+\begin{block}{Key Idea}
+\begin{tabular}{lm{2.5in}}
+$
+\mathbf{P}(\mathbf{Y})
+= \sum\limits_{\mathbf{z}}{\mathbf{P}(\mathbf{Y}, \mathbf{z})}
+$
+&
+\alert{Marginalization} removes all variables but $\mathbf{Y}$ by summing over the values of the other variables
+\end{tabular}
+\end{block}
+\pause
+\begin{block}{Example: $P(\textit{Sex}=\textit{female})$}
+The other variable is $\textit{Smoker}$, so: \\[.5em]
+$
+\begin{array}{lll}
+\lefteqn{P(\textit{Sex}=\textit{female})} \\
+\pause & = & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{true}) + \mbox{}\\
+&   & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{false})\\
+\pause & = & 0.107 + 0.403 \pause = 0.51
+\end{array}
+$
+\end{block}
 \end{frame}
-\begin{frame}{Inference Exercises}
-	\begin{tabular}{@{}lm{2.2in}@{}}
-		\small
-		$
-		\begin{array}{@{}l@{\hspace{.5em}}l@{\hspace{.5em}}l@{\hspace{.5em}}l@{}}
-			\textit{sunny}  & \textit{warm} & \textit{snow}      & 0.01 \\
-			\textit{sunny}  & \textit{warm} & \lnot\textit{snow} & 0.59 \\
-			\textit{sunny}  & \textit{cold} & \textit{snow}      & 0.08 \\
-			\textit{sunny}  & \textit{cold} & \lnot\textit{snow} & 0.14 \\
-			\textit{cloudy} & \textit{warm} & \textit{snow}      & 0.03 \\
-			\textit{cloudy} & \textit{warm} & \lnot\textit{snow} & 0.07 \\
-			\textit{cloudy} & \textit{cold} & \textit{snow}      & 0.06 \\
-			\textit{cloudy} & \textit{cold} & \lnot\textit{snow} & 0.02
-		\end{array}
-		$
-		&
-		\begin{enumerate}
-			\item\small $P(\textit{sunny}) = \uncover<2>{0.82}$
-			\item\small $P(\textit{warm}) = \uncover<2>{0.70}$
-			\item\small $P(\textit{snow}) = \uncover<2>{0.18}$
-			\item\small $P(\textit{sunny} \lor \lnot\textit{snow}) = \uncover<2>{0.91}$
-			\item\small $P(\textit{sunny}|\textit{snow}) = \uncover<2>{0.50}$
-			\item\small $P(\textit{snow}|\textit{sunny},\textit{cold}) = \uncover<2>{0.36}$
-		\end{enumerate}
-	\end{tabular}
+
+\begin{frame}[label=inference-exercises]{Inference Exercises}
+\setbeamercovered{invisible}
+\begin{tabular}{ @{} l m{0.5\textwidth}@{} }
+\small
+\arraycolsep=0.5em
+$
+\begin{array}{ @{} l l l l@{} }
+\textit{sunny}  & \textit{warm} & \textit{snow} & 0.01 \\
+\textit{sunny}  & \textit{warm} & \lnot\textit{snow} & 0.59 \\
+\textit{sunny}  & \textit{cold} & \textit{snow} & 0.08 \\
+\textit{sunny}  & \textit{cold} & \lnot\textit{snow} & 0.14 \\
+\textit{cloudy} & \textit{warm} & \textit{snow} & 0.03 \\
+\textit{cloudy} & \textit{warm} & \lnot\textit{snow} & 0.07 \\
+\textit{cloudy} & \textit{cold} & \textit{snow} & 0.06 \\
+\textit{cloudy} & \textit{cold} & \lnot\textit{snow} & 0.02
+\end{array}
+$
+&
+\begin{enumerate}
+\item\small $P(\textit{sunny}) = \uncover<2>{0.82}$
+\item\small $P(\textit{warm}) = \uncover<2>{0.70}$
+\item\small $P(\textit{snow}) = \uncover<2>{0.18}$
+\item\small $P(\textit{sunny} \lor \lnot\textit{snow}) = \uncover<2>{0.91}$
+\item\small $P(\textit{sunny}|\textit{snow}) = \uncover<2>{0.50}$
+\item\small $P(\textit{snow}|\textit{sunny},\textit{cold}) = \uncover<2>{0.36}$
+\end{enumerate}
+\end{tabular}
 \end{frame}
+
 \begin{frame}{Full Joint Distribution Inference}
 	\begin{block}{Properties}
 		Given $n$ random variables with maximum domain size $d$: \\[1em]

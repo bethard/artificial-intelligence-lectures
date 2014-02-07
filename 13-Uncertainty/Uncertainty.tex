@@ -245,26 +245,27 @@ $
 \end{frame}
 
 \begin{frame}{Prior, Joint or Conditional?}
-	\begin{enumerate}
-		\item Probability of a having a cavity? \\
-			\pause \tab Prior, $P(\textit{Cavity}=\textit{true})$
-		\pause
-		\item Probability of it being warm and cloudy? \\
-			\pause \tab Joint, $P(\textit{Temp}=\textit{warm}, \textit{Sky}=\textit{cloudy})$
-		\pause
-		\item Probability of car being stolen? \\
-			\pause \tab Prior, $P(\textit{CarStolen}=\textit{true})$
-		\pause
-		\item Probability of car being stolen and being in Boulder? \\
-			\pause \tab Joint, $P(\textit{CarStolen}=\textit{true}, \textit{InBoulder}=\textit{true})$
-		\pause
-		\item The car is in Boulder. Probability of car being stolen? \\
-			\pause \tab Conditional, $P(\textit{CarStolen}=\textit{true}|\textit{InBoulder}=\textit{true})$
-		\pause
-		\item It's cloudy. Probability of it being warm? \\
-			\pause \tab Conditional, $P(\textit{Temp}=\textit{warm}| \textit{Sky}=\textit{cloudy})$
-	\end{enumerate}
+\begin{enumerate}
+\item Probability of a having a cavity? \\
+\pause Prior, $P(\textit{Cavity}=\textit{true})$
+\pause
+\item Probability of it being warm and cloudy? \\
+\pause Joint, $P(\textit{Temp}=\textit{warm}, \textit{Sky}=\textit{cloudy})$
+\pause
+\item Probability of car being stolen? \\
+\pause Prior, $P(\textit{CarStolen}=\textit{true})$
+\pause
+\item Probability of car being stolen and being in Boulder? \\
+\pause Joint, $P(\textit{CarStolen}=\textit{true}, \textit{InBoulder}=\textit{true})$
+\pause
+\item The car is in Boulder. Probability of car being stolen? \\
+\pause Conditional, $P(\textit{CarStolen}=\textit{true}|\textit{InBoulder}=\textit{true})$
+\pause
+\item It's cloudy. Probability of it being warm? \\
+\pause Conditional, $P(\textit{Temp}=\textit{warm}| \textit{Sky}=\textit{cloudy})$
+\end{enumerate}
 \end{frame}
+
 \begin{frame}{Relation between Joint and Conditional}
 	\begin{block}{Product Rule}
 		$P(a \land b) = P(a|b)P(b)$ \hfill or \hfill $P(a|b) = P(a \land b)/P(b)$

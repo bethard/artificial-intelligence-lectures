@@ -40,6 +40,10 @@
 	\end{tabular}
 }
 
+\pgfmathdeclarefunction{gauss}{2}{%
+  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((\x-#1)^2)/(2*#2^2))}%
+}
+
 \begin{document}
 
 \begin{frame}
@@ -374,22 +378,32 @@ $
 \end{block}
 \end{frame}
 
-\begin{frame}{Continuous Variable Probability Distributions}
-	\begin{block}{Definition}
-		A \alert{probability density function} is a probability distribution over a continuous variable
-	\end{block}
-	\begin{block}{Key Idea}
-		Function assigns a probability to all possible values
-	\end{block}
-	\pause
-	\begin{block}{Example}
-		\begin{tabular}{lr}
-			\large $P(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x - \mu)^{2}}{2\sigma^{2}}}$ 
-			&
-			\parbox{2in}{\includegraphics[height=1in]{gaussian-density}}
-		\end{tabular}
-	\end{block}
+\begin{frame}[label=continuous-distributions]{\large Continuous Variable Probability Distributions}
+\begin{block}{Definition}
+A \alert{probability density function} is a probability distribution over a continuous variable
+\end{block}
+\begin{block}{Key Idea}
+Function assigns a probability to all possible values
+\end{block}
+\begin{block}{Example}<2->
+\begin{tabular}{ l @{\hspace{2em}} r }
+\large $P(x) =
+\frac{1}{{\only<3->{\color{red}}\sigma}\sqrt{2\pi}}
+e^{-\frac{(x - {\only<3->{\color{blue}}\mu})^{2}}{2{\only<3->{\color{red}}\sigma}^{2}}}$ 
+&
+\uncover<3->{\raisebox{-.5\height}{
+\begin{tikzpicture}[domain=0:3]
+\draw[->] (0,0) -- (0,1) node[above] {$P(x)$};
+\draw[->] (0,0) -- (3,0) node[right] {$x$};
+\draw[blue] (1.5,1.1) -- (1.5,-0.1) node[below] {$\mu$};
+\draw[red] (1,1.1) -- (1,-0.1) node[below] {$\sigma$};
+\draw[red] (2,1.1) -- (2,-0.1) node[below] {$\sigma$};
+\draw[smooth] plot (\x,{gauss(1.5,0.5)});
+\end{tikzpicture}}}
+\end{tabular}
+\end{block}
 \end{frame}
+
 \begin{frame}{Joint Probability Distributions}
 	\begin{block}{Definition}
 		\begin{tabular}{@{}lm{2.85in}@{}}

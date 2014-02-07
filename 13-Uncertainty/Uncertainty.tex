@@ -467,10 +467,9 @@ $
 \begin{frame}{Marginalization}
 \setbeamercovered{invisible}
 \begin{block}{Key Idea}
-\begin{tabular}{lm{2.5in}}
+\begin{tabular}{lm{0.6\textwidth}}
 $
-\mathbf{P}(\mathbf{Y})
-= \sum\limits_{\mathbf{z}}{\mathbf{P}(\mathbf{Y}, \mathbf{z})}
+\mathbf{P}(Y) = \sum\limits_{z}{\mathbf{P}(Y, z)}
 $
 &
 \alert{Marginalization} removes all variables but $\mathbf{Y}$ by summing over the values of the other variables
@@ -485,6 +484,30 @@ $
 \pause & = & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{true}) + \mbox{}\\
 &   & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{false})\\
 \pause & = & 0.107 + 0.403 \pause = 0.51
+\end{array}
+$
+\end{block}
+\end{frame}
+
+\begin{frame}{Normalization}
+\setbeamercovered{invisible}
+\begin{block}{Key Idea}
+$
+\mathbf{P}(Y|z) = \dfrac{\mathbf{P}(Y,z)}{P(z)} = \dfrac{\mathbf{P}(Y,z)}{\sum\limits_{y} P(y, z)} = \alpha\mathbf{P}(Y,z)
+$
+\end{block}
+\pause
+\begin{block}{Calculating a Normalizing Constant}
+$
+\begin{array}{lllll}
+P(\mbox{A}|\spadesuit)P(\spadesuit) & = & 1/13 \cdot 1/4 & =  & 1/52 \\
+P(\mbox{A}|\clubsuit)P(\clubsuit) & = & 1/13 \cdot 1/4 & =  & 1/52 \\
+P(\mbox{A}|\diamondsuit)P(\diamondsuit) & = & 1/13 \cdot 1/4 & =  & 1/52 \\
+P(\mbox{A}|\heartsuit)P(\heartsuit) & = & 1/13 \cdot 1/4 & =  & 1/52 \\[.5em]
+\pause
+Total & & & = & \pause 1/13 \\
+\pause
+\alert{\alpha} & & & = & \pause 13 \\
 \end{array}
 $
 \end{block}
@@ -677,28 +700,6 @@ In an epidemic, where $P(\textit{meningitis})$ rises:
 \end{block}
 \end{frame}
 
-\begin{frame}{Bayes' Rule and Normalization}
-	\begin{block}{Bayes' Rule}
-		$\displaystyle P(b|a) = \frac{\displaystyle P(a|b)P(b)}
-		                             {\displaystyle \alert<2->{P(a)}}$
-		\tab\tab \uncover<3->{$P(b|a) = \alert{\alpha} P(a|b)P(b)$}
-		\\[.5em]
-		\uncover<2->{Treat $P(a)$ as a constant for normalizing to $[0, 1]$}
-	\end{block}
-	\begin{block}<4->{Calculating a Normalizing Constant}
-		$
-		\begin{array}{lllll}
-		P(\mbox{A}|\spadesuit)P(\spadesuit)     & = & 1/13 \cdot 1/4 & =  & 1/52 \\
-		P(\mbox{A}|\clubsuit)P(\clubsuit)       & = & 1/13 \cdot 1/4 & =  & 1/52 \\
-		P(\mbox{A}|\diamondsuit)P(\diamondsuit) & = & 1/13 \cdot 1/4 & =  & 1/52 \\
-		P(\mbox{A}|\heartsuit)P(\heartsuit)     & = & 1/13 \cdot 1/4 & =  & 1/52 \\[.5em]
-		\uncover<5->{Total                      &   &                & =  & 1/13} \\
-		\pause
-		\uncover<6->{\alert{\alpha}             &   &                & =} & \uncover<7->{13} \\
-		\end{array}
-		$
-	\end{block}
-\end{frame}
 \begin{frame}{Bayes' Rule and Conditional Independence}
 	\begin{block}{Deriving More Manageable Models}
 		$

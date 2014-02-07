@@ -137,6 +137,21 @@ Actions:
 
 \begin{frame}[label=wumpus-world-example]{Exploring a Wumpus World}
 \begin{center}
+\begin{wumpusgrid}{4}{0.2\textheight}
+\wumpusagent{1-2}{0}{0}
+\wumpusknowledge{2-}{0}{0}{OK}
+\wumpusknowledge{2-}{1}{0}{OK}
+\wumpusknowledge{2-}{0}{1}{OK}
+\wumpusagent{3-}{0}{1}
+\wumpuspercept{3-}{0}{1}{B}
+\wumpusknowledge{4-}{0}{2}{P?}
+\wumpusknowledge{4-}{1}{1}{P?}
+\end{wumpusgrid}
+\end{center}
+\end{frame}
+
+\begin{frame}[label=wumpus-world-example-old]{Exploring a Wumpus World}
+\begin{center}
 \arrayrulewidth=2pt
 \begin{tabular}{@{} | @{} l @{} | @{} l @{} | @{} l @{} | @{} l @{} | @{} }
 \hline

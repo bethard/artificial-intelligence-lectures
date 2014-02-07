@@ -17,6 +17,8 @@ emphstyle={[2]\color{purple}},
 }
 \usepackage{tikz}
 \usepackage{forest}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
 \usepackage{array}
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -79,4 +81,24 @@ University of Alabama at Birmingham}
   visible on/.code={%
     \alt<#1>{}{\pgfkeysalso{invisible}}
   },
+}
+
+\newlength{\wumpusgridsize}
+
+\newenvironment{wumpusgrid}[2]{%
+\setlength{\wumpusgridsize}{#2}
+\begin{tikzpicture}
+\draw[very thick,step=\wumpusgridsize] (0,0) grid (#1\wumpusgridsize, #1\wumpusgridsize);
+}{%
+\end{tikzpicture}
+}
+
+\newcommand{\wumpusagent}[3]{%
+\only<#1>{\node at (#2\wumpusgridsize+0.5\wumpusgridsize,#3\wumpusgridsize+0.25\wumpusgridsize) {\fbox{A}};}
+}
+\newcommand{\wumpuspercept}[4]{%
+\only<#1>{\node[red,inner sep=0pt] at (#2\wumpusgridsize+0.25\wumpusgridsize,#3\wumpusgridsize+0.75\wumpusgridsize) {\textbf{#4}};}
+}
+\newcommand{\wumpusknowledge}[4]{%
+\only<#1>{\node[draw,cloud,inner sep=0pt] at (#2\wumpusgridsize+0.75\wumpusgridsize,#3\wumpusgridsize+0.75\wumpusgridsize) {\footnotesize #4};}
 }

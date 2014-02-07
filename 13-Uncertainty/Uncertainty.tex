@@ -655,36 +655,28 @@ $
 \end{frame}
 
 \begin{frame}{Why Use Bayes' Rule?}
-	\begin{block}{Making Diagnoses Based on Causal Knowledge}
-		$
-		\displaystyle
-		P(\textit{Cause}|\textit{Effect}) =
-			\frac{\displaystyle P(\textit{Effect}|\textit{Cause})P(\textit{Cause})}
-			     {\displaystyle P(\textit{Effect})}
-		$
-	\end{block}
-	\pause
-	\begin{block}{Example}
-		\small
-		$P(\textit{meningitis}|\textit{stiff{\scriptsize -}neck}) = 
-			\frac{\displaystyle P(\textit{stiff{\scriptsize -}neck}|\textit{meningitis})
-			                    P(\textit{meningitis})}
-		       {\displaystyle P(\textit{stiff{\scriptsize -}neck})}
-		$
-		\\[1em]
-		\pause
-		In an epidemic, where $P(\textit{meningitis})$ rises: \\[.5em]
-		\begin{tabular}{@{}l@{}l@{\hspace{.5em}}l@{}}
-			\pause \keyword{+}&\keyword{Bayes}
-			&
-			\pause $P(\textit{meningitis}|\textit{stiff-neck})$ rises proportionally
-			\\
-			\pause \keyword{-}&\keyword{Bayes}
-			&
-			\pause Collect data, re-estimate $P(\textit{meningitis}|\textit{stiff-neck})$
-		\end{tabular}
-	\end{block}
+\begin{block}{Making Diagnoses Based on Causal Knowledge}
+$
+P(\textit{Cause}|\textit{Effect}) =
+\dfrac{P(\textit{Effect}|\textit{Cause})P(\textit{Cause})}{P(\textit{Effect})}
+$
+\end{block}
+\pause
+\begin{block}{Example}
+{\small$
+P(\textit{meningitis}|\textit{stiff{\scriptsize -}neck}) = 
+\dfrac{P(\textit{stiff{\scriptsize -}neck}|\textit{meningitis})P(\textit{meningitis})}{P(\textit{stiff{\scriptsize -}neck})}
+$}
+\\[1em]
+\pause
+In an epidemic, where $P(\textit{meningitis})$ rises:
+\begin{description}[+Bayes]
+\item[+Bayes] $P(\textit{meningitis}|\textit{stiff-neck})$ rises proportionally
+\item[-Bayes] Collect data, re-estimate $P(\textit{meningitis}|\textit{stiff-neck})$
+\end{description}
+\end{block}
 \end{frame}
+
 \begin{frame}{Bayes' Rule and Normalization}
 	\begin{block}{Bayes' Rule}
 		$\displaystyle P(b|a) = \frac{\displaystyle P(a|b)P(b)}

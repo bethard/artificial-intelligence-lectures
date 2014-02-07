@@ -595,38 +595,40 @@ $
 		\tab$\mathbf{P}(X|Y,Z) = \mathbf{P}(X|Z)$
 	\end{block}
 \end{frame}
+
 \begin{frame}{Conditional Independence Example}
-	\begin{block}{Is $\textit{GrayHair}$ indpendent of $\textit{Bifocals}$?}
-		\pause
-		No, we expect the two to often come together, e.g.: \\[.5em]
-		$P(\textit{gray-hair}, \textit{bifocals}) > P(\textit{gray-hair})P(\textit{bifocals})$
-	\end{block}
-	\pause
-	\begin{block}{Is $\textit{GreyHair}$ independent of $\textit{Bifocals}$ given $\textit{Age}$?}
-		\pause
-		Yes, the bifocals add nothing if we know the age, e.g.: \\[.5em]
-		$P(\textit{gray-hair}|\textit{bifocals},\textit{Age}=x) = P(\textit{gray-hair}|\textit{Age}=x)$
-	\end{block}
+\begin{block}{Is $\textit{GrayHair}$ indpendent of $\textit{Bifocals}$?}
+\pause
+No, we expect the two to often come together, e.g.: \\[.5em]
+$P(\textit{gray-hair}, \textit{bifocals}) > P(\textit{gray-hair})P(\textit{bifocals})$
+\end{block}
+\pause
+\begin{block}{Is $\textit{GreyHair}$ independent of $\textit{Bifocals}$ given $\textit{Age}$?}
+\pause
+Yes, the bifocals add nothing if we know the age, e.g.: \\[.5em]
+$P(\textit{gray-hair}|\textit{bifocals},\textit{Age}\!=\!x) = P(\textit{gray-hair}|\textit{Age}\!=\!x)$
+\end{block}
 \end{frame}
+
 \begin{frame}{Conditional Independence Example}
-	\begin{block}{Noisy Phone}
-		\begin{itemize}
-			\item Adam calls Betty and Charlie and says a number $N_{A}$
-			\item Betty hears $N_{B}$ and Charlie hears $N_{C}$
-		\end{itemize}
-	\end{block}
-	\pause
-	\begin{block}{Are $N_{B}$ and $N_{C}$ independent?}
-		\pause
-		No, we expect the numbers to be similar, e.g.: \\[.5em]
-		$P(N_{B}=1, N_{C}=1) > P(N_{B}=1)P(N_{C}=1)$
-	\end{block}
-	\pause
-	\begin{block}{Are $N_{B}$ and $N_{C}$ conditionally independent given $N_{A}$?}
-		\pause
-		Yes, Betty's number adds nothing if we know Adam's, e.g.: \\[.5em]
-		$P(N_{C}=1|N_{B}=2,N_{A}=1) = P(N_{C}=1|N_{A}=1)$
-	\end{block}
+\begin{block}{Noisy Phone}
+\begin{itemize}
+\item Adam calls Betty and Charlie and says a number $N_{A}$
+\item Betty hears $N_{B}$ and Charlie hears $N_{C}$
+\end{itemize}
+\end{block}
+\pause
+\begin{block}{Are $N_{B}$ and $N_{C}$ independent?}
+\pause
+No, we expect the numbers to be similar, e.g.: \\[.5em]
+$P(N_{B}=1, N_{C}=1) > P(N_{B}=1)P(N_{C}=1)$
+\end{block}
+\pause
+\begin{block}{Are $N_{B}$ and $N_{C}$ independent given $N_{A}$?}
+\pause
+Yes, Betty's number adds nothing if we know Adam's, e.g.: \\[.5em]
+$P(N_{C}=1|N_{B}=2,N_{A}=1) = P(N_{C}=1|N_{A}=1)$
+\end{block}
 \end{frame}
 
 

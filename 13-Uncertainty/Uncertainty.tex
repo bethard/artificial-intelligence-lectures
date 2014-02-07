@@ -192,82 +192,77 @@ The \alert{unconditional} or \alert{prior probability} of a proposition $a$ is t
 \begin{block}{Examples}
 $
 \begin{array}{lll}
-P(\textit{DieRoll} \!=\! 5)                    & = & \pause 1/6 \\
+P(\textit{DieRoll} = 5) & = & \pause 1/6 \\
 \pause
-P(\textit{CardDrawn} \!=\! \mbox{A}\spadesuit) & = & \pause 1/52 \\
+P(\textit{CardDrawn} = \mbox{A}\spadesuit) & = & \pause 1/52 \\
 \pause
-P(\textit{SkyInBirmingham} \!=\! \textit{sunny})      & = & \pause 210/365
+P(\textit{SkyInBirmingham} = \textit{sunny}) & = & \pause 210/365
 \end{array}
 $
 \end{block}
 \end{frame}
 
 \begin{frame}{Joint Probability}
-	\begin{block}{Definition}
-		\begin{tabular}{lm{2.75in}}
-			\large $P(a_1, \ldots, a_n)$
-			&
-			The \alert{joint probability} of propositions $a_1, \ldots, a_n$ is the degree of belief in the proposition $a_1 \land \ldots \land a_n$
-		\end{tabular}
-	\end{block}
-	\pause
-	\begin{block}{Examples}
-		$
-		\begin{array}{lll}
-			\lefteqn{P(\textit{Sky} \!=\! \textit{sunny}, \textit{Temp} \!=\! \textit{warm})} \\
-			& = & P(\textit{Sky} \!=\! \textit{sunny} \land \textit{Temp} \!=\! \textit{warm}) \\
-			& = & 0.6 \\
-			\pause
-			\lefteqn{P(\textit{DieRoll}_1 \!=\! 4, \textit{DieRoll}_2 \!=\! 6)} \\
-			& = & P(\textit{DieRoll}_1 \!=\! 4 \land \textit{DieRoll}_2 \!=\! 6) \\
-			& = & \pause 1/36 \\
-		\end{array}
-		$
-	\end{block}
+\setbeamercovered{invisible}
+\begin{block}{Definition}
+\begin{tabular}{lm{2.75in}}
+\large $P(a_1, \ldots, a_n)$
+&
+The \alert{joint probability} of propositions $a_1, \ldots, a_n$ is the degree of belief in the proposition $a_1 \land \ldots \land a_n$
+\end{tabular}
+\end{block}
+\pause
+\begin{block}{Example}
+$
+\begin{array}{lll}
+\lefteqn{P(\textit{DieRoll}_1 = 4, \textit{DieRoll}_2 = 6)} \\
+& = & P(\textit{DieRoll}_1 = 4 \land \textit{DieRoll}_2 = 6) \\
+& = & \pause 1/36 \\
+\end{array}
+$
+\end{block}
 \end{frame}
+
 \begin{frame}{Conditional Probability}
-	\begin{block}{Definition}
-		\begin{tabular}{lm{3.4in}@{}}
-			\large $P(a|b)$
-			&
-			The \alert{posterior} or \alert{conditional probability} of a proposition $a$ given a proposition $b$ is the degree of belief in $a$, \emph{given that we know only $b$}
-		\end{tabular}
-	\end{block}
-	\pause
-	\begin{block}{Examples}
-		$
-		\begin{array}{lll}
-			P(\textit{Temp} \!=\! \textit{warm}|\textit{Sky} \!=\! \textit{sunny})
-			 & = & 0.73 \\
-			\pause
-			P(\textit{Card} \!=\! \mbox{A}\spadesuit|\textit{CardSuit} \!=\! \spadesuit)
-			 & = & \pause 1/13 \\
-			\pause
-			P(\textit{DieRoll}_2 \!=\! 5|\textit{DieRoll}_1 \!=\! 5)
-			 & = & \pause 1/6 \\
-		\end{array}
-		$
-	\end{block}
+\setbeamercovered{invisible}
+\begin{block}{Definition}
+\begin{tabular}{lm{3.4in}@{}}
+\large $P(a|b)$
+&
+The \alert{posterior} or \alert{conditional probability} of a proposition $a$ given a proposition $b$ is the degree of belief in $a$, \emph{given that we know only $b$}
+\end{tabular}
+\end{block}
+\pause
+\begin{block}{Examples}
+$
+\begin{array}{lll}
+P(\textit{Card} = \mbox{A}\spadesuit|\textit{CardSuit} = \spadesuit) & = & \pause 1/13 \\
+\pause
+P(\textit{DieRoll}_2 = 5|\textit{DieRoll}_1 = 5) & = & \pause 1/6 \\
+\end{array}
+$
+\end{block}
 \end{frame}
+
 \begin{frame}{Prior, Joint or Conditional?}
 	\begin{enumerate}
 		\item Probability of a having a cavity? \\
-			\pause \tab Prior, $P(\textit{Cavity}\!=\!\textit{true})$
+			\pause \tab Prior, $P(\textit{Cavity}=\textit{true})$
 		\pause
 		\item Probability of it being warm and cloudy? \\
-			\pause \tab Joint, $P(\textit{Temp}\!=\!\textit{warm}, \textit{Sky}\!=\!\textit{cloudy})$
+			\pause \tab Joint, $P(\textit{Temp}=\textit{warm}, \textit{Sky}=\textit{cloudy})$
 		\pause
 		\item Probability of car being stolen? \\
-			\pause \tab Prior, $P(\textit{CarStolen}\!=\!\textit{true})$
+			\pause \tab Prior, $P(\textit{CarStolen}=\textit{true})$
 		\pause
 		\item Probability of car being stolen and being in Boulder? \\
-			\pause \tab Joint, $P(\textit{CarStolen}\!=\!\textit{true}, \textit{InBoulder}\!=\!\textit{true})$
+			\pause \tab Joint, $P(\textit{CarStolen}=\textit{true}, \textit{InBoulder}=\textit{true})$
 		\pause
 		\item The car is in Boulder. Probability of car being stolen? \\
-			\pause \tab Conditional, $P(\textit{CarStolen}\!=\!\textit{true}|\textit{InBoulder}\!=\!\textit{true})$
+			\pause \tab Conditional, $P(\textit{CarStolen}=\textit{true}|\textit{InBoulder}=\textit{true})$
 		\pause
 		\item It's cloudy. Probability of it being warm? \\
-			\pause \tab Conditional, $P(\textit{Temp}\!=\!\textit{warm}| \textit{Sky}\!=\!\textit{cloudy})$
+			\pause \tab Conditional, $P(\textit{Temp}=\textit{warm}| \textit{Sky}=\textit{cloudy})$
 	\end{enumerate}
 \end{frame}
 \begin{frame}{Relation between Joint and Conditional}
@@ -330,15 +325,15 @@ $
 		$\mathbf{P}(\textit{SkyInBoulder}) = \langle 300/365, 65/365 \rangle$ means \\[.25em]
 		$
 		\begin{array}{llll}
-			& P(\textit{SkyInBoulder}\!=\!\textit{sunny})  & = & 300/365 \\
-			& P(\textit{SkyInBoulder}\!=\!\textit{cloudy}) & = & 65/365 \\
+			& P(\textit{SkyInBoulder}=\textit{sunny})  & = & 300/365 \\
+			& P(\textit{SkyInBoulder}=\textit{cloudy}) & = & 65/365 \\
 		\end{array}
 		$
 	\end{block}
 	\pause
 	\begin{block}{Notation Warning}
 		\begin{itemize}
-			\item $P(a)$ or $P(X\!=\!a)$ means prior probability
+			\item $P(a)$ or $P(X=a)$ means prior probability
 			\item $\mathbf{P}(X)$ means probability distribution
 		\end{itemize}
 	\end{block}
@@ -355,10 +350,10 @@ $
 	\begin{block}{Example}
 		$
 		\begin{array}{lll}
-			\lefteqn{\sum\limits_{x}{P(\textit{Die}\!=\!x)}} \\
+			\lefteqn{\sum\limits_{x}{P(\textit{Die}=x)}} \\
 			\pause
-			& = & P(\textit{Die}\!=\!1) + P(\textit{Die}\!=\!2) + P(\textit{Die}\!=\!3) + \mbox{}\\
-			&   & P(\textit{Die}\!=\!4) + P(\textit{Die}\!=\!5) + P(\textit{Die}\!=\!6) \\
+			& = & P(\textit{Die}=1) + P(\textit{Die}=2) + P(\textit{Die}=3) + \mbox{}\\
+			&   & P(\textit{Die}=4) + P(\textit{Die}=5) + P(\textit{Die}=6) \\
 			\pause
 			& = & \frac{1}{6} + \frac{1}{6} + \frac{1}{6} + \frac{1}{6} + \frac{1}{6} + \frac{1}{6} \\
 			\pause
@@ -397,9 +392,9 @@ $
 		\tab
 		$
 		\begin{array}{lcc}
-			                           & \textit{Sex}\!=\!\textit{male} & \textit{Sex}\!=\!\textit{female} \\
-			\textit{Smoker}\!=\!\textit{true}  & 0.113                  & 0.107 \\
-			\textit{Smoker}\!=\!\textit{false} & 0.377                  & 0.403 \\
+			                           & \textit{Sex}=\textit{male} & \textit{Sex}=\textit{female} \\
+			\textit{Smoker}=\textit{true}  & 0.113                  & 0.107 \\
+			\textit{Smoker}=\textit{false} & 0.377                  & 0.403 \\
 		\end{array}
 		$
 	\end{block}
@@ -431,24 +426,24 @@ $
 		Sum entries in joint distribution where proposition is true
 	\end{block}
 	\pause
-	\begin{block}{Example: $P(\textit{Sex}\!=\!\textit{female} \lor \textit{Smoker}\!=\!\textit{false})$}
+	\begin{block}{Example: $P(\textit{Sex}=\textit{female} \lor \textit{Smoker}=\textit{false})$}
 		\tab\tab
 		$
 		\begin{array}{lcc}
-			                           & \textit{Sex}\!=\!\textit{male} & \textit{Sex}\!=\!\textit{female} \\
-			\textit{Smoker}\!=\!\textit{true}  & 0.113                  & 0.107 \\
-			\textit{Smoker}\!=\!\textit{false} & 0.377                  & 0.403 \\
+			                           & \textit{Sex}=\textit{male} & \textit{Sex}=\textit{female} \\
+			\textit{Smoker}=\textit{true}  & 0.113                  & 0.107 \\
+			\textit{Smoker}=\textit{false} & 0.377                  & 0.403 \\
 		\end{array}
 		$
 		\\ \medskip
 		\pause
 		$
 		\begin{array}{lll}
-			\lefteqn{P(\textit{Sex}\!=\!\textit{female} \lor \textit{Smoker}\!=\!\textit{false})} \\
+			\lefteqn{P(\textit{Sex}=\textit{female} \lor \textit{Smoker}=\textit{false})} \\
 			\pause
-			& = & P(\textit{Sex}\!=\!\textit{male},\textit{Smoker}\!=\!\textit{false}) + \mbox{}\\
-			&   & P(\textit{Sex}\!=\!\textit{female},\textit{Smoker}\!=\!\textit{true}) + \mbox{}\\
-			&   & P(\textit{Sex}\!=\!\textit{female},\textit{Smoker}\!=\!\textit{false})\\
+			& = & P(\textit{Sex}=\textit{male},\textit{Smoker}=\textit{false}) + \mbox{}\\
+			&   & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{true}) + \mbox{}\\
+			&   & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{false})\\
 			\pause
 			& = & 0.377 + 0.107 + 0.403 \pause = 0.887
 		\end{array}
@@ -467,13 +462,13 @@ $
 		\end{tabular}
 	\end{block}
 	\pause
-	\begin{block}{Example: $P(\textit{Sex}\!=\!\textit{female})$}
+	\begin{block}{Example: $P(\textit{Sex}=\textit{female})$}
 		The other variable is $\textit{Smoker}$, so: \\[.5em]
 		$
 		\begin{array}{lll}
-			\lefteqn{P(\textit{Sex}\!=\!\textit{female})} \\
-			\pause & = & P(\textit{Sex}\!=\!\textit{female},\textit{Smoker}\!=\!\textit{true}) + \mbox{}\\
-			       &   & P(\textit{Sex}\!=\!\textit{female},\textit{Smoker}\!=\!\textit{false})\\
+			\lefteqn{P(\textit{Sex}=\textit{female})} \\
+			\pause & = & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{true}) + \mbox{}\\
+			       &   & P(\textit{Sex}=\textit{female},\textit{Smoker}=\textit{false})\\
 			\pause & = & 0.107 + 0.403 \pause = 0.51
 		\end{array}
 		$
@@ -609,13 +604,13 @@ $
 	\begin{block}{Are $N_{B}$ and $N_{C}$ independent?}
 		\pause
 		No, we expect the numbers to be similar, e.g.: \\[.5em]
-		$P(N_{B}\!=\!1, N_{C}\!=\!1) > P(N_{B}\!=\!1)P(N_{C}\!=\!1)$
+		$P(N_{B}=1, N_{C}=1) > P(N_{B}=1)P(N_{C}=1)$
 	\end{block}
 	\pause
 	\begin{block}{Are $N_{B}$ and $N_{C}$ conditionally independent given $N_{A}$?}
 		\pause
 		Yes, Betty's number adds nothing if we know Adam's, e.g.: \\[.5em]
-		$P(N_{C}\!=\!1|N_{B}\!=\!2,N_{A}\!=\!1) = P(N_{C}\!=\!1|N_{A}\!=\!1)$
+		$P(N_{C}=1|N_{B}=2,N_{A}=1) = P(N_{C}=1|N_{A}=1)$
 	\end{block}
 \end{frame}
 
@@ -1018,15 +1013,15 @@ $
 			&
 			\tinywumpusworld{}{$\lnot P$ $B$}{\scriptsize\bf P}{$\lnot P$}{$\lnot P$ $B$}{}
 			\\
-			\uncover<3->{\scriptsize $0.2\!\times\!0.2\!=\!0.04$}
+			\uncover<3->{\scriptsize $0.2\times0.2=0.04$}
 			&
-			\uncover<4->{\scriptsize $0.2\!\times\!0.8\!=\!0.16$}
+			\uncover<4->{\scriptsize $0.2\times0.8=0.16$}
 			&
-			\uncover<5->{\scriptsize $0.8\!\times\!0.2\!=\!0.16$}
+			\uncover<5->{\scriptsize $0.8\times0.2=0.16$}
 			&
-			\uncover<6->{\scriptsize $0.2\!\times\!0.2\!=\!0.04$}
+			\uncover<6->{\scriptsize $0.2\times0.2=0.04$}
 			&
-			\uncover<7->{\scriptsize $0.2\!\times\!0.8\!=\!0.16$}
+			\uncover<7->{\scriptsize $0.2\times0.8=0.16$}
 			\\
 			\uncover<2->{\lefteqn{\mbox{Calculating $P(P_{22}, P_{31})$, assuming pit probability is 0.2}}} \\
 		\end{tabular}
@@ -1052,23 +1047,23 @@ $
 	\\
 	\pause
 	& = &
-	\alpha \!\times\!
-  0.2 \!\times\!
+	\alpha \times
+  0.2 \times
 	P(\lnot p_{11},\lnot p_{12},\lnot p_{21})
 	\sum\ldots p_{13}\ldots
   \\
   \pause
   & = &
-  \alpha \!\times\!
-  0.2 \!\times\!
-  0.8 \!\times\! 0.8 \!\times\! 0.8 \!\times\!
+  \alpha \times
+  0.2 \times
+  0.8 \times 0.8 \times 0.8 \times
   \sum\ldots p_{13}\ldots
   \\
   \pause
   & = &
-  \alpha \!\times\!
-  0.2 \!\times\!
-  0.8 \!\times\! 0.8 \!\times\! 0.8 \!\times\!
+  \alpha \times
+  0.2 \times
+  0.8 \times 0.8 \times 0.8 \times
   (0.04 + 0.16 + 0.16)
   \\
   \pause
@@ -1086,9 +1081,9 @@ $
   \\
   \pause
   & = &
-  \alpha \!\times\!
-  0.8 \!\times\!
-  0.8 \!\times\! 0.8 \!\times\! 0.8 \!\times\!
+  \alpha \times
+  0.8 \times
+  0.8 \times 0.8 \times 0.8 \times
   (0.04 + 0.16)
   \\
   \pause
@@ -1274,13 +1269,13 @@ $
 \end{frame}
 \begin{frame}{Key Ideas}
 	\begin{block}{Probability Measures Belief}
-		$P(\textit{false}) = 0$ \tab $P(\textit{true}) = 1$ \tab\tab\tab $\sum\limits_{x}P(X\!=\!x) = 1$
+		$P(\textit{false}) = 0$ \tab $P(\textit{true}) = 1$ \tab\tab\tab $\sum\limits_{x}P(X=x) = 1$
 	\end{block}
 	\begin{block}{Types of probabilities}
 		\begin{itemize}
-			\item Prior, $P(X\!=\!x)$
-			\item Joint, $P(X\!=\!x,Y\!=\!y)$
-			\item Conditional, $P(X\!=\!x|Y\!=\!y)$
+			\item Prior, $P(X=x)$
+			\item Joint, $P(X=x,Y=y)$
+			\item Conditional, $P(X=x|Y=y)$
 		\end{itemize}
 	\end{block}
 	\begin{block}{Inference}

@@ -267,52 +267,59 @@ $
 \end{frame}
 
 \begin{frame}{Relation between Joint and Conditional}
-	\begin{block}{Product Rule}
-		$P(a \land b) = P(a|b)P(b)$ \hfill or \hfill $P(a|b) = P(a \land b)/P(b)$
-	\end{block}
-	\pause
-	\begin{block}{Intuition}
-		To have $a \land b$ true, we need $b$ true, and $a$ true given $b$
-	\end{block}
-	\pause
-	\begin{block}{Example}
-		$
-		\begin{array}{lll}
-			P(\mbox{A} \land \spadesuit)        & = & \pause 1/52 \\
-			\pause
-			P(\mbox{A}|\spadesuit)              & = & \pause 1/13 \\
-			\pause
-			P(\spadesuit)                       & = & \pause 1/4  \\
-			\pause
-			P(\mbox{A}|\spadesuit)P(\spadesuit) & = & \pause 1/13 \cdot 1/4 = 1/52 \\
-		\end{array}
-		$
-	\end{block}
+\setbeamercovered{invisible}
+\begin{block}{Product Rule}
+$P(a \land b) = P(a|b)P(b)$ \hfill or \hfill $P(a|b) = P(a \land b)/P(b)$
+\end{block}
+\pause
+\begin{block}{Intuition}
+To have $a \land b$ true, we need $b$ true, and $a$ true given $b$
+\end{block}
+\pause
+\begin{block}{Example}
+$
+\begin{array}{lll}
+P(\mbox{A} \land \spadesuit) & = & \pause 1/52 \\
+\pause
+P(\mbox{A}|\spadesuit) & = & \pause 1/13 \\
+\pause
+P(\spadesuit) & = & \pause 1/4  \\
+\pause
+P(\mbox{A}|\spadesuit)P(\spadesuit) & = & \pause 1/13 \cdot 1/4 = 1/52 \\
+\end{array}
+$
+\end{block}
 \end{frame}
+
 \begin{frame}{Chain Rule}
-	\begin{block}{Key Ideas}
-		\begin{itemize}
-			\item Repeatedly apply product rule, $P(a,b) = P(a|b)P(b)$
-			\item Joint probability $\rightarrow$ conditional probabilities
-		\end{itemize}
-	\end{block}
-	\pause
-	\begin{block}{Example}
-		$
-		\begin{array}{lll}
-		\lefteqn{P(\textit{sunny}, \textit{dry}, \textit{warm})} \\
-		\pause
-		& = & P(\textit{sunny}|\textit{dry}, \textit{warm})P(\textit{dry}, \textit{warm})\\
-		\pause
-		& = & P(\textit{sunny}|\textit{dry}, \textit{warm})P(\textit{dry}|\textit{warm})P(\textit{warm}) \\
-		\end{array}
-		$
-	\end{block}
+\setbeamercovered{invisible}
+\begin{block}{Key Ideas}
+\begin{itemize}
+\item Repeatedly apply product rule, $P(a,b) = P(a|b)P(b)$
+\item Joint probability $\rightarrow$ conditional probabilities
+\end{itemize}
+\end{block}
+\pause
+\begin{block}{Example}
+$
+\begin{array}{lll}
+\lefteqn{P(\textit{sunny}, \textit{dry}, \textit{warm})} \\
+\pause
+& = & P(\textit{sunny}|\textit{dry}, \textit{warm})P(\textit{dry}, \textit{warm})\\
+\pause
+& = & P(\textit{sunny}|\textit{dry}, \textit{warm})P(\textit{dry}|\textit{warm})P(\textit{warm}) \\
+\end{array}
+$
+\end{block}
 \end{frame}
 
 
 \section{Probability Distributions}
+
+
 \subsection{Probability Distribution Basics}
+
+
 \begin{frame}{Probability Distributions}
 	\begin{block}{Definition}
 		\begin{tabular}{lm{3.5in}@{}}

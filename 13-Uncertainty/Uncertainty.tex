@@ -515,23 +515,26 @@ $
 \end{tabular}
 \end{frame}
 
-\begin{frame}{Full Joint Distribution Inference}
-	\begin{block}{Properties}
-		Given $n$ random variables with maximum domain size $d$: \\[1em]
-		\begin{tabular}{ll}
-			\keyword{Time Complexity?}  & \pause $O(d^{n})$ \\
-			\pause
-			\keyword{Space Complexity?} & \pause $O(d^{n})$
-		\end{tabular}
-	\end{block}
-	\pause
-	\begin{block}{Biggest Problem}
-		How do you fill in a table of $O(d^{n})$ probabilities?
-	\end{block}
+\begin{frame}{Joint Distribution Inference}
+\begin{block}{Properties}
+Given $n$ random variables with maximum domain size $d$:
+\begin{description}[Space Complexity?]
+\item[Time Complexity?]  \uncover<2->{$O(d^{n})$}
+\item[Space Complexity?] \uncover<3->{$O(d^{n})$}
+\end{description}
+\end{block}
+\begin{block}{Biggest Problem}<4->
+How do you fill in a table of $O(d^{n})$ probabilities?
+\end{block}
 \end{frame}
 
+
 \section{Using Independence}
+
+
 \subsection{Independence}
+
+
 \begin{frame}{Independence}
 	\begin{block}{Key Ideas}
 		\begin{itemize}

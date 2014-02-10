@@ -2,18 +2,7 @@
 
 \documentclass[14pt]{beamer}
 \input{../slides-preamble}
-\usepackage{hhline}
 \lstset{emph={[2]__init__,__str__}}
-
-\newlength{\cellwidth}
-\setlength{\cellwidth}{0.18\textheight}
-\newlength{\cellheight}
-\setlength{\cellheight}{0.18\textheight}
-\newcommand{\cell}[1]{\parbox[c][\cellheight]{\cellwidth}{#1}}
-\newcommand{\emptycell}{\cell{\ }}
-\newcommand{\wumpcell}[3]{\cell{%
-	\parbox[c][.1in]{\cellwidth}{\small \hspace{0.1em} \textcolor{red}{#1} \hfill \textit{#2} \hspace{0.1em}} \\
-	\parbox[c][.2in]{\cellwidth}{\centering #3}}}
 
 \tikzset{
   red edge on/.code={%
@@ -1078,30 +1067,34 @@ Proof: \\[1em]
 \end{frame}
 
 \begin{frame}[label=resolution-exercise]{Resolution Exercise}
-	\begin{columns}[T]
-		\begin{column}{2in}
-			Prove using Resolution:\\[.2em]
-			$P_{1, 3}$
-		
-			\bigskip
-			Given: \\[.2em]
-			$B_{1, 2}$ \\
-			$\lnot B_{2, 1}$ \\
-			$B_{1, 2} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{1, 3})$ \\
-			$B_{2, 1} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$
-		\end{column}
-		\begin{column}{2in}
-			\begin{tabular}{ @{} |@{} l @{} | @{} l @{} | @{} l @{} | @{} }
-				\hhline{-~~}
-				\wumpcell{}{\scriptsize(1, 3)}{$P?$} & \multicolumn{2}{c}{} \\
-				\hhline{--~}
-				\wumpcell{}{\scriptsize(1, 2)}{$B$} & \wumpcell{}{\scriptsize(2, 2)}{} & \multicolumn{1}{c}{} \\
-				\hline
-				\wumpcell{}{\scriptsize(1, 1)}{} & \wumpcell{}{\scriptsize(2, 1)}{$\lnot B$} & \wumpcell{}{\scriptsize(3, 1)}{} \\
-				\hline
-			\end{tabular}
-		\end{column}
-	\end{columns}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+Prove using Resolution:\\[.2em]
+$P_{1, 3}$\\
+\bigskip
+Given: \\[.2em]
+$B_{1, 2}$ \\
+$\lnot B_{2, 1}$ \\
+$B_{1, 2} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{1, 3})$ \\
+$B_{2, 1} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{wumpusgrid}{3}{0.2\textheight}
+\wumpusagent[\footnotesize (1,1)]{1-}{0}{0}
+\wumpusagent[\footnotesize (1,2)]{1-}{0}{1}
+\wumpusagent[\footnotesize (1,3)]{1-}{0}{2}
+\wumpusagent[\footnotesize (2,1)]{1-}{1}{0}
+\wumpusagent[\footnotesize (2,2)]{1-}{1}{1}
+\wumpusagent[\footnotesize (2,3)]{1-}{1}{2}
+\wumpusagent[\footnotesize (3,1)]{1-}{2}{0}
+\wumpusagent[\footnotesize (3,2)]{1-}{2}{1}
+\wumpusagent[\footnotesize (3,3)]{1-}{2}{2}
+\wumpusknowledge{1-}{0}{2}{P?}
+\wumpusknowledge{1-}{0}{1}{$B$}
+\wumpusknowledge{1-}{1}{0}{$\neg B$}
+\end{wumpusgrid}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}[label=resolution-exercise-solution]{Prove: $P_{1, 3}$}

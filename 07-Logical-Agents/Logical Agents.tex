@@ -163,14 +163,13 @@ Actions:
 \begin{frame}[label=wumpus-world-difficult]{Difficult Wumpus World Situations}
 \begin{columns}
 \begin{column}{0.47\textwidth}
-\arrayrulewidth=2pt
-\begin{tabular}{ @{} | @{} l @{} | @{} l @{} | @{} }
-\hhline{-~}
-\wumpcell{}{\uncover<2->{W?}}{} & \multicolumn{1}{c}{} \\
-\hhline{--}
-\wumpcell{S}{}{\fbox{A}} & \wumpcell{}{\uncover<2->{W?}}{}  \\
-\hline
-\end{tabular}\\
+\centering
+\begin{wumpusgrid}{2}{0.18\textheight}
+\wumpusagent{1-}{0}{0}
+\wumpuspercept{1-}{0}{0}{S}
+\wumpusknowledge{2-}{0}{1}{W?}
+\wumpusknowledge{2-}{1}{0}{W?}
+\end{wumpusgrid}
 \begin{block}{Solution: Coercion}<3->
 \textsc{Shoot} an arrow
 \begin{itemize}
@@ -182,16 +181,17 @@ $\Rightarrow$ Wumpus on right
 \end{block}
 \end{column}
 \begin{column}{0.47\textwidth}<4->
-\arrayrulewidth=2pt
-\begin{tabular}{ @{} | @{} l @{} | @{} l @{} | @{} l @{} | @{} }
-\hhline{-~~}
-\wumpcell{}{\uncover<5->{P?}}{} & \multicolumn{2}{c}{} \\
-\hhline{--~}
-\wumpcell{B}{OK}{} & \wumpcell{}{\uncover<5->{P?}}{} & \multicolumn{1}{c}{} \\
-\hline
-\wumpcell{}{OK}{\fbox{A}} & \wumpcell{B}{OK}{} & \wumpcell{}{\uncover<5->{P?}}{} \\
-\hline
-\end{tabular}
+\centering
+\begin{wumpusgrid}{3}{0.18\textheight}
+\wumpusagent{4-}{0}{0}
+\wumpusknowledge{4-}{0}{1}{OK}
+\wumpuspercept{4-}{0}{1}{B}
+\wumpusknowledge{4-}{1}{0}{OK}
+\wumpuspercept{4-}{1}{0}{B}
+\wumpusknowledge{5-}{0}{2}{P?}
+\wumpusknowledge{5-}{1}{1}{P?}
+\wumpusknowledge{5-}{2}{0}{P?}
+\end{wumpusgrid}
 \begin{block}{Solution: Probability}<6->
 % possible configurations: P_P; _P_; PP_; _PP; PPP
 % configuration probabilities: (.2)(.8)(.2); (.8)(.2)(.8); (.2)(.2)(.8); (.8)(.2)(.2); (.2)(.2)(.2)

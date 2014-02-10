@@ -138,41 +138,25 @@ Actions:
 \begin{frame}[label=wumpus-world-example]{Exploring a Wumpus World}
 \begin{center}
 \begin{wumpusgrid}{4}{0.2\textheight}
-\wumpusagent{1-2}{0}{0}
+\wumpusagent{1-2,5}{0}{0}
 \wumpusknowledge{2-}{0}{0}{OK}
 \wumpusknowledge{2-}{1}{0}{OK}
 \wumpusknowledge{2-}{0}{1}{OK}
-\wumpusagent{3-}{0}{1}
+\wumpusagent{3-4}{0}{1}
 \wumpuspercept{3-}{0}{1}{B}
-\wumpusknowledge{4-}{0}{2}{P?}
-\wumpusknowledge{4-}{1}{1}{P?}
+\wumpusknowledge{4-6}{0}{2}{P?}
+\wumpusknowledge{4-6}{1}{1}{P?}
+\wumpusagent{6-7}{1}{0}
+\wumpuspercept{6-}{1}{0}{S}
+\wumpusknowledge{7-}{1}{1}{OK}
+\wumpusknowledge{7-}{0}{2}{P}
+\wumpusknowledge{7-}{2}{0}{W}
+\wumpusagent{8-9}{1}{1}
+\wumpusknowledge{9-}{2}{1}{OK}
+\wumpusknowledge{9-}{1}{2}{OK}
+\wumpusagent{10-}{2}{1}
+\wumpuspercept{10-}{2}{1}{SG}
 \end{wumpusgrid}
-\end{center}
-\end{frame}
-
-\begin{frame}[label=wumpus-world-example-old]{Exploring a Wumpus World}
-\begin{center}
-\arrayrulewidth=2pt
-\begin{tabular}{@{} | @{} l @{} | @{} l @{} | @{} l @{} | @{} l @{} | @{} }
-\hline
-\emptycell & \emptycell & \emptycell & \emptycell \\
-\hline
-\wumpcell{}{\visible<4-6>{P?}}{\only<7->{\Huge P}} &
-\wumpcell{}{\visible<9->{OK}}{} &
-\emptycell &
-\emptycell \\
-\hline
-\wumpcell{\visible<3->{B}}{\visible<2->{OK}}{\only<3-4>{\fbox{A}}} &
-\wumpcell{}{\visible<4->{\alt<7->{OK}{P?}}}{\only<8-9>{\fbox{A}}} &
-\wumpcell{\visible<10->{SG}}{\visible<9->{OK}}{\only<10->{\fbox{A}}} &
-\emptycell \\
-\hline
-\wumpcell{}{\visible<2->{OK}}{\only<1-2,5>{\fbox{A}}} &
-\wumpcell{\visible<6->{S}}{\visible<2->{OK}}{\only<6-7>{\fbox{A}}} &
-\wumpcell{}{}{\visible<7->{\Huge W}} &
-\emptycell \\
-\hline
-\end{tabular}
 \end{center}
 \end{frame}
 

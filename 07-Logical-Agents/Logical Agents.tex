@@ -380,30 +380,27 @@ $R \limpl \lnot Q \land P$
 \end{frame}
 
 \begin{frame}{Implication vs. Entailment}
-	\begin{block}{Implication ($\alpha \limpl \beta$)}
-		\begin{itemize}
-			\item $\alpha$ is \emph{false} or $\beta$ is \emph{true}
-		\end{itemize}
-	\end{block}
-	\pause
-	\begin{block}{Entailment ($\alpha \models \beta$)}
-		\begin{itemize}
-			\item In all models where $\alpha$ is true, $\beta$ is also true
-		\end{itemize}
-	\end{block}
-	\pause
-	\begin{block}{Example}
-		\begin{tabular}{@{}l@{\hspace{.5em}}p{1em}@{\hspace{.5em}}l}
-			\rule{0pt}{1.5em}
-			the earth is flat &
-			\only<-3>{$\stackrel{?}{\limpl}$}\only<4>{$\limpl$}\only<5>{$\stackrel{?}{\models}$}\only<6->{$\not\models$} &
-			the moon is made of green cheese
-		\end{tabular}
-	\end{block}
-	\pause\pause\pause\pause
-	\begin{block}{Relation between Implication and Entailment}
-		$\alpha \models \beta$ if and only if $\alpha \limpl \beta$ in all models
-	\end{block}
+\begin{block}{Implication ($\alpha \limpl \beta$)}
+\begin{itemize}
+\item $\alpha$ is \emph{false} or $\beta$ is \emph{true}
+\end{itemize}
+\end{block}
+\begin{block}{Entailment ($\alpha \models \beta$)}<2->
+\begin{itemize}
+\item In all models where $\alpha$ is true, $\beta$ is also true
+\end{itemize}
+\end{block}
+\begin{block}{Example}<3->
+\setlength{\tabcolsep}{0em}
+\begin{tabular}{ l p{2em} l }
+the earth is flat &
+$\stackrel{\visible<3,5>{?}}{\only<3-4>{\limpl}\only<5>{\models}\only<6->{\not\models}}$ &
+the moon is made of green cheese
+\end{tabular}
+\end{block}
+\begin{block}{Relation between Implication and Entailment}<7->
+$\alpha \models \beta$ if and only if $\alpha \limpl \beta$ in all models
+\end{block}
 \end{frame}
 
 

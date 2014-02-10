@@ -283,21 +283,18 @@ $\beta \models \alpha$ if and only if $M(\beta) \subseteq M(\alpha)$
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Wumpus Entailment Example}
+\begin{frame}[label=wumpus-entailment]{Wumpus Entailment Example}
 \begin{columns}
 \begin{column}{2.5in}
-\arrayrulewidth=2pt
-\begin{tabular}{ @{} | @{} l @{} | @{} l @{} | @{} l @{} | @{} }
-\hhline{--~}
-\wumpcell{}{}{\only<3->{\Huge ?}} &
-\wumpcell{}{}{\only<3->{\Huge ?}} &
-\multicolumn{1}{c}{} \\
-\hline
-\wumpcell{}{}{\only<1>{\fbox{A}}} &
-\wumpcell{\only<2->{B}}{}{\only<2->{\fbox{A}}} &
-\wumpcell{}{}{\only<3->{\Huge ?}} \\
-\hline
-\end{tabular}
+\centering
+\begin{wumpusgrid}{3}{0.18\textheight}
+\wumpusagent{1}{0}{0}
+\wumpusagent{2-}{1}{0}
+\wumpuspercept{2-}{1}{0}{B}
+\wumpusknowledge{3-}{0}{1}{P?}
+\wumpusknowledge{3-}{1}{1}{P?}
+\wumpusknowledge{3-}{2}{0}{P?}
+\end{wumpusgrid}
 \end{column}
 \begin{column}{1.5in}
 \begin{block}<4->{Models}

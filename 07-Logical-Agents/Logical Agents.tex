@@ -583,15 +583,11 @@ The reasoning patterns are in your book on pages 249, 250 and 252
 \end{column}
 \begin{column}{0.45\textwidth}
 \begin{wumpusgrid}{3}{0.2\textheight}
-\wumpusagent[\footnotesize (1,1)]{1-}{0}{0}
-\wumpusagent[\footnotesize (1,2)]{1-}{0}{1}
-\wumpusagent[\footnotesize (1,3)]{1-}{0}{2}
-\wumpusagent[\footnotesize (2,1)]{1-}{1}{0}
-\wumpusagent[\footnotesize (2,2)]{1-}{1}{1}
-\wumpusagent[\footnotesize (2,3)]{1-}{1}{2}
-\wumpusagent[\footnotesize (3,1)]{1-}{2}{0}
-\wumpusagent[\footnotesize (3,2)]{1-}{2}{1}
-\wumpusagent[\footnotesize (3,3)]{1-}{2}{2}
+\foreach \x in {0,...,2} \foreach \y in {0,...,2} {%
+\pgfmathtruncatemacro{\xone}{1+\x}%
+\pgfmathtruncatemacro{\yone}{1+\y}%
+\wumpusbottom{1-}{\x}{\y}{\scriptsize (\xone,\yone)}
+}
 \wumpusknowledge{1-}{0}{2}{P?}
 \wumpusknowledge{1-}{0}{1}{$B$}
 \wumpusknowledge{1-}{1}{0}{$\neg B$}
@@ -1077,15 +1073,11 @@ $B_{2, 1} \liff (P_{1, 1} \lor P_{2, 2} \lor P_{3, 1})$
 \end{column}
 \begin{column}{0.45\textwidth}
 \begin{wumpusgrid}{3}{0.2\textheight}
-\wumpusagent[\footnotesize (1,1)]{1-}{0}{0}
-\wumpusagent[\footnotesize (1,2)]{1-}{0}{1}
-\wumpusagent[\footnotesize (1,3)]{1-}{0}{2}
-\wumpusagent[\footnotesize (2,1)]{1-}{1}{0}
-\wumpusagent[\footnotesize (2,2)]{1-}{1}{1}
-\wumpusagent[\footnotesize (2,3)]{1-}{1}{2}
-\wumpusagent[\footnotesize (3,1)]{1-}{2}{0}
-\wumpusagent[\footnotesize (3,2)]{1-}{2}{1}
-\wumpusagent[\footnotesize (3,3)]{1-}{2}{2}
+\foreach \x in {0,...,2} \foreach \y in {0,...,2} {%
+\pgfmathtruncatemacro{\xone}{1+\x}%
+\pgfmathtruncatemacro{\yone}{1+\y}%
+\wumpusbottom{1-}{\x}{\y}{\scriptsize (\xone,\yone)}
+}
 \wumpusknowledge{1-}{0}{2}{P?}
 \wumpusknowledge{1-}{0}{1}{$B$}
 \wumpusknowledge{1-}{1}{0}{$\neg B$}

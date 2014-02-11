@@ -84,7 +84,6 @@ University of Alabama at Birmingham}
 }
 
 \newlength{\wumpusgridsize}
-
 \newenvironment{wumpusgrid}[2]{%
 \setlength{\wumpusgridsize}{#2}
 \begin{tikzpicture}
@@ -92,17 +91,13 @@ University of Alabama at Birmingham}
 }{%
 \end{tikzpicture}
 }
-
 \newcommand{\wumpustop}[5][]{%
 \only<#2>{\node[#1] at (#3\wumpusgridsize+0.5\wumpusgridsize,#4\wumpusgridsize+0.75\wumpusgridsize) {#5};}
 }
 \newcommand{\wumpusbottom}[5][]{%
 \only<#2>{\node[#1] at (#3\wumpusgridsize+0.5\wumpusgridsize,#4\wumpusgridsize+0.25\wumpusgridsize) {#5};}
 }
-
-\newcommand{\wumpusagent}[4][\fbox{A}]{%
-\only<#2>{\node at (#3\wumpusgridsize+0.5\wumpusgridsize,#4\wumpusgridsize+0.25\wumpusgridsize) {#1};}
-}
+\newcommand{\wumpusagent}[3]{\wumpusbottom{#1}{#2}{#3}{\fbox{A}}}
 \newcommand{\wumpuspercept}[4]{%
 \only<#1>{\node[red,inner sep=0pt] at (#2\wumpusgridsize+0.25\wumpusgridsize,#3\wumpusgridsize+0.75\wumpusgridsize) {\textbf{#4}};}
 }

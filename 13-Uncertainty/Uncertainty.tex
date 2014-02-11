@@ -803,46 +803,49 @@ There must be a better way!
 \end{columns}
 \end{frame}
 
-\begin{frame}{Wumpus World with Independence}
-	\begin{columns}[T]
-		\begin{column}{2.2in}
-			\arrayrulewidth=2pt
-			\begin{tabular}{@{}|@{}l@{}|@{}l@{}|@{}l@{}|@{}l@{}|@{}}
-				\hline
-				\wumpcell{1,4}{\uncover<2->{\small Other}} &
-				\wumpcell{2,4}{\uncover<2->{\small Other}} &
-				\wumpcell{3,4}{\uncover<2->{\small Other}} &
-				\wumpcell{4,4}{\uncover<2->{\small Other}} \\
-				\hline
-				\wumpcell{1,3}{\uncover<2->{\small \alert{Query}}} &
-				\wumpcell{2,3}{\uncover<2->{\small Other}} &
-				\wumpcell{3,3}{\uncover<2->{\small Other}} &
-				\wumpcell{4,3}{\uncover<2->{\small Other}} \\
-				\hline
-				\wumpcell{1,2}{$\lnot P$ $B$} &
-				\wumpcell{2,2}{\uncover<2->{\small \alert{Fringe}}} &
-				\wumpcell{3,2}{\uncover<2->{\small Other}} &
-				\wumpcell{4,2}{\uncover<2->{\small Other}} \\
-				\hline
-				\wumpcell{1,1}{$\lnot P$} &
-				\wumpcell{2,1}{$\lnot P$ $B$} &
-				\wumpcell{3,1}{\uncover<2->{\small \alert{Fringe}}} &
-				\wumpcell{4,1}{\uncover<2->{\small Other}} \\
-				\hline
-			\end{tabular}
-		\end{column}
-		\begin{column}{2.2in}
-			\begin{block}{Key Idea}
-				Observations conditionally independent of other squares given neighboring squares
-			\end{block}
-			\begin{block}<4->{Goal}
-				Manipulate equation until we can apply the conditional independence formula
-			\end{block}
-		\end{column}
-	\end{columns}
-	\medskip
-	\uncover<3->{$\mathbf{P}(b_{12}, b_{21}|\lnot p_{11}, \lnot p_{12}, \lnot p_{21}, P_{13}, P_{\textit{\scriptsize fringe}}, P_{\textit{\scriptsize other}}) = \mathbf{P}(b_{12}, b_{21}|\lnot p_{11}, \lnot p_{12}, \lnot p_{21}, P_{13}, P_{\textit{\scriptsize fringe}})$}
+\begin{frame}[label=wumpus-world-with-independence]{Wumpus World with Independence}
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+\small
+\begin{wumpusgrid}{4}{0.24\textwidth}
+\foreach \x in {0,...,3} \foreach \y in {0,...,3} {%
+\pgfmathtruncatemacro{\xone}{1+\x}%
+\pgfmathtruncatemacro{\yone}{1+\y}%
+\wumpusbottom{1-}{\x}{\y}{\scriptsize (\xone,\yone)}
+}
+\wumpusknowledge{1-}{0}{0}{$\scriptstyle\neg P$}
+\wumpusknowledge{1-}{1}{0}{$\scriptstyle\neg P$}
+\wumpusknowledge{1-}{0}{1}{$\scriptstyle\neg P$}
+\wumpuspercept{1-}{1}{0}{$\scriptstyle B$}
+\wumpuspercept{1-}{0}{1}{$\scriptstyle B$}
+\wumpustop[blue]{2-}{0}{2}{Query}
+\wumpustop[blue]{2-}{1}{1}{Fringe}
+\wumpustop[blue]{2-}{2}{0}{Fringe}
+\wumpustop[gray]{2-}{0}{3}{Other}
+\wumpustop[gray]{2-}{1}{2}{Other}
+\wumpustop[gray]{2-}{1}{3}{Other}
+\wumpustop[gray]{2-}{2}{1}{Other}
+\wumpustop[gray]{2-}{2}{2}{Other}
+\wumpustop[gray]{2-}{2}{3}{Other}
+\wumpustop[gray]{2-}{3}{0}{Other}
+\wumpustop[gray]{2-}{3}{1}{Other}
+\wumpustop[gray]{2-}{3}{2}{Other}
+\wumpustop[gray]{2-}{3}{3}{Other}
+\end{wumpusgrid}
+\end{column}
+\begin{column}{2.2in}
+\begin{block}{Key Idea}
+Observations conditionally independent of other squares given neighboring squares
+\end{block}
+\begin{block}<4->{Goal}
+Manipulate equation until we can apply the conditional independence formula
+\end{block}
+\end{column}
+\end{columns}
+\medskip
+\uncover<3->{$\mathbf{P}(b_{12}, b_{21}|\lnot p_{11}, \lnot p_{12}, \lnot p_{21}, P_{13}, P_{\textit{\scriptsize fringe}}, P_{\textit{\scriptsize other}}) = \mathbf{P}(b_{12}, b_{21}|\lnot p_{11}, \lnot p_{12}, \lnot p_{21}, P_{13}, P_{\textit{\scriptsize fringe}})$}
 \end{frame}
+
 \begin{frame}{Wumpus World Equation Manipulation}
 	\footnotesize
 	$

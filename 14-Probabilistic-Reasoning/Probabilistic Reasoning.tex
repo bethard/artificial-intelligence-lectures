@@ -194,41 +194,56 @@ F & .01
 		$
 	\end{block}
 \end{frame}
-\begin{frame}{Worst Case for Simple Inference Algorithm}
-	\begin{block}{Enumeration Formula}
-		$
-		\mathbf{P}(X|y_{1},\ldots,y_{n}) = 
-		\alpha\sum\limits_{z_{1},\ldots,z_{k} \in \mathbf{\overline{XY}}}
-		          {\mathbf{P}(X|\mbox{\scriptsize\ldots})
-		           P(y_{1}|\mbox{\scriptsize\ldots})
-		           \ldots
-		           P(z_{k}|\mbox{\scriptsize\ldots})}
-		$
-	\end{block}
-	\pause
-	\begin{columns}
-		\begin{column}{1.5in}
-			\begin{center}
-				\includegraphics[height=1.5in]{fully_connected_net}
-				\\
-				\smallskip
-				Query: $P(X_{5})$
-			\end{center}
-		\end{column}
-		\pause
-		\begin{column}{2.5in}
-			\begin{block}{Worst Case in General}
-				\begin{itemize}
-					\item $\approx n$ parents per node
-					\item $\approx n$ variables not in query
-					\item $d$ values per variable
-				\end{itemize}
-				Time Complexity: \pause $O(nd^{n})$
-			\end{block}
-		\end{column}
-	\end{columns}
-\end{frame}
 
+\begin{frame}[label=enumeration-worst-case]{Enumeration Worst Case}
+\begin{block}{Enumeration Formula}
+$
+\mathbf{P}(X|y_{1},\ldots,y_{n}) = 
+\alpha\sum\limits_{z_{1},\ldots,z_{k} \in \mathbf{\overline{XY}}}
+          {\mathbf{P}(X|\mbox{\scriptsize\ldots})
+           P(y_{1}|\mbox{\scriptsize\ldots})
+           \ldots
+           P(z_{k}|\mbox{\scriptsize\ldots})}
+$
+\end{block}
+\pause
+\begin{columns}
+\begin{column}{1.5in}
+\begin{center}
+\begin{tikzpicture}
+\node[bn variable] at (1, 3.6) (1) {$X_1$};
+\node[bn variable] at (2, 2.7) (2) {$X_2$}
+  edge[bn depends on] (1);
+\node[bn variable] at (0, 1.8) (3) {$X_3$}
+  edge[bn depends on] (1)
+  edge[bn depends on] (2);
+\node[bn variable] at (2, .9) (4) {$X_4$}
+  edge[bn depends on] (1)
+  edge[bn depends on] (2)
+  edge[bn depends on] (3);
+\node[bn variable] at (0, 0) (5) {$X_5$}
+  edge[bn depends on] (1)
+  edge[bn depends on] (2)
+  edge[bn depends on] (3)
+  edge[bn depends on] (4);
+\end{tikzpicture}
+\smallskip
+Query: $P(X_{5})$
+\end{center}
+\end{column}
+\pause
+\begin{column}{2.5in}
+\begin{block}{Worst Case in General}
+\begin{itemize}
+\item $\approx n$ parents per node
+\item $\approx n$ variables not in query
+\item $d$ values per variable
+\end{itemize}
+Time Complexity: \pause $O(nd^{n})$
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
 
 \subsection{Constructing Bayesian Networks}
 \begin{frame}{Avoiding Fully Connected Networks}

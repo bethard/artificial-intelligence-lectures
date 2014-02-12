@@ -11,7 +11,8 @@
 
 \tikzset{
   bn variable/.style={draw,ellipse,inner sep=0.2em},
-  bn depends on/.style={draw,-triangle 45,thick}
+  bn depends on/.style={draw,triangle 45-,thick},
+  bn table/.style={draw,inner sep=0em,font=\small},
 }
 
 \begin{document}
@@ -38,8 +39,8 @@ A \alert{Bayesian Network} is a data structure for representing independence rel
 \node[bn variable] at (0, 0) (GH) {GrayHair};
 \node[bn variable] at (3, 0) (B) {Bifocals};
 \node[bn variable] at (6, 1.5) (BW) {BlazersWon};
-\path[bn depends on] (A) -- (GH);
-\path[bn depends on] (A) -- (B);
+\path[bn depends on] (GH) -- (A);
+\path[bn depends on] (B) -- (A);
 \end{tikzpicture}
 \end{center}
 \pause
@@ -77,10 +78,62 @@ $ \\
 		\end{itemize}
 	\end{block}
 \end{frame}
-\begin{frame}{Full Bayesian Network Example}
-	\includegraphics[width=4.2in]{burglary_network}
-\end{frame}
 
+\begin{frame}[label=bayes-net-full-example]{Full Bayesian Network Example}
+\begin{center}
+\begin{tikzpicture}
+\node[bn variable] at (0, 6) (B) {Burglary};
+\node[bn table,right=0.2em of B] {
+\begin{tabular}{ c }
+\textbf{P(B)} \\
+\hline
+.001
+\end{tabular}
+};
+\node[bn variable] at (6, 6) (E) {Earthquake};
+\node[bn table,right=0.2em of E] {
+\begin{tabular}{l}
+\textbf{P(E)} \\
+\hline
+.002
+\end{tabular}
+};
+\node[bn variable] at (3, 3) (A) {Alarm};
+\node[bn table,right=1em of A] {
+\begin{tabular}{ c c l }
+\textbf{B} & \textbf{E} & \textbf{P(A|B,E)} \\
+\hline
+T & T & .95 \\
+T & F & .94 \\
+F & T & .29 \\
+F & F & .001
+\end{tabular}
+};
+\node[bn variable] at (0, 0) (J) {JohnCalls};
+\node[bn table,right=0.2em of J] {
+\begin{tabular}{ c l }
+\textbf{A} & \textbf{P(J|A)} \\
+\hline
+T & .90 \\
+F & .05
+\end{tabular}
+};
+\node[bn variable] at (6, 0) (M) {MaryCalls};
+\node[bn table,right=0.2em of M] {
+\begin{tabular}{ c l }
+\textbf{A} & \textbf{P(M|A)} \\
+\hline
+T & .70 \\
+F & .01
+\end{tabular}
+};
+\path[bn depends on] (A) -- (B);
+\path[bn depends on] (A) -- (E);
+\path[bn depends on] (J) -- (A);
+\path[bn depends on] (M) -- (A);
+\end{tikzpicture}
+\end{center}
+\end{frame}
 
 \subsection{The Full Joint Distribution}
 \begin{frame}{Representing the Full Joint Distribution}

@@ -374,40 +374,40 @@ One possible solution:
 \end{frame}
 
 \subsection{Dynamic Programming}
-\begin{frame}{Calculations through Depth First Search}
-	Example formula: \\
-	\tab $P(b|j,m) = \alpha P(b)\sum\limits_{e}P(e)\sum\limits_{a}P(a|b,e)P(j|a)P(m|a)$ \\
-	\pause
-	\bigskip
-	Example tree: \\
-	\vspace{-2em}
-	\begin{center}
-		\includegraphics[height=2in]{summation_tree}
-	\end{center}
-\end{frame}
-\begin{frame}{Eliminating More Redundancies}
-	\begin{columns}
-		\begin{column}{2.2in}
-			\begin{block}{Problem}
-				\begin{itemize}
-					\item Moving terms got rid of some redundancies
-					\item But notice: \\
-					      $P(j|a)P(m|a)$ \\
-					      $P(j|\lnot a)P(m|\lnot a)$
-				\end{itemize}
-			\end{block}
-			\begin{block}<2->{Solution}
-				\begin{itemize}
-					\item<3-> Dynamic programming!
-					\item<4-> Store partial calculations
-					\item<4-> Look up repeated terms
-				\end{itemize}
-			\end{block}
-		\end{column}
-		\begin{column}{2.4in}
-			\includegraphics[width=2.4in]{summation_tree_narrow}
-		\end{column}
-	\end{columns}
+
+\begin{frame}[label=depth-first-calculation]{Calculations through Depth First Search}
+\centering
+$P(b|j,m) = \alpha P(b)\sum\limits_{e}P(e)\sum\limits_{a}P(a|b,e)P(j|a)P(m|a)$ \\
+\bigskip
+\small
+\begin{forest}
+[{$P(b)$}
+  [{$P(e)$}
+    [{$P(a|b,e)$}
+      [{$P(j|a)$}
+        [{$P(m|a)$}]
+      ]
+    ]
+    [{$P(\lnot a|b,e)$}
+      [{$P(j|\lnot a)$}
+        [{$P(m|\lnot a)$}]
+      ]
+    ]
+  ]
+  [{$P(\lnot e)$}
+    [{$P(a|b,\lnot e)$}
+      [{$P(j|a)$}
+        [{$P(m|a)$}]
+      ]
+    ]
+    [{$P(\lnot a|b,\lnot e)$}
+      [{$P(j|\lnot a)$}
+        [{$P(m|\lnot a)$}]
+      ]
+    ]
+  ]
+]
+\end{forest}
 \end{frame}
 
 \subsection{Exact Inference Properties}

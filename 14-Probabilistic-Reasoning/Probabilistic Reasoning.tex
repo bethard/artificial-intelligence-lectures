@@ -246,40 +246,53 @@ Time Complexity: \pause $O(nd^{n})$
 \end{frame}
 
 \subsection{Constructing Bayesian Networks}
-\begin{frame}{Avoiding Fully Connected Networks}
-	\begin{block}{Principles}
-		\begin{enumerate}
-			\item Add root causes
-			\item\label{add-leaf-effects} Add variables directly influenced by leaves
-			\item If variables left, goto \ref{add-leaf-effects}
-		\end{enumerate}
-	\end{block}
-	\medskip
-	\begin{columns}
-		\begin{column}{2.2in}
-			\uncover<2->{
-			Good:
-			\\
-			\footnotesize \textit{Age}, \textit{GrayHair}, \textit{Bifocals}, \textit{ReadDist}} \\
-			\centering
-			\only<-3>{\invisible<-2>{\includegraphics[height=1.2in]{age_hair_vision_1}}}%
-			\only<4>{\includegraphics[height=1.2in]{age_hair_vision_2}}%
-			\only<5>{\includegraphics[height=1.2in]{age_hair_vision_3}}%
-			\only<6->{\includegraphics[height=1.2in]{age_hair_vision_4}}%
-		\end{column}
-		\begin{column}{2.2in}
-			\uncover<7->{
-			Bad:
-			\\
-			\footnotesize \textit{ReadDist}, \textit{GrayHair}, \textit{Bifocals}, \textit{Age}} \\
-			\centering
-			\only<-8>{\invisible<-7>{\includegraphics[height=1.2in]{vision_hair_age_1}}}%
-			\only<9>{\includegraphics[height=1.2in]{vision_hair_age_2}}%
-			\only<10>{\includegraphics[height=1.2in]{vision_hair_age_3}}%
-			\only<11->{\includegraphics[height=1.2in]{vision_hair_age_4}}%
-		\end{column}
-	\end{columns}
+
+\begin{frame}[label=constructing-networks]{Avoiding Fully Connected Networks}
+\begin{block}{Principles}
+\begin{enumerate}
+\item Add root causes
+\item\label{add-leaf-effects} Add variables directly influenced by leaves
+\item If variables left, goto \ref{add-leaf-effects}
+\end{enumerate}
+\end{block}
+\medskip
+\begin{columns}[T]
+\begin{column}{2.2in}
+\uncover<2->{
+Good: \\
+\footnotesize \textit{Age}, \textit{GrayHair}, \textit{Bifocals}, \textit{ReadDist}} \\
+\centering
+\begin{tikzpicture}
+\node[bn variable,visible on={3-}] at (1.5, 2) (A) {Age};
+\node[bn variable,visible on={4-}] at (0, 1) (G) {GrayHair}
+  edge[bn depends on, visible on={5-}] (A);
+\node[bn variable,visible on={6-}] at (3, 1) (B) {Bifocals}
+  edge[bn depends on, visible on={7-}] (A);
+\node[bn variable,visible on={8-}] at (1.5, 0) (R) {ReadingDistance}
+  edge[bn depends on, visible on={9-}] (B);
+\end{tikzpicture}
+\end{column}
+\begin{column}{2.2in}
+\uncover<10->{
+Bad: \\
+\footnotesize \textit{ReadDist}, \textit{GrayHair}, \textit{Bifocals}, \textit{Age}} \\
+\centering
+\begin{tikzpicture}
+\node[bn variable,visible on={11-}] at (2, 2.25) (R) {ReadingDistance};
+\node[bn variable,visible on={12-}] at (0, 1.5) (G) {GrayHair}
+  edge[bn depends on, visible on={13-}] (R);
+\node[bn variable,visible on={14-}] at (2, 0.75) (B) {Bifocals}
+  edge[bn depends on, visible on={15-}] (R)
+  edge[bn depends on, visible on={15-}] (G);
+\node[bn variable,visible on={16-}] at (0, 0) (A) {Age}
+  edge[bn depends on, visible on={17-}] (R)
+  edge[bn depends on, visible on={17-}] (G)
+  edge[bn depends on, visible on={17-}] (B);
+\end{tikzpicture}
+\end{column}
+\end{columns}
 \end{frame}
+
 \begin{frame}{Bayesian Network Exercise}
 	\begin{block}{Construct a Network}
 		\begin{itemize}
@@ -292,6 +305,7 @@ Time Complexity: \pause $O(nd^{n})$
 		\end{itemize}
 	\end{block}
 \end{frame}
+
 \begin{frame}{Bayesian Network Exercise}
 	One possible solution:
 	\begin{center}

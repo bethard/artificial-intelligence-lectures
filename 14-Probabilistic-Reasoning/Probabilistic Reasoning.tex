@@ -1,48 +1,22 @@
-\documentclass[12pt]{beamer}
-%\includeonlyframes{current}
+% !TEX TS-program = pdflatexmk
 
-\mode<presentation>{\usetheme{Warsaw}}
-\setbeamertemplate{footline}[frame number]
-\AtBeginSection[]{
-\begin{frame}<beamer>{Outline}
-	\tableofcontents[currentsection]
-\end{frame}
-}
-
-\usepackage[english]{babel}
-\usepackage{times}
-\usepackage{url}
-\usepackage{graphicx}
+\documentclass[14pt]{beamer}
+\input{../slides-preamble}
 \usepackage{hhline}
-\usepackage{array}
-\usepackage{colortbl}
-\usepackage{changepage}
-
-\newcommand{\key}[1]{{\color{blue}#1}}
-\newcommand{\cmnt}[1]{{\color{gray}#1}}
-\newcommand{\str}[1]{{\color{green!50!black}#1}}
-\newcommand{\num}[1]{{\color{green!55!blue}#1}}
-\newcommand{\defn}[1]{{\color{purple}#1}}
-\newcommand{\SC}[1]{\mbox{\sc#1}}
-\newcommand{\EM}[1]{\mbox{\em#1}}
-\newcommand{\tab}{\hspace{1em}}
-
-\newcommand{\AEM}[1]{\alert{\EM{#1}}}
 
 \title{Probabilistic Reasoning}
-\subtitle{Introduction to Artificial Intelligence}
-\author{Steven Bethard}
-\institute{
-  Department of Computer Science\\
-  University of Colorado
-}
-\date{CSCI 3202}
+\date{13 Mar 2014}
 
+\newcommand{\alertit}[1]{\alert{\textit{#1}}}
 
 \begin{document}
 
 \begin{frame}
-	\titlepage
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+\tableofcontents
 \end{frame}
 
 \section{Bayesian Networks}
@@ -58,16 +32,16 @@
 	\pause
 	$
 	\begin{array}{ll}
-	\lefteqn{P(\EM{Age}, \EM{GrayHair}, \EM{Bifocals}, \EM{BroncosWon}) = \mbox{}}\\ 
-	& P(\EM{Age}, \EM{GrayHair}, \EM{Bifocals})P(\EM{BroncosWon})
+	\lefteqn{P(\textit{Age}, \textit{GrayHair}, \textit{Bifocals}, \textit{BroncosWon}) = \mbox{}}\\ 
+	& P(\textit{Age}, \textit{GrayHair}, \textit{Bifocals})P(\textit{BroncosWon})
 	\end{array}
 	$
 	\pause
 	\smallskip
 	$
 	\begin{array}{ll}
-	\lefteqn{P(\EM{GrayHair},\EM{Bifocals}|\EM{Age}) = \mbox{}}\\ 
-	& P(\EM{GrayHair}|\EM{Age})P(\EM{Bifocals}|\EM{Age})
+	\lefteqn{P(\textit{GrayHair},\textit{Bifocals}|\textit{Age}) = \mbox{}}\\ 
+	& P(\textit{GrayHair}|\textit{Age})P(\textit{Bifocals}|\textit{Age})
 	\end{array}
 	$ \\
 \end{frame}
@@ -75,8 +49,8 @@
 	\begin{block}{Components}
 		\begin{itemize}
 			\item Random variables (nodes)
-			\item Directed links from \EM{parent} nodes to \EM{child} nodes
-			\item $\mathbf{P}(X_{i}|\EM{Parents}(X_{i}))$ tables for each node
+			\item Directed links from \textit{parent} nodes to \textit{child} nodes
+			\item $\mathbf{P}(X_{i}|\textit{Parents}(X_{i}))$ tables for each node
 			\item Links form no cycles
 		\end{itemize}
 	\end{block}
@@ -97,7 +71,7 @@
 \subsection{The Full Joint Distribution}
 \begin{frame}{Representing the Full Joint Distribution}
 	\begin{block}{Key Formula}
-		$P(x_{1},\ldots,x_{n}) = \prod\limits_{i=1}^{n}{P(x_{i}|\EM{parents}(X_{i}))}$
+		$P(x_{1},\ldots,x_{n}) = \prod\limits_{i=1}^{n}{P(x_{i}|\textit{parents}(X_{i}))}$
 	\end{block}
 	\begin{block}{Example}
 		$
@@ -105,8 +79,8 @@
 			\lefteqn{P(j, m, a, \lnot b, \lnot e)}
 			\\
 			& = & \pause
-			      P(j|\EM{parents}(j)) \cdot
-			      P(m|\EM{parents}(m)) \cdot
+			      P(j|\textit{parents}(j)) \cdot
+			      P(m|\textit{parents}(m)) \cdot
 			      \ldots
 			\\
 			& = & \pause
@@ -204,7 +178,7 @@
 			\uncover<2->{
 			Good:
 			\\
-			\footnotesize \EM{Age}, \EM{GrayHair}, \EM{Bifocals}, \EM{ReadDist}} \\
+			\footnotesize \textit{Age}, \textit{GrayHair}, \textit{Bifocals}, \textit{ReadDist}} \\
 			\centering
 			\only<-3>{\invisible<-2>{\includegraphics[height=1.2in]{age_hair_vision_1}}}%
 			\only<4>{\includegraphics[height=1.2in]{age_hair_vision_2}}%
@@ -215,7 +189,7 @@
 			\uncover<7->{
 			Bad:
 			\\
-			\footnotesize \EM{ReadDist}, \EM{GrayHair}, \EM{Bifocals}, \EM{Age}} \\
+			\footnotesize \textit{ReadDist}, \textit{GrayHair}, \textit{Bifocals}, \textit{Age}} \\
 			\centering
 			\only<-8>{\invisible<-7>{\includegraphics[height=1.2in]{vision_hair_age_1}}}%
 			\only<9>{\includegraphics[height=1.2in]{vision_hair_age_2}}%
@@ -333,18 +307,18 @@
 		Given $n$ boolean variables:
 		\\ \medskip
 		\begin{tabular}{ll}
-			\key{Time Complexity?}  & \pause $O(2^{n})$, explores whole tree
+			\keyword{Time Complexity?}  & \pause $O(2^{n})$, explores whole tree
 			\\ \pause
-			\key{Space Complexity?} & \pause $O(n)$, depth first search
+			\keyword{Space Complexity?} & \pause $O(n)$, depth first search
 		\end{tabular}
 	\end{block}
 	\pause
 	\begin{block}{With Dynamic Programming}
 		\begin{tabular}{@{}ll@{}}
-			\lefteqn{\mbox{\key{Singly connnected networks}}} \\
+			\lefteqn{\mbox{\keyword{Singly connnected networks}}} \\
 			& Time and space $O(n)$ if number of parents is bounded \\
 			\pause
-			\lefteqn{\mbox{\key{Multiply connected networks}}} \\
+			\lefteqn{\mbox{\keyword{Multiply connected networks}}} \\
 			& Time and space can be as bad as $O(k^{n})$
 		\end{tabular}
 	\end{block}
@@ -375,27 +349,25 @@
 	\begin{block}{Key Ideas for Creating a Random Assignment}
 		\begin{itemize}
 			\item Nodes are ordered from parents to children
-			\item Single nodes calculate $P(x_{i}|\EM{parents}(X_{i}))$
+			\item Single nodes calculate $P(x_{i}|\textit{parents}(X_{i}))$
 		\end{itemize}
 	\end{block}
 	\pause
 	\bigskip
-	\begin{adjustwidth}{-1em}{-1em}
 	\begin{semiverbatim}\scriptsize\bfseries
-		\key{def} \defn{prior_sample}(bayes_net):
+		\keyword{def} \defn{prior_sample}(bayes_net):
 		    \pause\cmnt{# generate a value for each variable from roots to leaves}
 		    sample = []
-		    \key{for} node \key{in} bayes_net:
+		    \keyword{for} node \keyword{in} bayes_net:
 		        \pause\cmnt{# find the values assigned to the parents}
-		        parent_samples = [sample[p.index] \key{for} p \key{in} node.parents]
+		        parent_samples = [sample[p.index] \keyword{for} p \keyword{in} node.parents]
 		        \pause\cmnt{# find the probability for this assignment from the table}
-		        prob = node.get_prob(\key{True}, *parent_samples)
+		        prob = node.get_prob(\keyword{True}, *parent_samples)
 		        \pause\cmnt{# add True or False according to the distribution}
 		        sample.append(random.random() < prob)
 		    \pause\cmnt{# return the complete sample}
-		    \key{return} sample
+		    \keyword{return} sample
 	\end{semiverbatim}
-	\end{adjustwidth}
 \end{frame}
 
 
@@ -407,55 +379,53 @@
 	\medskip
 	\pause
 	\begin{tabular}{ll}
-		Variables: & \EM{Cloudy}, \EM{Sprinkler}, \EM{Rain}, \EM{WetGrass} \\
-		Query:     & $P(\EM{Rain}|\EM{Sprinkler}\!=\!\EM{true})$
+		Variables: & \textit{Cloudy}, \textit{Sprinkler}, \textit{Rain}, \textit{WetGrass} \\
+		Query:     & $P(\textit{Rain}|\textit{Sprinkler}\!=\!\textit{true})$
 	\end{tabular}
 	\\
 	\medskip
 	$
 	\begin{array}{llll|cc}
-		\EM{Cloudy} & \EM{Sprinkler} & \EM{Rain}  & \EM{WetGrass} & \EM{rain} & \lnot\EM{rain} \\
+		\textit{Cloudy} & \textit{Sprinkler} & \textit{Rain}  & \textit{WetGrass} & \textit{rain} & \lnot\textit{rain} \\
 		\hline
 		\pause
-		\EM{false}  & \EM{false}     & \EM{false} & \EM{false}    &           &            \\
+		\textit{false}  & \textit{false}     & \textit{false} & \textit{false}    &           &            \\
 		\pause
-		\EM{true}   & \EM{true}      & \EM{false} & \EM{true}     &           & \pause 1   \\
+		\textit{true}   & \textit{true}      & \textit{false} & \textit{true}     &           & \pause 1   \\
 		\pause
-		\EM{true}   & \EM{false}     & \EM{false} & \EM{false}    &           &            \\
+		\textit{true}   & \textit{false}     & \textit{false} & \textit{false}    &           &            \\
 		\pause
-		\EM{false}  & \EM{true}      & \EM{true}  & \EM{true}     & \pause 1  &            \\
+		\textit{false}  & \textit{true}      & \textit{true}  & \textit{true}     & \pause 1  &            \\
 		\pause
-		\EM{false}  & \EM{true}      & \EM{false} & \EM{true}     &           & \pause 1
+		\textit{false}  & \textit{true}      & \textit{false} & \textit{true}     &           & \pause 1
 	\end{array}
 	$
 	\\
 	\medskip
 	\pause
-	\tab$P(\EM{Rain}\!=\!\EM{true}|\EM{Sprinkler}\!=\!\EM{true})=\pause\frac{1}{1 + 1 + 1}=\frac{1}{3}$
+	\tab$P(\textit{Rain}\!=\!\textit{true}|\textit{Sprinkler}\!=\!\textit{true})=\pause\frac{1}{1 + 1 + 1}=\frac{1}{3}$
 \end{frame}
 \begin{frame}[fragile]{Rejection Sampling Code}
-	\begin{adjustwidth}{-1em}{-1em}
 	\begin{semiverbatim}\scriptsize\bfseries
-		\key{def} \defn{rejection_sampling}(query_var, evidence, bayes_net, samples):
+		\keyword{def} \defn{rejection_sampling}(query_var, evidence, bayes_net, samples):
 		    \pause\cmnt{# generate a bunch of samples, counting query values}
-		    counts = \{\key{False}: \num{0}, \key{True}: \num{0}\}
-		    \key{for} _ \key{in} range(samples):
+		    counts = \{\keyword{False}: \num{0}, \keyword{True}: \num{0}\}
+		    \keyword{for} _ \keyword{in} range(samples):
 		        sample = prior_sample(bayes_net)
 		        \pause\cmnt{# if the sample is consistent with the evidence, count it}
-		        \key{if} all(sample[v.index] == evidence[v] \key{for} v \key{in} evidence):
+		        \keyword{if} all(sample[v.index] == evidence[v] \keyword{for} v \keyword{in} evidence):
 		            counts[sample[query_var.index]] += \num{1}
 		    \pause\cmnt{# normalize the counts and return the probabilities}
-		    \key{return} normalize(counts)
+		    \keyword{return} normalize(counts)
 		\pause
-		\key{def} \defn{normalize}(counts):
+		\keyword{def} \defn{normalize}(counts):
 		    \pause\cmnt{# divide all counts by the total}
 		    total = sum(counts.values())
-		    \key{for} value \key{in} counts:
+		    \keyword{for} value \keyword{in} counts:
 		        counts[value] /= total
 		    \pause\cmnt{# return the probabilities}
-		    \key{return} counts
+		    \keyword{return} counts
 	\end{semiverbatim}
-	\end{adjustwidth}
 \end{frame}
 \begin{frame}{Rejection Sampling Exercise}
 	\begin{columns}
@@ -467,9 +437,9 @@
 			Calculate: \\
 			\smallskip
 			\begin{tabular}{l@{}}
-				$P(\EM{rain}|\EM{sprinkler})$ \\
+				$P(\textit{rain}|\textit{sprinkler})$ \\
 				5 samples \\
-				\EM{true} if below random
+				\textit{true} if below random
 			\end{tabular} \\
 			\medskip
 			Random numbers: \\
@@ -486,7 +456,7 @@
 			\end{array}
 			$ \\
 			\medskip
-			\uncover<7->{$P(\EM{rain}|\EM{sprinkler}) = \uncover<10->{\frac{1}{4}}$}
+			\uncover<7->{$P(\textit{rain}|\textit{sprinkler}) = \uncover<10->{\frac{1}{4}}$}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -572,62 +542,60 @@
 	\begin{block}{Key Ideas}
 		\begin{itemize}
 			\item Only generate samples consistent with evidence
-			\item Use $P(X\!=\!x|\EM{parents}(X))$ to assign weights
+			\item Use $P(X\!=\!x|\textit{parents}(X))$ to assign weights
 		\end{itemize}
 	\end{block}
 	\medskip
 	\pause
 	\begin{tabular}{ll}
-		Variables: & \EM{Cloudy}, \EM{Sprinkler}, \EM{Rain}, \EM{WetGrass} \\
-		Query:     & $P(\EM{Rain}|\EM{Sprinkler}\!=\!\EM{true})$
+		Variables: & \textit{Cloudy}, \textit{Sprinkler}, \textit{Rain}, \textit{WetGrass} \\
+		Query:     & $P(\textit{Rain}|\textit{Sprinkler}\!=\!\textit{true})$
 	\end{tabular}
 	\\
 	\smallskip
 	$
 	\begin{array}{llll|cc}
-		\EM{Cloudy} & \EM{Sprinkler} & \EM{Rain}  & \EM{WetGrass} & \EM{rain}  & \lnot\EM{rain} \\
+		\textit{Cloudy} & \textit{Sprinkler} & \textit{Rain}  & \textit{WetGrass} & \textit{rain}  & \lnot\textit{rain} \\
 		\hline
 		\pause
-		\EM{true}   & \EM{true}      & \EM{true}  & \EM{true}     & \pause 0.1 &                \\
+		\textit{true}   & \textit{true}      & \textit{true}  & \textit{true}     & \pause 0.1 &                \\
 		\pause
-		\EM{true}   & \EM{true}      & \EM{true}  & \EM{true}     & \pause 0.1 &                \\
+		\textit{true}   & \textit{true}      & \textit{true}  & \textit{true}     & \pause 0.1 &                \\
 		\pause
-		\EM{false}  & \EM{true}      & \EM{false} & \EM{true}     &            & \pause 0.5     \\
+		\textit{false}  & \textit{true}      & \textit{false} & \textit{true}     &            & \pause 0.5     \\
 		\pause
-		\EM{true}   & \EM{true}      & \EM{true}  & \EM{true}     & \pause 0.1 &                \\
+		\textit{true}   & \textit{true}      & \textit{true}  & \textit{true}     & \pause 0.1 &                \\
 	\end{array}
 	$
 	\\
 	\smallskip
 	\pause
-	\tab$P(\EM{Rain}\!=\!\EM{true}|\EM{Sprinkler}\!=\!\EM{true})=\pause\frac{0.1 + 0.1 + 0.1}{0.1 + 0.1 + 0.1 + 0.5} = \frac{3}{8}$
+	\tab$P(\textit{Rain}\!=\!\textit{true}|\textit{Sprinkler}\!=\!\textit{true})=\pause\frac{0.1 + 0.1 + 0.1}{0.1 + 0.1 + 0.1 + 0.5} = \frac{3}{8}$
 \end{frame}
 \begin{frame}[fragile]{Likelihood Weighting Code}
-	\begin{adjustwidth}{-1em}{-1em}
 	\begin{semiverbatim}\scriptsize\bfseries
-		\key{def} \defn{likelihood_weighting}(query_var, evidence, bayes_net, samples):
+		\keyword{def} \defn{likelihood_weighting}(query_var, evidence, bayes_net, samples):
 		    \pause\cmnt{# generate samples, adding up weights for each query value}
-		    counts = \{\key{False}: \num{0}, \key{True}: \num{0}\}
-		    \key{for} _ \key{in} range(samples):
+		    counts = \{\keyword{False}: \num{0}, \keyword{True}: \num{0}\}
+		    \keyword{for} _ \keyword{in} range(samples):
 		        sample, weight = weighted_sample(bayes_net, evidence)
 		        counts[sample[query_var.index]] += weight
-		    \pause\key{return} normalize(counts)
+		    \pause\keyword{return} normalize(counts)
 		\pause
-		\key{def} \defn{weighted_sample}(bayes_net, evidence):\pause
+		\keyword{def} \defn{weighted_sample}(bayes_net, evidence):\pause
 		    sample, weight = [], \num{1.0}
-		    \key{for} node \key{in} bayes_net:
-		        p_samples = [sample[p.index] \key{for} p \key{in} node.parents]
+		    \keyword{for} node \keyword{in} bayes_net:
+		        p_samples = [sample[p.index] \keyword{for} p \keyword{in} node.parents]
 		        \pause\cmnt{# if the value is given, add it and update the weight}
-		        \key{if} node \key{in} evidence:
+		        \keyword{if} node \keyword{in} evidence:
 		            weight *= node.get_prob(evidence[node], *p_samples)
 		            sample.append(evidence[node])
 		        \pause\cmnt{# otherwise, add True or False using the distribution}
-		        \key{else}:
-		            prob = node.get_prob(\key{True}, *p_samples)
+		        \keyword{else}:
+		            prob = node.get_prob(\keyword{True}, *p_samples)
 		            sample.append(random.random() < prob)
-		    \pause\key{return} sample, weight
+		    \pause\keyword{return} sample, weight
 	\end{semiverbatim}
-	\end{adjustwidth}
 \end{frame}
 \begin{frame}{Likelihood Weighting}
 	\begin{block}{Properties}
@@ -669,34 +637,34 @@
 \end{frame}
 \begin{frame}{Gibbs Sampling Example}
 	\begin{tabular}{ll}
-		Variables: & \EM{Cloudy}, \EM{Sprinkler}, \EM{Rain}, \EM{WetGrass} \\
-		Query:     & $P(\EM{Rain}|\EM{Sprinkler}\!=\!\EM{true})$
+		Variables: & \textit{Cloudy}, \textit{Sprinkler}, \textit{Rain}, \textit{WetGrass} \\
+		Query:     & $P(\textit{Rain}|\textit{Sprinkler}\!=\!\textit{true})$
 	\end{tabular}
 	\\
 	\bigskip
 	$
 	\begin{array}{llll|cc}
-		\EM{Cloudy}           & \EM{Sprinkler} & \EM{Rain }  & \EM{WetGrass} & \EM{rain}  & \lnot\EM{rain} \\
+		\textit{Cloudy}           & \textit{Sprinkler} & \textit{Rain }  & \textit{WetGrass} & \textit{rain}  & \lnot\textit{rain} \\
 		\hline
-		\only<2>{\EM{true}    & \EM{true}      & \EM{true}   & \EM{false}    & 0          & 0}
-		\only<3>{\AEM{false}  & \EM{true}      & \EM{true}   & \EM{false}    & 1          & 0}
-		\only<4>{\EM{false}   & \EM{true}      & \AEM{false} & \EM{false}    & 1          & 1}
-		\only<5>{\EM{false}   & \EM{true}      & \EM{false}  & \AEM{true}    & 1          & 2}
-		\only<6>{\AEM{false}  & \EM{true}      & \EM{false}  & \EM{true}     & 1          & 3}
-		\only<7>{\EM{false}   & \EM{true}      & \AEM{true}  & \EM{true}     & 2          & 3}
-		\only<8>{\EM{false}   & \EM{true}      & \EM{true}   & \AEM{true}    & 3          & 3}
-		\only<9>{\AEM{true}   & \EM{true}      & \EM{true}   & \EM{true}     & 4          & 3}
-		\only<10>{\EM{true}   & \EM{true}      & \AEM{false} & \EM{true}     & 4          & 4}
-		\only<11>{\EM{true}   & \EM{true}      & \EM{false}  & \AEM{true}    & 4          & 5}
-		\only<12>{\AEM{false} & \EM{true}      & \EM{false}  & \EM{true}     & 4          & 6}
-		\only<13>{\EM{false}  & \EM{true}      & \AEM{false} & \EM{true}     & 4          & 7}
-		\only<14->{\EM{false}  & \EM{true}      & \EM{false}  & \AEM{true}    & 4          & 8}
+		\only<2>{\textit{true}    & \textit{true}      & \textit{true}   & \textit{false}    & 0          & 0}
+		\only<3>{\alertit{false}  & \textit{true}      & \textit{true}   & \textit{false}    & 1          & 0}
+		\only<4>{\textit{false}   & \textit{true}      & \alertit{false} & \textit{false}    & 1          & 1}
+		\only<5>{\textit{false}   & \textit{true}      & \textit{false}  & \alertit{true}    & 1          & 2}
+		\only<6>{\alertit{false}  & \textit{true}      & \textit{false}  & \textit{true}     & 1          & 3}
+		\only<7>{\textit{false}   & \textit{true}      & \alertit{true}  & \textit{true}     & 2          & 3}
+		\only<8>{\textit{false}   & \textit{true}      & \textit{true}   & \alertit{true}    & 3          & 3}
+		\only<9>{\alertit{true}   & \textit{true}      & \textit{true}   & \textit{true}     & 4          & 3}
+		\only<10>{\textit{true}   & \textit{true}      & \alertit{false} & \textit{true}     & 4          & 4}
+		\only<11>{\textit{true}   & \textit{true}      & \textit{false}  & \alertit{true}    & 4          & 5}
+		\only<12>{\alertit{false} & \textit{true}      & \textit{false}  & \textit{true}     & 4          & 6}
+		\only<13>{\textit{false}  & \textit{true}      & \alertit{false} & \textit{true}     & 4          & 7}
+		\only<14->{\textit{false}  & \textit{true}      & \textit{false}  & \alertit{true}    & 4          & 8}
 		\\
 	\end{array}
 	$
 	\\
 	\medskip
-	\tab\uncover<15->{$P(\EM{Rain}\!=\!\EM{true}|\EM{Sprinkler}\!=\!\EM{true}) = \displaystyle
+	\tab\uncover<15->{$P(\textit{Rain}\!=\!\textit{true}|\textit{Sprinkler}\!=\!\textit{true}) = \displaystyle
 	                   \uncover<16->{\frac{4}{4 + 8} = \uncover<17->{\frac{1}{3}$}}}
 	\\
 	\medskip
@@ -710,56 +678,54 @@
 \begin{frame}[fragile]{Gibbs Sampling Code}
 	\vspace{-.5em}
 	\begin{semiverbatim}\scriptsize\bfseries
-		\key{def} \defn{gibbs_sampling}(query_var, evidence, bayes_net, samples):
+		\keyword{def} \defn{gibbs_sampling}(query_var, evidence, bayes_net, samples):
 		    \pause\cmnt{# initialize the sample with random values for non-evidence}
 		    sample = []
-		    \key{for} node \key{in} bayes_net:
-		        \key{if} node \key{in} evidence:
+		    \keyword{for} node \keyword{in} bayes_net:
+		        \keyword{if} node \keyword{in} evidence:
 		            sample.append(evidence[node])
-		        \key{else}:
+		        \keyword{else}:
 		            sample.append(random.random() < \num{0.5})
 		    \pause\cmnt{# generate samples by changing non-evidence values}
-		    counts = \{\key{False}:\num{0}, \key{True}:\num{0}\}
-		    non_evidence = [n \key{for} n \key{in} bayes_net \key{if} n \key{not in} evidence]
-		    \key{for} _ \key{in} range(samples):
-		        \key{for} node \key{in} non_evidence:
+		    counts = \{\keyword{False}:\num{0}, \keyword{True}:\num{0}\}
+		    non_evidence = [n \keyword{for} n \keyword{in} bayes_net \keyword{if} n \keyword{not in} evidence]
+		    \keyword{for} _ \keyword{in} range(samples):
+		        \keyword{for} node \keyword{in} non_evidence:
 		            \pause\cmnt{# get the prob distribution given the markov blanket}
 		            probs = get_probs_given_markov_blanket(node, sample)
 		            \pause\cmnt{# select a new value according to that distribution}
-		            sample[node.index] = random.random() < probs[\key{True}]
+		            sample[node.index] = random.random() < probs[\keyword{True}]
 		            \pause\cmnt{# increment the count for the current query value}
 		            counts[sample[query_var.index]] += \num{1}
 		    \pause\cmnt{# normalize the counts and return the probabilities}
-		    \key{return} normalize(counts)
+		    \keyword{return} normalize(counts)
 	\end{semiverbatim}
 \end{frame}
 \begin{frame}[fragile]{Markov Blanket Code}
 	\begin{block}{Markov Blanket Probability}
 	\small 
-	$P(x|\EM{mb}(X)) = \alpha P(x|\EM{parents}(X)) \prod\limits_{Y \in \EM{\scriptsize Children}(X)}P(y|\EM{parents}(Y))$
+	$P(x|\textit{mb}(X)) = \alpha P(x|\textit{parents}(X)) \prod\limits_{Y \in \textit{\scriptsize Children}(X)}P(y|\textit{parents}(Y))$
 	\vspace{-.25em}
 	\end{block}
 	\vspace{.25em}
 	\pause
-	\begin{adjustwidth}{-1em}{}
 	\begin{semiverbatim}\scriptsize\bfseries
-		\key{def} \defn{get_probs_given_markov_blanket}(node, sample):
+		\keyword{def} \defn{get_probs_given_markov_blanket}(node, sample):
 		    \pause\cmnt{# get the probabilities for each value of the variable}
 		    counts = \{\}
-		    \key{for} value \key{in} [\key{True}, \key{False}]:
+		    \keyword{for} value \keyword{in} [\keyword{True}, \keyword{False}]:
 		        \pause\cmnt{# change the node's value in the sample}
 		        sample[node.index] = value
 		        \pause\cmnt{# the probability of the node given its parents}
-		        p_samples = [sample[p.index] \key{for} p \key{in} node.parents]
+		        p_samples = [sample[p.index] \keyword{for} p \keyword{in} node.parents]
 		        counts[value] = node.get_prob(value, *p_samples)
 		        \pause\cmnt{# times probabilities of children given their parents}
-		        \key{for} child \key{in} node.children:
+		        \keyword{for} child \keyword{in} node.children:
 		            c_sample = sample[child.index]
-		            p_samples = [sample[p.index] \key{for} p \key{in} child.parents]
+		            p_samples = [sample[p.index] \keyword{for} p \keyword{in} child.parents]
 		            counts[value] *= child.get_prob(c_sample, *p_samples)
-		    \pause\key{return} normalize(counts)
+		    \pause\keyword{return} normalize(counts)
 	\end{semiverbatim}
-	\end{adjustwidth}
 \end{frame}
 \begin{frame}{Gibbs Sampling Exercise}
 	\begin{columns}
@@ -776,19 +742,19 @@
 			$
 			\begin{array}{l@{}l}
 			\pause
-			\lefteqn{P(c|\EM{mb}(C))} \\
+			\lefteqn{P(c|\textit{mb}(C))} \\
 			\pause
 			& = \alpha P(c)P(s|c)P(\lnot r|c) \\
 			\pause
 			& = \alpha \cdot 0.5 \cdot 0.1 \cdot 0.2 = 0.01\alpha \\
 			\pause
-			\lefteqn{P(\lnot c|\EM{mb}(C))} \\
+			\lefteqn{P(\lnot c|\textit{mb}(C))} \\
 			\pause
 			& = \alpha P(\lnot c)P(s|\lnot c)P(\lnot r|\lnot c) \\
 			\pause
 			& = \alpha \cdot 0.5 \cdot 0.5 \cdot 0.8 = 0.2\alpha \\
 			\pause
-			\lefteqn{\mathbf{P}(C|\EM{mb}(C)) = \left\langle 0.048, 0.952 \right\rangle}
+			\lefteqn{\mathbf{P}(C|\textit{mb}(C)) = \left\langle 0.048, 0.952 \right\rangle}
 			\end{array}
 			$ \\
 			\smallskip
@@ -807,7 +773,7 @@
 \end{frame}
 \begin{frame}{Gibbs Sampling}
 	\begin{block}{Properties}
-		Given $n$ variables, $s$ samples, and $\leq d$ nodes $\in \EM{mb}(X)$:
+		Given $n$ variables, $s$ samples, and $\leq d$ nodes $\in \textit{mb}(X)$:
 		\begin{itemize}
 			\item Time Complexity: \pause $O(nds)$
 			\pause
@@ -832,7 +798,7 @@
 		\begin{itemize}
 			\item Variables linked by conditional independence
 			\item Put causes on top, add direct effects below
-			\item $P(x_{1},\ldots,x_{n}) = \prod\limits_{i=1}^{n}{P(x_{i}|\EM{parents}(X_{i}))}$
+			\item $P(x_{1},\ldots,x_{n}) = \prod\limits_{i=1}^{n}{P(x_{i}|\textit{parents}(X_{i}))}$
 		\end{itemize}
 	\end{block}
 	\begin{block}{Inference Methods}

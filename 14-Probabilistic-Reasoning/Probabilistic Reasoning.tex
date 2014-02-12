@@ -9,6 +9,11 @@
 
 \newcommand{\alertit}[1]{\alert{\textit{#1}}}
 
+\tikzset{
+  bn variable/.style={draw,ellipse,inner sep=0.2em},
+  bn depends on/.style={draw,-triangle 45,thick}
+}
+
 \begin{document}
 
 \begin{frame}
@@ -20,31 +25,40 @@
 \end{frame}
 
 \section{Bayesian Networks}
+
 \subsection{Bayesian Network Basics}
-\begin{frame}{Bayesian Networks}
-	\begin{block}{Definition}
-		A \alert{Bayesian Network} is a data structure for representing independence relations among random variables
-	\end{block}
-	\pause
-	\medskip
-	\includegraphics[height=1in]{age_broncos_net} \\
-	\medskip
-	\pause
-	$
-	\begin{array}{ll}
-	\lefteqn{P(\textit{Age}, \textit{GrayHair}, \textit{Bifocals}, \textit{BroncosWon}) = \mbox{}}\\ 
-	& P(\textit{Age}, \textit{GrayHair}, \textit{Bifocals})P(\textit{BroncosWon})
-	\end{array}
-	$
-	\pause
-	\smallskip
-	$
-	\begin{array}{ll}
-	\lefteqn{P(\textit{GrayHair},\textit{Bifocals}|\textit{Age}) = \mbox{}}\\ 
-	& P(\textit{GrayHair}|\textit{Age})P(\textit{Bifocals}|\textit{Age})
-	\end{array}
-	$ \\
+
+\begin{frame}[label=bayes-net-definition]{Bayesian Networks}
+\begin{block}{Definition}
+A \alert{Bayesian Network} is a data structure for representing independence relations among random variables
+\end{block}
+\begin{center}
+\begin{tikzpicture}
+\node[bn variable] at (1.5, 1.5) (A) {Age};
+\node[bn variable] at (0, 0) (GH) {GrayHair};
+\node[bn variable] at (3, 0) (B) {Bifocals};
+\node[bn variable] at (6, 1.5) (BW) {BlazersWon};
+\path[bn depends on] (A) -- (GH);
+\path[bn depends on] (A) -- (B);
+\end{tikzpicture}
+\end{center}
+\pause
+$
+\begin{array}{ll}
+\lefteqn{P(\textit{Age}, \textit{GrayHair}, \textit{Bifocals}, \textit{BlazersWon}) = \mbox{}}\\ 
+& P(\textit{Age}, \textit{GrayHair}, \textit{Bifocals})P(\textit{BlazersWon})
+\end{array}
+$
+\pause
+\smallskip
+$
+\begin{array}{ll}
+\lefteqn{P(\textit{GrayHair},\textit{Bifocals}|\textit{Age}) = \mbox{}}\\ 
+& P(\textit{GrayHair}|\textit{Age})P(\textit{Bifocals}|\textit{Age})
+\end{array}
+$ \\
 \end{frame}
+
 \begin{frame}{Bayesian Networks}
 	\begin{block}{Components}
 		\begin{itemize}

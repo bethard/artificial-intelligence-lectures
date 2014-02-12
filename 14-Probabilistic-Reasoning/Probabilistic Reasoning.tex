@@ -306,13 +306,26 @@ Bad: \\
 	\end{block}
 \end{frame}
 
-\begin{frame}{Bayesian Network Exercise}
-	One possible solution:
-	\begin{center}
-		\includegraphics[height=2in]{fire_alarm}
-	\end{center}
+\begin{frame}[label=network-exercise-solution]{Bayesian Network Exercise}
+One possible solution:
+\begin{center}
+\begin{tikzpicture}
+\node[bn variable] at (2, 4) (J) {``Joke''};
+\node[bn variable] at (6, 4) (F) {Fire};
+\node[bn variable] at (0, 2) (P) {Picnic};
+\node[bn variable] at (4, 2) (A) {Alarm}
+  edge[bn depends on] (J)
+  edge[bn depends on] (F);
+\node[bn variable] at (8, 2) (S) {Smoke}
+  edge[bn depends on] (F);
+\node[bn variable] at (2, 0) (AE) {AllExit}
+  edge[bn depends on] (P)
+  edge[bn depends on] (A);
+\node[bn variable] at (6, 0) (FT) {FireTrucks}
+  edge[bn depends on] (A);
+\end{tikzpicture}
+\end{center}
 \end{frame}
-
 
 \section{Efficient Exact Inference}
 \subsection{Moving Summation Terms}

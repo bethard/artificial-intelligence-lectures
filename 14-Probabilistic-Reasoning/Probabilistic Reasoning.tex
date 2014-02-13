@@ -446,6 +446,53 @@ a & \lnot b & \lnot e & \rightarrow & 0.001 \\
 \end{center}
 \end{frame}
 
+\begin{frame}{Factor Product}
+\setbeamercovered{invisible}
+The \alert{factor product} of factors $f$ and $g$ yields a factor with:
+\begin{itemize}
+\item The union of the variables of $f$ and $g$
+\item Values that are the product of the corresponding rows
+\end{itemize}
+\uncover<2->{
+\begin{center}
+\small
+\setlength{\arraycolsep}{0.2em}
+$\begin{array}{ r c l c l }
+\left(\begin{array}{ r r c l }
+a & j & \rightarrow & 0.90 \\
+a & \lnot j & \rightarrow & 0.05 \\
+\lnot a & j & \rightarrow & 0.10 \\
+\lnot a & \lnot j & \rightarrow & 0.95
+\end{array}\right)
+& \times
+& \left(\begin{array}{ r r c l }
+a & m & \rightarrow & 0.70 \\
+a & \lnot m & \rightarrow & 0.01 \\
+\lnot a & m & \rightarrow & 0.30 \\
+\lnot a & \lnot m & \rightarrow & 0.99
+\end{array}\right)
+& = 
+& \uncover<3->{
+\left(\begin{array}{ r r r c l }
+a & j & m & \rightarrow & \uncover<4->{0.63} \\
+a & j & \lnot m & \rightarrow & \uncover<5->{0.09} \\
+a & \lnot j & m & \rightarrow & \uncover<6->{0.035} \\
+a & \lnot j & \lnot m & \rightarrow & \uncover<7->{0.0005} \\
+\lnot a & j & m & \rightarrow & \uncover<8->{0.07} \\
+\lnot a & j & \lnot m & \rightarrow & \uncover<8->{0.001} \\
+\lnot a & \lnot j & m & \rightarrow & \uncover<8->{0.285} \\
+\lnot a & \lnot j & \lnot m & \rightarrow & \uncover<8->{0.9405} \\
+\end{array}\right)
+}
+\end{array}$
+\end{center}
+}
+\end{frame}
+
+\begin{frame}{Factor Marginalization}
+
+\end{frame}
+
 \subsection{Exact Inference Properties}
 \begin{frame}{Exact Inference Properties}
 	\begin{block}{Moving Summation Terms}

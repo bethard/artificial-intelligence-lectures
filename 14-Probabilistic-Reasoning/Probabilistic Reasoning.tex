@@ -373,7 +373,7 @@ One possible solution:
 	\end{block}
 \end{frame}
 
-\subsection{Dynamic Programming}
+\subsection{Factors and Dynamic Programming}
 
 \begin{frame}[label=depth-first-calculation]{Calculations through Depth First Search}
 \centering
@@ -408,6 +408,42 @@ $P(b|j,m) = \alpha P(b)\sum\limits_{e}P(e)\sum\limits_{a}P(a|b,e)P(j|a)P(m|a)$ \
   ]
 ]
 \end{forest}
+\end{frame}
+
+\begin{frame}[label=factors]{Factors}
+\setbeamercovered{invisible}
+Avoid duplicate calculations by using \alert{factors}, which store:
+\begin{itemize}
+\item A set of variables
+\item A number for each possible assignment of values
+\end{itemize}
+\pause
+\begin{center}
+\setlength{\arraycolsep}{0.2em}
+\small
+$\begin{array}{ l l l l }
+P(m|A)
+& = f(A)
+& = \left(\begin{array}{ r l }
+a & 0.70 \\
+\lnot a & 0.01
+\end{array}\right)
+\\[1em]
+\pause
+P(A|B,E)
+& = g(A,B,E)
+& = \left(\begin{array}{ r r r l }
+a & b & e & 0.95 \\
+a & b & \lnot e & 0.94 \\
+a & \lnot b & e & 0.29 \\
+a & \lnot b & \lnot e & 0.001 \\
+\lnot a & b & e & 0.05 \\
+\lnot a & b & \lnot e & 0.06 \\
+\lnot a & \lnot b & e & 0.71 \\
+\lnot a & b & \lnot e & 0.999
+\end{array}\right)
+\end{array}$
+\end{center}
 \end{frame}
 
 \subsection{Exact Inference Properties}

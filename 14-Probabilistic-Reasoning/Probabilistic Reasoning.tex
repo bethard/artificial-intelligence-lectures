@@ -424,23 +424,23 @@ Avoid duplicate calculations by using \alert{factors}, which store:
 $\begin{array}{ l l l l }
 P(m|A)
 & = f(A)
-& = \left(\begin{array}{ r l }
-a & 0.70 \\
-\lnot a & 0.01
+& = \left(\begin{array}{ r c l }
+a & \rightarrow & 0.70 \\
+\lnot a & \rightarrow & 0.01
 \end{array}\right)
 \\[1em]
 \pause
 P(A|B,E)
 & = g(A,B,E)
-& = \left(\begin{array}{ r r r l }
-a & b & e & 0.95 \\
-a & b & \lnot e & 0.94 \\
-a & \lnot b & e & 0.29 \\
-a & \lnot b & \lnot e & 0.001 \\
-\lnot a & b & e & 0.05 \\
-\lnot a & b & \lnot e & 0.06 \\
-\lnot a & \lnot b & e & 0.71 \\
-\lnot a & b & \lnot e & 0.999
+& = \left(\begin{array}{ r r r c l }
+a & b & e & \rightarrow & 0.95 \\
+a & b & \lnot e & \rightarrow & 0.94 \\
+a & \lnot b & e & \rightarrow & 0.29 \\
+a & \lnot b & \lnot e & \rightarrow & 0.001 \\
+\lnot a & b & e & \rightarrow & 0.05 \\
+\lnot a & b & \lnot e & \rightarrow & 0.06 \\
+\lnot a & \lnot b & e & \rightarrow & 0.71 \\
+\lnot a & b & \lnot e & \rightarrow & 0.999
 \end{array}\right)
 \end{array}$
 \end{center}

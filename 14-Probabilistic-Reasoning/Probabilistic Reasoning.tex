@@ -328,7 +328,9 @@ One possible solution:
 \end{frame}
 
 \section{Efficient Exact Inference}
-\subsection{Moving Summation Terms}
+
+\subsection{Enumeration}
+
 \begin{frame}{Drawbacks of Simple Enumeration}
 	\begin{block}{Recall: Simple Enumeration}
 		Time Complexity: $O(nd^{n})$
@@ -349,6 +351,7 @@ One possible solution:
 		\pause Problem: \pause We calculate $P(b)$, $P(e)$ and $P(\lnot e)$ many times!
 	\end{block}
 \end{frame}
+
 \begin{frame}{More Intelligent Summation}
 	\begin{block}{Moving Terms in Algebra}
 		$
@@ -408,7 +411,7 @@ $P(b|j,m) = \alpha P(b)\sum\limits_{e}P(e)\sum\limits_{a}P(a|b,e)P(j|a)P(m|a)$ \
 \end{forest}
 \end{frame}
 
-\subsection{Factors and Dynamic Programming}
+\subsection{Factors}
 
 \begin{frame}[label=factors]{Factors}
 \setbeamercovered{invisible}
@@ -493,9 +496,10 @@ a & \lnot j & \lnot m & \rightarrow & \uncover<7->{0.0005} \\
 
 \end{frame}
 
-\subsection{Exact Inference Properties}
+\subsection{Properties}
+
 \begin{frame}{Exact Inference Properties}
-	\begin{block}{Moving Summation Terms}
+	\begin{block}{Enumeration}
 		Given $n$ boolean variables:
 		\\ \medskip
 		\begin{tabular}{ll}
@@ -505,9 +509,9 @@ a & \lnot j & \lnot m & \rightarrow & \uncover<7->{0.0005} \\
 		\end{tabular}
 	\end{block}
 	\pause
-	\begin{block}{With Dynamic Programming}
+	\begin{block}{Factors}
 		\begin{tabular}{@{}ll@{}}
-			\lefteqn{\mbox{\keyword{Singly connnected networks}}} \\
+			\lefteqn{\mbox{\keyword{Singly connected networks}}} \\
 			& Time and space $O(n)$ if number of parents is bounded \\
 			\pause
 			\lefteqn{\mbox{\keyword{Multiply connected networks}}} \\

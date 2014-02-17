@@ -24,6 +24,53 @@
   bn table/.style={draw,inner sep=0em,font=\small},
 }
 
+\newcommand{\rainbayesnet}[1]{
+\setlength{\tabcolsep}{0.2em}
+\begin{tikzpicture}[font=#1]
+\node[bn variable] at (.5\textwidth, .65\textheight) (C) {Cloudy};
+\node[bn table,above=0.2em of C] {#1
+\begin{tabular}{ c }
+\textbf{P(C)} \\
+\hline
+.50
+\end{tabular}
+};
+\node[bn variable] at (0.35\textwidth, .5\textheight) (S) {Sprinkler};
+\node[bn table,left=0.2em of S] {#1
+\begin{tabular}{ c c }
+\textbf{C} & \textbf{P(S|C)} \\
+\hline
+T & .10 \\
+F & .50
+\end{tabular}
+};
+\node[bn variable] at (0.65\textwidth, .5\textheight) (R) {Rain};
+\node[bn table,right=0.2em of R] {#1
+\begin{tabular}{ c c }
+\textbf{C} & \textbf{P(R|C)} \\
+\hline
+T & .80 \\
+F & .20
+\end{tabular}
+};
+\node[bn variable] at (.5\textwidth, .35\textheight) (W) {Wet Grass};
+\node[bn table,below=0.2em of W] {#1
+\begin{tabular}{ c c c }
+\textbf{S} & \textbf{R} & \textbf{P(W|S,R)} \\
+\hline
+T & T & .99 \\
+T & F & .90 \\
+F & T & .90 \\
+F & F & .00
+\end{tabular}
+};
+\path[bn depends on] (S) -- (C);
+\path[bn depends on] (R) -- (C);
+\path[bn depends on] (W) -- (S);
+\path[bn depends on] (W) -- (R);
+\end{tikzpicture}
+}
+
 \begin{document}
 
 \begin{frame}
@@ -795,53 +842,10 @@ Given query $P(X=x|Y_1=z_1,\ldots,Y_n=z_n)$:
 \begin{frame}{Rejection Sampling Exercise}
 \setbeamercovered{invisible}
 \begin{columns}
-\begin{column}{0.65\textwidth}
-\small\setlength{\tabcolsep}{0.2em}
-\begin{tikzpicture}
-\node[bn variable] at (1.25, 2.5) (C) {Cloudy};
-\node[bn table,above=0.2em of C] {\footnotesize
-\begin{tabular}{ c }
-\textbf{P(C)} \\
-\hline
-.50
-\end{tabular}
-};
-\node[bn variable] at (0, 1.25) (S) {Sprinkler};
-\node[bn table,left=0.2em of S] {\footnotesize
-\begin{tabular}{ c c }
-\textbf{C} & \textbf{P(S|C)} \\
-\hline
-T & .10 \\
-F & .50
-\end{tabular}
-};
-\node[bn variable] at (2.5, 1.25) (R) {Rain};
-\node[bn table,right=0.2em of R] {\footnotesize
-\begin{tabular}{ c c }
-\textbf{C} & \textbf{P(R|C)} \\
-\hline
-T & .80 \\
-F & .20
-\end{tabular}
-};
-\node[bn variable] at (1.25, 0) (W) {Wet Grass};
-\node[bn table,below=0.2em of W] {\footnotesize
-\begin{tabular}{ c c c }
-\textbf{S} & \textbf{R} & \textbf{P(W|S,R)} \\
-\hline
-T & T & .99 \\
-T & F & .90 \\
-F & T & .90 \\
-F & F & .00
-\end{tabular}
-};
-\path[bn depends on] (S) -- (C);
-\path[bn depends on] (R) -- (C);
-\path[bn depends on] (W) -- (S);
-\path[bn depends on] (W) -- (R);
-\end{tikzpicture}
+\begin{column}{0.62\textwidth}
+\rainbayesnet{\footnotesize}
 \end{column}
-\begin{column}{0.32\textwidth}
+\begin{column}{0.35\textwidth}
 \small
 Calculate: \\
 \smallskip
@@ -1137,12 +1141,14 @@ $ \\
 		    \pause\keyword{return} normalize(counts)
 	\end{semiverbatim}
 \end{frame}
+
 \begin{frame}{Gibbs Sampling Exercise}
+\setbeamercovered{invisible}
 	\begin{columns}
-		\begin{column}{2.2in}
-			\includegraphics[width=2.2in]{rain_net}
+		\begin{column}{0.53\textwidth}
+			\rainbayesnet{\scriptsize}
 		\end{column}
-		\begin{column}{2in}
+		\begin{column}{0.45\textwidth}
 			\small
 			Initial Sample: $\langle \lnot c, s, \lnot r, w \rangle$ \\
 			\smallskip
@@ -1181,6 +1187,7 @@ $ \\
 		\end{column}
 	\end{columns}
 \end{frame}
+
 \begin{frame}{Gibbs Sampling}
 	\begin{block}{Properties}
 		Given $n$ variables, $s$ samples, and $\leq d$ nodes $\in \textit{mb}(X)$:

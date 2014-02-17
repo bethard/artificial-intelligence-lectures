@@ -794,38 +794,82 @@ Given query $P(X=x|Y_1=z_1,\ldots,Y_n=z_n)$:
 
 \begin{frame}{Rejection Sampling Exercise}
 \setbeamercovered{invisible}
-	\begin{columns}
-		\begin{column}{2.7in}
-			\includegraphics[width=2.7in]{rain_net}
-		\end{column}
-		\begin{column}{1.5in}
-			\small
-			Calculate: \\
-			\smallskip
-			\begin{tabular}{l@{}}
-				$P(\textit{rain}|\textit{sprinkler})$ \\
-				5 samples \\
-				\textit{true} if below random
-			\end{tabular} \\
-			\medskip
-			Random numbers: \\
-			\smallskip
-			$
-			\begin{array}{llll}
-				\parbox{.22in}{C} & \parbox{.22in}{S}            & \parbox{.22in}{R}             & WG                \\
-				\hline
-				\alt<2->{F}{0.6}  & \alert<8->{\alt<3->{T}{0.4}} & \alt<4->{F}{0.3}              & \alt<5->{T}{0.8} \\
-				\alt<6->{F}{0.7}  & \alert<8->{\alt<6->{T}{0.3}} & \alt<6->{F}{0.8}              & \alt<6->{T}{0.6} \\
-				\alt<6->{T}{0.3}  &            \alt<6->{F}{0.2}  & \alt<6->{T}{0.7}              & \alt<6->{T}{0.3}  \\
-				\alt<6->{F}{0.9}  & \alert<8->{\alt<6->{T}{0.2}} & \alt<6->{F}{0.4}              & \alt<6->{T}{0.1} \\
-				\alt<6->{F}{0.8}  & \alert<8->{\alt<6->{T}{0.4}} & \alert<9->{\alt<6->{T}{0.1}}  & \alt<6->{T}{0.9} \\
-			\end{array}
-			$ \\
-			\medskip
-			\uncover<7->{$P(\textit{rain}|\textit{sprinkler}) = \uncover<10->{\frac{1}{4}}$}
-		\end{column}
-	\end{columns}
+\begin{columns}
+\begin{column}{0.65\textwidth}
+\small\setlength{\tabcolsep}{0.2em}
+\begin{tikzpicture}
+\node[bn variable] at (1.25, 2.5) (C) {Cloudy};
+\node[bn table,above=0.2em of C] {\footnotesize
+\begin{tabular}{ c }
+\textbf{P(C)} \\
+\hline
+.50
+\end{tabular}
+};
+\node[bn variable] at (0, 1.25) (S) {Sprinkler};
+\node[bn table,left=0.2em of S] {\footnotesize
+\begin{tabular}{ c c }
+\textbf{C} & \textbf{P(S|C)} \\
+\hline
+T & .10 \\
+F & .50
+\end{tabular}
+};
+\node[bn variable] at (2.5, 1.25) (R) {Rain};
+\node[bn table,right=0.2em of R] {\footnotesize
+\begin{tabular}{ c c }
+\textbf{C} & \textbf{P(R|C)} \\
+\hline
+T & .80 \\
+F & .20
+\end{tabular}
+};
+\node[bn variable] at (1.25, 0) (W) {Wet Grass};
+\node[bn table,below=0.2em of W] {\footnotesize
+\begin{tabular}{ c c c }
+\textbf{S} & \textbf{R} & \textbf{P(W|S,R)} \\
+\hline
+T & T & .99 \\
+T & F & .90 \\
+F & T & .90 \\
+F & F & .00
+\end{tabular}
+};
+\path[bn depends on] (S) -- (C);
+\path[bn depends on] (R) -- (C);
+\path[bn depends on] (W) -- (S);
+\path[bn depends on] (W) -- (R);
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.32\textwidth}
+\small
+Calculate: \\
+\smallskip
+\begin{tabular}{l@{}}
+$P(\textit{rain}|\textit{sprinkler})$ \\
+5 samples \\
+\textit{true} if below random
+\end{tabular} \\
+\medskip
+Random numbers: \\
+\smallskip
+$
+\begin{array}{llll}
+\parbox{.22in}{C} & \parbox{.22in}{S}            & \parbox{.22in}{R}             & W                \\
+\hline
+\alt<2->{F}{0.6}  & \alert<8->{\alt<3->{T}{0.4}} & \alt<4->{F}{0.3}              & \alt<5->{T}{0.8} \\
+\alt<6->{F}{0.7}  & \alert<8->{\alt<6->{T}{0.3}} & \alt<6->{F}{0.8}              & \alt<6->{T}{0.6} \\
+\alt<6->{T}{0.3}  &            \alt<6->{F}{0.2}  & \alt<6->{T}{0.7}              & \alt<6->{T}{0.3}  \\
+\alt<6->{F}{0.9}  & \alert<8->{\alt<6->{T}{0.2}} & \alt<6->{F}{0.4}              & \alt<6->{T}{0.1} \\
+\alt<6->{F}{0.8}  & \alert<8->{\alt<6->{T}{0.4}} & \alert<9->{\alt<6->{T}{0.1}}  & \alt<6->{T}{0.9} \\
+\end{array}
+$ \\
+\medskip
+\uncover<7->{$P(\textit{rain}|\textit{sprinkler}) = \uncover<10->{\frac{1}{4}}$}
+\end{column}
+\end{columns}
 \end{frame}
+
 \begin{frame}{Rejection Sampling}
 	\begin{block}{Properties}
 		Given $n$ variables, at most $d$ parents each, $s$ samples drawn and $u$ samples used:

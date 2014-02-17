@@ -2,12 +2,21 @@
 
 \documentclass[14pt]{beamer}
 \input{../slides-preamble}
+\usepackage{relsize}
 \usepackage{hhline}
 
 \title{Probabilistic Reasoning}
 \date{13 Mar 2014}
 
 \newcommand{\alertit}[1]{\alert{\textit{#1}}}
+
+\newcommand{\scriptfactor}[2]{%
+\mbox{\scriptsize\setlength{\arraycolsep}{0.2em}$\left(
+\begin{array}{ #1 l }
+#2
+\end{array}
+\right)$}
+}
 
 \tikzset{
   bn variable/.style={draw,ellipse,inner sep=0.2em},
@@ -456,44 +465,218 @@ The \alert{factor product} of factors $f$ and $g$ yields a factor with:
 \item The union of the variables of $f$ and $g$
 \item Values that are the product of the corresponding rows
 \end{itemize}
+\medskip
 \uncover<2->{
-\begin{center}
-\small
-\setlength{\arraycolsep}{0.2em}
-$\begin{array}{ r c l c l }
+{\small\setlength{\arraycolsep}{0.2em}\[
 \left(\begin{array}{ r r c l }
-a & j & \rightarrow & 0.90 \\
-a & \lnot j & \rightarrow & 0.05 \\
-\lnot a & j & \rightarrow & 0.10 \\
-\lnot a & \lnot j & \rightarrow & 0.95
+j & a & \rightarrow & 0.90 \\
+j & \lnot a & \rightarrow & 0.05 \\
+\lnot j & a & \rightarrow & 0.10 \\
+\lnot j & \lnot a & \rightarrow & 0.95
 \end{array}\right)
-& \times
-& \left(\begin{array}{ r r c l }
-a & m & \rightarrow & 0.70 \\
-a & \lnot m & \rightarrow & 0.01 \\
-\lnot a & m & \rightarrow & 0.30 \\
-\lnot a & \lnot m & \rightarrow & 0.99
+\times
+\left(\begin{array}{ r r c l }
+m & a & \rightarrow & 0.70 \\
+m & \lnot a & \rightarrow & 0.01 \\
+\lnot m & a & \rightarrow & 0.30 \\
+\lnot m & \lnot a & \rightarrow & 0.99
 \end{array}\right)
-& = 
-& \uncover<3->{
+= 
+\uncover<3->{
 \left(\begin{array}{ r r r c l }
-a & j & m & \rightarrow & \uncover<4->{0.63} \\
-a & j & \lnot m & \rightarrow & \uncover<5->{0.09} \\
-a & \lnot j & m & \rightarrow & \uncover<6->{0.035} \\
-a & \lnot j & \lnot m & \rightarrow & \uncover<7->{0.0005} \\
-\lnot a & j & m & \rightarrow & \uncover<8->{0.07} \\
-\lnot a & j & \lnot m & \rightarrow & \uncover<8->{0.001} \\
-\lnot a & \lnot j & m & \rightarrow & \uncover<8->{0.285} \\
-\lnot a & \lnot j & \lnot m & \rightarrow & \uncover<8->{0.9405} \\
+j & m & a & \rightarrow & \uncover<4->{0.63} \\
+j & m & \lnot a & \rightarrow & \uncover<5->{0.0005} \\
+j & \lnot m & a & \rightarrow & \uncover<6->{0.27} \\
+j & \lnot m & \lnot a & \rightarrow & \uncover<7->{0.0495} \\
+\lnot j & m & a & \rightarrow & \uncover<8->{0.07} \\
+\lnot j & m & \lnot a & \rightarrow & \uncover<8->{0.0095} \\
+\lnot j & \lnot m & a & \rightarrow & \uncover<8->{0.03} \\
+\lnot j & \lnot m & \lnot a & \rightarrow & \uncover<8->{0.9405} \\
 \end{array}\right)
 }
-\end{array}$
-\end{center}
+\]}
 }
 \end{frame}
 
 \begin{frame}{Factor Marginalization}
+The \alert{factor marginalization} of factor $f$ for variable $A$ yields a factor with:
+\begin{itemize}
+\item The variables of $f$, minus the variable $A$
+\item Values that are the sum of the corresponding rows
+\end{itemize}
+\medskip
+\uncover<2->{
+{\small\setlength{\arraycolsep}{0.2em}
+\[
+\mathlarger{\sum}_{A}
+\left(\begin{array}{ @{} r r r c l @{} }
+j & m & a & \rightarrow & 0.63 \\
+j & m & \lnot a & \rightarrow & 0.0005 \\
+j & \lnot m & a & \rightarrow & 0.27 \\
+j & \lnot m & \lnot a & \rightarrow & 0.0495 \\
+\lnot j & m & a & \rightarrow & 0.07 \\
+\lnot j & m & \lnot a & \rightarrow & 0.0095 \\
+\lnot j & \lnot m & a & \rightarrow & 0.03 \\
+\lnot j & \lnot m & \lnot a & \rightarrow & 0.9405 \\
+\end{array}\right)
+=
+\uncover<3->{
+\left(\begin{array}{ @{} r r c l @{} }
+j & m & \rightarrow & \uncover<4->{0.6305} \\
+j & \lnot m & \rightarrow & \uncover<5->{0.3195} \\
+\lnot j & m & \rightarrow & \uncover<6->{0.0795} \\
+\lnot j & \lnot m & \rightarrow & \uncover<7->{0.9705} \\
+\end{array}\right)
+}
+\]}
+}
+\end{frame}
 
+\begin{frame}[t,label=factor-inference]{Exact Inference via Factors}
+\small
+\setlength{\arraycolsep}{0.2em}
+$
+\begin{array}{ @{} l l l @{} }
+\lefteqn{P(B|j,m) = \displaystyle \alpha P(B)\sum_{e' \in E} P(e') \sum_{a' \in A} P(a'|B,e')P(j|a')P(m|a')} \\[2em]
+\only<2>{
+& = & \displaystyle 
+\alpha
+\scriptfactor{ r }{
+b & .001 \\
+\lnot b & .999}
+\times
+\sum_E
+\scriptfactor{ r }{
+e & .002 \\
+\lnot e & .998}
+\times
+\sum_A
+\scriptfactor{ r r r }{
+a & b & e & .95 \\
+a & b & \lnot e & .94 \\
+a & \lnot b & e & .29 \\
+a & \lnot b & \lnot e & .001 \\
+\lnot a & b & e & .05 \\
+\lnot a & b & \lnot e & .06 \\
+\lnot a & \lnot b & e & .71 \\
+\lnot a & \lnot b & \lnot e & .999}
+\times
+\scriptfactor{ r }{
+a & .9 \\
+\lnot a & .05}
+\times
+\scriptfactor{ r }{
+a & .7 \\
+\lnot a & .01}
+\\}
+\only<3>{
+& = & \displaystyle
+\alpha
+\scriptfactor{ r }{
+b & .001 \\
+\lnot b & .999}
+\times
+\sum_E
+\scriptfactor{ r }{
+e & .002 \\
+\lnot e & .998}
+\times
+\sum_A
+\scriptfactor{ r r r }{
+a & b & e & .95 \\
+a & b & \lnot e & .94 \\
+a & \lnot b & e & .29 \\
+a & \lnot b & \lnot e & .001 \\
+\lnot a & b & e & .05 \\
+\lnot a & b & \lnot e & .06 \\
+\lnot a & \lnot b & e & .71 \\
+\lnot a & \lnot b & \lnot e & .999}
+\times
+\scriptfactor{ r }{
+a & .63 \\
+\lnot a & .0005}
+\\}
+\only<4>{
+& = & \displaystyle
+\alpha
+\scriptfactor{ r }{
+b & .001 \\
+\lnot b & .999}
+\times
+\sum_E
+\scriptfactor{ r }{
+e & .002 \\
+\lnot e & .998}
+\times
+\sum_A
+\scriptfactor{ r r r }{
+a & b & e & .5985 \\
+a & b & \lnot e & .5922 \\
+a & \lnot b & e & .1827 \\
+a & \lnot b & \lnot e & .00063 \\
+\lnot a & b & e & .000025 \\
+\lnot a & b & \lnot e & .00003 \\
+\lnot a & \lnot b & e & .000355 \\
+\lnot a & \lnot b & \lnot e & .0004995}
+\\}
+\only<5>{
+& = & \displaystyle
+\alpha
+\scriptfactor{ r }{
+b & .001 \\
+\lnot b & .999}
+\times
+\sum_E
+\scriptfactor{ r }{
+e & .002 \\
+\lnot e & .998}
+\times
+\scriptfactor{ r r }{
+b & e & .598525 \\
+b & \lnot e & .59223 \\
+\lnot b & e & .183055 \\
+\lnot b & \lnot e & .0011295}
+\\}
+\only<6>{
+& = & \displaystyle
+\alpha
+\scriptfactor{ r }{
+b & .001 \\
+\lnot b & .999}
+\times
+\sum_E
+\scriptfactor{ r r }{
+b & e & .00119705 \\
+b & \lnot e & .59104554 \\
+\lnot b & e & .00036611 \\
+\lnot b & \lnot e & .001127241}
+\\}
+\only<7>{
+& = & \displaystyle
+\alpha
+\scriptfactor{ r }{
+b & .001 \\
+\lnot b & .999}
+\times
+\scriptfactor{ r r }{
+b & .59224259 \\
+\lnot b & .001493351}
+\\}
+\only<8>{
+& = & \displaystyle
+\alpha
+\scriptfactor{ r }{
+b & .00059224259 \\
+\lnot b & .001491857649}
+\\}
+\only<9>{
+& \approx & \displaystyle
+\scriptfactor{ r }{
+b & .284 \\
+\lnot b & .716}
+\\}
+\end{array}
+$
 \end{frame}
 
 \subsection{Properties}

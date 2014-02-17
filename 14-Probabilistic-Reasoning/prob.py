@@ -78,7 +78,8 @@ wet_args = R, {S: True}, wet_net, 10000
 
 
 def prior_sample(bayes_net):
-    # generate a value for each variable from roots to leaves
+    # generate a value for each variable in the network
+    # variables are sorted from parents to children
     sample = []
     for node in bayes_net:
         # find the values assigned to the parents

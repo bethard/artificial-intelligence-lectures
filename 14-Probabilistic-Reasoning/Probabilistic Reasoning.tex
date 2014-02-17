@@ -705,48 +705,29 @@ Cluster variables into tree $\Rightarrow$ $O(r')$
 
 
 \section{Approximate Inference}
-\begin{frame}{Approximate Inference}
-	\begin{block}{Motivation}
-		\begin{itemize}
-			\item Exact inference is exponential in number of variables
-			\item Sometimes an approximate result is enough
-				\begin{itemize}
-					\item E.g. 29.6\% vs. 30.0\% chance of rain
-				\end{itemize}
-		\end{itemize}
-	\end{block}
-	\pause
-	\begin{block}{General Approach for Approximate Inference}
-		\begin{itemize}
-			\item Generate a bunch of full variable assignments
-			\item Make sure assignments are consistent with evidence
-			\item Count times $X\!=\!x$ and divide by number of samples
-		\end{itemize}
-	\end{block}
-\end{frame}
-\begin{frame}[fragile]{Generating Full Variable Assignments}
-	\begin{block}{Key Ideas for Creating a Random Assignment}
-		\begin{itemize}
-			\item Nodes are ordered from parents to children
-			\item Single nodes calculate $P(x_{i}|\textit{parents}(X_{i}))$
-		\end{itemize}
-	\end{block}
-	\pause
-	\bigskip
-	\begin{semiverbatim}\scriptsize\bfseries
-		\keyword{def} \defn{prior_sample}(bayes_net):
-		    \pause\cmnt{# generate a value for each variable from roots to leaves}
-		    sample = []
-		    \keyword{for} node \keyword{in} bayes_net:
-		        \pause\cmnt{# find the values assigned to the parents}
-		        parent_samples = [sample[p.index] \keyword{for} p \keyword{in} node.parents]
-		        \pause\cmnt{# find the probability for this assignment from the table}
-		        prob = node.get_prob(\keyword{True}, *parent_samples)
-		        \pause\cmnt{# add True or False according to the distribution}
-		        sample.append(random.random() < prob)
-		    \pause\cmnt{# return the complete sample}
-		    \keyword{return} sample
-	\end{semiverbatim}
+\begin{frame}[fragile]{Approximate Inference}
+Given query $P(X=x|Y_1=z_1,\ldots,Y_n=z_n)$:
+\begin{itemize}
+\item Generate $k$ assignments of all variables in network
+\item Drop assignments inconsistent with {\small$Y_1=z_1,\ldots,Y_n=z_n$}
+\item Count assignments where $X\!=\!x$, and divide by $k$
+\end{itemize}
+\pause
+\begin{semiverbatim}\scriptsize\bfseries
+\keyword{def} \defn{prior_sample}(bayes_net):
+    \pause\cmnt{# generate a value for each variable in the network}
+    \cmnt{# variables are sorted from parents to children}
+    sample = []
+    \keyword{for} node \keyword{in} bayes_net:
+        \pause\cmnt{# find the values assigned to the parents}
+        parent_samples = [sample[p.index] \keyword{for} p \keyword{in} node.parents]
+        \pause\cmnt{# find the probability for this assignment from the table}
+        prob = node.get_prob(\keyword{True}, *parent_samples)
+        \pause\cmnt{# add True or False according to the distribution}
+        sample.append(random.random() < prob)
+    \pause\cmnt{# return the complete sample}
+    \keyword{return} sample
+\end{semiverbatim}
 \end{frame}
 
 

@@ -532,12 +532,16 @@ j & \lnot m & \rightarrow & \uncover<5->{0.3195} \\
 }
 \end{frame}
 
-\begin{frame}[t,label=factor-inference]{Exact Inference via Factors}
+\begin{frame}[label=factor-inference]{Exact Inference via Factors}
 \small
 \setlength{\arraycolsep}{0.2em}
 $
-\begin{array}{ @{} l l l @{} }
-\lefteqn{P(B|j,m) = \displaystyle \alpha P(B)\sum_{e' \in E} P(e') \sum_{a' \in A} P(a'|B,e')P(j|a')P(m|a')} \\[2em]
+\begin{array}{ @{} l @{} l l l @{} }
+\lefteqn{P(B|j,m)}
+\\
+& & = & \displaystyle \alpha P(B)\sum_{e' \in E} P(e') \sum_{a' \in A} P(a'|B,e')P(j|a')P(m|a')
+\\
+\parbox[c][0.3\textheight]{0em}{} &
 \only<2>{
 & = & \displaystyle 
 \alpha
@@ -568,7 +572,7 @@ a & .9 \\
 \scriptfactor{ r }{
 a & .7 \\
 \lnot a & .01}
-\\}
+}
 \only<3>{
 & = & \displaystyle
 \alpha
@@ -595,7 +599,7 @@ a & \lnot b & \lnot e & .001 \\
 \scriptfactor{ r }{
 a & .63 \\
 \lnot a & .0005}
-\\}
+}
 \only<4>{
 & = & \displaystyle
 \alpha
@@ -618,7 +622,7 @@ a & \lnot b & \lnot e & .00063 \\
 \lnot a & b & \lnot e & .00003 \\
 \lnot a & \lnot b & e & .000355 \\
 \lnot a & \lnot b & \lnot e & .0004995}
-\\}
+}
 \only<5>{
 & = & \displaystyle
 \alpha
@@ -636,7 +640,7 @@ b & e & .598525 \\
 b & \lnot e & .59223 \\
 \lnot b & e & .183055 \\
 \lnot b & \lnot e & .0011295}
-\\}
+}
 \only<6>{
 & = & \displaystyle
 \alpha
@@ -650,7 +654,7 @@ b & e & .00119705 \\
 b & \lnot e & .59104554 \\
 \lnot b & e & .00036611 \\
 \lnot b & \lnot e & .001127241}
-\\}
+}
 \only<7>{
 & = & \displaystyle
 \alpha
@@ -661,20 +665,20 @@ b & .001 \\
 \scriptfactor{ r r }{
 b & .59224259 \\
 \lnot b & .001493351}
-\\}
+}
 \only<8>{
 & = & \displaystyle
 \alpha
 \scriptfactor{ r }{
 b & .00059224259 \\
 \lnot b & .001491857649}
-\\}
+}
 \only<9>{
 & \approx & \displaystyle
 \scriptfactor{ r }{
 b & .284 \\
 \lnot b & .716}
-\\}
+}
 \end{array}
 $
 \end{frame}

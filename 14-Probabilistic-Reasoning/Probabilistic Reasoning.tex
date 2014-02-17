@@ -682,25 +682,25 @@ $
 \subsection{Properties}
 
 \begin{frame}{Exact Inference Properties}
-	\begin{block}{Enumeration}
-		Given $n$ boolean variables:
-		\\ \medskip
-		\begin{tabular}{ll}
-			\keyword{Time Complexity?}  & \pause $O(2^{n})$, explores whole tree
-			\\ \pause
-			\keyword{Space Complexity?} & \pause $O(n)$, depth first search
-		\end{tabular}
-	\end{block}
-	\pause
-	\begin{block}{Factors}
-		\begin{tabular}{@{}ll@{}}
-			\lefteqn{\mbox{\keyword{Singly connected networks}}} \\
-			& Time and space $O(n)$ if number of parents is bounded \\
-			\pause
-			\lefteqn{\mbox{\keyword{Multiply connected networks}}} \\
-			& Time and space can be as bad as $O(k^{n})$
-		\end{tabular}
-	\end{block}
+Given a network with:
+\begin{itemize}
+\item $v$ variables
+\item $k$ values per variable
+\item $p$ parents per variable
+\item $r$ rows in the conditional probability tables
+\end{itemize}
+Worst case time and space complexity:
+\begin{description}[Multiply connected]
+\item[Singly connected]
+$O(r)$ \\
+\pause
+If $p$ constant-bounded $\Rightarrow$ $O(v)$
+\pause
+\item[Multiply connected]
+$O(k^{v})$ \\
+\pause
+Cluster variables into tree $\Rightarrow$ $O(r')$
+\end{description}
 \end{frame}
 
 

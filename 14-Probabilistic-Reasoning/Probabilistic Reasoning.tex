@@ -732,7 +732,10 @@ Given query $P(X=x|Y_1=z_1,\ldots,Y_n=z_n)$:
 
 
 \subsection{Rejection Sampling}
+
+
 \begin{frame}[fragile]{Rejection Sampling}
+\setbeamercovered{invisible}
 	\begin{block}{Key Idea}
 		Throw away samples inconsistent with the evidence
 	\end{block}
@@ -765,6 +768,7 @@ Given query $P(X=x|Y_1=z_1,\ldots,Y_n=z_n)$:
 	\pause
 	\tab$P(\textit{Rain}\!=\!\textit{true}|\textit{Sprinkler}\!=\!\textit{true})=\pause\frac{1}{1 + 1 + 1}=\frac{1}{3}$
 \end{frame}
+
 \begin{frame}[fragile]{Rejection Sampling Code}
 	\begin{semiverbatim}\scriptsize\bfseries
 		\keyword{def} \defn{rejection_sampling}(query_var, evidence, bayes_net, samples):
@@ -787,7 +791,9 @@ Given query $P(X=x|Y_1=z_1,\ldots,Y_n=z_n)$:
 		    \keyword{return} counts
 	\end{semiverbatim}
 \end{frame}
+
 \begin{frame}{Rejection Sampling Exercise}
+\setbeamercovered{invisible}
 	\begin{columns}
 		\begin{column}{2.7in}
 			\includegraphics[width=2.7in]{rain_net}

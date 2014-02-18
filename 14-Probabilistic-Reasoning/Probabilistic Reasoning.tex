@@ -3,7 +3,6 @@
 \documentclass[14pt]{beamer}
 \input{../slides-preamble}
 \usepackage{relsize}
-\usepackage{hhline}
 
 \title{Probabilistic Reasoning}
 \date{13 Mar 2014}
@@ -894,61 +893,45 @@ $ \\
 		\end{itemize}
 	\end{block}
 \end{frame}
+
 \begin{frame}{So Why Not Just Fix The Evidence?}
-	\begin{tabular}{@{}l@{\hspace{1.5em}}l@{}}
-		Given:
-		$
-		\begin{array}[t]{llll}
-			P(A) & & A & P(B) \\
-			\hhline{-~--}
-			0.4  & & T & 0.2 \\
-			     & & F & 0.4 \\
-		\end{array}
-		$
-		&
-		Query: $P(A|b)$
-		\\
-		\\
-		\multicolumn{2}{@{}l@{}}{\pause Using the full joint distribution:}
-		\\
-		$
-		\begin{array}[t]{ll|l}
-			A & B & P(A,B) \\
-			\hline
-			\pause T & T & \pause 0.4 \cdot 0.2 = 0.08 \\
-			\pause T & F & \pause 0.4 \cdot 0.8 = 0.32 \\
-			\pause F & T & \pause 0.6 \cdot 0.4 = 0.24 \\
-			\pause F & F & \pause 0.6 \cdot 0.6 = 0.36 \\
-		\end{array}
-		$
-		&
-		$
-		\pause
-		\begin{array}[t]{lll}
-			P(A|b) & = & \pause \alpha P(A, b) \\
-			       & = & \pause \alpha \langle 0.08, 0.24 \rangle \\
-			       & = & \pause \langle 0.25, 0.75 \rangle
-		\end{array}
-		$
-		\\
-		\\
-		\multicolumn{2}{@{}l@{}}{\pause Fixing $B\!=\!b$, and since $P(A) = 0.4$ we generate one of:}
-		\\
-		$
-		\begin{array}[t]{ll}
-			\pause\langle a, b \rangle       & \pause\mbox{40\% of the time} \\
-			\pause\langle \lnot a, b \rangle & \pause\mbox{60\% of the time} \\
-		\end{array}
-		$
-		&
-		$
-		\pause
-		\begin{array}[t]{l}
-			P(A|b) = \pause\langle 0.4, 0.6 \rangle \\
-			\pause\mbox{\alert{But that's wrong!}}
-		\end{array}
-		$
-	\end{tabular}
+\setbeamercovered{invisible}
+Query: $P(A|b)$ \\
+Given: $P(A) = \langle 0.4, 0.6 \rangle$, $P(b|A) = \langle 0.2, 0.4\rangle$
+\pause
+\begin{block}{Fixing evidence}
+\pause
+\begin{tabular}{ l l }
+$\langle a, b \rangle$ & 40\% of the time \\
+$\langle \lnot a, b \rangle$ & 60\% of the time
+\end{tabular}
+\pause
+\hspace{1em}
+$P(A|b) = \langle 0.4, 0.6 \rangle$
+\end{block}
+\pause
+\begin{block}{Using full joint distribution}
+\pause
+$\begin{array}{ l l l }
+A & B & P(A,B) \\
+\hline
+T & T & \pause 0.4 \cdot 0.2 = 0.08 \\
+\pause
+T & F & 0.4 \cdot 0.8 = 0.32 \\
+\pause
+F & T & 0.6 \cdot 0.4 = 0.24 \\
+F & F & 0.6 \cdot 0.6 = 0.36 \\
+\end{array}$
+\pause
+\hspace{1.75em}
+\setlength{\arraycolsep}{0.2em}
+$\begin{array}{ l l l }
+P(A|b)
+& = & \alpha P(A, b) \\
+& = & \alpha \langle 0.08, 0.24 \rangle \\
+& = & \langle 0.25, 0.75 \rangle
+\end{array}$
+\end{block}
 \end{frame}
 
 \subsection{Likelihood Weighting}

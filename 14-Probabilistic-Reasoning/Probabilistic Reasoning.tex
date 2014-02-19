@@ -731,10 +731,10 @@ $
 Given a network with:
 \begin{itemize}
 \item $v$ variables
-\item $k$ values per variable
 \item $p$ parents per variable
 \item $r$ rows in the conditional probability tables
 \end{itemize}
+\bigskip
 Worst case time and space complexity:
 \begin{description}[Multiply connected]
 \item[Singly connected]
@@ -743,9 +743,9 @@ $O(r)$ \\
 If $p$ constant-bounded $\Rightarrow$ $O(v)$
 \pause
 \item[Multiply connected]
-$O(k^{v})$ \\
+$O(2^{v})$ \\
 \pause
-Cluster variables into tree $\Rightarrow$ $O(r')$
+Cluster variables into tree $\Rightarrow$ $O(r_{clust})$
 \end{description}
 \end{frame}
 
@@ -1220,7 +1220,7 @@ $P(x|\textit{mb}(X)) = \alpha P(x|\textit{parents}(X)) \prod\limits_{Y \in \text
 	\end{block}
 	\begin{block}{Inference Methods}
 		\begin{itemize}
-			\item Exact: sum reordering and dynamic programming
+			\item Exact inference via factors
 			\item Rejection sampling requires many samples
 			\item Likelihood weighting poor with a lot of evidence
 			\item Gibbs Sampling updates based on Markov blanket

@@ -1165,6 +1165,27 @@ $P(x|\textit{mb}(X)) = \alpha P(x|\textit{parents}(X)) \prod\limits_{Y \in \text
 			\end{tabular}
 		\end{column}
 	\end{columns}
+% Updating R:
+% P(r | mb(R)) = \alpha P(r | c) P(w | s, r) = \alpha * .8 * .99 = 0.792\alpha
+% P(\lnot r | mb(R)) = \alpha P(\lnot r | c) P(w | s, \lnot r) = \alpha * .2 * .9 = .18\alpha
+% sum => .972
+% P(R | mb(R)) = < .815, .185 >
+% 0.48 => r
+% <c, s, r, w>
+%
+% Updating W:
+% P(w | mb(W)) = \alpha P(w | s, r) = .99\alpha
+% P(\lnot w | mb (W)) = \alpha P(\lnot w | s, r) = .01\alpha
+% P(W | mb(W)) = < .99, .01 >
+% .63 => w
+% <c, s, r, w>
+%
+% Updating C:
+% P(c | mb(C)) = \alpha P(c) P(s | c) P(r | c) = \alpha * .5 * .1 * .8 = .04 \alpha
+% P(\lnot c | mb(C)) = \alpha P(\lnot c) P(s | \lnot c) P(r | \lnot c) = \alpha * .5 * .5 * .2 = .05 \alpha
+% P(C | mb(C)) = < .44444, .55555 >
+% .83 => \lnot c
+% <\lnot c, s, r, w>
 \end{frame}
 
 \begin{frame}{Gibbs Sampling}

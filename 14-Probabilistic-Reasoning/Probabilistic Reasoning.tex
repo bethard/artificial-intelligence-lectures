@@ -763,14 +763,14 @@ Given query $P(X=x|Y_1=z_1,\ldots,Y_n=z_n)$:
 \keyword{def} \defn{prior_sample}(bayes_net):
     \pause\cmnt{# generate a value for each variable in the network}
     \cmnt{# variables are sorted from parents to children}
-    sample = []
-    \keyword{for} node \keyword{in} bayes_net:
+    sample = \{\}
+    \keyword{for} variable \keyword{in} bayes_net:
         \pause\cmnt{# find the values assigned to the parents}
-        parent_samples = [sample[p.index] \keyword{for} p \keyword{in} node.parents]
+        parent_values = [sample[parent] \keyword{for} parent \keyword{in} variable.parents]
         \pause\cmnt{# find the probability for this assignment from the table}
-        prob = node.get_prob(\keyword{True}, *parent_samples)
+        probability = variable.probability_of(\keyword{True}, *parent_values)
         \pause\cmnt{# add True or False according to the distribution}
-        sample.append(random.random() < prob)
+        sample[variable] = random.random() < probability
     \pause\cmnt{# return the complete sample}
     \keyword{return} sample
 \end{semiverbatim}
@@ -816,26 +816,25 @@ Given query $P(X=x|Y_1=z_1,\ldots,Y_n=z_n)$:
 \end{frame}
 
 \begin{frame}[fragile]{Rejection Sampling Code}
-	\begin{semiverbatim}\scriptsize\bfseries
-		\keyword{def} \defn{rejection_sampling}(query_var, evidence, bayes_net, samples):
-		    \pause\cmnt{# generate a bunch of samples, counting query values}
-		    counts = \{\keyword{False}: \num{0}, \keyword{True}: \num{0}\}
-		    \keyword{for} _ \keyword{in} range(samples):
-		        sample = prior_sample(bayes_net)
-		        \pause\cmnt{# if the sample is consistent with the evidence, count it}
-		        \keyword{if} all(sample[v.index] == evidence[v] \keyword{for} v \keyword{in} evidence):
-		            counts[sample[query_var.index]] += \num{1}
-		    \pause\cmnt{# normalize the counts and return the probabilities}
-		    \keyword{return} normalize(counts)
-		\pause
-		\keyword{def} \defn{normalize}(counts):
-		    \pause\cmnt{# divide all counts by the total}
-		    total = sum(counts.values())
-		    \keyword{for} value \keyword{in} counts:
-		        counts[value] /= total
-		    \pause\cmnt{# return the probabilities}
-		    \keyword{return} counts
-	\end{semiverbatim}
+\begin{semiverbatim}\scriptsize\bfseries
+\keyword{def} \defn{rejection_sampling}(query, evidence, bayes_net, samples):
+    \pause\cmnt{# generate a bunch of samples, counting query values}
+    counts = \{\keyword{False}: \num{0}, \keyword{True}: \num{0}\}
+    \keyword{for} _ \keyword{in} range(samples):
+        sample = prior_sample(bayes_net)
+        \pause\cmnt{# if the sample is consistent with the evidence, count it}
+        \keyword{if} all(sample[variable] == evidence[variable] \keyword{for} variable \keyword{in} evidence):
+            counts[sample[query]] += \num{1}
+    \pause\cmnt{# normalize the counts and return the probabilities}
+    \keyword{return} normalize(counts)
+\pause
+\keyword{def} \defn{normalize}(counts):
+    \pause\cmnt{# divide all counts by the total}
+    total = sum(counts.values())
+    \keyword{for} value \keyword{in} counts:
+        counts[value] /= total
+    \keyword{return} counts
+\end{semiverbatim}
 \end{frame}
 
 \begin{frame}{Rejection Sampling Exercise}
@@ -972,30 +971,33 @@ P(A|b)
 \end{frame}
 
 \begin{frame}[fragile]{Likelihood Weighting Code}
-	\begin{semiverbatim}\scriptsize\bfseries
-		\keyword{def} \defn{likelihood_weighting}(query_var, evidence, bayes_net, samples):
-		    \pause\cmnt{# generate samples, adding up weights for each query value}
-		    counts = \{\keyword{False}: \num{0}, \keyword{True}: \num{0}\}
-		    \keyword{for} _ \keyword{in} range(samples):
-		        sample, weight = weighted_sample(bayes_net, evidence)
-		        counts[sample[query_var.index]] += weight
-		    \pause\keyword{return} normalize(counts)
-		\pause
-		\keyword{def} \defn{weighted_sample}(bayes_net, evidence):\pause
-		    sample, weight = [], \num{1.0}
-		    \keyword{for} node \keyword{in} bayes_net:
-		        p_samples = [sample[p.index] \keyword{for} p \keyword{in} node.parents]
-		        \pause\cmnt{# if the value is given, add it and update the weight}
-		        \keyword{if} node \keyword{in} evidence:
-		            weight *= node.get_prob(evidence[node], *p_samples)
-		            sample.append(evidence[node])
-		        \pause\cmnt{# otherwise, add True or False using the distribution}
-		        \keyword{else}:
-		            prob = node.get_prob(\keyword{True}, *p_samples)
-		            sample.append(random.random() < prob)
-		    \pause\keyword{return} sample, weight
-	\end{semiverbatim}
+\begin{semiverbatim}\scriptsize\bfseries
+\keyword{def} \defn{likelihood_weighting}(query, evidence, bayes_net, samples):
+    \pause\cmnt{# generate samples, adding up weights for each query value}
+    counts = \{\keyword{False}: \num{0}, \keyword{True}: \num{0}\}
+    \keyword{for} _ \keyword{in} range(samples):
+        sample, weight = weighted_sample(bayes_net, evidence)
+        counts[sample[query]] += weight
+    \pause\cmnt{# normalize the counts and return the probabilities}
+    \keyword{return} normalize(counts)
+\pause
+\keyword{def} \defn{weighted_sample}(bayes_net, evidence):
+    \pause\cmnt{# generate a value for each variable, from parents to children}
+    sample, weight = \{\}, \num{1.0}
+    \keyword{for} variable \keyword{in} bayes_net:
+        parent_values = [sample[parent] \keyword{for} parent \keyword{in} variable.parents]
+        \pause\cmnt{# if the value is given, add it and update the weight}
+        \keyword{if} variable \keyword{in} evidence:
+            sample[variable] = value = evidence[variable]
+            weight *= variable.probability_of(value, *parent_values)
+        \pause\cmnt{# otherwise, add True or False using the distribution}
+        \keyword{else}:
+            probability = variable.probability_of(\keyword{True}, *parent_values)
+            sample[variable] = random.random() < probability
+    \pause\keyword{return} sample, weight
+\end{semiverbatim}
 \end{frame}
+
 \begin{frame}{Likelihood Weighting}
 	\begin{block}{Properties}
 		Given $n$ variables, $\leq d$ parents each, and $s$ samples:
@@ -1068,55 +1070,55 @@ P(Rain = true | Sprinkler = true) = \frac{4}{4 + 5} = \frac{4}{9}
 \end{frame}
 
 \begin{frame}[fragile]{Gibbs Sampling Code}
-	\begin{semiverbatim}\scriptsize\bfseries
-		\keyword{def} \defn{gibbs_sampling}(query_var, evidence, bayes_net, samples):
-		    \pause\cmnt{# initialize the sample with random values for non-evidence}
-		    sample = []
-		    \keyword{for} node \keyword{in} bayes_net:
-		        \keyword{if} node \keyword{in} evidence:
-		            sample.append(evidence[node])
-		        \keyword{else}:
-		            sample.append(random.random() < \num{0.5})
-		    \pause\cmnt{# generate samples by changing non-evidence values}
-		    counts = \{\keyword{False}:\num{0}, \keyword{True}:\num{0}\}
-		    non_evidence = [n \keyword{for} n \keyword{in} bayes_net \keyword{if} n \keyword{not in} evidence]
-		    \keyword{for} _ \keyword{in} range(samples):
-		        \keyword{for} node \keyword{in} non_evidence:
-		            \pause\cmnt{# get the prob distribution given the markov blanket}
-		            probs = get_probs_given_markov_blanket(node, sample)
-		            \pause\cmnt{# select a new value according to that distribution}
-		            sample[node.index] = random.random() < probs[\keyword{True}]
-		            \pause\cmnt{# increment the count for the current query value}
-		            counts[sample[query_var.index]] += \num{1}
-		    \pause\cmnt{# normalize the counts and return the probabilities}
-		    \keyword{return} normalize(counts)
-	\end{semiverbatim}
+\begin{semiverbatim}\scriptsize\bfseries
+\keyword{def} \defn{gibbs_sampling}(query, evidence, bayes_net, samples):
+    \pause\cmnt{# initialize the sample with random values for non-evidence}
+    sample = \{\}
+    \keyword{for} variable \keyword{in} bayes_net:
+        \keyword{if} variable \keyword{in} evidence:
+            sample[variable] = evidence[variable]
+        \keyword{else}:
+            sample[variable] = random.random() < 0.5
+    \pause\cmnt{# generate samples by changing non-evidence values}
+    counts = \{\keyword{False}:\num{0}, \keyword{True}:\num{0}\}
+    non_evidence = [var \keyword{for} var \keyword{in} bayes_net \keyword{if} var \keyword{not in} evidence]
+    \keyword{for} _ \keyword{in} range(samples):
+        \keyword{for} variable \keyword{in} non_evidence:
+            \pause\cmnt{# get the prob distribution given the markov blanket}
+            probability = markov_blanket_probability_of(variable, sample)
+            \cmnt{# select a new value according to that distribution}
+            sample[variable] = random.random() < probability
+            \cmnt{# increment the count for the current query value}
+            counts[sample[query]] += \num{1}
+    \pause\cmnt{# normalize the counts and return the probabilities}
+    \keyword{return} normalize(counts)
+\end{semiverbatim}
 \end{frame}
+
 \begin{frame}[fragile]{Markov Blanket Code}
-	\begin{block}{Markov Blanket Probability}
-	\small 
-	$P(x|\textit{mb}(X)) = \alpha P(x|\textit{parents}(X)) \prod\limits_{Y \in \textit{\scriptsize Children}(X)}P(y|\textit{parents}(Y))$
-	\vspace{-.25em}
-	\end{block}
-	\vspace{.25em}
-	\pause
-	\begin{semiverbatim}\scriptsize\bfseries
-		\keyword{def} \defn{get_probs_given_markov_blanket}(node, sample):
-		    \pause\cmnt{# get the probabilities for each value of the variable}
-		    counts = \{\}
-		    \keyword{for} value \keyword{in} [\keyword{True}, \keyword{False}]:
-		        \pause\cmnt{# change the node's value in the sample}
-		        sample[node.index] = value
-		        \pause\cmnt{# the probability of the node given its parents}
-		        p_samples = [sample[p.index] \keyword{for} p \keyword{in} node.parents]
-		        counts[value] = node.get_prob(value, *p_samples)
-		        \pause\cmnt{# times probabilities of children given their parents}
-		        \keyword{for} child \keyword{in} node.children:
-		            c_sample = sample[child.index]
-		            p_samples = [sample[p.index] \keyword{for} p \keyword{in} child.parents]
-		            counts[value] *= child.get_prob(c_sample, *p_samples)
-		    \pause\keyword{return} normalize(counts)
-	\end{semiverbatim}
+\begin{block}{Markov Blanket Probability}
+\small 
+$P(x|\textit{mb}(X)) = \alpha P(x|\textit{parents}(X)) \prod\limits_{Y \in \textit{\scriptsize Children}(X)}P(y|\textit{parents}(Y))$
+\end{block}
+\pause
+\begin{semiverbatim}\scriptsize\bfseries
+\keyword{def} \defn{markov_blanket_probability_of}(variable, sample):
+    \pause\cmnt{# get the probabilities for each value of the variable}
+    counts = \{\}
+    \keyword{for} value \keyword{in} [\keyword{True}, \keyword{False}]:
+        \pause\cmnt{# change the variable's value in the sample}
+        sample[variable] = value
+        \pause\cmnt{# add the probability of the variable given its parents}
+        parent_values = [sample[parent] \keyword{for} parent \keyword{in} variable.parents]
+        counts[value] = variable.probability_of(value, *parent_values)
+        \pause\cmnt{# times the probabilities of the children given their parents}
+        \keyword{for} child \keyword{in} variable.children:
+            child_value = sample[child]
+            parent_values = [sample[parent] \keyword{for} parent \keyword{in} child.parents]
+            counts[value] *= child.probability_of(child_value, *parent_values)
+    \pause\cmnt{# normalize the counts and return the probability of True}
+    \keyword{return} normalize(counts)[\keyword{True}]
+\end{semiverbatim}
 \end{frame}
 
 \begin{frame}{Gibbs Sampling Exercise}

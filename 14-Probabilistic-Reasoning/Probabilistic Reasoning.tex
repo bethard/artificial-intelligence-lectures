@@ -936,6 +936,7 @@ P(A|b)
 
 \subsection{Likelihood Weighting}
 \begin{frame}{Likelihood Weighting}
+\setbeamercovered{invisible}
 	\begin{block}{Key Ideas}
 		\begin{itemize}
 			\item Only generate samples consistent with evidence
@@ -969,6 +970,7 @@ P(A|b)
 	\pause
 	\tab$P(\textit{Rain}\!=\!\textit{true}|\textit{Sprinkler}\!=\!\textit{true})=\pause\frac{0.1 + 0.1 + 0.1}{0.1 + 0.1 + 0.1 + 0.5} = \frac{3}{8}$
 \end{frame}
+
 \begin{frame}[fragile]{Likelihood Weighting Code}
 	\begin{semiverbatim}\scriptsize\bfseries
 		\keyword{def} \defn{likelihood_weighting}(query_var, evidence, bayes_net, samples):
@@ -1010,7 +1012,7 @@ P(A|b)
 			      $\rightarrow$ each sample has lower probability
 			\pause
 			\item Evidence late in the node ordering \\
-			      $\rightarrow$ ealier node selections may not match evidence
+			      $\rightarrow$ earlier node selections may not match evidence
 		\end{itemize}
 	\end{block}
 \end{frame}

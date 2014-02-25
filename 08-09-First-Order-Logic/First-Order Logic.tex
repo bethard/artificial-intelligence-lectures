@@ -606,7 +606,8 @@ $
 $\textsc{Unify}(p, q) = \theta \mbox{ where } \textsc{Subst}(\theta, p) = \textsc{Subst}(\theta, q)$
 \end{block}
 \bigskip
-\begin{block}{Example: $p=\textit{Eats}(\textit{Panda}, y)$}<2->
+\begin{block}{Example}<2->
+$p=\textit{Eats}(\textit{Panda}, y)$\\
 \thickmuskip=0mu
 \medskip
 $
@@ -621,6 +622,9 @@ q & \textsc{Unify}(p, q) \\
 \\
 \textit{Eats}(x, \textit{FavFood}(x))
 & \uncover<5->{\{x=\textit{Panda}, y=\textit{FavFood}(\textit{Panda})\}}
+\\
+\textit{Eats}(x, y) \limpl \textit{Edible}(y)
+& \uncover<6->{\alert{fail}}
 \end{array}
 $
 \end{block}

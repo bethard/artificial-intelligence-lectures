@@ -13,9 +13,9 @@
   \titlepage
 \end{frame}
 
-\section{Learning Basics}
+\section{Supervised Learning}
 
-\subsection{Learning Functions}
+\subsection{Hypothesis Functions}
 
 \begin{frame}{Supervised Learning}
 \begin{block}{Key Ideas}
@@ -68,68 +68,6 @@ Pick a hypothesis $h$ as close to $f$ as possible
 \end{block}
 \end{frame}
 
-\begin{frame}{Selecting Hypotheses}
-\begin{columns}
-\begin{column}{2.1in}
-Many hypotheses possible:\\
-\bigskip
-\only<1>{\includegraphics[height=1.5in]{curve-fitting-1}}%
-\only<2>{\includegraphics[height=1.5in]{curve-fitting-2}}%
-\only<3>{\includegraphics[height=1.5in]{curve-fitting-3}}%
-\only<4>{\includegraphics[height=1.5in]{curve-fitting-4}}%
-\only<5->{\includegraphics[height=1.5in]{curve-fitting-5}}%
-\end{column}
-\begin{column}<6->{2.1in}
-\begin{block}{Goals}
-\begin{itemize}
-\item Maximize number of examples where $h$ agrees with $f$
-\item Minimize complexity of $h$ function
-\end{itemize}
-\end{block}
-\bigskip
-\uncover<7->{Typically a tradeoff between consistency and simplicity}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Overfitting}
-\begin{block}{Definition}
-A hypothesis $h$ has \alert{overfit} the data if it uses a function that is more complex than necessary to explain the data
-\end{block}
-\smallskip
-\begin{columns}[t]
-\begin{column}<2->{1in}
-Examples: \\
-\medskip
-$
-\begin{array}{lll}
-f(1) & = & 2 \\
-f(2) & = & 4 \\
-f(3) & = & 6 \\
-\end{array}
-$
-\end{column}
-\begin{column}<3->{3in}
-Hypotheses: \\
-\medskip
-$
-\begin{array}{lll}
-h_1(x) & = & 2x \\
-\uncover<4->{h_2(x) & = & \alert<5->{x^3 - 6x^2 + 13x - 6}} \\
-\end{array}
-$ \\
-\medskip
-\uncover<5->{$h_2$ has probably overfit the data} \\
-\uncover<6->{\ldots\ unless $f(x) = x^3 - 6x^2 + 13x - 6$}
-\end{column}
-\end{columns}
-\begin{block}<7->{Lesson}
-Use as many parameters as we expect $f$ to have, no more
-\end{block}
-\end{frame}
-
-\subsection{Problem Formulation}
-
 \begin{frame}{Problem Formulation}
 \begin{block}{Defining a Machine Learning Problem}
 Describe the function $f\!: D_f \rightarrow R_f$
@@ -163,6 +101,8 @@ Describe the function $f\!: D_f \rightarrow R_f$
 \end{column}
 \end{columns}
 \end{frame}
+
+\subsection{Features}
 
 \begin{frame}{Decomposing Domain Objects}
 \begin{columns}
@@ -278,27 +218,7 @@ Preceding label & First in sentence? \\
 \end{block}
 \end{frame}
 
-\subsection{Learning Algorithms}
-
-\begin{frame}{Learning Supervised Models}
-After problem formulation, we apply a \alert{learning algorithm} \\
-\medskip
-\begin{block}{Input}
-A set of $(x, f(x))$ training examples
-\end{block}
-\pause
-\begin{block}{Output}
-A function $h\!: D_f \rightarrow R_f$
-\end{block}
-\pause
-\begin{block}{Goal}
-Pick an $h$ that:
-\begin{itemize}
-\item is consistent with the training examples
-\item does not overfit the data (i.e. is not overly complex)
-\end{itemize}
-\end{block}
-\end{frame}
+\subsection{Evaluating Hypotheses}
 
 \begin{frame}{Evaluating Learning Algorithms}
 \begin{enumerate}
@@ -363,9 +283,92 @@ If $a$ then \textit{true}, else \textit{false}
 \end{center}
 \end{frame}
 
-\section{Decision Trees}
+\subsection{Overfitting and Underfitting}
 
-\subsection{Decision Tree Basics}
+\begin{frame}{Overfitting}
+\begin{block}{Definition}
+A hypothesis $h$ has \alert{overfit} the data if it uses a function that is more complex than necessary to explain the data
+\end{block}
+\smallskip
+\begin{columns}[t]
+\begin{column}<2->{1in}
+Examples: \\
+\medskip
+$
+\begin{array}{lll}
+f(1) & = & 2 \\
+f(2) & = & 4 \\
+f(3) & = & 6 \\
+\end{array}
+$
+\end{column}
+\begin{column}<3->{3in}
+Hypotheses: \\
+\medskip
+$
+\begin{array}{lll}
+h_1(x) & = & 2x \\
+\uncover<4->{h_2(x) & = & \alert<5->{x^3 - 6x^2 + 13x - 6}} \\
+\end{array}
+$ \\
+\medskip
+\uncover<5->{$h_2$ has probably overfit the data} \\
+\uncover<6->{\ldots\ unless $f(x) = x^3 - 6x^2 + 13x - 6$}
+\end{column}
+\end{columns}
+\begin{block}<7->{Lesson}
+Use as many parameters as we expect $f$ to have, no more
+\end{block}
+\end{frame}
+
+\begin{frame}{Selecting Hypotheses}
+\begin{columns}
+\begin{column}{2.1in}
+Many hypotheses possible:\\
+\bigskip
+\only<1>{\includegraphics[height=1.5in]{curve-fitting-1}}%
+\only<2>{\includegraphics[height=1.5in]{curve-fitting-2}}%
+\only<3>{\includegraphics[height=1.5in]{curve-fitting-3}}%
+\only<4>{\includegraphics[height=1.5in]{curve-fitting-4}}%
+\only<5->{\includegraphics[height=1.5in]{curve-fitting-5}}%
+\end{column}
+\begin{column}<6->{2.1in}
+\begin{block}{Goals}
+\begin{itemize}
+\item Maximize number of examples where $h$ agrees with $f$
+\item Minimize complexity of $h$ function
+\end{itemize}
+\end{block}
+\bigskip
+\uncover<7->{Typically a tradeoff between consistency and simplicity}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Supervised Learning Algorithms}
+
+\begin{frame}{Learning Supervised Models}
+After problem formulation, we apply a \alert{learning algorithm} \\
+\medskip
+\begin{block}{Input}
+A set of $(x, f(x))$ training examples
+\end{block}
+\pause
+\begin{block}{Output}
+A function $h\!: D_f \rightarrow R_f$
+\end{block}
+\pause
+\begin{block}{Goal}
+Pick an $h$ that:
+\begin{itemize}
+\item is consistent with the training examples
+\item does not overfit the data (i.e. is not overly complex)
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\subsection{Decision Trees}
 
 \begin{frame}{Decision Trees}
 \begin{columns}
@@ -404,8 +407,6 @@ $f(A, B, C) = (A \land B) \lor \lnot C$ \\[1em]
 \end{column}
 \end{columns}
 \end{frame}
-
-\subsection{Decision Tree Learning}
 
 \begin{frame}{Learning Decision Trees}
 \begin{enumerate}
@@ -470,8 +471,6 @@ Two possible solutions: \\
 \end{column}
 \end{columns}
 \end{frame}
-
-\subsection{Features and Information}
 
 \begin{frame}{Selecting Features for Decision Trees}
 \begin{block}{Feature Selection Order}
@@ -794,237 +793,6 @@ $ \\
 So $F_2$ is a much better feature to split on \hyperlink{decision-tree-exercise<2>}{\beamerbutton{See Example}}
 \end{column}
 \end{columns}
-\end{frame}
-
-\section{Ensemble Learning}
-
-\begin{frame}{Ensemble Learning}
-\begin{block}{Key Idea}
-Two (or more) classifiers are better than one
-\end{block}
-\begin{center}
-\includegraphics[height=1.8in]{ensemble-expressiveness}
-\end{center}
-\end{frame}
-
-\subsection{Bagging}
-
-\begin{frame}[<+->]{Bagging}
-\begin{block}{Key Ideas}
-\begin{itemize}
-\item Error is partly due to particular choice of training set
-\item Create $m$ similar training sets and learn $m$ models
-\end{itemize}
-\end{block}
-\begin{block}{Bagging (\textbf{B}ootstrap \textbf{agg}regat\textbf{ing})}
-Given a training set of $n$ examples:
-\begin{enumerate}
-\item Generate $m$ new training sets (\alert{bootstrap samples})
-\begin{itemize}
-\item Each new training set contains $n$ examples
-\item Examples selected randomly, with replacement
-\end{itemize}
-\item Train $m$ models on the $m$ new training sets
-\item Classify new examples by taking the majority vote
-\end{enumerate}
-\end{block}
-\end{frame}
-
-\begin{frame}{Bagging Exercise}
-\begin{columns}
-\begin{column}{2.8in}
-\begin{itemize}
-\item Generate two bootstrap samples
-\item Use indices $[1, 3, 2, 3]$ $[2, 0, 3, 2]$
-\item Create a decision tree for each
-\item Classify $000$ and $101$
-\end{itemize}
-\end{column}
-\begin{column}{1.2in}
-$
-\begin{array}{lll|l}
-F_1 & F_2 & F_3 & C \\
-\hline
-0   & 1   & 1   & T \\
-0   & 1   & 0   & F \\
-0   & 0   & 1   & F \\
-1   & 1   & 0   & T
-\end{array}
-$
-\end{column}
-\end{columns}
-\pause
-\begin{columns}
-\begin{column}{2in}
-\begin{block}{Sample 1}
-$
-\begin{array}{lll|l}
-0   & 1   & 0   & F \\
-1   & 1   & 0   & T \\
-0   & 0   & 1   & F \\
-1   & 1   & 0   & T
-\end{array}
-$
-\begin{tabular}{l}
-\includegraphics[height=.8in]{bagging-1}
-\end{tabular}
-\end{block}
-\end{column}
-\begin{column}{2in}
-\begin{block}{Sample 2}
-$
-\begin{array}{lll|l}
-0   & 0   & 1   & F \\
-0   & 1   & 1   & T \\
-1   & 1   & 0   & T \\
-0   & 0   & 1   & F
-\end{array}
-$
-\begin{tabular}{l}
-\includegraphics[height=.8in]{bagging-2}
-\end{tabular}
-\end{block}
-\end{column}
-\end{columns}
-\begin{center}
-$
-\begin{array}{lllll}
-\textit{classify}(000) & = & \textit{majority}([F, F]) & = & F \\
-\textit{classify}(101) & = & \textit{majority}([T, F]) & = & ?
-\end{array}
-$
-\end{center}
-\end{frame}
-
-\begin{frame}{Bagging Behavior}
-\begin{center}
-\includegraphics[scale=0.5]{ozone}
-\end{center}
-\end{frame}
-
-\begin{frame}{Bagging Properties}
-\begin{block}{Complexity}
-\begin{itemize}
-\pause
-\item Training time: \pause $m$ times original
-\pause
-\item Model size: \pause $m$ times original
-\pause
-\item Classification time: \pause $m$ times original
-\end{itemize}
-\end{block}
-\pause
-\begin{block}{Practical Issues}
-\begin{itemize}
-\item Can improve performance of unstable learners
-\item Typically does not improve stable learners
-\end{itemize}
-\end{block}
-\end{frame}
-
-\subsection{Boosting}
-
-\begin{frame}[<+->]{Boosting}
-\begin{block}{Key Ideas}
-\begin{itemize}
-\item Look at examples the first classifier got wrong
-\item Create new models that do better on these
-\end{itemize}
-\end{block}
-\begin{block}{Boosting}
-\begin{enumerate}
-\item Start with all training samples weighted equally
-\item\label{train-step} Train a model (e.g. a single feature \alert{decision stump})
-\item\label{weight-step} Increase the weight of all misclassified examples
-\item Repeat steps \ref{train-step} and \ref{weight-step} until $m$ models are generated
-\end{enumerate}
-\end{block}
-\end{frame}
-
-\begin{frame}{Boosting Example}
-\includegraphics[width=1.4in]{boosting_f1}
-\includegraphics[width=1.4in]{boosting_f2}
-\includegraphics[width=1.4in]{boosting_f3}
-\medskip
-\small
-\begin{columns}
-\begin{column}{1.5in}
-$
-\begin{array}{@{}lll|l|l@{}}
-F_1 & F_2 & F_3 & C & W \\
-\hline
-0 & 0 & 0 & T & 1 \\
-1 & 0 & 0 & F & \alt<5->{\alert<5>{5}}{1} \\
-1 & 1 & 0 & F & 1 \\
-1 & 0 & 1 & T & \alt<9->{\alert<9>{4}}{1} \\
-1 & 0 & 1 & T & \alt<9->{\alert<9>{4}}{1} \\
-1 & 1 & 1 & F & 1 \\
-\end{array}
-$
-\end{column}
-\begin{column}{2.3in}
-\uncover<2->{$
-\begin{array}{@{}lll@{}}
-F_1 \rightarrow \uncover<3->{\frac{4}{6}}
-&
-F_2 \rightarrow \uncover<3->{\frac{5}{6}}
-&
-F_3 \rightarrow \uncover<3->{\frac{4}{6}}
-\end{array}
-$} \\
-\uncover<4->{Select $F_2$ model, update weights} \\
-\medskip
-\uncover<6->{$
-\begin{array}{@{}lll@{}}
-F_1 \rightarrow \uncover<7->{\frac{8}{10}}
-&
-F_2 \rightarrow \uncover<7->{\frac{5}{10}}
-&
-F_3 \rightarrow \uncover<7->{\frac{8}{10}}
-\end{array}
-$} \\
-\uncover<8->{Select $F_1$ model, update weights} \\
-\medskip
-\uncover<10->{$
-\begin{array}{@{}lll@{}}
-F_1 \rightarrow \uncover<11->{\frac{8}{16}}
-&
-F_2 \rightarrow \uncover<11->{\frac{11}{16}}
-&
-F_3 \rightarrow \uncover<11->{\frac{14}{16}}
-\end{array}
-$} \\
-\uncover<12->{Select $F_3$ model} \\
-\end{column}
-\end{columns}
-\medskip
-\uncover<13->{Classification by voting:}
-\uncover<14->{$\frac{1}{4} \cdot \textit{model}_{F_1} + \frac{1}{5} \cdot \textit{model}_{F_2} + \frac{1}{7} \cdot \textit{model}_{F_3}$}
-\\
-\uncover<15->{Classifying the example $100$:}
-\uncover<16->{
-$
-\frac{1}{4} \cdot \alt<17->{F}{?} +
-\frac{1}{5} \cdot \alt<17->{T}{?} +
-\frac{1}{7} \cdot \alt<17->{F}{?}
-$}\uncover<18->{, so $F$}
-\end{frame}
-
-\begin{frame}{Boosting Properties}
-\begin{block}{Complexity}
-\begin{itemize}
-\item Training time: \uncover<2->{$m$ times original}
-\item Model size: \uncover<2->{$m$ times original}
-\item Classification time: \uncover<2->{$m$ times original}
-\end{itemize}
-\uncover<3->{Usually acceptable when using e.g. decision stumps}
-\end{block}
-\begin{block}<4->{Theoretical Properties}
-\begin{itemize}
-\item With a large enough $m$, produces a perfect classifier
-\item<5-> In practice, $m$ is selected through experimentation
-\end{itemize}
-\end{block}
 \end{frame}
 
 \subsection{Random Forests}

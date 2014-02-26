@@ -1,51 +1,17 @@
-\documentclass[12pt]{beamer}
-%\includeonlyframes{current}
+% !TEX TS-program = pdflatexmk
 
-\mode<presentation>{\usetheme{Warsaw}}
-\setbeamertemplate{footline}[frame number]
-\usepackage[english]{babel}
-\usepackage{times}
-\usepackage{url}
-\usepackage{graphicx}
-\usepackage{hhline}
-\usepackage{array}
-\usepackage{colortbl}
-\usepackage{amsfonts}
+\documentclass[14pt]{beamer}
+\input{../slides-preamble}
 
-\newcommand{\key}[1]{{\color{blue}#1}}
-\newcommand{\cmnt}[1]{{\color{gray}#1}}
-\newcommand{\str}[1]{{\color{green!50!black}#1}}
-\newcommand{\num}[1]{{\color{green!55!blue}#1}}
-\newcommand{\defn}[1]{{\color{purple}#1}}
-\newcommand{\SC}[1]{\mbox{\sc#1}}
-\newcommand{\EM}[1]{\mbox{\em#1}}
-\newcommand{\tab}{\hspace{1em}}
-
-\title{Learning from Observations}
-\subtitle{Introduction to Artificial Intelligence}
-\author{Steven Bethard}
-\institute{
-  Department of Computer Science\\
-  University of Colorado
-}
-\date{CSCI 3202}
-
-
-\AtBeginSection[]{
-\begin{frame}<beamer>{Outline}
-	\tableofcontents[currentsection]
-\end{frame}
-}
+\title{Learning from Examples}
+\date[]{20 Mar 2014}
 
 \begin{document}
 
 \begin{frame}
-	\titlepage
+  \titlepage
 \end{frame}
 
-\begin{frame}{Outline}
-	\tableofcontents
-\end{frame}
 
 \section{Learning Basics}
 \subsection{Learning Functions}
@@ -187,7 +153,7 @@
 					\pause
 					\item $D_f$ = \pause animals
 					\pause
-					\item $R_f$ = \pause $\{\EM{true},\EM{false}\}$
+					\item $R_f$ = \pause $\{\textit{true},\textit{false}\}$
 				\end{itemize}
 			\end{block}
 		\end{column}
@@ -199,9 +165,9 @@
 			Smoker identification: \\
 			\smallskip
 			\begin{tabular}{lll}
-			$f$(John)  & = & \EM{true} \\
-			$f$(Mary)  & = & \EM{false} \\
-			$f$(Frank) & = & \EM{false} \\
+			$f$(John)  & = & \textit{true} \\
+			$f$(Mary)  & = & \textit{false} \\
+			$f$(Frank) & = & \textit{false} \\
 			$f$(Sally) & = & ?
 			\end{tabular}
 		\end{column}
@@ -224,24 +190,24 @@
 \end{frame}
 \begin{frame}{Part of Speech Tagging Example}
 	\begin{tabular}{llllll}
-		\key{Input}  & \em John & \em broke & \em the & \em red & \em lamp \\
+		\keyword{Input}  & \em John & \em broke & \em the & \em red & \em lamp \\
 		\pause
-		\key{Output} & \sc Noun & \sc Verb  & \sc Det & \sc Adj & \sc Noun \\
+		\keyword{Output} & \sc Noun & \sc Verb  & \sc Det & \sc Adj & \sc Noun \\
 	\end{tabular}
 	\pause
 	\begin{block}{Function Description}
 		\begin{itemize}
 			\pause
-			\item $D_f$ = \pause $\{\EM{a},\EM{aardvark},\EM{abacus},\EM{abalone},\ldots\}$
+			\item $D_f$ = \pause $\{\textit{a},\textit{aardvark},\textit{abacus},\textit{abalone},\ldots\}$
 			\pause
-			\item $R_f$ = \pause $\{\SC{Noun},\SC{Verb},\SC{Adj},\SC{Adv},\SC{Det},\ldots\}$
+			\item $R_f$ = \pause $\{\textsc{Noun},\textsc{Verb},\textsc{Adj},\textsc{Adv},\textsc{Det},\ldots\}$
 		\end{itemize}
 	\end{block}
 	\medskip
 	\pause
 	\begin{columns}
 		\begin{column}{2in}
-			$f$(\EM{bark}) = \SC{Noun}? \SC{Verb}?
+			$f$(\textit{bark}) = \textsc{Noun}? \textsc{Verb}?
 		\end{column}
 		\begin{column}{2in}
 			\emph{\ldots the \textbf{bark} of the tree \ldots} \\
@@ -252,8 +218,8 @@
 	\begin{block}{Feature Representation}
 		$
 		\begin{array}{lll}
-		f([w_{0}\!=\!\EM{bark}, w_{-1}\!=\!\EM{the}]) & = & \SC{Noun} \\
-		f([w_{0}\!=\!\EM{bark}, w_{-1}\!=\!\EM{dog}]) & = & \SC{Verb}
+		f([w_{0}\!=\!\textit{bark}, w_{-1}\!=\!\textit{the}]) & = & \textsc{Noun} \\
+		f([w_{0}\!=\!\textit{bark}, w_{-1}\!=\!\textit{dog}]) & = & \textsc{Verb}
 		\end{array}
 		$
 	\end{block}
@@ -264,9 +230,9 @@
 		
 		\medskip
 		\begin{tabular}{llllll}
-			\key{Input}  & Bill works for Microsoft Corporation\\
-			\key{Output} & $[_{\SC{\scriptsize Per}}$ Bill$]$ works for
-			               $[_{\SC{\scriptsize Org}}$ Microsoft Corporation$]$ \\
+			\keyword{Input}  & Bill works for Microsoft Corporation\\
+			\keyword{Output} & $[_{\textsc{\scriptsize Per}}$ Bill$]$ works for
+			               $[_{\textsc{\scriptsize Org}}$ Microsoft Corporation$]$ \\
 		\end{tabular}
 	\end{block}
 	\pause
@@ -282,18 +248,18 @@
 \begin{frame}{One Named Entity Recognition Approach}
 	\begin{block}{Function Description}
 		\begin{itemize}
-			\item $D_f$ = \pause $\{\EM{a},\EM{aardvark},\EM{abacus},\EM{abalone},\ldots\}$
-			\item $R_f$ = \pause $\{\SC{B-Per},\SC{I-Per},\SC{B-Org},\SC{I-Org},\ldots,\SC{O}\}$
+			\item $D_f$ = \pause $\{\textit{a},\textit{aardvark},\textit{abacus},\textit{abalone},\ldots\}$
+			\item $R_f$ = \pause $\{\textsc{B-Per},\textsc{I-Per},\textsc{B-Org},\textsc{I-Org},\ldots,\textsc{O}\}$
 		\end{itemize}
 	\end{block}
 	\pause
 	$
 	\begin{array}{lll}
-		f(\EM{Bill})        & = & \SC{B-Per} \\
-		f(\EM{works})       & = & \SC{O} \\
-		f(\EM{for})         & = & \SC{O} \\
-		f(\EM{Microsoft})   & = & \SC{B-Org} \\
-		f(\EM{Corporation}) & = & \SC{I-Org} \\
+		f(\textit{Bill})        & = & \textsc{B-Per} \\
+		f(\textit{works})       & = & \textsc{O} \\
+		f(\textit{for})         & = & \textsc{O} \\
+		f(\textit{Microsoft})   & = & \textsc{B-Org} \\
+		f(\textit{Corporation}) & = & \textsc{I-Org} \\
 	\end{array}
 	$
 	\pause
@@ -327,21 +293,21 @@
 \end{frame}
 \begin{frame}{Evaluating Learning Algorithms}
 	\begin{enumerate}
-		\item Train learning algorithm on examples $E_{\EM{\scriptsize train}}$
+		\item Train learning algorithm on examples $E_{\textit{\scriptsize train}}$
 		\item Learning algorithm produces a hypothesis $h$
-		\item Test hypothesis on new examples $E_{\EM{\scriptsize test}}$ \uncover<2->{- \alert{Don't peek!}}
+		\item Test hypothesis on new examples $E_{\textit{\scriptsize test}}$ \uncover<2->{- \alert{Don't peek!}}
 	\end{enumerate}
 	\begin{columns}
 		\begin{column}<3->{2in}
 			Train:
 			$
 			\begin{array}[t]{ll|l}
-				F_1 & F_2 & \EM{Class} \\
+				F_1 & F_2 & \textit{Class} \\
 				\hline
-				0   & a   & \EM{true} \\
-				0   & b   & \EM{false} \\
-				0   & c   & \EM{false} \\
-				1   & b   & \EM{false} \\
+				0   & a   & \textit{true} \\
+				0   & b   & \textit{false} \\
+				0   & c   & \textit{false} \\
+				1   & b   & \textit{false} \\
 			\end{array}
 			$
 		\end{column}
@@ -349,12 +315,12 @@
 			Test:
 			$
 			\begin{array}[t]{ll|l}
-				F_1 & F_2 & \EM{Class} \\
+				F_1 & F_2 & \textit{Class} \\
 				\hline
-				1   & a   & \EM{true} \\
-				0   & b   & \EM{false} \\
-				0   & c   & \EM{false} \\
-				1   & c   & \EM{true} \\
+				1   & a   & \textit{true} \\
+				0   & b   & \textit{false} \\
+				0   & c   & \textit{false} \\
+				1   & c   & \textit{true} \\
 			\end{array}
 			$
 		\end{column}
@@ -362,14 +328,14 @@
 	\begin{columns}
 		\begin{column}<4->{2in}
 			\begin{block}{Algorithm 1}
-				Always classify as \EM{false}
+				Always classify as \textit{false}
 				\\
 				\uncover<7->{\tab Performance:} \uncover<8->{$\frac{2}{4} = 0.5$}
 			\end{block}
 		\end{column}
 		\begin{column}<5->{2in}
 			\begin{block}{Algorithm 2}
-				If $a$ then \EM{true}, else \EM{false}
+				If $a$ then \textit{true}, else \textit{false}
 				\\
 				\uncover<7->{\tab Performance:} \uncover<9->{$\frac{3}{4} = 0.75$}
 			\end{block}
@@ -402,7 +368,7 @@
 			\begin{block}{Function}
 				$D_f$ = days
 				
-				$R_f$ = $\{\EM{Yes}, \EM{No}\}$
+				$R_f$ = $\{\textit{Yes}, \textit{No}\}$
 			\end{block}
 			\bigskip
 			\begin{block}{Features}
@@ -418,7 +384,7 @@
 \begin{frame}{Decision Trees as Functions}
 	\begin{columns}[t]
 		\begin{column}{2in}
-			$f(X, Y) = X \EM{ xor } Y$ \\[1em]
+			$f(X, Y) = X \textit{ xor } Y$ \\[1em]
 			\includegraphics[scale=.75]{xor}
 		\end{column}
 		\begin{column}{2in}
@@ -444,10 +410,10 @@
 			\begin{array}{cc|c}
 				X          &  Y          & f(X, Y) \\
 				\hline
-				\EM{true}  & \EM{true}   & \EM{true} \\
-				\EM{true}  & \EM{false}  & \EM{false} \\
-				\EM{false} & \EM{true}   & \EM{true} \\
-				\EM{false} & \EM{false}  & \EM{true} \\
+				\textit{true}  & \textit{true}   & \textit{true} \\
+				\textit{true}  & \textit{false}  & \textit{false} \\
+				\textit{false} & \textit{true}   & \textit{true} \\
+				\textit{false} & \textit{false}  & \textit{true} \\
 			\end{array}
 			$
 		\end{column}
@@ -470,14 +436,14 @@
 			\bigskip
 			$
 			\begin{array}{ll|l}
-				F_1 & F_2 & \EM{Class} \\
+				F_1 & F_2 & \textit{Class} \\
 				\hline
-				0   & a   & \EM{true} \\
-				0   & b   & \EM{false} \\
-				1   & c   & \EM{true} \\
-				0   & c   & \EM{false} \\
-				1   & b   & \EM{false} \\
-				1   & a   & \EM{true} \\
+				0   & a   & \textit{true} \\
+				0   & b   & \textit{false} \\
+				1   & c   & \textit{true} \\
+				0   & c   & \textit{false} \\
+				1   & b   & \textit{false} \\
+				1   & a   & \textit{true} \\
 			\end{array}
 			$
 		\end{column}
@@ -514,12 +480,12 @@
 		\begin{column}{1.2in}
 			$
 			\begin{array}{lll}
-			F_1 & F_2 & \EM{Class} \\
+			F_1 & F_2 & \textit{Class} \\
 			\hline
-			a & 0 & \EM{true} \\
-			a & 1 & \EM{true} \\
-			b & 0 & \EM{false} \\
-			b & 1 & \EM{false} \\
+			a & 0 & \textit{true} \\
+			a & 1 & \textit{true} \\
+			b & 0 & \textit{false} \\
+			b & 1 & \textit{false} \\
 			\end{array}
 			$
 		\end{column}
@@ -610,9 +576,9 @@
 			\extrarowheight=2pt
 			\begin{array}{lll}
 				H(X)        & = & \pause -\sum\limits_{x \in X}P(x)\log_2 P(x) \\
-				     \pause & = & -P(\EM{math})\log_2 P(\EM{math}) \\
-				            &   & -P(\EM{history})\log_2 P(\EM{history}) \\
-				            &   & -P(\EM{cs})\log_2 P(\EM{cs}) \\
+				     \pause & = & -P(\textit{math})\log_2 P(\textit{math}) \\
+				            &   & -P(\textit{history})\log_2 P(\textit{history}) \\
+				            &   & -P(\textit{cs})\log_2 P(\textit{cs}) \\
 				     \pause & = & -\frac{1}{2}\log_2\frac{1}{2} 
 				                  -\frac{1}{4}\log_2\frac{1}{4}
 				                  -\frac{1}{4}\log_2\frac{1}{4} \\
@@ -651,12 +617,12 @@
 			$
 			\extrarowheight=2pt
 			\begin{array}{@{}l@{}l@{}l@{}}
-				\uncover<2->{H(Y|X\!=\!\EM{cs})}
+				\uncover<2->{H(Y|X\!=\!\textit{cs})}
 				& \uncover<2->{=}
-				& \uncover<3->{\alert<4>{-P(\EM{yes}|\EM{cs})\log_2 P(\EM{yes}|\EM{cs})}}
+				& \uncover<3->{\alert<4>{-P(\textit{yes}|\textit{cs})\log_2 P(\textit{yes}|\textit{cs})}}
 				\\
 				&
-				& \uncover<3->{\alert<5>{-P(\EM{no}|\EM{cs})\log_2 P(\EM{no}|\EM{cs})}}
+				& \uncover<3->{\alert<5>{-P(\textit{no}|\textit{cs})\log_2 P(\textit{no}|\textit{cs})}}
 				\\
 				& \uncover<4->{=}
 				& \uncover<4->{\alert<4>{-1 \log_2 1}}\uncover<5->{\alert<5>{-0 \log_2 0}}
@@ -669,7 +635,7 @@
 			\end{array}
 			$ \\
 			\medskip
-			\uncover<8->{In other words, $X\!=\!\EM{cs}$ is a great predictor of $Y$}
+			\uncover<8->{In other words, $X\!=\!\textit{cs}$ is a great predictor of $Y$}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -702,9 +668,9 @@
 			Given:
 			$
 			\begin{array}[t]{lll}
-			H(Y|X\!=\!\EM{math})    & = & 1 \\
-			H(Y|X\!=\!\EM{history}) & = & 0 \\
-			H(Y|X\!=\!\EM{cs})      & = & 0 \\
+			H(Y|X\!=\!\textit{math})    & = & 1 \\
+			H(Y|X\!=\!\textit{history}) & = & 0 \\
+			H(Y|X\!=\!\textit{cs})      & = & 0 \\
 			\end{array}
 			$ \\
 			\smallskip
@@ -712,9 +678,9 @@
 			$
 			\extrarowheight=2pt
 			\begin{array}{@{}l@{\hspace{2pt}}l@{\hspace{2pt}}l@{}}
-				H(Y|X) & = & \pause P(X\!=\!\EM{math}) H(Y|X\!=\!\EM{math}) + \mbox{}\\
-				       &   & P(X\!=\!\EM{history}) H(Y|X\!=\!\EM{history}) + \mbox{}\\
-				       &   & P(X\!=\!\EM{cs}) H(Y|X\!=\!\EM{cs}) \\
+				H(Y|X) & = & \pause P(X\!=\!\textit{math}) H(Y|X\!=\!\textit{math}) + \mbox{}\\
+				       &   & P(X\!=\!\textit{history}) H(Y|X\!=\!\textit{history}) + \mbox{}\\
+				       &   & P(X\!=\!\textit{cs}) H(Y|X\!=\!\textit{cs}) \\
 				\pause & = & \frac{1}{2} \cdot 1 + \frac{1}{4} \cdot 0 + \frac{1}{4} \cdot 0 \pause = \frac{1}{2}\\
 				
 			\end{array}
@@ -763,7 +729,7 @@
 	\end{columns}
 \end{frame}
 \begin{frame}{Decision Trees and Information Gain}
-	\textbf{\key{Select the feature with the highest information gain}}
+	\textbf{\keyword{Select the feature with the highest information gain}}
 	\pause
 	\medskip
 	\begin{columns}[T]
@@ -773,12 +739,12 @@
 			\begin{array}{@{}l@{\hspace{2pt}}l@{\hspace{2pt}}|@{\hspace{2pt}}l@{}}
 				F_1 & F_2 & Y \\
 				\hline
-				0   & a   & \SC{t} \\
-				0   & b   & \SC{f} \\
-				1   & c   & \SC{t} \\
-				0   & c   & \SC{f} \\
-				1   & b   & \SC{f} \\
-				1   & a   & \SC{t} \\
+				0   & a   & \textsc{t} \\
+				0   & b   & \textsc{f} \\
+				1   & c   & \textsc{t} \\
+				0   & c   & \textsc{f} \\
+				1   & b   & \textsc{f} \\
+				1   & a   & \textsc{t} \\
 			\end{array}
 			$
 		\end{column}
@@ -788,11 +754,11 @@
 			$
 			\extrarowheight=2pt
 			\begin{array}{@{}l@{\hspace{2pt}}l@{\hspace{2pt}}l@{}}
-				H(Y)               & = & \pause -P(\SC{t})\log_2 P(\SC{t}) - P(\SC{f})\log_2 P(\SC{f}) \\
+				H(Y)               & = & \pause -P(\textsc{t})\log_2 P(\textsc{t}) - P(\textsc{f})\log_2 P(\textsc{f}) \\
 				\pause
 				                   & = & -\frac{1}{2}\log_2 \frac{1}{2} - \frac{1}{2}\log_2 \frac{1}{2} \pause = 1 \\
 				\pause
-				H(Y|F_1\!\!=\!\!0) & = & \pause -P(\SC{t}|0)\log_2 P(\SC{t}|0) - \pause P(\SC{f}|0)\log_2 P(\SC{f}|0) \\
+				H(Y|F_1\!\!=\!\!0) & = & \pause -P(\textsc{t}|0)\log_2 P(\textsc{t}|0) - \pause P(\textsc{f}|0)\log_2 P(\textsc{f}|0) \\
 				\pause
 				                   & = & - \frac{1}{3}\log_2 \frac{1}{3} - \pause \frac{2}{3}\log_2 \frac{2}{3} \pause = 0.92\\
 				\pause         
@@ -906,8 +872,8 @@
 	\begin{center}
 		$
 		\begin{array}{lllll}
-			\EM{classify}(000) & = & \EM{majority}([F, F]) & = & F \\
-			\EM{classify}(101) & = & \EM{majority}([T, F]) & = & ?
+			\textit{classify}(000) & = & \textit{majority}([F, F]) & = & F \\
+			\textit{classify}(101) & = & \textit{majority}([T, F]) & = & ?
 		\end{array}
 		$
 	\end{center}
@@ -1012,7 +978,7 @@
 	\end{columns}
 	\medskip
 	\uncover<13->{Classification by voting:}
-	\uncover<14->{$\frac{1}{4} \cdot \EM{model}_{F_1} + \frac{1}{5} \cdot \EM{model}_{F_2} + \frac{1}{7} \cdot \EM{model}_{F_3}$}
+	\uncover<14->{$\frac{1}{4} \cdot \textit{model}_{F_1} + \frac{1}{5} \cdot \textit{model}_{F_2} + \frac{1}{7} \cdot \textit{model}_{F_3}$}
 	\\
 	\uncover<15->{Classifying the example $100$:}
 	\uncover<16->{

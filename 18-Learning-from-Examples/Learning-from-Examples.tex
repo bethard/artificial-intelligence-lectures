@@ -161,13 +161,13 @@ f([w_{0}\!=\!\textit{bark}, w_{-1}\!=\!\textit{dog}]) & = & \textsc{Verb}
 \begin{block}{Definition}
 A \alert{named entity recognition} program find spans of words that are people, locations, organizations, etc.\\
 \medskip
-\begin{tabular}{llllll}
-\keyword{Input}  & Bill works for Microsoft Corporation\\
-\keyword{Output} & $[_{\textsc{\scriptsize Per}}$ Bill$]$ works for
-               $[_{\textsc{\scriptsize Org}}$ Microsoft Corporation$]$ \\
-\end{tabular}
+\begin{description}[Output]
+\item[Input] Bill works for Microsoft Corporation
+\item[Output]
+$[_{\textsc{\scriptsize Per}}$ Bill$]$ works for
+$[_{\textsc{\scriptsize Org}}$ Microsoft Corporation$]$
+\end{description}
 \end{block}
-\pause
 \begin{block}{Exercise}
 Named entity recognition as supervised learning:
 \begin{itemize}
@@ -180,24 +180,20 @@ Named entity recognition as supervised learning:
 
 \begin{frame}{One Named Entity Recognition Approach}
 \begin{block}{Function Description}
-\begin{itemize}
-\item $D_f$ = \pause $\{\textit{a},\textit{aardvark},\textit{abacus},\textit{abalone},\ldots\}$
-\item $R_f$ = \pause $\{\textsc{B-Per},\textsc{I-Per},\textsc{B-Org},\textsc{I-Org},\ldots,\textsc{O}\}$
-\end{itemize}
+\begin{description}[$D_f$]
+\item[$D_f$] = $\{\textit{a},\textit{aardvark},\textit{abacus},\textit{abalone},\ldots\}$ in a sentence
+\item[$R_f$] = $\{\textsc{B-Per},\textsc{I-Per},\textsc{B-Org},\textsc{I-Org},\ldots,\textsc{O}\}$
+\end{description}
 \end{block}
-\pause
-$
-\begin{array}{lll}
+$\begin{array}{lll}
 f(\textit{Bill})        & = & \textsc{B-Per} \\
 f(\textit{works})       & = & \textsc{O} \\
 f(\textit{for})         & = & \textsc{O} \\
 f(\textit{Microsoft})   & = & \textsc{B-Org} \\
 f(\textit{Corporation}) & = & \textsc{I-Org} \\
-\end{array}
-$
-\pause
+\end{array}$
 \begin{block}{Typical Features}
-\begin{tabular}{p{1.8in}p{1.8in}}
+\begin{tabular}{p{0.4\textwidth}p{0.4\textwidth}}
 Word itself     & Capitalization \\
 Preceding label & First in sentence? \\
 \end{tabular}

@@ -79,17 +79,17 @@ Describe the function $f\!: D_f \rightarrow R_f$
 \begin{columns}
 \begin{column}{0.47\textwidth}<2->
 \begin{block}{Ex: Income Prediction}
-\begin{description}[$D_f =$]
-\item[$D_f =$] \uncover<3->{people}
-\item[$R_f =$] \uncover<4->{$\mathbb{R}$}
+\begin{description}[$D_f$]
+\item[$D_f$] = \uncover<3->{people}
+\item[$R_f$] = \uncover<4->{$\mathbb{R}$}
 \end{description}
 \end{block}
 \end{column}
 \begin{column}{0.47\textwidth}<5->
 \begin{block}{Ex: Face Recognition}
-\begin{description}[$D_f =$]
-\item[$D_f =$] \uncover<6->{images}
-\item[$R_f =$] \uncover<7->{image regions}
+\begin{description}[$D_f$]
+\item[$D_f$] = \uncover<6->{images}
+\item[$R_f$] = \uncover<7->{image regions}
 \end{description}
 \end{block}
 \end{column}
@@ -128,39 +128,32 @@ Easier if we know, e.g.
 \end{frame}
 
 \begin{frame}{Part of Speech Tagging Example}
+\setbeamercovered{invisible}
 \begin{tabular}{llllll}
-\keyword{Input}  & \em John & \em broke & \em the & \em red & \em lamp \\
-\pause
-\keyword{Output} & \sc Noun & \sc Verb  & \sc Det & \sc Adj & \sc Noun \\
+\textcolor{uabgreen}{Input}  & \em John & \em broke & \em the & \em red & \em lamp \\
+\textcolor{uabgreen}{Output} & \sc Noun & \sc Verb  & \sc Det & \sc Adj & \sc Noun \\
 \end{tabular}
-\pause
-\begin{block}{Function Description}
-\begin{itemize}
-\pause
-\item $D_f$ = \pause $\{\textit{a},\textit{aardvark},\textit{abacus},\textit{abalone},\ldots\}$
-\pause
-\item $R_f$ = \pause $\{\textsc{Noun},\textsc{Verb},\textsc{Adj},\textsc{Adv},\textsc{Det},\ldots\}$
-\end{itemize}
+\begin{block}{Function Description}<2->
+\begin{description}[$D_f$]
+\item[$D_f$] = \uncover<3->{$\{\textit{a},\textit{aardvark},\textit{abacus},\textit{abalone},\ldots\}$ \uncover<6->{\alert<6->{in a sentence}}}
+\item[$R_f$] = \uncover<4->{$\{\textsc{Noun},\textsc{Verb},\textsc{Adj},\textsc{Adv},\textsc{Det},\ldots\}$}
+\end{description}
 \end{block}
 \medskip
-\pause
-\begin{columns}
-\begin{column}{2in}
+\begin{columns}<5->
+\begin{column}{0.45\textwidth}
 $f$(\textit{bark}) = \textsc{Noun}? \textsc{Verb}?
 \end{column}
-\begin{column}{2in}
+\begin{column}{0.5\textwidth}
 \emph{\ldots the \textbf{bark} of the tree \ldots} \\
 \emph{\ldots heard the dog \textbf{bark} \ldots} \\
 \end{column}
 \end{columns}
-\pause
-\begin{block}{Feature Representation}
-$
-\begin{array}{lll}
+\begin{block}{Feature Representation}<7->
+$\begin{array}{lll}
 f([w_{0}\!=\!\textit{bark}, w_{-1}\!=\!\textit{the}]) & = & \textsc{Noun} \\
 f([w_{0}\!=\!\textit{bark}, w_{-1}\!=\!\textit{dog}]) & = & \textsc{Verb}
-\end{array}
-$
+\end{array}$
 \end{block}
 \end{frame}
 

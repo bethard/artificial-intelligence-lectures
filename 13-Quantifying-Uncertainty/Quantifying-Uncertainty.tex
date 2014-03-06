@@ -480,18 +480,26 @@ $
 \end{block}
 \pause
 \begin{block}{Calculating a Normalizing Constant}
-$
-\begin{array}{lllll}
-P(\mbox{A}|\spadesuit)P(\spadesuit) & = & 1/13 \cdot 1/4 & =  & 1/52 \\
-P(\mbox{A}|\clubsuit)P(\clubsuit) & = & 1/13 \cdot 1/4 & =  & 1/52 \\
-P(\mbox{A}|\diamondsuit)P(\diamondsuit) & = & 1/13 \cdot 1/4 & =  & 1/52 \\
-P(\mbox{A}|\heartsuit)P(\heartsuit) & = & 1/13 \cdot 1/4 & =  & 1/52 \\[.5em]
+\begin{columns}
+\begin{column}{0.35\textwidth}
+$\begin{array}{ l l l }
+P(\spadesuit,\mbox{A}) & = & \frac{1}{52} \\
+P(\clubsuit,\mbox{A}) & = & \frac{1}{52} \\
+P(\diamondsuit,\mbox{A}) & = & \frac{1}{52} \\
+P(\heartsuit,\mbox{A}) & = & \frac{1}{52}
+\end{array}$
+\end{column}
 \pause
-Total & & & = & \pause 1/13 \\
+\begin{column}{0.6\textwidth}
+$\alpha = \pause \dfrac{1}{\frac{1}{52} + \frac{1}{52} + \frac{1}{52} + \frac{1}{52}} = 13$
+\end{column}
+\end{columns}
+\bigskip
+\centering
 \pause
-\alert{\alpha} & & & = & \pause 13 \\
-\end{array}
-$
+$\mathbf{P}(Suit,\mbox{A})
+= \langle \frac{13}{52}, \frac{13}{52}, \frac{13}{52}, \frac{13}{52} \rangle
+= \langle \frac{1}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \rangle$
 \end{block}
 \end{frame}
 

@@ -254,12 +254,57 @@ If $a$ then \textit{true}, else \textit{false}
 \end{columns}
 \end{frame}
 
+\begin{frame}{Train, Development and Test sets}
+\begin{block}{Bad Idea}
+\begin{enumerate}
+\item\label{item:evaluate} Evaluate on test set
+\item Examine errors and adjust hypothesis
+\item Goto \ref{item:evaluate}
+\end{enumerate}
+\end{block}
+\pause
+\alert{Tuning to your test set} will overestimate model accuracy\\
+\pause
+\bigskip
+Instead, split data into:
+\begin{description}[Train]
+\item[Train] Used to train a hypothesis function
+\item[Dev] Used to tune/adjust the hypothesis
+\item[Test] Used to estimate hypothesis function's accuracy
+\end{description}
+\end{frame}
+
+\begin{frame}[label=cross-validation]{$k$-fold Cross Validation}
+Split data into $k$ parts, then iteratively \textcolor{blue!60!white}{train} and \textcolor{uabgreen}{test}:
+\begin{tikzpicture}
+\fill[alt={10-}{uabgreen}{blue!60!white}](0,0) rectangle (1,1);
+\fill[alt={9}{uabgreen}{blue!60!white}](1,0) rectangle (2,1);
+\fill[alt={8}{uabgreen}{blue!60!white}](2,0) rectangle (3,1);
+\fill[alt={7}{uabgreen}{blue!60!white}](3,0) rectangle (4,1);
+\fill[alt={6}{uabgreen}{blue!60!white}](4,0) rectangle (5,1);
+\fill[alt={5}{uabgreen}{blue!60!white}](5,0) rectangle (6,1);
+\fill[alt={4}{uabgreen}{blue!60!white}](6,0) rectangle (7,1);
+\fill[alt={3}{uabgreen}{blue!60!white}](7,0) rectangle (8,1);
+\fill[alt={2}{uabgreen}{blue!60!white}](8,0) rectangle (9,1);
+\fill[alt={1}{uabgreen}{blue!60!white}](9,0) rectangle (10,1);
+\end{tikzpicture}
+\uncover<11->{Accuracy is average of the accuracies on each of the $k$ folds}\\
+\bigskip
+\uncover<12->{
+Warnings:
+\begin{itemize}
+\item Cross validation is \alert{not} a substitution for a test set
+\item Cross validation \textcolor{uabgreen}{can be} used instead of train+dev
+\end{itemize}
+}
+\end{frame}
+
+
 \begin{frame}{Learning Curves}
 \begin{itemize}
 \item Train on increasing fractions of training data
 \item Test each of the resulting hypotheses on the test data
 \end{itemize}
-\pause
 \begin{center}
 \includegraphics[height=2in]{restaurant-dtl-curve}
 \end{center}
@@ -328,27 +373,6 @@ Many hypotheses possible:\\
 \end{frame}
 
 \section{Supervised Learning Algorithms}
-
-\begin{frame}{Learning Supervised Models}
-After problem formulation, we apply a \alert{learning algorithm} \\
-\medskip
-\begin{block}{Input}
-A set of $(x, f(x))$ training examples
-\end{block}
-\pause
-\begin{block}{Output}
-A function $h\!: D_f \rightarrow R_f$
-\end{block}
-\pause
-\begin{block}{Goal}
-Pick an $h$ that:
-\begin{itemize}
-\item is consistent with the training examples
-\item does not overfit the data (i.e. is not overly complex)
-\end{itemize}
-\end{block}
-\end{frame}
-
 
 \subsection{Decision Trees}
 

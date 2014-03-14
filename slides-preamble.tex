@@ -70,6 +70,9 @@ University of Alabama at Birmingham}
   filled on/.code={%
     \alt<#1>{\pgfkeysalso{fill=gray}}{}
   },
+  alt/.code n args={3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}
+  },
 }
 \forestset{
   edge weight/.style={

@@ -234,7 +234,7 @@ Preceding label & First in sentence? \\
 Train:
 $
 \begin{array}[t]{ll|l}
-F_1 & F_2 & \textit{Class} \\
+x_1 & x_2 & f(x) \\
 \hline
 0   & a   & \textit{true} \\
 0   & b   & \textit{false} \\
@@ -247,7 +247,7 @@ $
 Test:
 $
 \begin{array}[t]{ll|l}
-F_1 & F_2 & \textit{Class} \\
+x_1 & x_2 & f(x) \\
 \hline
 1   & a   & \textit{true} \\
 0   & b   & \textit{false} \\
@@ -666,16 +666,16 @@ $R_f$ = $\{\textit{Yes}, \textit{No}\}$
 \begin{frame}[label=decision-tree-functions]{Decision Trees as Functions}
 \begin{columns}[t]
 \begin{column}{0.47\textwidth}
-$f(X, Y) = X \textit{ xor } Y$ \\[1em]
+$f(x) = x_1 \textit{ xor } x_2$ \\[1em]
 \small
 \begin{forest}
 decision tree={1.4em}{3em}{2em}
-[X,decision
-  [Y,decision,choice={true}
+[{$x_1$},decision
+  [{$x_2$},decision,choice={true}
     [false,result,choice={true}]
     [true,result,choice={false}]
   ]
-  [Y,decision,choice={false}
+  [{$x_2$},decision,choice={false}
     [true,result,choice={true}]
     [false,result,choice={false}]
   ]
@@ -684,19 +684,19 @@ decision tree={1.4em}{3em}{2em}
 \end{column}
 \pause
 \begin{column}{0.47\textwidth}
-$f(A, B, C) = (A \land B) \lor \lnot C$ \\[1em]
+$f(x) = (x_1 \land x_2) \lor \lnot x_3$ \\[1em]
 \small
 \begin{forest}
 decision tree={1.4em}{3em}{2em}
-[A,decision
-  [B,decision,choice={true}
+[{$x_1$},decision
+  [{$x_2$},decision,choice={true}
     [true,result,choice={true}]
-    [C,decision,choice={false}
+    [{$x_3$},decision,choice={false}
       [false,result,choice={true}]
       [true,result,choice={false}]
     ]
   ]
-  [C,decision,choice={false}
+  [{$x_3$},decision,choice={false}
     [false,result,choice={true}]
     [true,result,choice={false}]
   ]
@@ -708,8 +708,8 @@ decision tree={1.4em}{3em}{2em}
 
 \begin{frame}[label=decision-tree-learn]{Learning Decision Trees}
 \begin{enumerate}
-\item Select a feature $X_i$ for the node
-\item For each value of $X_i$ create a child node
+\item Select a feature $x_i$ for the node
+\item For each value of $x_i$ create a child node
 \item Sort training examples into child nodes
 \item If examples are sorted perfectly, terminate
 \item Else, repeat the process for each child node
@@ -718,7 +718,7 @@ decision tree={1.4em}{3em}{2em}
 \begin{column}<2->{0.45\textwidth}
 $
 \begin{array}{cc|c}
-X_1          &  X_2          & f(X) \\
+x_1          &  x_2          & f(x) \\
 \hline
 \textit{true}  & \textit{true}   & \textit{true} \\
 \textit{true}  & \textit{false}  & \textit{false} \\
@@ -731,9 +731,9 @@ $
 \scriptsize
 \begin{forest}
 decision tree={1.5em}{3em}{3em}
-[{\visible<4->{$X_2$}\\3 true, 1 false},draw,visible on filled on={3-}{4-}
+[{\visible<4->{$x_2$}\\3 true, 1 false},draw,visible on filled on={3-}{4-}
   [{\visible<7->{TRUE}\\\visible<6->{2 true, 0 false}},draw,choice={true},visible on={5-}]
-  [{\visible<9->{$X_1$}\\\visible<8->{1 true, 1 false}},draw,choice={false},visible on filled on={5-}{9-}
+  [{\visible<9->{$x_1$}\\\visible<8->{1 true, 1 false}},draw,choice={false},visible on filled on={5-}{9-}
     [{\visible<12->{FALSE}\\\visible<11->{0 true, 1 false}},draw,choice={true},visible on={10-}]
     [{\visible<14->{TRUE}\\\visible<13->{1 true, 0 false}},draw,choice={false},visible on={10-}]
   ]
@@ -751,7 +751,7 @@ Build a decision tree for: \\
 \bigskip
 $
 \begin{array}{ll|l}
-X_1 & X_2 & f(X) \\
+x_1 & x_2 & f(x) \\
 \hline
 0   & a   & \textit{true} \\
 0   & b   & \textit{false} \\
@@ -770,13 +770,13 @@ Two possible solutions: \\
 \bigskip
 \begin{forest}
 decision tree={1.5em}{2.5em}{1.5em}
-[{$X_1$},decision
-  [{$X_2$},decision,choice={0}
+[{$x_1$},decision
+  [{$x_2$},decision,choice={0}
     [true,result,choice={a}]
     [false,result,choice={b}]
     [false,result,choice={c}]
   ]
-  [{$X_2$},decision,choice={1}
+  [{$x_2$},decision,choice={1}
     [true,result,choice={a}]
     [false,result,choice={b}]
     [true,result,choice={c}]
@@ -786,10 +786,10 @@ decision tree={1.5em}{2.5em}{1.5em}
 \bigskip
 \begin{forest}
 decision tree={1.5em}{2.5em}{1.5em}
-[{$X_2$},decision
+[{$x_2$},decision
   [true,result,choice={a}]
   [false,result,choice={b}]
-  [{$X_1$},decision,choice={c}
+  [{$x_1$},decision,choice={c}
     [false,result,choice={0}]
     [true,result,choice={1}]
   ]
@@ -816,7 +816,7 @@ One whose values predict the class labels \\
 \begin{column}{1.2in}
 $
 \begin{array}{lll}
-F_1 & F_2 & \textit{Class} \\
+x_1 & x_2 & f(x) \\
 \hline
 a & 0 & \textit{true} \\
 a & 1 & \textit{true} \\
@@ -827,9 +827,9 @@ $
 \end{column}
 \pause
 \begin{column}{1.8in}
-$F_1$ is a \alert{good} feature \\
+$x_1$ is a \alert{good} feature \\
 \bigskip
-$F_2$ is a \alert{poor} feature
+$x_2$ is a \alert{poor} feature
 \end{column}
 \end{columns}
 \end{frame}
@@ -1079,7 +1079,7 @@ $
 \small
 $
 \begin{array}{@{}l@{\hspace{2pt}}l@{\hspace{2pt}}|@{\hspace{2pt}}l@{}}
-F_1 & F_2 & Y \\
+X_1 & X_2 & Y \\
 \hline
 0   & a   & \textsc{t} \\
 0   & b   & \textsc{f} \\
@@ -1100,24 +1100,24 @@ H(Y)               & = & \pause -P(\textsc{t})\log_2 P(\textsc{t}) - P(\textsc{f
 \pause
                    & = & -\frac{1}{2}\log_2 \frac{1}{2} - \frac{1}{2}\log_2 \frac{1}{2} \pause = 1 \\
 \pause
-H(Y|F_1\!\!=\!\!0) & = & \pause -P(\textsc{t}|0)\log_2 P(\textsc{t}|0) - \pause P(\textsc{f}|0)\log_2 P(\textsc{f}|0) \\
+H(Y|X_1\!\!=\!\!0) & = & \pause -P(\textsc{t}|0)\log_2 P(\textsc{t}|0) - \pause P(\textsc{f}|0)\log_2 P(\textsc{f}|0) \\
 \pause
                    & = & - \frac{1}{3}\log_2 \frac{1}{3} - \pause \frac{2}{3}\log_2 \frac{2}{3} \pause = 0.92\\
 \pause         
-H(Y|F_1\!\!=\!\!1) & = & \pause \ldots = 0.92\\
+H(Y|X_1\!\!=\!\!1) & = & \pause \ldots = 0.92\\
 \pause         
-H(Y|F_1)           & = & \pause P(F_1\!\!=\!\!0) H(Y|F_1\!\!=\!\!0) + P(F_1\!\!=\!\!1) H(Y|F_1\!\!=\!\!1) \\
+H(Y|X_1)           & = & \pause P(X_1\!\!=\!\!0) H(Y|X_1\!\!=\!\!0) + P(X_1\!\!=\!\!1) H(Y|X_1\!\!=\!\!1) \\
 \pause         
                    & = & 0.5 \cdot 0.92 + \pause 0.5 \cdot 0.92 \pause = 0.92 \\
 \pause
-IG(Y|F_1)          & = & \pause H(Y) - H(Y|F_1) \pause = 1 - 0.92 \pause = 0.08 \\
+IG(Y|X_1)          & = & \pause H(Y) - H(Y|X_1) \pause = 1 - 0.92 \pause = 0.08 \\
 \pause         
-IG(Y|F_2)          & = & \pause \mbox{\alert{ Your turn! }} \pause = 0.67 \\
+IG(Y|X_2)          & = & \pause \mbox{\alert{ Your turn! }} \pause = 0.67 \\
 \end{array}
 $ \\
 \medskip
 \pause
-So $F_2$ is a much better feature to split on \hyperlink{decision-tree-exercise<2>}{\beamerbutton{See Example}}
+So $X_2$ is a much better feature to split on \hyperlink{decision-tree-exercise<2>}{\beamerbutton{See Example}}
 \end{column}
 \end{columns}
 \end{frame}
@@ -1148,7 +1148,7 @@ So $F_2$ is a much better feature to split on \hyperlink{decision-tree-exercise<
 \small
 $
 \begin{array}{lll|l}
-F_0 & F_1 & F_2 & C \\
+x_0 & x_1 & x_2 & f(x) \\
 \hline
 0   & 0   & 0   & F \\
 0   & 0   & 1   & F \\
@@ -1174,7 +1174,7 @@ $
 \small
 $
 \begin{array}{lll|l}
-F_0 & F_1 & F_2 & C \\
+x_0 & x_1 & x_2 & f(x) \\
 \hline
 0   & 0   & 0   & F \\
 1   & 1   & 1   & T \\

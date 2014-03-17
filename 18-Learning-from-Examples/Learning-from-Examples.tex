@@ -8,6 +8,20 @@
         y filter/.code={\pgfmathparse{\pgfmathresult+rnd*#1}}
     }
 }
+\forestset{
+  decision/.style={draw,fill=gray,minimum height=2em},
+  choice/.style={edge label={node[near end,left,inner sep=0.1em]{#1}}},
+  result/.style={draw,rounded corners,minimum height=2em},
+  decision tree/.style={
+    for tree={
+      l sep=3em,
+      s sep=2em,
+      edge={thick,-latex},
+      % square edges: http://tex.stackexchange.com/questions/108710/square-edges-in-forest-package
+      edge path={\noexpand\path[\forestoption{edge}] (\forestOve{\forestove{@parent}}{name}.parent anchor) -- +(0,-2em)-| (\forestove{name}.child anchor)\forestoption{edge label};},
+    }
+  },
+}
 
 \title{Learning from Examples}
 \date[]{20 Mar 2014}
@@ -609,15 +623,29 @@ x_1 & f(x) & h(x) \\
 
 \subsection{Decision Trees}
 
-\begin{frame}{Decision Trees}
+\begin{frame}[label=decision-tree-intro]{Decision Trees}
 \begin{columns}
-\begin{column}{2.7in}
+\begin{column}{0.6\textwidth}
 \centering
 Should I play golf today? \\
 \bigskip
-\includegraphics[width=2.7in]{play_golf}
+\small
+\begin{forest}
+decision tree
+[{Weather},decision
+  [{Humidity},decision,choice={Sunny}
+    [{No},result,choice={High}]
+    [{Yes},result,choice={Normal}]
+  ]
+  [{Yes},result,choice={Overcast}]
+  [{Wind},decision,choice={Rain}
+    [{No},result,choice={Strong}]
+    [{Yes},result,choice={Weak}]
+  ]
+]
+\end{forest}
 \end{column}
-\begin{column}{1.5in}
+\begin{column}{0.35\textwidth}
 \begin{block}{Function}
 $D_f$ = days \\
 $R_f$ = $\{\textit{Yes}, \textit{No}\}$

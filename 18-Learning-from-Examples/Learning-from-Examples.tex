@@ -708,8 +708,8 @@ decision tree={1.4em}{3em}{2em}
 
 \begin{frame}[label=decision-tree-learn]{Learning Decision Trees}
 \begin{enumerate}
-\item Select a feature $F$ for the node
-\item For each value of $F$, create a child node
+\item Select a feature $X_i$ for the node
+\item For each value of $X_i$ create a child node
 \item Sort training examples into child nodes
 \item If examples are sorted perfectly, terminate
 \item Else, repeat the process for each child node
@@ -718,7 +718,7 @@ decision tree={1.4em}{3em}{2em}
 \begin{column}<2->{0.45\textwidth}
 $
 \begin{array}{cc|c}
-X          &  Y          & f(X, Y) \\
+X_1          &  X_2          & f(X) \\
 \hline
 \textit{true}  & \textit{true}   & \textit{true} \\
 \textit{true}  & \textit{false}  & \textit{false} \\
@@ -731,9 +731,9 @@ $
 \scriptsize
 \begin{forest}
 decision tree={1.5em}{3em}{3em}
-[{\visible<4->{Y}\\3 true, 1 false},draw,visible on filled on={3-}{4-}
+[{\visible<4->{$X_2$}\\3 true, 1 false},draw,visible on filled on={3-}{4-}
   [{\visible<7->{TRUE}\\\visible<6->{2 true, 0 false}},draw,choice={true},visible on={5-}]
-  [{\visible<9->{X}\\\visible<8->{1 true, 1 false}},draw,choice={false},visible on filled on={5-}{9-}
+  [{\visible<9->{$X_1$}\\\visible<8->{1 true, 1 false}},draw,choice={false},visible on filled on={5-}{9-}
     [{\visible<12->{FALSE}\\\visible<11->{0 true, 1 false}},draw,choice={true},visible on={10-}]
     [{\visible<14->{TRUE}\\\visible<13->{1 true, 0 false}},draw,choice={false},visible on={10-}]
   ]
@@ -744,13 +744,14 @@ decision tree={1.5em}{3em}{3em}
 \end{frame}
 
 \begin{frame}[label=decision-tree-exercise]{Decision Tree Exercise}
-\begin{columns}
-\begin{column}{1.8in}
+\setbeamercovered{invisible}
+\begin{columns}[t]
+\begin{column}{0.4\textwidth}
 Build a decision tree for: \\
 \bigskip
 $
 \begin{array}{ll|l}
-F_1 & F_2 & \textit{Class} \\
+X_1 & X_2 & f(X) \\
 \hline
 0   & a   & \textit{true} \\
 0   & b   & \textit{false} \\
@@ -762,13 +763,38 @@ F_1 & F_2 & \textit{Class} \\
 $
 \end{column}
 \pause
-\begin{column}{1.8in}
+\begin{column}{0.55\textwidth}
 Two possible solutions: \\
 \centering
+\scriptsize
 \bigskip
-\includegraphics[scale=.6]{exercise-1} \\
+\begin{forest}
+decision tree={1.5em}{2.5em}{1.5em}
+[{$X_1$},decision
+  [{$X_2$},decision,choice={0}
+    [true,result,choice={a}]
+    [false,result,choice={b}]
+    [false,result,choice={c}]
+  ]
+  [{$X_2$},decision,choice={1}
+    [true,result,choice={a}]
+    [false,result,choice={b}]
+    [true,result,choice={c}]
+  ]
+]
+\end{forest}\\
 \bigskip
-\includegraphics[scale=.6]{exercise-2}
+\begin{forest}
+decision tree={1.5em}{2.5em}{1.5em}
+[{$X_2$},decision
+  [true,result,choice={a}]
+  [false,result,choice={b}]
+  [{$X_1$},decision,choice={c}
+    [false,result,choice={0}]
+    [true,result,choice={1}]
+  ]
+]
+\end{forest}
 \end{column}
 \end{columns}
 \end{frame}

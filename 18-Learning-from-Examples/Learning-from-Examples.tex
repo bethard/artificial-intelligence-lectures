@@ -9,13 +9,12 @@
     }
 }
 \forestset{
-  decision/.style={draw,fill=gray,minimum height=2em},
+  decision/.style={draw,fill=gray,minimum height=2em,minimum width=2em,inner sep=0.1em},
   choice/.style={edge label={node[near end,left,inner sep=0.1em]{#1}}},
-  result/.style={draw,rounded corners,minimum height=2em},
+  result/.style={draw,rounded corners,minimum height=2em,minimum width=2em,inner sep=0.1em},
   decision tree/.style={
     for tree={
       l sep=3em,
-      s sep=2em,
       edge={thick,-latex},
       % square edges: http://tex.stackexchange.com/questions/108710/square-edges-in-forest-package
       edge path={\noexpand\path[\forestoption{edge}] (\forestOve{\forestove{@parent}}{name}.parent anchor) -- +(0,-2em)-| (\forestove{name}.child anchor)\forestoption{edge label};},
@@ -631,7 +630,7 @@ Should I play golf today? \\
 \bigskip
 \small
 \begin{forest}
-decision tree
+decision tree,for tree={s sep=2em}
 [{Weather},decision
   [{Humidity},decision,choice={Sunny}
     [{No},result,choice={High}]
@@ -662,15 +661,44 @@ $R_f$ = $\{\textit{Yes}, \textit{No}\}$
 \end{columns}
 \end{frame}
 
-\begin{frame}{Decision Trees as Functions}
+\begin{frame}[label=decision-tree-functions]{Decision Trees as Functions}
 \begin{columns}[t]
-\begin{column}{2in}
+\begin{column}{0.47\textwidth}
 $f(X, Y) = X \textit{ xor } Y$ \\[1em]
-\includegraphics[scale=.75]{xor}
+\small
+\begin{forest}
+decision tree,for tree={s sep=1.5em}
+[X,decision
+  [Y,decision,choice={true}
+    [false,result,choice={true}]
+    [true,result,choice={false}]
+  ]
+  [Y,decision,choice={false}
+    [true,result,choice={true}]
+    [false,result,choice={false}]
+  ]
+]
+\end{forest}
 \end{column}
-\begin{column}{2in}
+\begin{column}{0.47\textwidth}
 $f(A, B, C) = (A \land B) \lor \lnot C$ \\[1em]
-\includegraphics[scale=.75]{abc}
+\small
+\begin{forest}
+decision tree,for tree={s sep=1.5em}
+[A,decision
+  [B,decision,choice={true}
+    [true,result,choice={true}]
+    [C,decision,choice={false}
+      [false,result,choice={true}]
+      [true,result,choice={false}]
+    ]
+  ]
+  [C,decision,choice={false}
+    [false,result,choice={true}]
+    [true,result,choice={false}]
+  ]
+]
+\end{forest}
 \end{column}
 \end{columns}
 \end{frame}

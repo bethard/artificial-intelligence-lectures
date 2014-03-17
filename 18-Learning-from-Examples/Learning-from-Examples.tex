@@ -895,7 +895,7 @@ Smallest number of bits that can encode a stream of values from $X$'s distributi
 
 \begin{frame}{Entropy}
 \begin{columns}
-\begin{column}{1.1in}
+\begin{column}{0.25\textwidth}
 \begin{tabular}{ll}
 X       & Y   \\
 \hline
@@ -909,11 +909,12 @@ history & no  \\
 math    & yes \\
 \end{tabular}
 \end{column}
-\begin{column}{3.1in}
+\begin{column}{0.7\textwidth}
 \pause
 $
 \extrarowheight=2pt
-\begin{array}{lll}
+\setlength{\arraycolsep}{0.25em}
+\begin{array}{ l l l }
 H(X)        & = & \pause -\sum\limits_{x \in X}P(x)\log_2 P(x) \\
      \pause & = & -P(\textit{math})\log_2 P(\textit{math}) \\
             &   & -P(\textit{history})\log_2 P(\textit{history}) \\
@@ -935,7 +936,7 @@ $
 
 \begin{frame}{Specific Conditional Entropy}
 \begin{columns}
-\begin{column}{1.1in}
+\begin{column}{0.25\textwidth}
 \begin{tabular}{ll}
 X               & Y   \\
 \hline
@@ -949,14 +950,15 @@ history         & no  \\
 math            & yes \\
 \end{tabular}
 \end{column}
-\begin{column}{3.1in}
+\begin{column}{0.7\textwidth}
 \begin{block}{Specific Conditional Entropy}
 $H(Y|X\!=\!x) = -\sum\limits_{y \in Y}P(y|x)\log_2 P(y|x)$
 \end{block}
 \small
 $
 \extrarowheight=2pt
-\begin{array}{@{}l@{}l@{}l@{}}
+\setlength{\arraycolsep}{0em}
+\begin{array}{ l l l }
 \uncover<2->{H(Y|X\!=\!\textit{cs})}
 & \uncover<2->{=}
 & \uncover<3->{\alert<4>{-P(\textit{yes}|\textit{cs})\log_2 P(\textit{yes}|\textit{cs})}}
@@ -982,7 +984,7 @@ $ \\
 
 \begin{frame}{Conditional Entropy}
 \begin{columns}
-\begin{column}{1.1in}
+\begin{column}{0.25\textwidth}
 \begin{tabular}{ll}
 X               & Y   \\
 \hline
@@ -996,10 +998,11 @@ history         & no  \\
 math            & yes \\
 \end{tabular}
 \end{column}
-\begin{column}{3.1in}
+\begin{column}{0.7\textwidth}
+\setlength{\arraycolsep}{0.25em}
 \begin{block}{Conditional Entropy}
 $
-\begin{array}{lll}
+\begin{array}{ l l l }
 H(Y|X) & = & \sum\limits_{x \in X}P(X\!=\!x)H(Y|X\!=\!x)
 \end{array}
 $
@@ -1008,7 +1011,7 @@ $
 \small
 Given:
 $
-\begin{array}[t]{lll}
+\begin{array}[t]{ l l l }
 H(Y|X\!=\!\textit{math})    & = & 1 \\
 H(Y|X\!=\!\textit{history}) & = & 0 \\
 H(Y|X\!=\!\textit{cs})      & = & 0 \\
@@ -1018,7 +1021,7 @@ $ \\
 \pause
 $
 \extrarowheight=2pt
-\begin{array}{@{}l@{\hspace{2pt}}l@{\hspace{2pt}}l@{}}
+\begin{array}{ l l l }
 H(Y|X) & = & \pause P(X\!=\!\textit{math}) H(Y|X\!=\!\textit{math}) + \mbox{}\\
        &   & P(X\!=\!\textit{history}) H(Y|X\!=\!\textit{history}) + \mbox{}\\
        &   & P(X\!=\!\textit{cs}) H(Y|X\!=\!\textit{cs}) \\
@@ -1034,7 +1037,7 @@ In other words, $X$ is a good predictor of $Y$
 
 \begin{frame}{Information Gain}
 \begin{columns}
-\begin{column}{1.1in}
+\begin{column}{0.25\textwidth}
 \begin{tabular}{ll}
 X               & Y   \\
 \hline
@@ -1048,7 +1051,8 @@ history         & no  \\
 math            & yes \\
 \end{tabular}
 \end{column}
-\begin{column}{3.1in}
+\begin{column}{0.7\textwidth}
+\setlength{\arraycolsep}{0.25em}
 \begin{block}{Information Gain}
 $IG(Y|X) = H(Y) - H(Y|X)$
 \end{block}
@@ -1058,7 +1062,7 @@ How many bits would it save to know $X$?
 \end{block}
 \pause
 $
-\begin{array}[t]{lll}
+\begin{array}[t]{ l l l }
 H(Y|X)  & = & 0.5 \\
 H(Y)    & = & 1 \\
 \\
@@ -1071,14 +1075,15 @@ $
 \end{frame}
 
 \begin{frame}{Decision Trees and Information Gain}
-Select the feature with the highest information gain:
-\pause
+\setbeamercovered{invisible}
+Select the feature with the highest information gain:\\
 \medskip
 \begin{columns}[T]
-\begin{column}{0.6in}
+\begin{column}{0.14\textwidth}
+\setlength{\arraycolsep}{0.1em}
 \small
 $
-\begin{array}{@{}l@{\hspace{2pt}}l@{\hspace{2pt}}|@{\hspace{2pt}}l@{}}
+\begin{array}{ l l l }
 X_1 & X_2 & Y \\
 \hline
 0   & a   & \textsc{t} \\
@@ -1091,33 +1096,40 @@ X_1 & X_2 & Y \\
 $
 \end{column}
 \pause
-\begin{column}{3.8in}
+\begin{column}{0.83\textwidth}
+\setlength{\arraycolsep}{0.1em}
 \small
 $
 \extrarowheight=2pt
-\begin{array}{@{}l@{\hspace{2pt}}l@{\hspace{2pt}}l@{}}
-H(Y)               & = & \pause -P(\textsc{t})\log_2 P(\textsc{t}) - P(\textsc{f})\log_2 P(\textsc{f}) \\
+\begin{array}{ l l l l }
+H(Y)
+& = & \pause -P(\textsc{t})\log_2 P(\textsc{t}) - P(\textsc{f})\log_2 P(\textsc{f}) \\
 \pause
-                   & = & -\frac{1}{2}\log_2 \frac{1}{2} - \frac{1}{2}\log_2 \frac{1}{2} \pause = 1 \\
+& = & -\frac{1}{2}\log_2 \frac{1}{2} - \frac{1}{2}\log_2 \frac{1}{2} \pause = 1 \\
 \pause
-H(Y|X_1\!\!=\!\!0) & = & \pause -P(\textsc{t}|0)\log_2 P(\textsc{t}|0) - \pause P(\textsc{f}|0)\log_2 P(\textsc{f}|0) \\
+H(Y|X_1\!\!=\!\!0)
+& = & \pause -P(\textsc{t}|0)\log_2 P(\textsc{t}|0) - \pause P(\textsc{f}|0)\log_2 P(\textsc{f}|0) \\
 \pause
-                   & = & - \frac{1}{3}\log_2 \frac{1}{3} - \pause \frac{2}{3}\log_2 \frac{2}{3} \pause = 0.92\\
+& = & - \frac{1}{3}\log_2 \frac{1}{3} - \pause \frac{2}{3}\log_2 \frac{2}{3} \pause = 0.92\\
 \pause         
-H(Y|X_1\!\!=\!\!1) & = & \pause \ldots = 0.92\\
+H(Y|X_1\!\!=\!\!1)
+& = & \pause \ldots = 0.92\\
 \pause         
-H(Y|X_1)           & = & \pause P(X_1\!\!=\!\!0) H(Y|X_1\!\!=\!\!0) + P(X_1\!\!=\!\!1) H(Y|X_1\!\!=\!\!1) \\
+H(Y|X_1)
+& = & \pause P(X_1\!\!=\!\!0) H(Y|X_1\!\!=\!\!0) + P(X_1\!\!=\!\!1) H(Y|X_1\!\!=\!\!1) \\
 \pause         
-                   & = & 0.5 \cdot 0.92 + \pause 0.5 \cdot 0.92 \pause = 0.92 \\
+& = & 0.5 \cdot 0.92 + \pause 0.5 \cdot 0.92 \pause = 0.92 \\
 \pause
-IG(Y|X_1)          & = & \pause H(Y) - H(Y|X_1) \pause = 1 - 0.92 \pause = 0.08 \\
+IG(Y|X_1)
+& = & \pause H(Y) - H(Y|X_1) \pause = 1 - 0.92 \pause = 0.08 \\
 \pause         
-IG(Y|X_2)          & = & \pause \mbox{\alert{ Your turn! }} \pause = 0.67 \\
+IG(Y|X_2)
+& = & \pause \mbox{\alert{ Your turn! }} \pause = 0.67 \\
 \end{array}
 $ \\
 \medskip
 \pause
-So $X_2$ is a much better feature to split on \hyperlink{decision-tree-exercise<2>}{\beamerbutton{See Example}}
+So $X_2$ is a much better feature to split on
 \end{column}
 \end{columns}
 \end{frame}

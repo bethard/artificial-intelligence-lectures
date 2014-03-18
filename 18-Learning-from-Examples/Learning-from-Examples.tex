@@ -1136,13 +1136,14 @@ So $X_2$ is a much better feature to split on
 
 \subsection{Random Forests}
 
-\begin{frame}[<+->]{Random Forests}
+\begin{frame}{Random Forests}
 \begin{block}{Key Ideas}
 \begin{itemize}
 \item Voting works better when classifiers are independent
 \item Partially random trees should be more independent
 \end{itemize}
 \end{block}
+\pause
 \begin{block}{Random Forests}
 \begin{enumerate}
 \item\label{sample-step} Generate a bootstrap sample of $n$ examples
@@ -1154,12 +1155,10 @@ So $X_2$ is a much better feature to split on
 \end{block}
 \end{frame}
 
-\begin{frame}{Random Forest Exercise}
-\begin{columns}
-\begin{column}{1.2in}
-\small
-$
-\begin{array}{lll|l}
+\begin{frame}[label=random-forest-exercise]{Random Forest Example}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+$\begin{array}[t]{lll|l}
 x_0 & x_1 & x_2 & f(x) \\
 \hline
 0   & 0   & 0   & F \\
@@ -1168,53 +1167,71 @@ x_0 & x_1 & x_2 & f(x) \\
 1   & 0   & 1   & F \\
 1   & 0   & 0   & T \\
 1   & 1   & 1   & T \\
-\end{array}
-$
+\end{array}$\\
+\bigskip
+Bootstrap sample:\\
+\tab$[0, 5, 0, 1, 5, 4]$ \\
+Random feature subsets:\\
+\tab$[1, 2]$, $[2, 0]$
 \end{column}
-\begin{column}{2.8in}
-\begin{itemize}
-\item Generate a bootstrap sample
-\item Example indices $[0, 5, 0, 1, 5, 4]$
-\item Generate a random decision tree
-\item Feature indices $[1, 2]$ then $[2, 0]$
-\end{itemize}
-\end{column}
-\end{columns}
-\pause
-\begin{columns}
-\begin{column}{1.2in}
-\small
-$
-\begin{array}{lll|l}
-x_0 & x_1 & x_2 & f(x) \\
-\hline
+\begin{column}{0.5\textwidth}
+\setlength{\arraycolsep}{0em}
+\begin{forest}
+decision tree={1em}{2.5em}{3em},
+for tree={draw,minimum height=3.5em},
+baseline
+[{{\scriptsize$\begin{array}{ l l l l }
 0   & 0   & 0   & F \\
 1   & 1   & 1   & T \\
 0   & 0   & 0   & F \\
 0   & 0   & 1   & F \\
 1   & 1   & 1   & T \\
-1   & 0   & 0   & T \\
-\end{array}
-$
-\end{column}
-\begin{column}{2.8in}
-\includegraphics[width=2in]{random-tree}
+1   & 0   & 0   & T
+\end{array}$}
+\visible<3->{$x_1$}},visible on filled on={2-}{3-}
+  [{{\scriptsize$\begin{array}{ l l l l }
+0   & 0   & 0   & F \\
+0   & 0   & 0   & F \\
+0   & 0   & 1   & F \\
+1   & 0   & 0   & T
+\end{array}$}
+\visible<5->{$x_0$}},choice=0,visible on filled on={4-}{5-}
+    [{{\scriptsize$\begin{array}{ l l l l }
+0   & 0   & 0   & F \\
+0   & 0   & 0   & F \\
+0   & 0   & 1   & F \\
+\end{array}$}
+\visible<7->{$F$}},choice=0,visible on={6-}]
+    [{{\scriptsize$\begin{array}{ l l l l }
+1   & 0   & 0   & T
+\end{array}$}
+\visible<7->{$T$}},choice=1,visible on={6-}]
+  ]
+  [{{\scriptsize$\begin{array}{ l l l l }
+1   & 1   & 1   & T \\
+1   & 1   & 1   & T \\
+\end{array}$}
+\visible<7->{$T$}},choice=1,visible on={4-}]
+]
+\end{forest}
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}[<+->]{Random Forest Properties}
+\begin{frame}{Random Forest Properties}
 \begin{block}{Disadvantages}
 \begin{itemize}
 \item Hard to estimate complexity due to random factor
 \item $k$ (\# of features) must be determined experimentally
 \end{itemize}
 \end{block}
+\pause
 \begin{block}{Advantages}
 \begin{itemize}
 \item State of the art performance on many datasets
 \item Relatively simple to implement
 \item Expected error can be determined while training
+\pause
 \begin{itemize}
 \item Bootstrap sample leaves out about $\frac{1}{3}$ of examples
 \item Use these out-of-bag examples to test individual trees

@@ -5,7 +5,7 @@
 
 \pgfplotsset{
     y noise/.style={
-        y filter/.code={\pgfmathparse{\pgfmathresult+rnd*#1}}
+        y filter/.code={\pgfmathparse{\pgfmathresult+rnd*#1-0.5*#1}}
     }
 }
 \forestset{
@@ -1239,6 +1239,60 @@ baseline
 \end{itemize}
 \end{itemize}
 \end{block}
+\end{frame}
+
+\subsection{Linear and Logistic Regression}
+
+\begin{frame}[label=linear-models]{Linear Models}{}
+{\Large$h_{\theta}(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots$}\\[1em]
+Where:
+\begin{itemize}
+\item $x_1, x_2, x_3, \ldots$ are the features of $x$
+\item $\theta$ are feature weights
+\end{itemize}
+\pause
+\bigskip
+Learning linear models:
+\begin{itemize}
+\item Select weights to minimize \emph{loss}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label=loss]{Loss}
+\setbeamercovered{invisible}
+\begin{columns}
+\begin{column}{0.48\textwidth}
+How ``wrong'' is this $h(x)$?\\[1em]
+\begin{tikzpicture}[scale=0.7]
+\begin{axis}[domain=0:1]
+\pgfmathsetseed{42}
+\addplot[y noise=0.5, only marks] {2*x};
+\addplot[no marks] {2*x};
+\end{axis}
+\end{tikzpicture}
+\end{column}
+\pause
+\begin{column}{0.48\textwidth}
+\setlength{\arraycolsep}{0.1em}
+\renewcommand{\arraystretch}{1.75}
+\begin{block}{Loss at one point}
+$\begin{array}{ l l l }
+L_{0/1} & = &
+\begin{cases}
+1 & \text{if } h(x) = f(x) \\
+0 & \text{otherwise}
+\end{cases}
+\\
+\pause L_1 & = & \left| f(x) - h(x) \right| \\
+\pause L_2 & = & \left( f(x) - h(x) \right)^2
+\end{array}$
+\end{block}
+\pause
+\begin{block}{Empirical Loss}
+$\displaystyle\frac{1}{|X|} \sum_{x \in X} L(f(x), h(x))$
+\end{block}
+\end{column}
+\end{columns}
 \end{frame}
 
 \part{Key Ideas}

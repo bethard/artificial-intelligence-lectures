@@ -1254,7 +1254,7 @@ Where:
 \bigskip
 Learning linear models:
 \begin{itemize}
-\item Select weights to minimize \emph{loss}
+\item Select parameters (weights) to minimize \emph{loss}
 \end{itemize}
 \end{frame}
 
@@ -1298,7 +1298,7 @@ $\displaystyle\frac{1}{|X|} \sum_{x \in X} L(f(x), h(x))$
 \begin{frame}[label=loss-exercise]{Loss Exercise}
 \begin{columns}
 \begin{column}{0.5\textwidth}
-Which linear model weights:
+Which linear model parameters:
 \begin{enumerate}
 \item $\theta_1 = [0, 1]$
 % L_{0/1} => 2
@@ -1344,6 +1344,33 @@ are better by:
 \end{tikzpicture}
 \end{column}
 \end{columns}
+\end{frame}
+
+\begin{frame}[label=learning-via-loss]{Learning Parameters via Minimizing Loss}
+\setbeamercovered{invisible}
+\begin{block}{Key Ideas}
+\begin{itemize}
+\item Best model parameters $\theta = \displaystyle\argmin_{\theta'} Loss(h_{\theta'})$
+\item Minimized function has partial derivatives = 0
+\end{itemize}
+\end{block}
+\pause
+Example: $x = [x_1]$ with $L_2$ loss\\
+\footnotesize\setlength{\arraycolsep}{0.25em}
+$\begin{array}{ >{\displaystyle}r >{\displaystyle}c >{\displaystyle}l }
+Loss(h_{\theta})
+& = & \frac{1}{|X|}\sum_{x \in X} \left(f(x) - (\theta_0 + \theta_1 x_1)\right)^2\\
+\pause
+& = & \frac{1}{|X|}\sum_{x \in X} f(x)^2 - 2 \theta_0 f(x) - 2 \theta_1 x_1 f(x) + \theta_0^2 + 2 \theta_0 \theta_1 x_1 + \theta_1^2 x_1^2 \\
+\pause
+\displaystyle\frac{\delta}{\delta\theta_0} Loss(h_{\theta})
+& = & \frac{1}{|X|}\sum_{x \in X} - 2 f(x) + 2 \theta_0 + 2 \theta_1 x_1 = 0\\
+\pause
+\theta_0
+& = & \frac{1}{|X|}\sum_{x \in X} f(x) - \theta_1 x_1 \\
+\pause
+\displaystyle\frac{\delta}{\delta\theta_1} Loss(h_{\theta}) & = & \ldots \\
+\end{array}$
 \end{frame}
 
 \part{Key Ideas}

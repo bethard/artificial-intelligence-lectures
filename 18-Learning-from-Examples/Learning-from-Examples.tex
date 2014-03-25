@@ -1297,7 +1297,7 @@ $\displaystyle\frac{1}{|X|} \sum_{x \in X} L(f(x), h(x))$
 
 \begin{frame}[label=loss-exercise]{Loss Exercise}
 \begin{columns}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.55\textwidth}
 Which linear model parameters:
 \begin{enumerate}
 \item $\theta_1 = [0, 1]$
@@ -1319,7 +1319,7 @@ are better by:
 \only<2->{\\ \tab $\theta_2$ (20 vs. 12.4)}
 \end{itemize}
 \end{column}
-\begin{column}{0.45\textwidth}
+\begin{column}{0.4\textwidth}
 \begin{tikzpicture}
 \begin{axis}[
   grid=both,
@@ -1412,6 +1412,104 @@ For non-convex functions:
 \begin{itemize}
 \item Only converges to a local minimum
 \end{itemize}
+\end{frame}
+
+\begin{frame}[label=regularization]{Avoiding Overfitting with Regularization}
+Recall overfitting solutions:
+\pause
+\begin{itemize}
+\item Use simpler model
+\item Use fewer features
+\end{itemize}
+\pause
+Learning as optimization allows another: \emph{Regularization}
+\begin{itemize}
+\item Instead of minimizing $Loss(\theta)$
+\item Minimize $Loss(\theta) + \lambda \: Complexity(\theta)$
+\item Where $\lambda$ can be tuned
+\end{itemize}
+\pause
+Common choices for $Complexity(\theta)$
+\begin{itemize}
+\item $\displaystyle L_1(\theta) = \sum_{i} | \theta_{i} |$, encourages weights of 0 (sparsity)
+\item $\displaystyle L_2(\theta) = \sum_{i} | \theta_{i} |^{2}$, often makes math easier
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label=regularization-exercise]{Regularization Exercise}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+Which parameters:
+\begin{enumerate}
+\item $\theta_1 = [-2, 3, 1]$
+% -2 + 6 + 1 = 5
+% -2 + 9 + 2 = 9
+% -2 + 12 + 3 = 13
+% L_2 loss => [1, 0, 0] => 1
+% L_1 reg => 2 + 3 + 1 => 6
+% L_2 reg => 4 + 9 + 1 => 14
+\item $\theta_2 = [0, 3, 0]$
+% 6
+% 9
+% 12
+% L_2 loss => [2, 0, 1] => 5
+% L_1 reg => 3
+% L_2 reg => 9
+\end{enumerate}
+are better with $L_2$ loss and the regularization:
+\begin{itemize}
+\item None?
+\only<2->{\\ \tab $\theta_1$ (1 vs. 5)}
+\item $L_1$ with $\lambda=1$?
+\only<2->{\\ \tab $\theta_1$ (7 vs. 8)}
+\item $L_2$ with $\lambda=1$?
+\only<2->{\\ \tab $\theta_2$ (15 vs. 14)}
+\end{itemize}
+\end{column}
+\begin{column}{0.55\textwidth}
+\centering
+$\begin{array}{ r r r }
+\hline
+x_1 & x_2 & f(x) \\
+\hline
+2 & 1 & 4 \\
+3 & 2 & 9 \\
+4 & 3 & 13 \\
+\hline
+\end{array}$\\
+\bigskip
+\visible<3->{
+\begin{tikzpicture}
+\begin{axis}[
+  title={$h(x) = -2 + 3x_1 + x_2$},
+  tiny,
+  colormap={bw}{gray=(0); gray=(1)},
+]
+\addplot3[only marks] table[row sep=\\] {
+2 1 4\\
+3 2 9\\
+4 3 13\\
+};
+\addplot3[mesh,domain=0:6,samples=10] plot {3*x+y-2};
+\end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}
+\begin{axis}[
+  title={$h(x) = 3x_1$},
+  tiny,
+  colormap={bw}{gray=(0); gray=(1)},
+]
+\addplot[only marks] table[row sep=\\] {
+2 4\\
+3 9\\
+4 13\\
+};
+\addplot[domain=0:6,samples=10] plot {3*x};
+\end{axis}
+\end{tikzpicture}
+}
+\end{column}
+\end{columns}
 \end{frame}
 
 \part{Key Ideas}

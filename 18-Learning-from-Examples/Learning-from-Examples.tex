@@ -1373,6 +1373,47 @@ Loss(h_{\theta})
 \end{array}$
 \end{frame}
 
+\begin{frame}[label=gradient-descent]{Learning Parameters via Minimizing Loss}
+Formal approach:
+\begin{itemize}
+\item Given: function $h_{\theta}$ and function $Loss(\theta)$
+\item Derive $\nabla Loss(\theta) = [\frac{\delta}{\delta\theta_0} Loss(\theta), \frac{\delta}{\delta\theta_1} Loss(\theta), \ldots]$
+\item Solve for $\theta$ in $\nabla Loss(\theta) = 0$
+\end{itemize}
+\pause
+But there may be no closed form solution!
+\pause
+\begin{block}{Gradient Descent}
+\tt
+$\theta$ = any setting of all parameters\\
+\keyword{while} $\theta$ has not converged:\\
+\tab \keyword{for} i \keyword{in} $0 \ldots |\theta|$:\\
+\tab \tab $\displaystyle \theta_i = \theta_i - \alpha \frac{\delta}{\delta\theta_i} Loss(\theta)$
+\end{block}
+\end{frame}
+
+\begin{frame}[label=gradient-descent-properties]{Gradient Descent Properties}
+For convex functions:
+\begin{itemize}
+\item Given small enough $\alpha$, converges to global minimum
+\item May be slow: scans entire training data every step
+\end{itemize}
+\pause
+\bigskip
+Alternative: stochastic gradient descent:
+\begin{itemize}
+\item Calculate loss for each $x$ and update $\theta$ accordingly
+\item Often faster than batch gradient descent
+\item Not guaranteed to converge to global minimum
+\end{itemize}
+\pause
+\bigskip
+For non-convex functions:
+\begin{itemize}
+\item Only converges to a local minimum
+\end{itemize}
+\end{frame}
+
 \part{Key Ideas}
 
 \begin{frame}{Key Ideas}

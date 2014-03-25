@@ -1279,8 +1279,8 @@ How ``wrong'' is this $h(x)$?\\[1em]
 $\begin{array}{ l l l }
 L_{0/1} & = &
 \begin{cases}
-1 & \text{if } h(x) = f(x) \\
-0 & \text{otherwise}
+0 & \text{if } h(x) = f(x) \\
+1 & \text{otherwise}
 \end{cases}
 \\
 \pause L_1 & = & \left| f(x) - h(x) \right| \\
@@ -1291,6 +1291,57 @@ L_{0/1} & = &
 \begin{block}{Empirical Loss}
 $\displaystyle\frac{1}{|X|} \sum_{x \in X} L(f(x), h(x))$
 \end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[label=loss-exercise]{Loss Exercise}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+Which linear model weights:
+\begin{enumerate}
+\item $\theta_1 = [0, 1]$
+% L_{0/1} => 2
+% L_1 => 6
+% L_2 => 20
+\item $\theta_2 = [0.6, 1.2]$
+% L_{0/1} => 5
+% L_1 => 7.2
+% L_2 => 12.4
+\end{enumerate}
+are better by:
+\begin{itemize}
+\item $L_{0/1}$ loss?
+\only<2->{\\ \tab $\theta_1$ (2 vs. 5)}
+\item $L_1$ loss?
+\only<2->{\\ \tab $\theta_1$ (6 vs. 7.2)}
+\item $L_2$ loss?
+\only<2->{\\ \tab $\theta_2$ (20 vs. 12.4)}
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+  grid=both,
+  xmin=0,ymin=0,
+  xmax=8,ymax=10,
+  x=1em,y=1em,
+  domain=0:8,
+]
+\pgfmathsetseed{42}
+\addplot[only marks] table[row sep=\\] {
+1 1\\
+2 4\\
+3 3\\
+4 8\\
+5 5\\
+};
+\only<2->{
+\addplot[no marks] {x} node[below=0.5em,near end] {$h_{\theta_1}$};
+\addplot[no marks] {0.6 + 1.2*x} node[above=0.5em,near end] {$h_{\theta_2}$};
+}
+\end{axis}
+\end{tikzpicture}
 \end{column}
 \end{columns}
 \end{frame}

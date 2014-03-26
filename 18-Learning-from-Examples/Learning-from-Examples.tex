@@ -1512,6 +1512,30 @@ x_1 & x_2 & f(x) \\
 \end{columns}
 \end{frame}
 
+\begin{frame}[label=logistic-regression]{Logistic Regression}
+Linear regression predicts continuous values:
+\begin{itemize}
+\item $h(x): \mathbb{R}^n \Rightarrow \mathbb{R}$
+\item $h_{\theta}(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots$
+\end{itemize}
+\pause
+Logistic regression for 2-class classification:
+\begin{itemize}
+\item $h(x): \mathbb{R}^n \Rightarrow [0,1]$
+\item $\displaystyle h_{\theta}(x) = \frac{1}{1 + e^{-(\theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots)}}$
+\pause
+\item $\displaystyle \frac{\delta}{\delta \theta_i} L_2(\theta) = -2 \cdot ( f(x) - h_{\theta}(x) ) \cdot h_{\theta}(x) \cdot ( 1 - h_{\theta}(x) ) \cdot x_i $
+\end{itemize}
+\medskip
+\pause
+Logistic regression properties:
+\begin{itemize}
+\item $h_{\theta}(x)$ can be interpreted as $P(f(x) = 1)$
+\item Can be generalized for multi-class classification
+\item With regularization, state-of-the-art on many problems
+\end{itemize}
+\end{frame}
+
 \part{Key Ideas}
 
 \begin{frame}{Key Ideas}

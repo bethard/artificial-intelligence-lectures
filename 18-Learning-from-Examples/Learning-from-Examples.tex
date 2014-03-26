@@ -1512,14 +1512,47 @@ x_1 & x_2 & f(x) \\
 \end{columns}
 \end{frame}
 
+\begin{frame}[label=logistic-regression-intro]{Linear vs. Logistic Regression}
+\centering
+Linear regression is bad for classification:\\
+\bigskip
+\begin{tikzpicture}
+\begin{axis}[
+  domain=-1:7,
+  xmin=-0.5,xmax=6.5,ymin=-0.5,ymax=1.5,
+  ytick={0,1},
+  x=3em,y=5em,
+]
+\addplot[only marks] table[row sep=\\] {
+1 0\\
+2 0\\
+3 0\\
+4 1\\
+5 1\\
+};
+\only<2->{
+\addplot[samples=100] plot {0.3 * x - 0.5}
+node[midway,left] {\small $h(x) = - 0.5 + 0.3 x$};
+}
+\only<3->{
+\addplot[samples=100,smooth] plot {1 / (1 + e^(-(-140 + 40 * x))) }
+node[midway,right] {\small $\displaystyle h(x) = \frac{1}{1 - e^{-(-140 + 40 x)}}$};
+}
+\end{axis}
+\end{tikzpicture}\\
+\uncover<3->{
+Instead, use \emph{logistic regression}
+}
+\end{frame}
+
 \begin{frame}[label=logistic-regression]{Logistic Regression}
-Linear regression predicts continuous values:
+Linear regression:
 \begin{itemize}
 \item $h(x): \mathbb{R}^n \Rightarrow \mathbb{R}$
 \item $h_{\theta}(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots$
 \end{itemize}
 \pause
-Logistic regression for 2-class classification:
+Logistic regression:
 \begin{itemize}
 \item $h(x): \mathbb{R}^n \Rightarrow [0,1]$
 \item $\displaystyle h_{\theta}(x) = \frac{1}{1 + e^{-(\theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots)}}$

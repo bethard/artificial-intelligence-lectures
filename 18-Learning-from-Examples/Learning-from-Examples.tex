@@ -1537,7 +1537,7 @@ Linear regression is bad for classification:\\
 \addplot[samples=100] plot {0.3 * x - 0.5}
 node[midway,left] {\small $h(x) = - 0.5 + 0.3 x$};
 }
-\only<3->{
+\only<4->{
 \addplot[samples=100,smooth] plot {1 / (1 + e^(-(-140 + 40 * x))) }
 node[midway,right] {\small $\displaystyle h(x) = \frac{1}{1 - e^{-(-140 + 40 x)}}$};
 }
@@ -1548,23 +1548,23 @@ Instead, use \emph{logistic regression}
 }
 \end{frame}
 
-\begin{frame}[label=logistic-regression]{Logistic Regression}
+\begin{frame}[label=logistic-regression]{Linear vs. Logistic Regression}
 Linear regression:
 \begin{itemize}
 \item $h(x): \mathbb{R}^n \Rightarrow \mathbb{R}$
 \item $h_{\theta}(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots$
+\item $\displaystyle L_2(h_{\theta}) = \frac{1}{|X|}\sum_{x \in X} \left(f(x) - \left( \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots \right)\right)^2$
 \end{itemize}
 \pause
 Logistic regression:
 \begin{itemize}
 \item $h(x): \mathbb{R}^n \Rightarrow [0,1]$
 \item $\displaystyle h_{\theta}(x) = \frac{1}{1 + e^{-(\theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots)}}$
-\pause
-\item $\displaystyle \frac{\delta}{\delta \theta_i} L_2(\theta) = -2 \cdot ( f(x) - h_{\theta}(x) ) \cdot h_{\theta}(x) \cdot ( 1 - h_{\theta}(x) ) \cdot x_i $
+\item $\displaystyle L_2(h_{\theta}) = \frac{1}{|X|}\sum_{x \in X} \left(f(x) - \left( \frac{1}{1 + e^{-(\theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots)}} \right)\right)^2$
 \end{itemize}
-\medskip
-\pause
-Logistic regression properties:
+\end{frame}
+
+\begin{frame}[label=logistic-regression-properties]{Logistic Regression Properties}
 \begin{itemize}
 \item $h_{\theta}(x)$ can be interpreted as $P(f(x) = 1)$
 \item Can be generalized for multi-class classification

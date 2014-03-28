@@ -1690,6 +1690,23 @@ Data points at margin are called \emph{support vectors}
 \end{columns}
 \end{frame}
 
+\begin{frame}[label=svm]{Support Vector Machine Classifiers}
+Support vector machine loss, with $f(x): \mathbb{R} \Rightarrow \{-1,+1\}$:\\
+$\displaystyle L_2(\theta) =
+\underbrace{\frac{1}{2} \sum_{i} \theta_i^{2}}_{\text{regularizer}}
++ \underbrace{C}_{\substack{\text{misclassify}\\\text{cost}}}
+\sum_{x \in X}
+\max \left( 0,  1 - f(x) \underbrace{\sum_{i} \theta_{i} x_{i}}_{\text{linear model}} \right) $\\
+\pause
+\bigskip
+Compare to L2-regularized logistic regression:\\
+$\displaystyle L_2(\theta) =
+\frac{1}{2} \sum_{i} \theta_i^{2}
++ \hspace{1em} \frac{1}{|X|} \hspace{1em}
+\sum_{x \in X}
+\left(f(x) - \left( \frac{1}{1 + e^{-\sum_{i} \theta_{i} x_{i} }} \right)\right)^2$
+\end{frame}
+
 \part{Key Ideas}
 
 \begin{frame}{Key Ideas}

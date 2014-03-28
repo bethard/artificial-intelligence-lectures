@@ -1715,20 +1715,38 @@ $\displaystyle L(\alpha)
 - \frac{1}{2}\sum_{x \in X, \: x' \in X} \alpha_{x} \alpha_{x'} f(x) f(x')
 \alt<2->{k(x, x')}{\sum_{i} x_i x'_i}$\\
 \bigskip
-\pause
+\uncover<3->{
 Common kernels $k(x,x')$:
 \begin{itemize}
 \item Linear -- $(\sum_{i} x_i x'_i)$
 \item Polynomial -- $(\sum_{i} x_i x'_i)^d$
 \item Radial basis function (RBF) -- $\displaystyle e^{-\gamma \| x - x' \|^2}$
 \end{itemize}
+}
 \bigskip
-\pause
+\uncover<4->{
 Demo: kernels allow non-linear classification boundaries
 \begin{itemize}
 \item \small\url{http://www.csie.ntu.edu.tw/~cjlin/libsvm/\#GUI}
 \end{itemize}
+}
 \end{frame}
+
+\begin{frame}{Support Vector Machine Properties}
+\begin{block}{Theoretical Properties}
+\begin{itemize}
+\item Efficient optimal separators in huge feature spaces
+\item Can approximate essentially any function
+\end{itemize}
+\end{block}
+\begin{block}{Empirical Issues}
+\begin{itemize}
+\item Classification usually fast, but training often slow
+\item Kernel functions (and parameters) chosen empirically
+\end{itemize}
+\end{block}
+\end{frame}
+
 
 \part{Key Ideas}
 
@@ -1746,6 +1764,8 @@ Demo: kernels allow non-linear classification boundaries
 \begin{itemize}
 \item Decision trees via information gain
 \item Random forests
+\item Linear and logistic regression
+\item Support vector machines
 \end{itemize}
 \end{block}
 \end{frame}

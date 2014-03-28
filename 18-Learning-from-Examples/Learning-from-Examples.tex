@@ -1707,6 +1707,29 @@ $\displaystyle L_2(\theta) =
 \left(f(x) - \left( \frac{1}{1 + e^{-\sum_{i} \theta_{i} x_{i} }} \right)\right)^2$
 \end{frame}
 
+\begin{frame}[label=svm-dual]{Kernel Methods}
+Support vector machine dual form:\\
+\medskip
+$\displaystyle L(\alpha)
+= \sum_{x \in X} \alpha_{x}
+- \frac{1}{2}\sum_{x \in X, \: x' \in X} \alpha_{x} \alpha_{x'} f(x) f(x')
+\alt<2->{k(x, x')}{\sum_{i} x_i x'_i}$\\
+\bigskip
+\pause
+Common kernels $k(x,x')$:
+\begin{itemize}
+\item Linear -- $(\sum_{i} x_i x'_i)$
+\item Polynomial -- $(\sum_{i} x_i x'_i)^d$
+\item Radial basis function (RBF) -- $\displaystyle e^{-\gamma \| x - x' \|^2}$
+\end{itemize}
+\bigskip
+\pause
+Demo: kernels allow non-linear classification boundaries
+\begin{itemize}
+\item \small\url{http://www.csie.ntu.edu.tw/~cjlin/libsvm/\#GUI}
+\end{itemize}
+\end{frame}
+
 \part{Key Ideas}
 
 \begin{frame}{Key Ideas}

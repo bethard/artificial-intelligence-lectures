@@ -1707,7 +1707,7 @@ $\displaystyle L_2(\theta) =
 \left(f(x) - \left( \frac{1}{1 + e^{-\sum_{i} \theta_{i} x_{i} }} \right)\right)^2$
 \end{frame}
 
-\begin{frame}[label=svm-dual]{Kernel Methods}
+\begin{frame}[label=kernels]{Kernel Methods}
 Support vector machine dual form:\\
 \medskip
 $\displaystyle L(\alpha)
@@ -1732,7 +1732,23 @@ Demo: kernels allow non-linear classification boundaries
 }
 \end{frame}
 
-\begin{frame}{Support Vector Machine Properties}
+\begin{frame}[label=kernel-alternative]{Kernel Alternative: Feature Engineering}
+Nonlinear classification via feature transformation:
+\bigskip
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\includegraphics[width=\textwidth]{circle-x1-x2}
+\end{column}
+\begin{column}{0.45\textwidth}
+\includegraphics[width=\textwidth]{circle-x1-x2-x1x2}
+\end{column}
+\end{columns}
+\bigskip
+\pause
+Kernels: similar effect, but may be more efficient
+\end{frame}
+
+\begin{frame}[label=svm-properties]{Support Vector Machine Properties}
 \begin{block}{Theoretical Properties}
 \begin{itemize}
 \item Efficient optimal separators in huge feature spaces

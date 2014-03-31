@@ -1763,11 +1763,203 @@ Kernels: similar effect, but may be more efficient
 \end{block}
 \end{frame}
 
+\subsection{k-Nearest Neighbors}
+\begin{frame}[label=knn]{k-Nearest Neighbor Classifiers}
+\begin{block}{To classify a new example, $p$}
+\begin{itemize}
+\item Find the $k$ training examples closest to $p$
+\item Classify $p$ with the most common $f(x)$
+\end{itemize}
+\end{block}
+\bigskip
+\begin{columns}
+\begin{column}{0.2\textwidth}
+\LARGE \visible<3->{$k=\alt<6->{3}{1}$}
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+\begin{tikzpicture}[
+  example/.style={draw,circle,inner sep=0em,minimum width=1.25em},
+  black/.style={example,fill=black},
+  white/.style={example,fill=white},
+  neighbor/.style={draw,very thick},
+]
+\node[black] at (0, 3.5) {};
+\node[black] at (3, 3.5) {};
+\node[black] at (2, 3) {};
+\node[black] (N1) at (1, 2) {};
+\node[black] at (3.5, 2) {};
+\only<2->{
+\node[example,alt={5}{fill=black}{alt={8}{fill=white}{fill=gray}}] (Q) at (0.5, 1.5) {\only<-4,6-7>{?}};}
+\node[white] at (2.5, 2) {};
+\node[white] at (3.5, 1) {};
+\node[white] (N2) at (1.5, 1) {};
+\node[white] (N3) at (0, 0.5) {};
+\node[white] at (2.5, 0) {};
+\only<4-5,7->{
+\path[neighbor] (Q) -- (N1);}
+\only<7->{
+\path[neighbor] (Q) -- (N2);
+\path[neighbor] (Q) -- (N3);}
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[label=knn-distance]{Distance Metrics}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{block}{Euclidean Distance}
+$\displaystyle \sqrt{\sum_{i=1}^{n}(a_i - b_i)^{2}}$
+\hfill
+\begin{tabular}{@{}l@{\hspace{.2em}}c@{}}
+close & 0 \\
+far   & $\infty$
+\end{tabular}
+\end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{block}{Cosine Distance}
+$\displaystyle \frac
+{\displaystyle \sum_{i=1}^{n}a_i b_i}
+{\displaystyle
+ \sqrt{\sum_{i=1}^{n}a_i^2}
+ \sqrt{\sum_{i=1}^{n}b_i^2}}$
+\hfill
+\begin{tabular}{@{}l@{\hspace{.2em}}c@{}}
+close & 1 \\
+far   & -1
+\end{tabular}
+\end{block}
+\end{column}
+\end{columns}
+\bigskip
+\begin{columns}[T]
+\begin{column}<2->{0.48\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+  xmin=0,xmax=7,
+  ymin=0,ymax=3,
+  x=1.5em,
+  y=1.5em,
+]
+\addplot[only marks,mark options={scale=4,fill=black}] coordinates { (1, 2) };
+\addplot[only marks,mark options={scale=4,alt={4-}{fill=black}{fill=gray}},mark=*,nodes near coords={?},every node near coord/.style={anchor=center,visible on={-3}}] coordinates { (3, 2) };
+\addplot[only marks,mark options={scale=4,fill=white}] coordinates { (6, 2) };
+\only<3->{
+\addplot[no marks, domain=1:3] plot {2} node[midway,above] {\footnotesize 2};
+\addplot[no marks, domain=3:6] plot {2} node[midway,above] {\footnotesize 3};}
+\end{axis}
+\end{tikzpicture}
+\end{column}
+\begin{column}<5->{0.48\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+  xmin=0,xmax=7,
+  ymin=0,ymax=3,
+  x=1.5em,
+  y=1.5em,
+]
+\addplot[only marks,mark options={scale=4,fill=black}] coordinates { (1, 2) };
+\addplot[only marks,mark options={scale=4,alt={7-}{fill=white}{fill=gray}},mark=*,nodes near coords={?},every node near coord/.style={anchor=center,visible on={-6}}] coordinates { (3, 2) };
+\addplot[only marks,mark options={scale=4,fill=white}] coordinates { (6, 2) };
+\only<6->{
+\addplot[no marks, domain=0:1] plot {2*x};
+\addplot[no marks, domain=0:3] plot {2*x/3};
+\addplot[no marks, domain=0:6] plot {x/3};
+\node at (axis cs:2,2) {\footnotesize 0.87};
+\node at (axis cs:4.5,2) {\footnotesize 0.96};}
+\end{axis}
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[label=knn-exercise]{k-Nearest Neighbor Exercise}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+\centering
+Training data:\\
+$\begin{array}{ @{} c c | c @{} }
+x_1 & x_2 & f(x) \\
+\hline
+-1  & 1   & A \\
+0   & 1   & A \\
+0   & 2   & A \\
+2   & 2   & B \\
+3   & 2   & B \\
+3   & 3   & B \\
+\end{array}$
+\begin{block}{Euclidean Distance}
+$\displaystyle \sqrt{\sum_{i=1}^{n}(a_i - b_i)^{2}}$
+\hfill
+\begin{tabular}{@{}l@{\hspace{.2em}}c@{}}
+close & 0 \\
+far   & $\infty$
+\end{tabular}
+\end{block}
+\end{column}
+\begin{column}{0.5\textwidth}
+Classify $x = [1, 1]$ with 3-NN\\
+\medskip
+\begin{columns}
+\begin{column}{0.5\textwidth}
+Euclidean? \visible<2->{$A$\\
+$\begin{array}{ c c | c @{} }
+0   & 1   & A \\
+0   & 2   & A \\
+2   & 2   & B \\
+\end{array}$
+}
+\end{column}
+\begin{column}{0.4\textwidth}
+Cosine? \visible<2->{$B$\\
+$\begin{array}{ c c | c @{} }
+2   & 2   & B \\
+3   & 2   & B \\
+3   & 3   & B \\
+\end{array}$
+}
+\end{column}
+\end{columns}
+\begin{block}{Cosine Distance}
+$\displaystyle \frac
+{\displaystyle \sum_{i=1}^{n}a_i b_i}
+{\displaystyle
+ \sqrt{\sum_{i=1}^{n}a_i^2}
+ \sqrt{\sum_{i=1}^{n}b_i^2}}$
+\hfill
+\begin{tabular}{@{}l@{\hspace{.2em}}c@{}}
+close & 1 \\
+far   & -1
+\end{tabular}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[label=knn-properties]{k-Nearest Neighbor Properties}
+\begin{block}{Theoretical Properties}
+\begin{itemize}
+\item Given enough data and the right $k$, minimizes error
+\item Able to approximate many kinds of functions
+\end{itemize}
+\end{block}
+\begin{block}{Empirical Issues}
+\begin{itemize}
+\item Simple to implement given a distance function
+\item Large training data means long search times
+\item Not always clear what distance function to use
+\end{itemize}
+\end{block}
+\end{frame}
+
+
 
 \part{Key Ideas}
 
 \begin{frame}{Key Ideas}
-\begin{block}{Supervised Learning}
+Supervised Learning:
 \begin{itemize}
 \item Input: $(x, f(x))$ examples
 \item Output: $h$, a guess at $f$
@@ -1775,15 +1967,13 @@ Kernels: similar effect, but may be more efficient
 \item Evaluation: train, development, test
 \item Learning curves: reveal underfitting, overfitting
 \end{itemize}
-\end{block}
-\begin{block}{Supervised Learning Algorithms}
+Supervised Learning Algorithms:
 \begin{itemize}
-\item Decision trees via information gain
-\item Random forests
+\item Decision trees and random forests
 \item Linear and logistic regression
 \item Support vector machines
+\item k-nearest neighbors
 \end{itemize}
-\end{block}
 \end{frame}
 
 \end{document}

@@ -1145,14 +1145,8 @@ So $X_2$ is a much better feature to split on
 \subsection{Random Forests}
 
 \begin{frame}{Random Forests}
-\begin{block}{Key Ideas}
-\begin{itemize}
-\item Voting works better when classifiers are independent
-\item Partially random trees should be more independent
-\end{itemize}
-\end{block}
 \pause
-\begin{block}{Random Forests}
+Algorithm:
 \begin{enumerate}
 \item\label{sample-step} Generate a bootstrap sample of $n$ examples
 \item\label{select-step} For each node, select $k$ features at random
@@ -1160,7 +1154,13 @@ So $X_2$ is a much better feature to split on
 \item Repeat steps \ref{sample-step}, \ref{select-step} and \ref{split-step} to generate $n$ decision trees
 \item Classify by taking the majority vote
 \end{enumerate}
-\end{block}
+\pause
+\bigskip
+Why random forests?
+\begin{itemize}
+\item Combining independent classifiers $\Rightarrow$ better model
+\item Partially random trees should be more independent
+\end{itemize}
 \end{frame}
 
 \begin{frame}[label=random-forest-exercise]{Random Forest Example}

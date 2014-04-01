@@ -226,14 +226,14 @@ Preceding label & First in sentence? \\
 
 \subsection{Evaluating Hypotheses}
 
-\begin{frame}{Evaluating Learning Algorithms}
+\begin{frame}[label=evaluating-ml]{Evaluating Learning Algorithms}
 \begin{enumerate}
 \item Train learning algorithm on examples $E_{\textit{\scriptsize train}}$
 \item Learning algorithm produces a hypothesis $h$
 \item Test hypothesis on new examples $E_{\textit{\scriptsize test}}$ \uncover<2->{- \alert{Don't peek!}}
 \end{enumerate}
 \begin{columns}
-\begin{column}<3->{2in}
+\begin{column}<3->{0.48\textwidth}
 Train:
 $
 \begin{array}[t]{ll|l}
@@ -246,7 +246,7 @@ x_1 & x_2 & f(x) \\
 \end{array}
 $
 \end{column}
-\begin{column}<6->{2in}
+\begin{column}<5->{0.48\textwidth}
 Test:
 $
 \begin{array}[t]{ll|l}
@@ -260,20 +260,25 @@ x_1 & x_2 & f(x) \\
 $
 \end{column}
 \end{columns}
+\medskip
 \begin{columns}
-\begin{column}<4->{2in}
-\begin{block}{Algorithm 1}
-Always classify as \textit{false}
-\\
-\uncover<7->{\tab Performance:} \uncover<8->{$\frac{2}{4} = 0.5$}
-\end{block}
+\begin{column}<4->{0.48\textwidth}
+$\displaystyle h_1(x) = \textit{false} $ \\
 \end{column}
-\begin{column}<5->{2in}
-\begin{block}{Algorithm 2}
-If $a$ then \textit{true}, else \textit{false}
-\\
-\uncover<7->{\tab Performance:} \uncover<9->{$\frac{3}{4} = 0.75$}
-\end{block}
+\begin{column}<4->{0.48\textwidth}
+$\displaystyle h_2(x) = 
+\begin{cases}
+\textit{true} & \text{if } x_2 = a \\
+\textit{false} & \text{otherwise}
+\end{cases} $ \\
+\end{column}
+\end{columns}
+\begin{columns}
+\begin{column}<4->{0.48\textwidth}
+\uncover<6->{Performance:} \uncover<7->{$\frac{2}{4} = 0.5$}
+\end{column}
+\begin{column}<4->{0.48\textwidth}
+\uncover<6->{Performance:} \uncover<8->{$\frac{3}{4} = 0.75$}
 \end{column}
 \end{columns}
 \end{frame}

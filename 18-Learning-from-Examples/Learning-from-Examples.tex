@@ -1960,6 +1960,112 @@ far   & -1
 \end{frame}
 
 
+\subsection{Neural Networks}
+
+\begin{frame}[label=brain-neuron]{Neurons in the Brain}
+\includegraphics[width=\textwidth]{neuron}
+\end{frame}
+
+\begin{frame}[label=nn-neuron]{Neurons in a Neural Network}
+\begin{center}
+\begin{tikzpicture}[
+  align=center,
+  nn edge/.style={draw,thick,-latex},
+  brace/.style={draw,thick,decoration={brace,mirror},decorate}
+]
+\node (i1) at (-4, 2) {};
+\node (i2)at (-4, 1) {};
+\node (i3) at (-4, 0) {};
+\node (i4) at (-4, -1) {};
+\node (i5) at (-4, -2) {};
+\node[draw,ellipse] (unit) at (0, 0) {$\displaystyle
+g \left( \sum_{i} \theta_{i,j} a_i \right)
+$};
+\node[draw,fill=black,inner sep=0em] (o) at (2.5, 0) {};
+\node (o1) at (5, 2) {};
+\node (o2)at (5, 1) {};
+\node (o3) at (5, 0) {};
+\node (o4) at (5, -1) {};
+\node (o5) at (5, -2) {};
+\path[nn edge] (i1) --  node[above] {$a_1$} (unit);
+\path[nn edge] (i2) --  node[above] {$a_2$} (unit);
+\path[nn edge] (i3) --  node[above] {$a_3$} (unit);
+\path (i4) --  node[above] {\ldots} (unit);
+\path[nn edge] (i5) --  node[above] {$a_n$} (unit);
+\path[draw,thick] (unit) -- (o);
+\path[nn edge] (o) -- (o1);
+\path[nn edge] (o) -- (o2);
+\path[nn edge] (o) -- (o3);
+\path (o) -- node[above] {\ldots} (o4);
+\path[nn edge] (o) -- (o5);
+\path[brace] (-4, -2) -- node[below] {Input} (-1.75, -2);
+\path[brace] (-1.5, -2) -- node[below] {Unit} (1.5, -2);
+\path[brace] (1.75, -2) -- node[below] {Output} (5, -2);
+\end{tikzpicture}
+\end{center}
+\pause
+Common choices for \textit{activation function} $g$:
+\medskip
+\begin{columns}[t]
+\begin{column}{0.55\textwidth}
+$\displaystyle threshold_{k}(x) =
+\begin{cases}
+1 & \text{if } x > k \\
+0 & \text{otherwise}
+\end{cases}$
+\end{column}
+\begin{column}{0.4\textwidth}
+$\displaystyle sigmoid(x) = \frac{1}{1 + e^{-x}}$
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[label=nn-and]{Neural Network Example: Logical And}
+\begin{center}
+\begin{tikzpicture}[
+  align=center,
+  nn io/.style={draw,minimum size=2em},
+  nn unit/.style={draw,ellipse split,minimum size=3em},
+  nn edge/.style={draw,thick,-latex},
+]
+\node[nn io] (i1) at (0, 2) {\only<2-4>{1}\only<5->{0}};
+\node[nn io] (i2) at (0, -2) {\only<2->{1}};
+\node[nn unit] (and) at (2, 0) {\only<3-4>{2.0}\only<6->{1.0}\nodepart{lower}$ > \!\! 1.5 $};
+\node[nn io] (o) at (5, 0) {\only<4>{1}\only<7->{0}};
+\path[nn edge] (i1) -- node[midway,left] {1.0} (and);
+\path[nn edge] (i2) -- node[midway,left] {1.0} (and);
+\path[nn edge] (and) -- (o);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[label=nn-classification]{Neural Network Classification}
+\begin{center}
+Sum inputs, apply activation function, repeat\\
+\bigskip
+\begin{tikzpicture}[
+  align=center,
+  nn io/.style={draw,minimum size=2em},
+  nn unit/.style={draw,ellipse split,minimum size=4em},
+  nn edge/.style={draw,thick,-latex},
+]
+\node[nn io] (i1) at (0, 2) {\only<2->{1}};
+\node[nn io] (i2) at (0, -2) {\only<2->{1}};
+\node[nn unit] (u1) at (3, 2) {\only<3->{0.5}\nodepart{lower} $> \!\! 1.5$};
+\node[nn unit] (u2) at (3, -2) {\only<4->{1.5}\nodepart{lower} $> \!\! 0.5$};
+\node[nn unit] (u3) at (6, 0) {\only<5->{1.0}\nodepart{lower} $> \!\! 0.5$};
+\node[nn io] (o) at (9, 0) {\only<6->{1.0}};
+\path[nn edge] (i1) -- node[near end,above] {-0.5} (u1);
+\path[nn edge] (i1) -- node[very near end,left] {0.5} (u2);
+\path[nn edge] (i2) -- node[very near end,left] {1.0} (u1);
+\path[nn edge] (i2) -- node[near end,below] {1.0} (u2);
+\path[nn edge] (u1) -- node[near end,above=0.2em] {-0.5} (u3);
+\path[nn edge] (u2) -- node[near end,below=0.2em] {1.0} (u3);
+\path[nn edge] (u3) -- (o);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
 
 \part{Key Ideas}
 

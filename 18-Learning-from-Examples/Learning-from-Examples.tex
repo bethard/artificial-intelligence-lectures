@@ -3,6 +3,11 @@
 \documentclass[14pt]{beamer}
 \input{../slides-preamble}
 
+\tikzset{
+  nn io/.style={draw,minimum size=2em},
+  nn unit/.style={draw,ellipse split,minimum size=4em},
+  nn edge/.style={draw,thick,-latex},
+}
 \pgfplotsset{
     y noise/.style={
         y filter/.code={\pgfmathparse{\pgfmathresult+rnd*#1-0.5*#1}}
@@ -1979,7 +1984,7 @@ far   & -1
 \node (i4) at (-4, -1) {};
 \node (i5) at (-4, -2) {};
 \node[draw,ellipse] (unit) at (0, 0) {$\displaystyle
-g \left( \sum_{i} \theta_{i,j} a_i \right)
+g \left( \sum_{i} \theta_{i} a_i \right)
 $};
 \node[draw,fill=black,inner sep=0em] (o) at (2.5, 0) {};
 \node (o1) at (5, 2) {};
@@ -2024,9 +2029,6 @@ $\displaystyle sigmoid(x) = \frac{1}{1 + e^{-x}}$
 \begin{center}
 \begin{tikzpicture}[
   align=center,
-  nn io/.style={draw,minimum size=2em},
-  nn unit/.style={draw,ellipse split,minimum size=3em},
-  nn edge/.style={draw,thick,-latex},
 ]
 \node[nn io] (i1) at (0, 2) {\only<2-4>{1}\only<5->{0}};
 \node[nn io] (i2) at (0, -2) {\only<2->{1}};
@@ -2045,9 +2047,6 @@ Sum inputs, apply activation function, repeat\\
 \bigskip
 \begin{tikzpicture}[
   align=center,
-  nn io/.style={draw,minimum size=2em},
-  nn unit/.style={draw,ellipse split,minimum size=4em},
-  nn edge/.style={draw,thick,-latex},
 ]
 \node[nn io] (i1) at (0, 2) {\only<2->{1}};
 \node[nn io] (i2) at (0, -2) {\only<2->{1}};
@@ -2066,6 +2065,76 @@ Sum inputs, apply activation function, repeat\\
 \end{center}
 \end{frame}
 
+\begin{frame}[label=nn-exercise]{Neural Network Exercise}
+\begin{center}
+\begin{tikzpicture}[
+  align=center,
+]
+\node[nn io] (i1) at (0, 3) {1};
+\node[nn io] (i2) at (0, 0) {0};
+\node[nn io] (i3) at (0, -3) {1};
+\node[nn unit] (u1) at (3, 1.5) {\only<2->{0.0}\nodepart{lower}$>$0.5};
+\node[nn unit] (u2) at (3, -1.5) {\only<2->{1.5}\nodepart{lower}$>$1.0};
+\node[nn unit] (u3) at (6, 1.5) {\only<2->{1.5}\nodepart{lower}$>$0.0};
+\node[nn unit] (u4) at (6, -1.5) {\only<2->{-1.0}\nodepart{lower}$>$-0.5};
+\node[nn unit] (u5) at (8.5, 0) {\only<2->{-0.5}\nodepart{lower}$>$0.5};
+\node[nn io] (o) at (10.5, 0) {\only<2->{0.0}};
+\path[nn edge] (i1) -- node[near end,above] {\small 0.5} (u1);
+\path[nn edge] (i1) -- node[very near end,right] {\small 0.5} (u2);
+\path[nn edge] (i2) -- node[near end,above] {\small 1.0} (u1);
+\path[nn edge] (i2) -- node[near end,below] {\small 0.5} (u2);
+\path[nn edge] (i3) -- node[very near end,right] {\small -0.5} (u1);
+\path[nn edge] (i3) -- node[near end,below] {\small 1.0} (u2);
+\path[nn edge] (u1) -- node[near end, above] {\small 1.0} (u3);
+\path[nn edge] (u1) -- node[near end, right] {\small 0.5} (u4);
+\path[nn edge] (u2) -- node[near end, right] {\small 1.5} (u3);
+\path[nn edge] (u2) -- node[near end, below] {\small -1.0} (u4);
+\path[nn edge] (u3) -- node[near end, above] {\small -0.5} (u5);
+\path[nn edge] (u4) -- node[near end, below] {\small 1.0} (u5);
+\path[nn edge] (u5) -- (o);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[label=nn-learning]{Learning Neural Networks}
+Gradient descent over the $\theta$s in all nodes:
+\begin{enumerate}
+\item\label{item:forward-prop} Forward-propagate activation, get output $a_o$
+\item $\displaystyle L(\theta) = \frac{1}{|X|} \sum_{x \in X} -f(x) \log(a_o) - (1 - f(x)) \log(1 - a_o)$
+\item Calculate $\displaystyle \nabla L(\theta)$ by \textit{back propagation}:
+\begin{enumerate}
+\item Measure how much each unit was ``responsible'' for errors
+\item For output unit, $(a_o - f(x))$
+\item For hidden layer $k$, weighted average of layer $k+1$
+\end{enumerate}
+\item Use $L(\theta)$ and $\nabla L(\theta)$ to take a gradient descent step
+\item Goto \ref{item:forward-prop}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[label=nn-demo]{Neural Network Demo}
+\url{http://www.c2i.ntu.edu.sg/Courses/nn/Perceptronapplet.html}
+\\ \bigskip
+\url{http://www.c2i.ntu.edu.sg/Courses/nn/mlpapplet.html}
+\end{frame}
+
+\begin{frame}[label=nn-properties]{Neural Net Properties}
+\begin{block}{Expressive Power}
+\begin{itemize}
+\item Single layer networks: linearly separable functions
+\item Multi-layer networks: essentially any function
+\end{itemize}
+\end{block}
+\pause
+\begin{block}{Empirical Issues}
+\begin{itemize}
+\item How many hidden layers?
+\item How many nodes in each layer?
+\item How to initialize weights?
+\item Has gradient descent gotten stuck at local minimum?
+\end{itemize}
+\end{block}
+\end{frame}
 
 \part{Key Ideas}
 

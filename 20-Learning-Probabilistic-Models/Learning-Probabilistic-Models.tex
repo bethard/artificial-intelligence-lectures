@@ -43,7 +43,7 @@ Assumes features are conditionally independent given the class variable
 \end{frame}
 
 \begin{frame}{Naive Bayes Models}
-\begin{block}{Given class variable $C$ and feature variables $F_1,\ldots,F_n$}
+\begin{block}{Given class $C$ and features $F_1,\ldots,F_n$}
 $
 \begin{array}{llll}
 \lefteqn{\mathbf{P}(C|F_1,F_2,\ldots,F_n)} \\
@@ -135,7 +135,6 @@ Assign part of speech tags:
 John            & tripped \\
 \pause
 noun            & verb    \\
-\pause
 .84375          & .625 \\
 \end{tabular}
 \end{center}
@@ -143,13 +142,14 @@ noun            & verb    \\
 
 \subsection{Properties}
 
-\begin{frame}[<+->]{Naive Bayes Properties}
+\begin{frame}{Naive Bayes Properties}
 \begin{block}{Naive Bayes assumption is hardly ever true}
 \begin{itemize}
 \item Probability estimates of Naive Bayes are poor
 \item Classification decisions are often surprisingly good
 \end{itemize}
 \end{block}
+\pause
 \begin{block}{Empirical Observations}
 \begin{itemize}
 \item Works best when many equally important features

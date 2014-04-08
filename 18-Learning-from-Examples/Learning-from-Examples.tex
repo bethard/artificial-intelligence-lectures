@@ -2,6 +2,7 @@
 
 \documentclass[14pt]{beamer}
 \input{../slides-preamble}
+\usepackage{bm}
 
 \tikzset{
   nn io/.style={draw,minimum size=2em},
@@ -1309,13 +1310,14 @@ $\displaystyle L(\theta) = \frac{1}{|X|} \sum_{x \in X} L(\theta, x)$
 \end{frame}
 
 \begin{frame}[label=loss-exercise]{Loss Exercise}
+\setlength{\leftmargini}{1.5em}
 Recall that $h_{\theta}(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots$ and consider:
 \begin{enumerate}
-\item $\theta_1 = [0, 1]$
+\item $\bm{\theta}_{a} = [0, 1]$
 % L_{0/1} => 2
 % L_1 => 6
 % L_2 => 20
-\item $\theta_2 = [0.6, 1.2]$
+\item $\bm{\theta}_{b} = [0.6, 1.2]$
 % L_{0/1} => 5
 % L_1 => 7.2
 % L_2 => 12.4
@@ -1323,14 +1325,13 @@ Recall that $h_{\theta}(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots$ an
 \begin{columns}
 \begin{column}{0.55\textwidth}
 Which $\theta$ is better by:
-\setlength{\leftmargini}{1.5em}
 \begin{itemize}
 \item {\small $\displaystyle L_{0/1}(\theta) = \frac{1}{|X|} \sum_{x \in X} h_{\theta}(x) \neq f(x)$?}
-\visible<2->{\\ \tab $\theta_1$ (2 vs. 5)}
+\visible<2->{\\[-0.7em] \hfill $\bm{\theta}_{a}$ $\left( \frac{2}{5} \text{ vs. } \frac{5}{5} \right)$}
 \item {\small $\displaystyle L_1(\theta) = \frac{1}{|X|} \sum_{x \in X} \left| f(x) - h_{\theta}(x) \right|$?}
-\visible<2->{\\ \tab $\theta_1$ (6 vs. 7.2)}
+\visible<2->{\\[-0.7em] \hfill $\bm{\theta}_{a}$ $\left( \frac{6}{5} \text{ vs. } \frac{7.2}{5} \right)$}
 \item {\small $\displaystyle L_2(\theta) = \frac{1}{|X|} \sum_{x \in X} \left( f(x) - h_{\theta}(x) \right)^2$?}
-\visible<2->{\\ \tab $\theta_2$ (20 vs. 12.4)}
+\visible<2->{\\[-0.7em] \hfill $\bm{\theta}_{b}$ $\left( \frac{20}{5} \text{ vs. } \frac{12.4}{5} \right)$}
 \end{itemize}
 \end{column}
 \begin{column}{0.4\textwidth}
@@ -1353,8 +1354,8 @@ Which $\theta$ is better by:
 5 5\\
 };
 \only<2->{
-\addplot[no marks] {x} node[below=0.5em,near end] {$h_{\theta_1}$};
-\addplot[no marks] {0.6 + 1.2*x} node[left,near end] {$h_{\theta_2}$};
+\addplot[no marks] {x} node[below=0.5em,near end] {$h_{\bm{\theta}_{a}}$};
+\addplot[no marks] {0.6 + 1.2*x} node[left,near end] {$h_{\bm{\theta}_{b}}$};
 }
 \end{axis}
 \end{tikzpicture}
@@ -1377,7 +1378,7 @@ $\begin{array}{ >{\displaystyle}r >{\displaystyle}c >{\displaystyle}l }
 Loss(h_{\theta})
 & = & \frac{1}{|X|}\sum_{x \in X} \left(f(x) - (\theta_0 + \theta_1 x_1)\right)^2\\
 \pause
-& = & \frac{1}{|X|}\sum_{x \in X} f(x)^2 - 2 \theta_0 f(x) - 2 \theta_1 x_1 f(x) + \theta_0^2 + 2 \theta_0 \theta_1 x_1 + \theta_1^2 x_1^2 \\
+& = & \frac{1}{|X|}\sum_{x \in X} f(x)^2 - \alert<4->{ \theta_0 f(x) } - 2 \theta_1 x_1 f(x) + \alert<4->{ \theta_0^2 } + \alert<4->{ 2 \theta_0 \theta_1 x_1 } + \theta_1^2 x_1^2 \\
 \pause
 \displaystyle\frac{\delta}{\delta\theta_0} Loss(h_{\theta})
 & = & \frac{1}{|X|}\sum_{x \in X} - 2 f(x) + 2 \theta_0 + 2 \theta_1 x_1 = 0\\
@@ -1475,35 +1476,40 @@ Regularization:\\
 {\small$\displaystyle L(\theta) = Loss(\theta) + \lambda \: Complexity(\theta)$}\\
 \end{column}
 \begin{column}{0.55\textwidth}
-\setlength{\leftmargini}{1.5em}
+\setlength{\leftmargini}{1.25em}
 Given $L_2$ loss, which is better:
 \begin{enumerate}
-\item $\theta_1 = [-2, 3, 1]$
+\item $\bm{\theta}_{a} = [-2, 3, 1]$
 % -2 + 6 + 1 = 5
 % -2 + 9 + 2 = 9
 % -2 + 12 + 3 = 13
-% L_2 loss => [1, 0, 0] => 1
-% L_1 reg => 2 + 3 + 1 => 6
+% L_2 loss => [1, 0, 0] => 1 / 3
+% L_1 reg => 2 + 3 + 1 => 6 
 % L_2 reg => 4 + 9 + 1 => 14
-\item $\theta_2 = [0, 3, 0]$
+% L_2 loss + 1 / 3 L_1 reg => 1 / 3 + 6 / 3 => 7 / 3
+% L_2 loss + 1 / 3 L_2 reg => 1 / 3 + 14 / 3 => 15 / 3
+\item $\bm{\theta}_{b} = [0, 3, 0]$
 % 6
 % 9
 % 12
-% L_2 loss => [2, 0, 1] => 5
-% L_1 reg => 3
+% L_2 loss => [2, 0, 1] => 5 / 3
+% L_1 reg => 3 
 % L_2 reg => 9
+% L_2 loss + 1 / 3 L_1 reg => 5 / 3 + 3 / 3 => 8 / 3
+% L_2 loss + 1 / 3 L_2 reg => 5 / 3 + 9 / 3 => 14 / 3
 \end{enumerate}
 for the regularization:
 \begin{itemize}
 \item None?
-\visible<2->{$\theta_1$ (1 vs. 5)}
-\item $L_1$ with $\lambda=1$?
-\visible<2->{$\theta_1$ (7 vs. 8)}
-\item $L_2$ with $\lambda=1$?
-\visible<2->{$\theta_2$ (15 vs. 14)}
+\visible<2->{$\bm{\theta}_{a}$ $\left( \frac{1}{3} \text{ vs. } \frac{5}{3} \right)$}
+\item $L_1$ with $\lambda=\frac{1}{3}$?
+\visible<2->{$\bm{\theta}_{a}$ $\left( \frac{7}{3} \text{ vs. } \frac{8}{3} \right)$}
+\item $L_2$ with $\lambda=\frac{1}{3}$?
+\visible<2->{$\bm{\theta}_{b}$ $\left( \frac{15}{3} \text{ vs. } \frac{14}{3} \right)$}
 \end{itemize}
 \visible<2->{
-\begin{tikzpicture}[scale=0.95]
+\centering
+\begin{tikzpicture}[scale=0.8]
 \begin{axis}[
   title={$h(x) = -2 + 3x_1 + x_2$},
   tiny,
@@ -1517,7 +1523,7 @@ for the regularization:
 \addplot3[mesh,domain=0:6,samples=10] plot {3*x+y-2};
 \end{axis}
 \end{tikzpicture}
-\begin{tikzpicture}[scale=0.95]
+\begin{tikzpicture}[scale=0.8]
 \begin{axis}[
   title={$h(x) = 3x_1$},
   tiny,

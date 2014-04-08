@@ -9,174 +9,161 @@
 \begin{document}
 
 \begin{frame}
-	\titlepage
+\titlepage
 \end{frame}
 
 \begin{frame}{Outline}
-	\tableofcontents
+\tableofcontents
 \end{frame}
 
 \section{Naive Bayes}
+
 \subsection{Models}
+
 \begin{frame}{Naive Bayes Networks}
-	\begin{columns}[t]
-		\begin{column}{2in}
-			\begin{block}{Bayesian Network}
-				Represents all variable dependence relations
-			\end{block}
-			\begin{center}
-				\includegraphics[scale=.75]{stolen-bayes-net}
-			\end{center}
-		\end{column}
-		\pause
-		\begin{column}{2in}
-			\begin{block}{Naive Bayes Network}
-				Assumes features are conditionally independent given the class variable
-			\end{block}
-			\begin{center}
-				\includegraphics[scale=.75]{stolen-naive-bayes}
-			\end{center}
-		\end{column}
-	\end{columns}
-\end{frame}
-\begin{frame}{Naive Bayes Models}
-	\begin{block}{Given class variable $C$ and feature variables $F_1,\ldots,F_n$}
-		$
-		\begin{array}{llll}
-			\lefteqn{\mathbf{P}(C|F_1,F_2,\ldots,F_n)} \\
-			& = & \pause\alpha\mathbf{P}(F_1,F_2,\ldots,F_n|C)\mathbf{P}(C) & \mbox{Bayes' Rule} \\
-			& = & \pause\alpha\mathbf{P}(F_1|C)\mathbf{P}(F_2|C)\ldots\mathbf{P}(F_n|C)\mathbf{P}(C) & \mbox{Naive Bayes}
-		\end{array}
-		$
-	\end{block}
-	\pause
-	\vspace{-1pt}
-	\begin{block}{Naive Bayes models}
-		$\mathbf{P}(C|F_1,F_2,\ldots,F_n) = \alpha\mathbf{P}(C)\prod\limits_{i=1}^{n}\mathbf{P}(F_{i}|C)$
-	\end{block}
-	\pause
-	\vspace{-1pt}
-	\begin{block}{Training models}
-		\begin{itemize}
-			\item Find the probability of each class
-			\item Find the probability of each feature given the class
-		\end{itemize}
-	\end{block}
+\begin{columns}[t]
+\begin{column}{2in}
+\begin{block}{Bayesian Network}
+Represents all variable dependence relations
+\end{block}
+\begin{center}
+\includegraphics[scale=.75]{stolen-bayes-net}
+\end{center}
+\end{column}
+\pause
+\begin{column}{2in}
+\begin{block}{Naive Bayes Network}
+Assumes features are conditionally independent given the class variable
+\end{block}
+\begin{center}
+\includegraphics[scale=.75]{stolen-naive-bayes}
+\end{center}
+\end{column}
+\end{columns}
 \end{frame}
 
+\begin{frame}{Naive Bayes Models}
+\begin{block}{Given class variable $C$ and feature variables $F_1,\ldots,F_n$}
+$
+\begin{array}{llll}
+\lefteqn{\mathbf{P}(C|F_1,F_2,\ldots,F_n)} \\
+& = & \pause\alpha\mathbf{P}(F_1,F_2,\ldots,F_n|C)\mathbf{P}(C) & \mbox{Bayes' Rule} \\
+& = & \pause\alpha\mathbf{P}(F_1|C)\mathbf{P}(F_2|C)\ldots\mathbf{P}(F_n|C)\mathbf{P}(C) & \mbox{Naive Bayes}
+\end{array}
+$
+\end{block}
+\pause
+\vspace{-1pt}
+\begin{block}{Naive Bayes models}
+$\mathbf{P}(C|F_1,F_2,\ldots,F_n) = \alpha\mathbf{P}(C)\prod\limits_{i=1}^{n}\mathbf{P}(F_{i}|C)$
+\end{block}
+\pause
+\vspace{-1pt}
+\begin{block}{Training models}
+\begin{itemize}
+\item Find the probability of each class
+\item Find the probability of each feature given the class
+\end{itemize}
+\end{block}
+\end{frame}
 
 \subsection{Examples}
+
 \begin{frame}{Naive Bayes Classification}
-	\centering
-	\begin{tabular}[t]{lll|l}
-		Origin?  & Color? & Type?  & Stolen? \\
-		\hline
-		import   & red    & sports & yes \\
-		import   & red    & sports & yes \\
-		domestic & white  & sports & yes \\
-		domestic & red    & van    & yes \\
-		import   & red    & van    & no \\
-		domestic & white  & sports & no \\
-	\end{tabular}
-	
-	\pause
-	\begin{block}{A domestic red sports car}
-	\small
-	$
-	\begin{array}{@{}l@{\hspace{.1em}}l@{\hspace{.1em}}l@{\hspace{.1em}}l@{\hspace{.1em}}l@{\hspace{.1em}}l@{\hspace{.1em}}l@{}}
-		\pause
-		P(y|d,r,s) & = & \pause\alpha P(y)P(d|y)P(r|y)P(s|y) 
-		           & = & \pause\alpha\cdot\pause\frac{2}{3}\cdot\pause\frac{1}{2}\cdot\pause\frac{3}{4}\cdot\pause\frac{3}{4}
-		           & = & \pause\frac{3}{16}\alpha
-		\\
-		\pause
-		P(n|d,r,s) & = & \pause\alpha P(n)P(d|n)P(r|n)P(s|n)
-		           & = & \pause\alpha\cdot\frac{1}{3}\cdot\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2}
-		           & = & \pause\frac{1}{24}\alpha
-	\end{array}
-	$
-	\normalsize
-	\medskip
-	
-	\pause
-	Predict stolen?
-	\pause
-	\alert{yes}
-	\hfill
-	\pause
-	At what probability?
-	\pause
-	$\alert{\frac{9}{11}} = \frac{\frac{3}{16}}{\frac{3}{16} + \frac{1}{24}}$
-	\end{block}
+\centering
+\begin{tabular}[t]{lll|l}
+Origin?  & Color? & Type?  & Stolen? \\
+\hline
+import   & red    & sports & yes \\
+import   & red    & sports & yes \\
+domestic & white  & sports & yes \\
+domestic & red    & van    & yes \\
+import   & red    & van    & no \\
+domestic & white  & sports & no \\
+\end{tabular}
+
+\pause
+\begin{block}{A domestic red sports car}
+\small
+$
+\begin{array}{@{}l@{\hspace{.1em}}l@{\hspace{.1em}}l@{\hspace{.1em}}l@{\hspace{.1em}}l@{\hspace{.1em}}l@{\hspace{.1em}}l@{}}
+\pause
+P(y|d,r,s) & = & \pause\alpha P(y)P(d|y)P(r|y)P(s|y) 
+           & = & \pause\alpha\cdot\pause\frac{2}{3}\cdot\pause\frac{1}{2}\cdot\pause\frac{3}{4}\cdot\pause\frac{3}{4}
+           & = & \pause\frac{3}{16}\alpha
+\\
+\pause
+P(n|d,r,s) & = & \pause\alpha P(n)P(d|n)P(r|n)P(s|n)
+           & = & \pause\alpha\cdot\frac{1}{3}\cdot\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2}
+           & = & \pause\frac{1}{24}\alpha
+\end{array}
+$
+\normalsize
+\medskip
+
+\pause
+Predict stolen?
+\pause
+\alert{yes}
+\hfill
+\pause
+At what probability?
+\pause
+$\alert{\frac{9}{11}} = \frac{\frac{3}{16}}{\frac{3}{16} + \frac{1}{24}}$
+\end{block}
 \end{frame}
+
 \begin{frame}{Naive Bayes Exercise}
-	\begin{center}
-		\begin{tabular}[t]{cc|c}
-			Ends with -ed  & Initial Capital  & Part of Speech \\
-			\hline
-			no             & no               & noun \\
-			no             & yes              & noun \\
-			no             & yes              & noun \\
-			yes            & no               & noun \\
-			yes            & yes              & noun \\
-			no             & no               & verb \\
-			yes            & no               & verb \\
-			yes            & yes              & verb \\
-		\end{tabular}
-		
-		\bigskip
-		Assign part of speech tags:
-		\tab\tab
-		\begin{tabular}[t]{cc}
-			John            & tripped \\
-			\pause
-			noun            & verb    \\
-			\pause
-			.84375          & .625 \\
-		\end{tabular}
-	\end{center}
+\begin{center}
+\begin{tabular}[t]{cc|c}
+Ends with -ed  & Initial Capital  & Part of Speech \\
+\hline
+no             & no               & noun \\
+no             & yes              & noun \\
+no             & yes              & noun \\
+yes            & no               & noun \\
+yes            & yes              & noun \\
+no             & no               & verb \\
+yes            & no               & verb \\
+yes            & yes              & verb \\
+\end{tabular}
+
+\bigskip
+Assign part of speech tags:
+\tab\tab
+\begin{tabular}[t]{cc}
+John            & tripped \\
+\pause
+noun            & verb    \\
+\pause
+.84375          & .625 \\
+\end{tabular}
+\end{center}
 \end{frame}
 
 \subsection{Properties}
+
 \begin{frame}[<+->]{Naive Bayes Properties}
-	\begin{block}{Naive Bayes assumption is hardly ever true}
-		\begin{itemize}
-			\item Probability estimates of Naive Bayes are poor
-			\item Classification decisions are often surprisingly good
-		\end{itemize}
-	\end{block}
-	\begin{block}{Empirical Observations}
-		\begin{itemize}
-			\item Works best when many equally important features
-			\item Somewhat robust to noise (uninformative) features
-			\item Training and classification are typically fast
-		\end{itemize}
-	\end{block}
+\begin{block}{Naive Bayes assumption is hardly ever true}
+\begin{itemize}
+\item Probability estimates of Naive Bayes are poor
+\item Classification decisions are often surprisingly good
+\end{itemize}
+\end{block}
+\begin{block}{Empirical Observations}
+\begin{itemize}
+\item Works best when many equally important features
+\item Somewhat robust to noise (uninformative) features
+\item Training and classification are typically fast
+\end{itemize}
+\end{block}
 \end{frame}
-
-\subsection{Properties}
-\begin{frame}[<+->]{k-Nearest Neighbor Properties}
-	\begin{block}{Theoretical Properties}
-		\begin{itemize}
-			\item Given enough data and the right $k$, minimizes error
-			\item Able to approximate many kinds of functions
-		\end{itemize}
-	\end{block}
-	\begin{block}{Empirical Issues}
-		\begin{itemize}
-			\item Simple to implement given a distance function
-			\item Large training data means long search times
-			\item Not always clear what distance function to use
-		\end{itemize}
-	\end{block}
-\end{frame}
-
 
 \part{Key Ideas}
 \begin{frame}{Key Ideas}
-	\begin{block}{Naive Bayes}
-		Assume features conditionally independent given class
-	\end{block}
+\begin{block}{Naive Bayes}
+Assume features conditionally independent given class
+\end{block}
 \end{frame}
 
 \end{document}

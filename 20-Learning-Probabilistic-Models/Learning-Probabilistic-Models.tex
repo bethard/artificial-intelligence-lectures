@@ -1,40 +1,10 @@
-\documentclass[12pt]{beamer}
-%\includeonlyframes{current}
+% !TEX TS-program = pdflatexmk
 
-\mode<presentation>{\usetheme{Warsaw}}
-\setbeamertemplate{footline}[frame number]
-\usepackage[english]{babel}
-\usepackage{times}
-\usepackage{url}
-\usepackage{graphicx}
-\usepackage{hhline}
-\usepackage{array}
-\usepackage{colortbl}
+\documentclass[14pt]{beamer}
+\input{../slides-preamble}
 
-\newcommand{\key}[1]{{\color{blue}#1}}
-\newcommand{\cmnt}[1]{{\color{gray}#1}}
-\newcommand{\str}[1]{{\color{green!50!black}#1}}
-\newcommand{\num}[1]{{\color{green!55!blue}#1}}
-\newcommand{\defn}[1]{{\color{purple}#1}}
-\newcommand{\SC}[1]{\mbox{\sc#1}}
-\newcommand{\EM}[1]{\mbox{\em#1}}
-\newcommand{\tab}{\hspace{1em}}
-
-\title{Statistical Learning Methods}
-\subtitle{Introduction to Artificial Intelligence}
-\author{Steven Bethard}
-\institute{
-  Department of Computer Science\\
-  University of Colorado
-}
-\date{CSCI 3202}
-
-
-\AtBeginSection[]{
-\begin{frame}<beamer>{Outline}
-	\tableofcontents[currentsection]
-\end{frame}
-}
+\title{Learning Probabilistic Models}
+\date[]{10 Apr 2014}
 
 \begin{document}
 

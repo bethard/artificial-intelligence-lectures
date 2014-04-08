@@ -133,10 +133,34 @@ Assign part of speech tags:
 \tab\tab
 \begin{tabular}[t]{cc}
 John            & tripped \\
-\pause
+\visible<2->{
 noun            & verb    \\
-.84375          & .625 \\
+$\frac{27}{32}$ & $\frac{5}{8}$ \\
+%.84375          & .625 \\
+}
 \end{tabular}
+% John
+% P(POS=n | ED=n , CAP=y)
+% = \alpha P(POS=n) P(ED=n | POS=n) P(CAP=y | POS=n)
+% = \alpha \frac{5}{8} \cdot \frac{3}{5} \cdot \frac{3}{5}
+% = \alpha \frac{9}{40}
+% P(POS=v | ED=n , CAP=y)
+% = \alpha P(POS=v) P(ED=n | POS=v) P(CAP=y | POS=v)
+% = \alpha \frac{3}{8} \cdot \frac{1}{3} \cdot \frac{1}{3}
+% = \alpha \frac{1}{24}
+% \alpha = \frac{15}{4}
+% P(POS | ED=n , CAP=y) = \langle \frac{27}{32}, \frac{5}{32} \rangle
+% tripped
+% P(POS=n | ED=y , CAP=n)
+% = \alpha P(POS=n) P(ED=y | POS=n) P(CAP=n | POS=n)
+% = \alpha \frac{5}{8} \cdot \frac{2}{5} \cdot \frac{2}{5}
+% = \alpha \frac{1}{10}
+% P(POS=v | ED=y , CAP=n)
+% = \alpha P(POS=v) P(ED=y | POS=v) P(CAP=n | POS=v)
+% = \alpha \frac{3}{8} \cdot \frac{2}{3} \cdot \frac{2}{3}
+% = \alpha \frac{1}{6}
+% \alpha = \frac{15}{4}
+% P(POS | ED=y , CAP=n) = \langle \frac{3}{8}, \frac{5}{8} \rangle
 \end{center}
 \end{frame}
 

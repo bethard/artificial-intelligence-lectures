@@ -1274,9 +1274,9 @@ Learning linear models:
 \begin{frame}[label=loss]{Loss}
 \setbeamercovered{invisible}
 \begin{columns}
-\begin{column}{0.48\textwidth}
+\begin{column}{0.43\textwidth}
 How ``wrong'' is this $h(x)$?\\[1em]
-\begin{tikzpicture}[scale=0.7]
+\begin{tikzpicture}[scale=0.6]
 \begin{axis}[domain=0:1]
 \pgfmathsetseed{42}
 \addplot[y noise=0.5, only marks] {2*x};
@@ -1285,33 +1285,31 @@ How ``wrong'' is this $h(x)$?\\[1em]
 \end{tikzpicture}
 \end{column}
 \pause
-\begin{column}{0.48\textwidth}
+\begin{column}{0.55\textwidth}
 \setlength{\arraycolsep}{0.1em}
 \renewcommand{\arraystretch}{1.75}
 \begin{block}{Loss at one point}
 $\begin{array}{ l l l }
-L_{0/1} & = &
+L_{0/1}(\theta, x) & = &
 \begin{cases}
-0 & \text{if } h(x) = f(x) \\
+0 & \text{if } h_{\theta}(x) = f(x) \\
 1 & \text{otherwise}
 \end{cases}
 \\
-\pause L_1 & = & \left| f(x) - h(x) \right| \\
-\pause L_2 & = & \left( f(x) - h(x) \right)^2
+\pause L_1(\theta, x) & = & \left| f(x) - h_{\theta}(x) \right| \\
+\pause L_2(\theta, x) & = & \left( f(x) - h_{\theta}(x) \right)^2
 \end{array}$
 \end{block}
 \pause
 \begin{block}{Empirical Loss}
-$\displaystyle\frac{1}{|X|} \sum_{x \in X} L(f(x), h(x))$
+$\displaystyle L(\theta) = \frac{1}{|X|} \sum_{x \in X} L(\theta, x)$
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}[label=loss-exercise]{Loss Exercise}
-\begin{columns}
-\begin{column}{0.55\textwidth}
-Which linear model parameters:
+Recall that $h_{\theta}(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots$ and consider:
 \begin{enumerate}
 \item $\theta_1 = [0, 1]$
 % L_{0/1} => 2
@@ -1322,14 +1320,17 @@ Which linear model parameters:
 % L_1 => 7.2
 % L_2 => 12.4
 \end{enumerate}
-are better by:
+\begin{columns}
+\begin{column}{0.55\textwidth}
+Which $\theta$ is better by:
+\setlength{\leftmargini}{1.5em}
 \begin{itemize}
-\item $L_{0/1}$ loss?
-\only<2->{\\ \tab $\theta_1$ (2 vs. 5)}
-\item $L_1$ loss?
-\only<2->{\\ \tab $\theta_1$ (6 vs. 7.2)}
-\item $L_2$ loss?
-\only<2->{\\ \tab $\theta_2$ (20 vs. 12.4)}
+\item {\small $\displaystyle L_{0/1}(\theta) = \frac{1}{|X|} \sum_{x \in X} h_{\theta}(x) \neq f(x)$?}
+\visible<2->{\\ \tab $\theta_1$ (2 vs. 5)}
+\item {\small $\displaystyle L_1(\theta) = \frac{1}{|X|} \sum_{x \in X} \left| f(x) - h_{\theta}(x) \right|$?}
+\visible<2->{\\ \tab $\theta_1$ (6 vs. 7.2)}
+\item {\small $\displaystyle L_2(\theta) = \frac{1}{|X|} \sum_{x \in X} \left( f(x) - h_{\theta}(x) \right)^2$?}
+\visible<2->{\\ \tab $\theta_2$ (20 vs. 12.4)}
 \end{itemize}
 \end{column}
 \begin{column}{0.4\textwidth}
@@ -1337,9 +1338,11 @@ are better by:
 \begin{axis}[
   grid=both,
   xmin=0,ymin=0,
-  xmax=8,ymax=10,
+  xmax=6,ymax=10,
   x=1em,y=1em,
-  domain=0:8,
+  xlabel={$x_1$},
+  ylabel={$f(x)$},
+  domain=0:6,
 ]
 \pgfmathsetseed{42}
 \addplot[only marks] table[row sep=\\] {
@@ -1351,7 +1354,7 @@ are better by:
 };
 \only<2->{
 \addplot[no marks] {x} node[below=0.5em,near end] {$h_{\theta_1}$};
-\addplot[no marks] {0.6 + 1.2*x} node[above=0.5em,near end] {$h_{\theta_2}$};
+\addplot[no marks] {0.6 + 1.2*x} node[left,near end] {$h_{\theta_2}$};
 }
 \end{axis}
 \end{tikzpicture}
@@ -1450,9 +1453,30 @@ Common choices for $Complexity(\theta)$
 \end{frame}
 
 \begin{frame}[label=regularization-exercise]{Regularization Exercise}
-\begin{columns}
-\begin{column}{0.4\textwidth}
-Which parameters:
+\begin{columns}[T]
+\begin{column}{0.49\textwidth}
+{\centering
+$\begin{array}{ r r r }
+\hline
+x_1 & x_2 & f(x) \\
+\hline
+2 & 1 & 4 \\
+3 & 2 & 9 \\
+4 & 3 & 13 \\
+\hline
+\end{array}$\\}
+\bigskip
+\bigskip
+Loss:\\
+{\small$\displaystyle L_2(\theta) = \frac{1}{|X|} \sum_{x \in X} \left( f(x) - h_{\theta}(x) \right)^2$}\\
+Regularizers:\\
+{\small$\displaystyle L_1(\theta) = \sum_{i} | \theta_{i} |$ \hfill $\displaystyle L_2(\theta) = \sum_{i} | \theta_{i} |^{2}$}\\
+Regularization:\\
+{\small$\displaystyle L(\theta) = Loss(\theta) + \lambda \: Complexity(\theta)$}\\
+\end{column}
+\begin{column}{0.55\textwidth}
+\setlength{\leftmargini}{1.5em}
+Given $L_2$ loss, which is better:
 \begin{enumerate}
 \item $\theta_1 = [-2, 3, 1]$
 % -2 + 6 + 1 = 5
@@ -1469,30 +1493,17 @@ Which parameters:
 % L_1 reg => 3
 % L_2 reg => 9
 \end{enumerate}
-are better with $L_2$ loss and the regularization:
+for the regularization:
 \begin{itemize}
 \item None?
-\only<2->{\\ \tab $\theta_1$ (1 vs. 5)}
+\visible<2->{$\theta_1$ (1 vs. 5)}
 \item $L_1$ with $\lambda=1$?
-\only<2->{\\ \tab $\theta_1$ (7 vs. 8)}
+\visible<2->{$\theta_1$ (7 vs. 8)}
 \item $L_2$ with $\lambda=1$?
-\only<2->{\\ \tab $\theta_2$ (15 vs. 14)}
+\visible<2->{$\theta_2$ (15 vs. 14)}
 \end{itemize}
-\end{column}
-\begin{column}{0.55\textwidth}
-\centering
-$\begin{array}{ r r r }
-\hline
-x_1 & x_2 & f(x) \\
-\hline
-2 & 1 & 4 \\
-3 & 2 & 9 \\
-4 & 3 & 13 \\
-\hline
-\end{array}$\\
-\bigskip
-\visible<3->{
-\begin{tikzpicture}
+\visible<2->{
+\begin{tikzpicture}[scale=0.95]
 \begin{axis}[
   title={$h(x) = -2 + 3x_1 + x_2$},
   tiny,
@@ -1506,7 +1517,7 @@ x_1 & x_2 & f(x) \\
 \addplot3[mesh,domain=0:6,samples=10] plot {3*x+y-2};
 \end{axis}
 \end{tikzpicture}
-\begin{tikzpicture}
+\begin{tikzpicture}[scale=0.95]
 \begin{axis}[
   title={$h(x) = 3x_1$},
   tiny,

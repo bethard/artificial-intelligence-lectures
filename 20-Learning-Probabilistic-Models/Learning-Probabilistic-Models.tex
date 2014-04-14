@@ -440,7 +440,18 @@ Practical:
 \part{Key Ideas}
 \begin{frame}{Key Ideas}
 \begin{block}{Naive Bayes}
-Assume features conditionally independent given class
+\begin{itemize}
+\item Assume features conditionally independent given class
+\item Maximum likelihood estimates (i.e. count and divide)
+\end{itemize}
+\end{block}
+\begin{block}{Expectation Maximization}
+\begin{itemize}
+\item Guess probabilities for all variables in model
+\item Calculate probabilities of hidden variables given data
+\item Tabulate partial counts $\Rightarrow$ new variable probabilities
+\item Iterate until local maximum is reached
+\end{itemize}
 \end{block}
 \end{frame}
 

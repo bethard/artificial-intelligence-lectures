@@ -3,6 +3,35 @@
 \documentclass[14pt]{beamer}
 \input{../slides-preamble}
 
+\newcommand{\bxcyalignment}{
+\begin{tikzpicture}[baseline=-0.25em,inner sep=0.1em]
+  \node (b) at (-0.3,0.3) {b};
+  \node (c) at (0.3,0.3)  {c};
+  \node (x) at (-0.3,-0.3)  {x};
+  \node (y) at (0.3,-0.3) {y};
+  \draw[thick] (b) -- (x);
+  \draw[thick] (c) -- (y);
+\end{tikzpicture}
+}
+\newcommand{\bycxalignment}{
+\begin{tikzpicture}[baseline=-0.25em,inner sep=0.1em]
+  \node (b) at (-0.3,0.3) {b};
+  \node (c) at (0.3,0.3)  {c};
+  \node (x) at (-0.3,-0.3)  {x};
+  \node (y) at (0.3,-0.3) {y};
+  \draw[thick] (b) -- (y);
+  \draw[thick] (c) -- (x);
+\end{tikzpicture}
+}
+\newcommand{\byalignment}{
+\begin{tikzpicture}[baseline=-0.25em,inner sep=0.1em]
+  \node (b) at (0,0.3) {b};
+  \node (y) at (0,-0.3) {y};
+  \draw[thick] (b) -- (y);
+\end{tikzpicture}
+}
+
+
 \title{Learning Probabilistic Models}
 \date[]{10 Apr 2014}
 
@@ -182,6 +211,217 @@ $\frac{27}{32}$ & $\frac{5}{8}$ \\
 \end{itemize}
 \end{block}
 \end{frame}
+
+\section{Expectation Maximization}
+
+\subsection{Hidden Variables}
+
+\begin{frame}{A Coin Example}
+\thickmuskip=1mu
+Given two coins:
+\begin{description}[A]
+\item[A] with $P(A=H)$ for heads and $P(A=T)$ for tails
+\item[B] with $P(B=H)$ for heads and $P(B=T)$ for tails
+\end{description}
+\bigskip
+Estimate $\mathbf{P}(A)$ and $\mathbf{P}(B)$ from the coin tosses:\\
+\smallskip
+\begin{tabular}{ @{} c c c c c c }
+& & \visible<2->{$A=H$ & $A=T$ & $B=H$ & $B=T$} \\
+A & \tt HHHHTHHHHH \visible<2->{& 9 & 1 & &} \\
+B & \tt HTHTTTHHTT \visible<2->{& & & 4 & 6} \\
+A & \tt HTHHHHHTHH \visible<2->{& 8 & 2 & &} \\
+A & \tt THHHTHHHTH \visible<2->{& 7 & 3 & &} \\
+B & \tt HTTTHHTHTH \visible<2->{& & & 5 & 5} \\
+\end{tabular}\\
+\medskip
+\visible<3->{
+$\begin{array}{ c c }
+\mathbf{P}(A) = \left\langle \frac{24}{24 + 6}, \frac{6}{24 + 6} \right\rangle
+& \mathbf{P}(B) = \left\langle \frac{9}{9 + 11}, \frac{11}{9 + 11} \right\rangle
+\end{array}$}
+\end{frame}
+
+\begin{frame}{A Coin Example with a Hidden Variable}
+\thickmuskip=1mu
+But what if we didn't know which coin was being tossed?
+\begin{itemize}
+\item i.e. $P(C=A)$ and $P(C=B)$ are unknown
+\end{itemize}
+\medskip
+Estimate $\mathbf{P}(A)$, $\mathbf{P}(B)$ from the coin tosses:\\
+\smallskip
+\begin{tabular}{ @{} c c c c c c c }
+\visible<3->{$C=A$ & $C=B$} & & $A=H$ & $A=T$ & $B=H$ & $B=T$ \\
+\only<3->{0.80} & \alt<3->{0.20}{?} & \tt HHHHTHHHHH & \only<4->{7.2} & \only<5->{0.8} & \only<6->{1.8 & 7.2} \\
+\only<3->{0.35} & \alt<3->{0.65}{?} & \tt HTHTTTHHTT & \only<7->{1.4 & 2.1} & \only<8->{2.6 & 3.9} \\
+\only<3->{0.73} & \alt<3->{0.27}{?} & \tt HTHHHHHTHH & \only<9->{5.8 & 1.5 & 2.2 & 0.5} \\
+\only<3->{0.65} & \alt<3->{0.35}{?} & \tt THHHTHHHTH & \only<9->{4.5 & 1.9 & 2.5 & 1.1} \\
+\only<3->{0.45} & \alt<3->{0.55}{?} & \tt HTTTHHTHTH & \only<9->{2.2 & 2.2 & 2.8 & 2.8} \\
+\end{tabular}\\
+\medskip
+\visible<2->{
+What if we knew $\mathbf{P}(C|\texttt{HHHHTHHHHH})$, etc.?}\\
+\smallskip
+\visible<10->{
+$\begin{array}{ c c }
+\mathbf{P}(A) = \left\langle \frac{21.3}{21.3 + 8.6}, \frac{8.6}{21.3 + 8.6} \right\rangle
+& \mathbf{P}(B) = \left\langle \frac{11.7}{11.7 + 8.4}, \frac{8.4}{11.7 + 8.4} \right\rangle
+\end{array}$}
+\end{frame}
+
+\begin{frame}{Probability of the Hidden Variable}
+\thickmuskip=1mu
+$\begin{array}{ l }
+P(C=A|\texttt{HHHHTHHHHH}) \\
+\pause
+= \alpha P(\texttt{HHHHTHHHHH}|C=A) P(C=A) \\
+\pause
+= \alpha P(\texttt{H}|C=A) P(\texttt{H}|C=A) \ldots P(\texttt{H}|C=A) P(C=A) \\
+\pause
+= \alpha P(\texttt{H}|A) P(\texttt{H}|A) \ldots P(\texttt{H}|A) P(C=A) \\
+\end{array}$\\
+\bigskip
+\pause
+Say we make an initial guess:
+\begin{itemize}
+\item $\mathbf{P}(C) = \left\langle 0.5, 0.5\right\rangle$
+\item $\mathbf{P}(A) = \left\langle 0.6, 0.4\right\rangle$
+\item $\mathbf{P}(B) = \left\langle 0.5, 0.5\right\rangle$
+\end{itemize}
+Then:\\
+$P(C=A|\texttt{HHHHTHHHHH}) = \pause \alpha \cdot 0.6^{9} \cdot 0.4^{1} \cdot 0.5 \approx .00202 \alpha$ \\
+\pause
+$P(C=B|\texttt{HHHHTHHHHH}) = \alpha \cdot 0.5^{9} \cdot 0.5^{1} \cdot 0.5 \approx .00049 \alpha$ \\
+\pause
+$\mathbf{P}(C|\texttt{HHHHTHHHHH}) \approx \left\langle .80, .20 \right\rangle$
+\end{frame}
+
+\subsection{Algorithm}
+
+\begin{frame}{The Expectation Maximization Algorithm}
+\begin{enumerate}
+\item Make initial guess of all probabilities $\mathbf{P}(X_0), \mathbf{P}(X_1), \ldots$
+\item\label{item:calculate-hidden} Calculate $\mathbf{P}(X_h|\text{data})$ for all hidden variables $X_h$
+\item Tabulate partial counts for $X_0, X_1, \ldots$ from data
+\item Normalize partial counts to get $\mathbf{P}(X_0), \mathbf{P}(X_1), \ldots$
+\item Goto \ref{item:calculate-hidden}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{EM in Machine Translation}
+Given parallel sentences
+\begin{itemize}
+\item $b c \Leftrightarrow x y$
+\item $b \Leftrightarrow y$
+\end{itemize}
+\visible<2->{
+Make initial guess of all probabilities
+\begin{itemize}
+\thickmuskip=1mu
+\item $P(b=x) = \frac{1}{2}$, $P(b=y) = \frac{1}{2}$, $P(c=x) = \frac{1}{2}$, $P(b=y) = \frac{1}{2}$
+\end{itemize}
+}
+\visible<3->{
+Calculate $\mathbf{P}(A|\text{data})$ for alignments $A$ in $b c \Leftrightarrow x y$:
+\begin{itemize}
+\item
+$P\left(\text{\bxcyalignment} \Bigm | b c \Leftrightarrow x y \right)
+= \alpha \cdot \visible<4->{\frac{1}{2} \cdot \frac{1}{2} \visible<5->{= \frac{1}{4} \alpha \visible<7->{\Rightarrow \frac{1}{2}}}}$
+\item
+$P\left(\text{\bycxalignment} \Bigm | b c \Leftrightarrow x y \right)
+= \alpha \cdot \visible<6->{\frac{1}{2} \cdot \frac{1}{2} \visible<6->{= \frac{1}{4} \alpha \visible<7->{\Rightarrow \frac{1}{2}}}}$
+\end{itemize}
+}
+\visible<8->{
+Calculate $\mathbf{P}(A|\text{data})$ for alignments $A$ in $b \Leftrightarrow y$:
+\begin{itemize}
+\item
+$P\left(\text{\byalignment} \Bigm | b \Leftrightarrow y \right)
+= \alpha \cdot \visible<9->{\frac{1}{2} \visible<10->{\Rightarrow 1}}$
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{EM in Machine Translation}
+\setbeamercovered{invisible}
+\renewcommand{\arraystretch}{1.2}
+Tabulate partial counts from $b c \Leftrightarrow x y$ alignments:
+\begin{itemize}
+\item $P\left(\text{\bxcyalignment} \Bigm | bc \Leftrightarrow xy \right) \Rightarrow
+\pause
+\begin{array} { l l l }
+\#(b=x) & \mathrel{+}= & \frac{1}{2} \\
+\#(c=y) & \mathrel{+}= & \frac{1}{2} \\
+\end{array}$
+\pause
+\item $P\left(\text{\bycxalignment} \Bigm | bc \Leftrightarrow xy \right) \Rightarrow
+\pause
+\begin{array} { l l l }
+\#(b=y) & \mathrel{+}= & \frac{1}{2} \\
+\#(c=x) & \mathrel{+}= & \frac{1}{2} \\
+\end{array}$
+\end{itemize}
+\pause
+Tabulate partial counts from $b \Leftrightarrow y$ alignments:
+\begin{itemize}
+\item $P\left(\text{\byalignment} \Bigm | b \Leftrightarrow y \right) \hspace{2.2em} \Rightarrow
+\pause
+\begin{array}{ l l l }
+\#(b=y) & \mathrel{+}= & 1
+\end{array}$
+\end{itemize}
+\pause
+Normalize partial counts to get new probabilities:
+\begin{itemize}
+\thickmuskip=1mu
+\item $\mathbf{P}(b)$:
+$P(b=x) = \pause\frac{\frac{1}{2}}{\frac{1}{2} + \frac{3}{2}} = \frac{1}{4}$
+\pause,
+$P(b=y) = \pause\frac{\frac{3}{2}}{\frac{1}{2} + \frac{3}{2}} = \frac{3}{4}$
+\pause
+\item $\mathbf{P}(c)$:
+$P(c=x) = \pause\frac{\frac{1}{2}}{\frac{1}{2} + \frac{1}{2}} = \frac{1}{2}$
+\pause,
+$P(c=y) = \pause\frac{\frac{1}{2}}{\frac{1}{2} + \frac{1}{2}} = \frac{1}{2}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{EM in Machine Translation Exercise}
+Given sentences:
+\begin{itemize}
+\item $b c \Leftrightarrow x y$
+\item $b \Leftrightarrow y$
+\end{itemize}
+With possible alignments:\\
+\begin{tabular}{ @{\hspace{1em}} c c @{\hspace{2em}} c }
+\multicolumn{2}{ @{\hspace{1em}} c @{\hspace{2em}} }{$b c \Leftrightarrow x y$} & $b \Leftrightarrow y$ \\
+\bxcyalignment & \bycxalignment & \byalignment
+\end{tabular}\\
+\smallskip
+And current probabilities:
+\begin{itemize}
+\thickmuskip=1mu
+\item
+$P(b=x) = \frac{1}{4}$,
+$P(b=y) = \frac{3}{4}$,
+$P(c=x) = \frac{1}{2}$,
+$P(c=y) = \frac{1}{2}$
+\end{itemize}
+Calculate the probabilities after the next iteration of EM
+\visible<2->{
+\begin{itemize}
+\thickmuskip=1mu
+\item
+$P(b=x) = \frac{1}{8}$,
+$P(b=y) = \frac{7}{8}$,
+$P(c=x) = \frac{3}{4}$,
+$P(c=y) = \frac{1}{4}$
+\end{itemize}
+}
+\end{frame}
+
+\subsection{Properties}
 
 \part{Key Ideas}
 \begin{frame}{Key Ideas}

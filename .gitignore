@@ -1,0 +1,29 @@
+*~
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.pyc
+*.synctex.gz
+*.snm
+*.tcp
+*.toc
+*.tps
+*.vrb
+Introduction.pdf
+Intelligent Agents.pdf
+Solving Problems by Searching.pdf
+Beyond Classical Search.pdf
+Adversarial Search.pdf
+Constraint Satisfaction Problems.pdf
+Logical Agents.pdf
+First-Order Logic.pdf
+Quantifying-Uncertainty.pdf
+Probabilistic Reasoning.pdf
+Learning-from-Examples.pdf
+Learning-Probabilistic-Models.pdf

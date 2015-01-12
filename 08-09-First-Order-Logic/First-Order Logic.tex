@@ -650,13 +650,14 @@ $
 \end{frame}
 
 \begin{frame}{Forward Chaining Example}
+\small
 	\begin{tabular}{p{0.97\textwidth}}
 		If you're rich and someone sells something you want, you buy it \\
-		\tab$\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y)$ \\
+		\tab$\forall x \forall y \forall z\ \textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y)$ \\
 		If you're hot, you want ice cream \\
-		\tab$\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y)$ \\
+		\tab$\forall x \forall y\ \textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y)$ \\
 		HaagenDazs sells all kinds of ice cream \\
-		\tab$\textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y)$ \\
+		\tab$\forall y\ \textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y)$ \\
 		One flavor of ice cream is mint \\
 		\tab$\textit{IceCream}(\textit{Mint})$ \\
 		Bill is rich \\
@@ -667,17 +668,20 @@ $
 \end{frame}
 
 \begin{frame}{Forward Chaining Example}
+\small
 $
 \begin{array}{l}
 \textit{Hot}(\textit{Bill}) \\
 \textit{IceCream}(\textit{Mint}) \\
-\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y) \\
+\forall x \forall y\ \textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y) \\
+\theta = \{ x = \textit{Bill}, y = \textit{Mint} \} \\
 \hline
 \visible<2->{
 \textit{Wants}(\textit{Bill}, \textit{Mint}) \\[.8em]}
 \visible<3->{
 \textit{IceCream}(\textit{Mint}) \\
-\textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y) \\
+\forall y\ \textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y) \\
+\theta = \{ y = \textit{Mint} \} \\
 \hline}
 \visible<4->{
 \textit{Sells}(\textit{HaagenDazs}, \textit{Mint}) \\[.8em]}
@@ -685,7 +689,8 @@ $
 \textit{Rich}(\textit{Bill}) \\
 \textit{Wants}(\textit{Bill}, \textit{Mint}) \\
 \textit{Sells}(\textit{HaagenDazs}, \textit{Mint}) \\
-\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y) \\
+\forall x \forall y \forall z\ \textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y) \\
+\theta = \{ x = \textit{Bill}, y = \textit{Mint}, z = \textit{HaagenDazs} \} \\
 \hline}
 \visible<6->{
 \textit{Buys}(\textit{Bill}, \textit{Mint})}
@@ -750,9 +755,9 @@ With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per 
 Given:\\
 \tab$
 \begin{array}{ @{} l @{\hspace{4em}} l @{\hspace{4em}} l @{}}
-\lefteqn{\textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y)} \\
-\lefteqn{\textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y)} \\
-\lefteqn{\textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y)} \\
+\lefteqn{\forall x \forall y \forall z\ \textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y)} \\
+\lefteqn{\forall x \forall y\ \textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y)} \\
+\lefteqn{\forall y\ \textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y)} \\
 \textit{IceCream}(\textit{Mint})
 & \textit{Rich}(\textit{Bill})
 & \textit{Hot}(\textit{Bill})
@@ -767,25 +772,25 @@ $
 \hline
 \left[\textit{Buys}(x, y)\right]
 & \{\}
-\\\pause
+\pause\\
 \left[\textit{Rich}(x), \textit{Wants}(x, y), \textit{Sells}(z, y)\right]
 & \{\}
-\\\pause
+\pause\\
 \left[\textit{Wants}(x, y), \textit{Sells}(z, y)\right]
 & \{x\!\!=\!\!\textit{Bill}\}
-\\\pause
+\pause\\
 \left[\textit{Hot}(x), \textit{IceCream}(y), \textit{Sells}(z, y)\right]
 & \{x\!\!=\!\!\textit{Bill}\}
-\\\pause
+\pause\\
 \left[\textit{IceCream}(y), \textit{Sells}(z, y)\right]
 & \{x\!\!=\!\!\textit{Bill}\}
-\\\pause
+\pause\\
 \left[\textit{Sells}(z, y)\right]
 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}\}
-\\\pause
+\pause\\
 \left[\textit{IceCream}(y)\right]
 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{HaagenDazs}\}
-\\\pause
+\pause\\
 \left[\right]
 & \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{HaagenDazs}\}
 \end{array}
@@ -939,46 +944,82 @@ $
 
 \begin{frame}[label=resolution-example]{Resolution Example}
 \setbeamercovered{invisible}
-\footnotesize
+\small
 Given:\\
 \tab$
 \begin{array}{ @{} l @{\hspace{4em}} l @{\hspace{4em}} l @{} }
-\lefteqn{\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y)} \\
-\lefteqn{\lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y)} \\
-\lefteqn{\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y)} \\
+\lefteqn{\forall x \forall y \forall z\ \lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y)} \\
+\lefteqn{\forall x \forall y\ \lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y)} \\
+\lefteqn{\forall y\ \lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y)} \\
 \textit{IceCream}(\textit{Mint})
 & \textit{Rich}(\textit{Bill})
 & \textit{Hot}(\textit{Bill})
 \end{array}
 $
 \\[0.5em]
-Prove $\textit{Buys}(x, y)$:\\
+Prove $\exists x \exists y\ \textit{Buys}(x, y)$:\\
 \pause
 \tab$
 \begin{array}{ @{} l @{} }
-\lnot\textit{Buys}(x, y) \\
+\forall x \forall y\ \lnot\textit{Buys}(x, y) \\
 \pause
-\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y) \\
+\forall x \forall y \forall z\ \lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y) \\
+\pause
+\theta = \{ \} \\
 \hline
 \pause
-\lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y)\\
+\forall x \forall y \forall z\ \lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y)\\
 \pause
 \textit{Rich}(\textit{Bill}) \\
+\pause
+\theta = \{ x = \textit{Bill} \} \\
 \hline
 \pause
-\lnot\textit{Wants}(\textit{Bill}, y) \lor \lnot\textit{Sells}(z, y) \\
+\forall y \forall z\ \lnot\textit{Wants}(\textit{Bill}, y) \lor \lnot\textit{Sells}(z, y) \\
 \pause
-\lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y) \\
+\forall x \forall y\ \lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y) \\
+\pause
+\theta = \{ x = \textit{Bill} \} \\
 \hline
 \pause
-\lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \lor \lnot\textit{Sells}(z, y) \\
+\forall y \forall z\ \lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \lor \lnot\textit{Sells}(z, y) \\
+\end{array}
+$
+\end{frame}
+
+\begin{frame}[label=resolution-example-2]{Resolution Example}
+\setbeamercovered{invisible}
+\small
+Given:\\
+\tab$
+\begin{array}{ @{} l @{\hspace{4em}} l @{\hspace{4em}} l @{} }
+\lefteqn{\forall x \forall y \forall z\ \lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y)} \\
+\lefteqn{\forall x \forall y\ \lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y)} \\
+\lefteqn{\forall y\ \lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y)} \\
+\textit{IceCream}(\textit{Mint})
+& \textit{Rich}(\textit{Bill})
+& \textit{Hot}(\textit{Bill})
+\end{array}
+$
+\\[0.5em]
+Prove $\exists x \exists y\ \textit{Buys}(x, y)$:\\
+\tab$
+\begin{array}{ @{} l @{} }
+\forall x \forall y\ \lnot\textit{Buys}(x, y) \\
+\ldots\\
+\hline
+\forall y \forall z\ \lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \lor \lnot\textit{Sells}(z, y) \\
 \pause
-\lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y) \\
+\forall y\ \lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y) \\
+\pause
+\theta = \{ z = \textit{HaagenDazs} \} \\
 \hline
 \pause
-\lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \\
+\forall y\ \lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \\
 \pause
 \textit{IceCream}(\textit{Mint}) \\
+\pause
+\theta = \{ y = \textit{Mint} \} \\
 \hline
 \pause
 \lnot\textit{Hot}(\textit{Bill}) \\

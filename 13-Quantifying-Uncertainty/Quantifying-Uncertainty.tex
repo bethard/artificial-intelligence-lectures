@@ -497,7 +497,7 @@ $\alpha = \pause \dfrac{1}{\frac{1}{52} + \frac{1}{52} + \frac{1}{52} + \frac{1}
 \bigskip
 \centering
 \pause
-$\mathbf{P}(Suit,\mbox{A})
+$\mathbf{P}(Suit|\mbox{A})
 = \langle \frac{13}{52}, \frac{13}{52}, \frac{13}{52}, \frac{13}{52} \rangle
 = \langle \frac{1}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \rangle$
 \end{block}
@@ -1101,15 +1101,15 @@ $\sum\limits_{p_{22}, p_{31}}P(b_{12}, b_{21}|\lnot p_{13},\ldots)P(P_{22},P_{31
 			\small
 			Given: 
 			\begin{tabular}[t]{l}
-				$a$ indep. $b,c,d$ \\
-				$b$ indep. $d$ given $c$
+				$w$ indep. $x,y,z$ \\
+				$x$ indep. $z$ given $y$
 			\end{tabular}
 			\\ \smallskip
 			Show:
 			\\ \smallskip
 			$
 			\begin{array}{@{}l@{}}
-				P(a,b,c,d) = P(a)P(b|c)P(d,c)
+				P(w,x,y,z) = P(w)P(x|y)P(z,y)
 			\end{array}
 			$
 			\\ \bigskip
@@ -1118,11 +1118,11 @@ $\sum\limits_{p_{22}, p_{31}}P(b_{12}, b_{21}|\lnot p_{13},\ldots)P(P_{22},P_{31
 			\\ \smallskip
 			$
 			\begin{array}{@{}l@{}}
-			\lefteqn{P(a,b,c,d)} \\
-			\pause = P(a)P(b,c,d) \\
-			\pause = P(a)P(b,d|c)P(c) \\
-			\pause = P(a)P(b|c)P(d|c)P(c) \\
-			\pause = P(a)P(b|c)P(d,c) \\
+			\lefteqn{P(w,x,y,z)} \\
+			\pause = P(w)P(x,y,z) \\
+			\pause = P(w)P(x,z|y)P(y) \\
+			\pause = P(w)P(x|y)P(z|y)P(y) \\
+			\pause = P(w)P(x|y)P(z,y) \\
 			\end{array}
 			$
 		\end{column}
@@ -1146,23 +1146,23 @@ $\sum\limits_{p_{22}, p_{31}}P(b_{12}, b_{21}|\lnot p_{13},\ldots)P(P_{22},P_{31
 			\small
 			Given: \\
 			\begin{tabular}[t]{l}
-				$d$ indep. $a,b,c$ \\
-				$a$ indep. $b$ given $c$
+				$z$ indep. $w,x,y$ \\
+				$w$ indep. $x$ given $y$
 			\end{tabular}
 			\\ \smallskip
 			Show:
 			\\ \smallskip
 			$
 			\begin{array}{l@{}}
-				P(a,d|b,c) = P(a|c)P(d)
+				P(w,z|x,y) = P(w|y)P(z)
 			\end{array}
 			$
 			\\ \bigskip
 			Given: \\
 			\begin{tabular}[t]{l}
-				$a$ indep. $c,d$ given $b$ \\
-				$b$ indep. $d$ given $c$ \\
-				$c$ indep. $d$
+				$w$ indep. $y,z$ given $x$ \\
+				$x$ indep. $z$ given $y$ \\
+				$y$ indep. $z$
 			\end{tabular}
 			\\ \smallskip
 			Show:
@@ -1170,7 +1170,7 @@ $\sum\limits_{p_{22}, p_{31}}P(b_{12}, b_{21}|\lnot p_{13},\ldots)P(P_{22},P_{31
 			\footnotesize
 			$
 			\begin{array}{l@{}}
-				P(a,b,c,d) = P(a|b)P(b|c)P(c)P(d)
+				P(w,x,y,z) = P(w|x)P(x|y)P(y)P(z)
 			\end{array}
 			$
 		\end{column}
@@ -1193,22 +1193,20 @@ $\sum\limits_{p_{22}, p_{31}}P(b_{12}, b_{21}|\lnot p_{13},\ldots)P(P_{22},P_{31
 		\pause
 		\begin{column}{0.51\textwidth}
 			\small
-			Given: $\mathbf{P}(A|b,c) = \alpha\langle 0.1, 0.3 \rangle$
+			Given: $\mathbf{P}(X|y,z) = \alpha\langle 0.1, 0.3 \rangle$
 			\\ \smallskip
-			Show: $\mathbf{P}(A|b,c) = \langle 0.25, 0.75 \rangle$
+			Show: $\mathbf{P}(X|y,z) = \langle 0.25, 0.75 \rangle$
 			\\ \bigskip
 			\pause
 			$
 			\begin{array}{@{}r@{\hspace{.2em}}l@{\hspace{.2em}}l@{}}
-			P(b,c) & = & P(a,b,c) + P(\lnot a,b,c) \\[.2em]
+			P(y,z) & = & P(x,y,z) + P(\lnot x,y,z) \\[.2em]
 			\pause
-			1      & = & \displaystyle\frac{P(a,b,c) + P(\lnot a,b,c)}{P(b, c)} \\[.8em]
+			1      & = & \displaystyle\frac{P(x,y,z) + P(\lnot x,y,c)}{P(y, z)} \\[.8em]
 			\pause
-			1      & = & \displaystyle\frac{P(a,b,c)}{P(b, c)} + \frac{P(\lnot a,b,c)}{P(b, c)} \\[.8em]
+			1      & = & \displaystyle\frac{P(x,y,z)}{P(y, z)} + \frac{P(\lnot x,y,z)}{P(y, z)} \\[.8em]
 			\pause
-			1      & = & \displaystyle\frac{P(a,b,c)}{P(b, c)} + \frac{P(\lnot a,b,c)}{P(b, c)} \\[.8em]
-			\pause
-			\alert<11->{1} & = & \alert<11->{P(a|b,c) + P(\lnot a|b,c)} \\[.2em]
+			\alert<10->{1} & = & \alert<10->{P(x|y,z) + P(\lnot x|y,z)} \\[.2em]
 			\pause
 			1      & = & 0.1\alpha + 0.3\alpha \\[.2em]
 			\pause
@@ -1240,14 +1238,14 @@ $\sum\limits_{p_{22}, p_{31}}P(b_{12}, b_{21}|\lnot p_{13},\ldots)P(P_{22},P_{31
 			\\ \smallskip
 			$
 			\begin{array}{lll}
-				P(b|a)       & = & 0.4 \\
-				P(b|\lnot a) & = & 0.9 \\
-				P(a)         & = & 0.2 \\
-				P(\lnot a)   & = & 0.8
+				P(y|x)       & = & 0.4 \\
+				P(y|\lnot x) & = & 0.9 \\
+				P(x)         & = & 0.2 \\
+				P(\lnot x)   & = & 0.8
 			\end{array}
 			$
 			\\ \bigskip
-			Show: $\mathbf{P}(A|b) = \langle 0.1, 0.9 \rangle$
+			Show: $\mathbf{P}(X|y) = \langle 0.1, 0.9 \rangle$
 		\end{column}
 	\end{columns}
 \end{frame}

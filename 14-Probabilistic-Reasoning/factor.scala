@@ -135,3 +135,28 @@ val bc = Factor(
 
 println(ab * bc)
 println((ab * bc) - B)
+
+
+val X2 = new Variable('X, List("x", "y", "z"))
+val A2 = new Variable('A, List("a", "¬a"))
+val I2 = new Variable('I, List("i", "j"))
+
+
+val xa = Factor(
+  List(X2, A2),
+  List("x", "a") -> 1,
+  List("x", "¬a") -> 4,
+  List("y", "a") -> 3,
+  List("y", "¬a") -> 2,
+  List("z", "a") -> 2,
+  List("z", "¬a") -> 5)
+
+val ai = Factor(
+  List(A2, I2),
+  List("a", "i") -> 3,
+  List("a", "j") -> 6,
+  List("¬a", "i") -> 2,
+  List("¬a", "j") -> 4)
+
+println(xa * ai)
+println((xa * ai) - A2)

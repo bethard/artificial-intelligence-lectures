@@ -574,6 +574,41 @@ j & \lnot m & \rightarrow & \uncover<5->{0.3195} \\
 }
 \end{frame}
 
+\begin{frame}{Factor Exercise}
+\setbeamercovered{invisible}
+\small\setlength{\arraycolsep}{0.2em}
+\[
+\mathlarger{\sum}_{A}
+\left(
+\left(\begin{array}{ r r c l }
+x & a & \rightarrow & 1 \\
+x & \lnot a & \rightarrow & 4 \\
+y & a & \rightarrow & 3 \\
+y & \lnot a & \rightarrow & 2 \\
+z & a & \rightarrow & 2 \\
+z & \lnot a & \rightarrow & 5
+\end{array}\right)
+\times
+\left(\begin{array}{ r r c l }
+a & i & \rightarrow & 3 \\
+a & j & \rightarrow & 6 \\
+\lnot a & i & \rightarrow & 2 \\
+\lnot a & j & \rightarrow & 4
+\end{array}\right)
+\right)
+=
+\pause
+\left(\begin{array}{ r r c l }
+x & i & \rightarrow & 11 \\
+x & j & \rightarrow & 22 \\
+y & i & \rightarrow & 13 \\
+y & j & \rightarrow & 26 \\
+z & i & \rightarrow & 16 \\
+z & j & \rightarrow & 32
+\end{array}\right)
+\]
+\end{frame}
+
 \begin{frame}[label=factor-inference]{Exact Inference via Factors}
 \small
 \setlength{\arraycolsep}{0.2em}

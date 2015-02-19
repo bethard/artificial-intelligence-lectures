@@ -540,18 +540,18 @@ pruned/.style={draw=none,content={---}}
 \begin{frame}{Expectiminimax Practice}
 	\begin{block}{A Simple Game}
 		\begin{itemize}
-			\item Deck contains J, Q, K, K
-			\item One card will be selected by the players
-			\item Player 1 draws first, and either:
+			\item Deck contains J, Q, K, K in a random order
+			\item A card is drawn and Player 1 either:
 				\begin{itemize}
-					\item Keeps the card and the game is over, or
-					\item Removes the card and Player 2 draws and either:
+					\item Ends the game, or
+					\item Another card is drawn and Player 2 either:
 						\begin{itemize}
-							\item Keeps the card and the game is over
-							\item Discards the card and a final card is drawn
+							\item Ends the game, or
+							\item Another card is drawn and the game ends
 						\end{itemize}
 				\end{itemize}
-			\item A final J scores -1, Q scores 0, and K scores +1
+			\item Utility is determined by the last card drawn
+			\item J scores -1, Q scores 0, and K scores +1
 		\end{itemize}
 	\end{block}
 \end{frame}

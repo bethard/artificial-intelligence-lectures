@@ -292,9 +292,8 @@ Query: $P(X_{5})$
 \begin{itemize}
 \item $\approx n$ parents per node
 \item $\approx n$ variables not in query
-\item $d$ values per variable
 \end{itemize}
-Time Complexity: \pause $O(nd^{n})$
+Time Complexity: \pause $O(n \cdot 2^{n})$
 \end{block}
 \end{column}
 \end{columns}
@@ -388,7 +387,7 @@ One possible solution:
 
 \begin{frame}{Drawbacks of Simple Enumeration}
 \begin{block}{Recall: Simple Enumeration}
-Time Complexity: $O(nd^{n})$
+Time Complexity: $O(n\cdot 2^{n})$
 \end{block}
 \pause
 \begin{block}{Example}

@@ -1080,22 +1080,20 @@ Query:     & $P(\textit{Rain}|\textit{Sprinkler}\!=\!\textit{true})$
 $\begin{array}{llll|cc}
 Cloudy & Sprinkler & Rain & WetGrass & rain & \lnot rain \\
 \hline
-\only<2>{\textit{true} & \textit{true} & \textit{true} & \textit{false} & 0 & 0}
-\only<3-4>{\alertit{false} & \textit{true} & \textit{true} & \textit{false} & \alt<4->{1}{0} & 0}
-\only<5-6>{\textit{false} & \textit{true} & \alertit{false} & \textit{false} & 1 & \alt<6->{1}{0}}
-\only<7-8>{\textit{false} & \textit{true} & \textit{false} & \alertit{true} & 1 & \alt<8->{2}{1}}
-\only<9-10>{\alertit{false} & \textit{true} & \textit{false} & \textit{true} & 1 & \alt<10->{3}{2}}
-\only<11-12>{\textit{false} & \textit{true} & \alertit{true} & \textit{true} & \alt<12->{2}{1} & 3}
-\only<13-14>{\textit{false} & \textit{true} & \textit{true} & \alertit{true} & \alt<14->{3}{2} & 3}
-\only<15-16>{\alertit{true} & \textit{true} & \textit{true} & \textit{true} & \alt<16->{4}{3} & 3}
-\only<17-18>{\textit{true} & \textit{true} & \alertit{false} & \textit{true} & 4 & \alt<18->{4}{3}}
-\only<19->{\textit{true} & \textit{true} & \textit{false} & \alertit{true} & 4 & \alt<20->{5}{4}}
+\only<2->{%
+\alert<3,10,17>{\alt<2-3,18->{true}{false}}
+& true
+& \alert<5,12,19>{\alt<2-5,13-19>{true}{false}}
+& \alert<7,14,21>{\alt<8->{true}{false}}
+& \only<16->{1}
+& \only<9-22>{1}\only<23->{2}
+}%
 \end{array}$
 \end{center}
-\uncover<21->{\[
-P(Rain = true | Sprinkler = true) = \frac{4}{4 + 5} = \frac{4}{9}
+\uncover<24->{\[
+P(Rain = true | Sprinkler = true) = \frac{1}{1 + 2} = \frac{1}{3}
 \]}
-\begin{block}<22->{Why Gibbs Sampling Works}
+\begin{block}<25->{Why Gibbs Sampling Works}
 \begin{itemize}
 \item Over time, reaches ``dynamic equilibrium''
 \item Time spent in each state proportional to its probability
@@ -1122,8 +1120,8 @@ P(Rain = true | Sprinkler = true) = \frac{4}{4 + 5} = \frac{4}{9}
             probability = markov_blanket_probability_of(variable, sample)
             \cmnt{# select a new value according to that distribution}
             sample[variable] = random.random() < probability
-            \cmnt{# increment the count for the current query value}
-            counts[sample[query]] += \num{1}
+        \cmnt{# increment the count for the current query value}
+        counts[sample[query]] += \num{1}
     \pause\cmnt{# normalize the counts and return the probabilities}
     \keyword{return} normalize(counts)
 \end{semiverbatim}

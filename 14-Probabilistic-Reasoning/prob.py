@@ -167,8 +167,8 @@ def gibbs_sampling(query, evidence, bayes_net, samples):
             probability = markov_blanket_probability_of(variable, sample)
             # select a new value according to that distribution
             sample[variable] = random.random() < probability
-            # increment the count for the current query value
-            counts[sample[query]] += 1
+        # increment the count for the current query value
+        counts[sample[query]] += 1
     # normalize the counts and return the probabilities
     return normalize(counts)
 

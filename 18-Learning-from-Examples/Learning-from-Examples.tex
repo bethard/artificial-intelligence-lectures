@@ -15,9 +15,9 @@
     }
 }
 \forestset{
-  decision/.style={draw,fill=gray,minimum height=2em,minimum width=2em,inner sep=0.2em},
+  decision/.style={draw,fill=gray,minimum height=1.5em,minimum width=2em,inner sep=0.2em},
   choice/.style={edge label={node[near end,left,inner sep=0.2em]{#1}}},
-  result/.style={draw,rounded corners,minimum height=2em,minimum width=2em,inner sep=0.2em},
+  result/.style={draw,rounded corners,minimum height=1.5em,minimum width=2em,inner sep=0.2em},
   decision tree/.style n args={3}{
     for tree={
       s sep=#1,
@@ -1194,7 +1194,7 @@ Random feature subsets:\\
 \setlength{\arraycolsep}{0em}
 \begin{forest}
 decision tree={1em}{2.5em}{3em},
-for tree={draw,minimum height=3.5em},
+for tree={draw,minimum height=3.25em},
 baseline
 [{{\scriptsize$\begin{array}{ l l l l }
 0   & 0   & 0   & F \\

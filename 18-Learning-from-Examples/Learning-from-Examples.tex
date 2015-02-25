@@ -685,7 +685,7 @@ $R_f$ = $\{\textit{Yes}, \textit{No}\}$
 $f(x) = x_1 \textit{ xor } x_2$ \\[1em]
 \small
 \begin{forest}
-decision tree={1.4em}{3em}{2em}
+decision tree={1.2em}{3em}{2em}
 [{$x_1$},decision
   [{$x_2$},decision,choice={true}
     [false,result,choice={true}]
@@ -703,7 +703,7 @@ decision tree={1.4em}{3em}{2em}
 $f(x) = (x_1 \land x_2) \lor \lnot x_3$ \\[1em]
 \small
 \begin{forest}
-decision tree={1.4em}{3em}{2em}
+decision tree={1.2em}{3em}{2em}
 [{$x_1$},decision
   [{$x_2$},decision,choice={true}
     [true,result,choice={true}]
@@ -1197,7 +1197,7 @@ Random feature subsets:\\
 \setlength{\arraycolsep}{0em}
 \begin{forest}
 decision tree={1em}{2.5em}{3em},
-for tree={draw,minimum height=3.25em},
+for tree={draw},
 baseline
 [{{\scriptsize$\begin{array}{ l l l l }
 0   & 0   & 0   & F \\
@@ -1308,7 +1308,7 @@ baseline
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
 \begin{block}{Euclidean Distance}
-$\displaystyle \sqrt{\sum_{i=1}^{n}(a_i - b_i)^{2}}$
+{\small$\displaystyle \sqrt{\sum_{i=1}^{n}(a_i - b_i)^{2}}$}
 \hfill
 \begin{tabular}{@{}l@{\hspace{.2em}}c@{}}
 close & 0 \\
@@ -1317,12 +1317,12 @@ far   & $\infty$
 \end{block}
 \end{column}
 \begin{column}{0.48\textwidth}
-\begin{block}{Cosine Distance}
-$\displaystyle \frac
+\begin{block}{Cosine Similarity}
+{\small$\displaystyle \frac
 {\displaystyle \sum_{i=1}^{n}a_i b_i}
 {\displaystyle
  \sqrt{\sum_{i=1}^{n}a_i^2}
- \sqrt{\sum_{i=1}^{n}b_i^2}}$
+ \sqrt{\sum_{i=1}^{n}b_i^2}}$}
 \hfill
 \begin{tabular}{@{}l@{\hspace{.2em}}c@{}}
 close & 1 \\
@@ -1338,8 +1338,8 @@ far   & -1
 \begin{axis}[
   xmin=0,xmax=7,
   ymin=0,ymax=3,
-  x=1.5em,
-  y=1.5em,
+  x=1.4em,
+  y=1.4em,
 ]
 \addplot[only marks,mark options={scale=4,fill=black}] coordinates { (1, 2) };
 \addplot[only marks,mark options={scale=4,alt={4-}{fill=black}{fill=gray}},mark=*,nodes near coords={?},every node near coord/.style={anchor=center,visible on={-3}}] coordinates { (3, 2) };
@@ -1355,8 +1355,8 @@ far   & -1
 \begin{axis}[
   xmin=0,xmax=7,
   ymin=0,ymax=3,
-  x=1.5em,
-  y=1.5em,
+  x=1.4em,
+  y=1.4em,
 ]
 \addplot[only marks,mark options={scale=4,fill=black}] coordinates { (1, 2) };
 \addplot[only marks,mark options={scale=4,alt={7-}{fill=white}{fill=gray}},mark=*,nodes near coords={?},every node near coord/.style={anchor=center,visible on={-6}}] coordinates { (3, 2) };
@@ -1389,7 +1389,7 @@ x_1 & x_2 & f(x) \\
 3   & 3   & B \\
 \end{array}$
 \begin{block}{Euclidean Distance}
-$\displaystyle \sqrt{\sum_{i=1}^{n}(a_i - b_i)^{2}}$
+{\small$\displaystyle \sqrt{\sum_{i=1}^{n}(a_i - b_i)^{2}}$}
 \hfill
 \begin{tabular}{@{}l@{\hspace{.2em}}c@{}}
 close & 0 \\
@@ -1420,12 +1420,12 @@ $\begin{array}{ c c | c @{} }
 }
 \end{column}
 \end{columns}
-\begin{block}{Cosine Distance}
-$\displaystyle \frac
+\begin{block}{Cosine Similarity}
+{\small$\displaystyle \frac
 {\displaystyle \sum_{i=1}^{n}a_i b_i}
 {\displaystyle
  \sqrt{\sum_{i=1}^{n}a_i^2}
- \sqrt{\sum_{i=1}^{n}b_i^2}}$
+ \sqrt{\sum_{i=1}^{n}b_i^2}}$}
 \hfill
 \begin{tabular}{@{}l@{\hspace{.2em}}c@{}}
 close & 1 \\
@@ -1487,7 +1487,7 @@ How ``wrong'' is this $h(x)$?\\[1em]
 \setlength{\arraycolsep}{0.1em}
 \renewcommand{\arraystretch}{1.75}
 \begin{block}{Loss at one point}
-$\begin{array}{ l l l }
+$\begin{array}{@{} l l l @{}}
 L_{0/1}(\theta, x) & = &
 \begin{cases}
 0 & \text{if } h_{\theta}(x) = f(x) \\
@@ -1509,6 +1509,9 @@ $\displaystyle L(\theta) = \frac{1}{|X|} \sum_{x \in X} L(\theta, x)$
 \begin{frame}[label=loss-exercise]{Loss Exercise}
 \setlength{\leftmargini}{1.5em}
 Recall that $h_{\theta}(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots$ and consider:
+\vspace{-0.5em}
+\begin{columns}
+\begin{column}{0.54\textwidth}
 \begin{enumerate}
 \item $\bm{\theta}_{a} = [0, 1]$
 % L_{0/1} => 2
@@ -1519,8 +1522,7 @@ Recall that $h_{\theta}(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots$ an
 % L_1 => 7.2
 % L_2 => 12.4
 \end{enumerate}
-\begin{columns}
-\begin{column}{0.55\textwidth}
+\medskip
 Which $\theta$ is better by:
 \begin{itemize}
 \item {\small $\displaystyle L_{0/1}(\theta) = \frac{1}{|X|} \sum_{x \in X} h_{\theta}(x) \neq f(x)$?}
@@ -1531,7 +1533,7 @@ Which $\theta$ is better by:
 \visible<2->{\\[-0.7em] \hfill $\bm{\theta}_{b}$ $\left( \frac{20}{5} \text{ vs. } \frac{12.4}{5} \right)$}
 \end{itemize}
 \end{column}
-\begin{column}{0.4\textwidth}
+\begin{column}{0.42\textwidth}
 \begin{tikzpicture}
 \begin{axis}[
   grid=both,
@@ -1560,7 +1562,7 @@ Which $\theta$ is better by:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label=learning-via-loss]{Learning Parameters via Minimizing Loss}
+\begin{frame}[label=learning-via-loss]{Learning Parameters as Minimizing Loss}
 \setbeamercovered{invisible}
 \begin{block}{Key Ideas}
 \begin{itemize}
@@ -1587,7 +1589,7 @@ Loss(h_{\theta})
 \end{array}$
 \end{frame}
 
-\begin{frame}[label=gradient-descent]{Learning Parameters via Minimizing Loss}
+\begin{frame}[label=gradient-descent]{Learning Parameters as Minimizing Loss}
 Formal approach:
 \begin{itemize}
 \item Given: function $h_{\theta}$ and function $Loss(\theta)$
@@ -1699,9 +1701,9 @@ for the regularization:
 \begin{itemize}
 \item None?
 \visible<2->{$\bm{\theta}_{a}$ $\left( \frac{1}{3} \text{ vs. } \frac{5}{3} \right)$}
-\item $L_1$ with $\lambda=\frac{1}{3}$?
+\item $L_1$, $\lambda=\frac{1}{3}$?
 \visible<2->{$\bm{\theta}_{a}$ $\left( \frac{7}{3} \text{ vs. } \frac{8}{3} \right)$}
-\item $L_2$ with $\lambda=\frac{1}{3}$?
+\item $L_2$, $\lambda=\frac{1}{3}$?
 \visible<2->{$\bm{\theta}_{b}$ $\left( \frac{15}{3} \text{ vs. } \frac{14}{3} \right)$}
 \end{itemize}
 \visible<2->{
@@ -1840,8 +1842,8 @@ Classification problem:\\
 \begin{tikzpicture}
 \begin{axis}[
   colormap/blackwhite,
-  x=1.5em,
-  y=1.5em,
+  x=1.4em,
+  y=1.4em,
   xmin=-0.5,xmax=6.5,
   ymin=-0.5,ymax=6.5,
   domain=-1:7

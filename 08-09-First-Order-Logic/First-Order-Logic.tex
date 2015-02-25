@@ -485,7 +485,7 @@ $
 \begin{block}{Propositional Logic}
 $
 \begin{array}{l}
-\textit{Mammal9X23B} \land \textit{LaysEggs9E23B} \\
+\textit{Mammal9X23B} \land \textit{LaysEggs9X23B} \\
 \textit{MammalPlatypus} \limpl \textit{WarmBloodedPlatypus} \\
 \textit{MammalCrocodile} \limpl \textit{WarmBloodedCrocodile} \\
 \textit{MammalPlatypus} \\
@@ -607,23 +607,24 @@ $\textsc{Unify}(p, q) = \theta \mbox{ where } \textsc{Subst}(\theta, p) = \texts
 \end{block}
 \bigskip
 \begin{block}{Example}<2->
-$p=\textit{Eats}(\textit{Panda}, y)$\\
+\small
+$p=\forall y\ \textit{Eats}(\textit{Panda}, y)$\\
 \thickmuskip=0mu
 \medskip
 $
 \begin{array}{@{} l l @{}}
-q & \textsc{Unify}(p, q) \\
+q= & \textsc{Unify}(p, q) \\
 \hline
 \textit{Eats}(\textit{Panda}, \textit{Leaves})
 & \uncover<3->{\{y=\textit{Leaves}\}}
 \\
-\textit{Eats}(x, \textit{Pizza})
+\forall x \textit{Eats}(x, \textit{Pizza})
 & \uncover<4->{\{x=\textit{Panda}, y=\textit{Pizza}\}}
 \\
-\textit{Eats}(x, \textit{FavFood}(x))
-& \uncover<5->{\{x=\textit{Panda}, y=\textit{FavFood}(\textit{Panda})\}}
+\forall x \textit{Eats}(x, \textit{FavoriteFood}(x))
+& \uncover<5->{\{x=\textit{Panda}, y=\textit{FavoriteFood}(\textit{Panda})\}}
 \\
-\textit{Eats}(x, y) \limpl \textit{Edible}(y)
+\forall x, y \textit{Eats}(x, y) \limpl \textit{Edible}(y)
 & \uncover<6->{\alert{fail}}
 \end{array}
 $

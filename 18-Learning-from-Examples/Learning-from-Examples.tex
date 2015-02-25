@@ -118,12 +118,14 @@ Describe the function $f\!: D_f \rightarrow R_f$
 \begin{column}{0.47\textwidth}<5->
 \begin{block}{Ex: Face Recognition}
 \begin{description}[$D_f$]
-\item[$D_f$] = \uncover<6->{images}
-\item[$R_f$] = \uncover<7->{image regions}
+\item[$D_f$] = \uncover<6->{image regions}
+\item[$R_f$] = \uncover<7->{$\{0,1\}$}
 \end{description}
 \end{block}
 \end{column}
 \end{columns}
+\bigskip
+\uncover<8->{Most algorithms work best when $R_f \subseteq \mathbb{R}$ or $|R_f| \ll 100$}
 \end{frame}
 
 \subsection{Features}
@@ -202,7 +204,7 @@ $[_{\textsc{\scriptsize Org}}$ Microsoft Corporation$]$
 Named entity recognition as supervised learning:
 \begin{itemize}
 \item Describe the function domain
-\item Describe the function range
+\item Describe the function range (\alert{keep it small!})
 \item Describe the feature space
 \end{itemize}
 \end{block}

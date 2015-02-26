@@ -5,9 +5,11 @@
 \usepackage{bm}
 
 \tikzset{
-  nn io/.style={draw,minimum size=2em},
-  nn unit/.style={draw,ellipse split,minimum size=4em},
+  nn bias/.style={fill=gray!50!white,minimum size=2em,font=\small},
+  nn io/.style={draw,minimum size=2em,font=\small},
+  nn unit/.style={draw,circle split,minimum size=3.25em,font=\small},
   nn edge/.style={draw,thick,-latex},
+  nn weight/.style={sloped,anchor=south,near start,font=\footnotesize},
 }
 \pgfplotsset{
     y noise/.style={
@@ -2037,9 +2039,9 @@ Common choices for \textit{activation function} $g$:
 \medskip
 \begin{columns}[t]
 \begin{column}{0.55\textwidth}
-$\displaystyle threshold_{k}(x) =
+$\displaystyle threshold(x) =
 \begin{cases}
-1 & \text{if } x > k \\
+1 & \text{if } x > 0 \\
 0 & \text{otherwise}
 \end{cases}$
 \end{column}
@@ -2054,12 +2056,14 @@ $\displaystyle sigmoid(x) = \frac{1}{1 + e^{-x}}$
 \begin{tikzpicture}[
   align=center,
 ]
-\node[nn io] (i1) at (0, 2) {\only<2-4>{1}\only<5->{0}};
+\node[nn bias] (i0) at (0, 2) {1};
+\node[nn io] (i1) at (0, 0) {\only<2-4>{1}\only<5->{0}};
 \node[nn io] (i2) at (0, -2) {\only<2->{1}};
-\node[nn unit] (and) at (2, 0) {\only<3-4>{2.0}\only<6->{1.0}\nodepart{lower}$ > \!\! 1.5 $};
-\node[nn io] (o) at (5, 0) {\only<4>{1}\only<7->{0}};
-\path[nn edge] (i1) -- node[midway,left] {1.0} (and);
-\path[nn edge] (i2) -- node[midway,left] {1.0} (and);
+\node[nn unit] (and) at (3, 0) {\only<3-4>{0.5}\only<6->{-0.5}\nodepart{lower}$>$0};
+\node[nn io] (o) at (6, 0) {\only<4>{1}\only<7->{0}};
+\path[nn edge] (i0.east) -- node[nn weight] {-1.5} (and.west);
+\path[nn edge] (i1.east) -- node[nn weight] {1.0} (and.west);
+\path[nn edge] (i2.east) -- node[nn weight] {1.0} (and.west);
 \path[nn edge] (and) -- (o);
 \end{tikzpicture}
 \end{center}
@@ -2072,19 +2076,24 @@ Sum inputs, apply activation function, repeat\\
 \begin{tikzpicture}[
   align=center,
 ]
-\node[nn io] (i1) at (0, 2) {\only<2->{1}};
-\node[nn io] (i2) at (0, -2) {\only<2->{1}};
-\node[nn unit] (u1) at (3, 2) {\only<3->{0.5}\nodepart{lower} $> \!\! 1.5$};
-\node[nn unit] (u2) at (3, -2) {\only<4->{1.5}\nodepart{lower} $> \!\! 0.5$};
-\node[nn unit] (u3) at (6, 0) {\only<5->{1.0}\nodepart{lower} $> \!\! 0.5$};
+\node[nn bias] (i0) at (0, 2.5) {1};
+\node[nn io] (i1) at (0, 0) {\only<2->{1}};
+\node[nn io] (i2) at (0, -2.5) {\only<2->{1}};
+\node[nn bias] (u0) at (4, 2.5) {1};
+\node[nn unit] (u1) at (4, 0) {\only<3->{-1.0}\nodepart{lower} $>$0};
+\node[nn unit] (u2) at (4, -2.5) {\only<4->{1.5}\nodepart{lower} $>$0};
+\node[nn unit] (u3) at (7, 0) {\only<5->{0.5}\nodepart{lower} $>$0};
 \node[nn io] (o) at (9, 0) {\only<6->{1.0}};
-\path[nn edge] (i1) -- node[near end,above] {-0.5} (u1);
-\path[nn edge] (i1) -- node[very near end,left] {0.5} (u2);
-\path[nn edge] (i2) -- node[very near end,left] {1.0} (u1);
-\path[nn edge] (i2) -- node[near end,below] {1.0} (u2);
-\path[nn edge] (u1) -- node[near end,above=0.2em] {-0.5} (u3);
-\path[nn edge] (u2) -- node[near end,below=0.2em] {1.0} (u3);
-\path[nn edge] (u3) -- (o);
+\path[nn edge] (i0.east) -- node[nn weight] {-1.5} (u1.west);
+\path[nn edge] (i0.east) -- node[nn weight] {0.0} (u2.west);
+\path[nn edge] (i1.east) -- node[nn weight] {-0.5} (u1.west);
+\path[nn edge] (i1.east) -- node[nn weight] {0.5} (u2.west);
+\path[nn edge] (i2.east) -- node[nn weight] {1.0} (u1.west);
+\path[nn edge] (i2.east) -- node[nn weight] {1.0} (u2.west);
+\path[nn edge] (u0.east) -- node[nn weight] {-0.5} (u3.west);
+\path[nn edge] (u1.east) -- node[nn weight] {-0.5} (u3.west);
+\path[nn edge] (u2.east) -- node[nn weight] {1.0} (u3.west);
+\path[nn edge] (u3.east) -- (o.west);
 \end{tikzpicture}
 \end{center}
 \end{frame}
@@ -2094,27 +2103,32 @@ Sum inputs, apply activation function, repeat\\
 \begin{tikzpicture}[
   align=center,
 ]
-\node[nn io] (i1) at (0, 3) {1};
-\node[nn io] (i2) at (0, 0) {0};
-\node[nn io] (i3) at (0, -3) {1};
-\node[nn unit] (u1) at (3, 1.5) {\only<2->{0.0}\nodepart{lower}$>$0.5};
-\node[nn unit] (u2) at (3, -1.5) {\only<2->{1.5}\nodepart{lower}$>$1.0};
-\node[nn unit] (u3) at (6, 1.5) {\only<2->{1.5}\nodepart{lower}$>$0.0};
-\node[nn unit] (u4) at (6, -1.5) {\only<2->{-1.0}\nodepart{lower}$>$-0.5};
-\node[nn unit] (u5) at (8.5, 0) {\only<2->{-0.5}\nodepart{lower}$>$0.5};
+\node[nn bias] (b1) at (0, 3) {1};
+\node[nn bias] (b2) at (3, 3) {1};
+\node[nn bias] (b3) at (6, 3) {1};
+\node[nn io] (i1) at (0, 0) {0};
+\node[nn io] (i2) at (0, -3) {1};
+\node[nn unit] (u1) at (3, 0) {\only<2->{-1.0}\nodepart{lower}$>$0};
+\node[nn unit] (u2) at (3, -3) {\only<2->{0.5}\nodepart{lower}$>$0};
+\node[nn unit] (u3) at (6, 0) {\only<2->{2.0}\nodepart{lower}$>$0};
+\node[nn unit] (u4) at (6, -3) {\only<2->{-0.5}\nodepart{lower}$>$0};
+\node[nn unit] (u5) at (8.5, 0) {\only<2->{-1.0}\nodepart{lower}$>$0};
 \node[nn io] (o) at (10.5, 0) {\only<2->{0.0}};
-\path[nn edge] (i1) -- node[near end,above] {\small 0.5} (u1);
-\path[nn edge] (i1) -- node[very near end,right] {\small 0.5} (u2);
-\path[nn edge] (i2) -- node[near end,above] {\small 1.0} (u1);
-\path[nn edge] (i2) -- node[near end,below] {\small 0.5} (u2);
-\path[nn edge] (i3) -- node[very near end,right] {\small -0.5} (u1);
-\path[nn edge] (i3) -- node[near end,below] {\small 1.0} (u2);
-\path[nn edge] (u1) -- node[near end, above] {\small 1.0} (u3);
-\path[nn edge] (u1) -- node[near end, right] {\small 0.5} (u4);
-\path[nn edge] (u2) -- node[near end, right] {\small 1.5} (u3);
-\path[nn edge] (u2) -- node[near end, below] {\small -1.0} (u4);
-\path[nn edge] (u3) -- node[near end, above] {\small -0.5} (u5);
-\path[nn edge] (u4) -- node[near end, below] {\small 1.0} (u5);
+\path[nn edge] (b1) -- node[nn weight] {-0.5} (u1);
+\path[nn edge] (b1) -- node[nn weight] {-0.5} (u2);
+\path[nn edge] (b2) -- node[nn weight] {0.5} (u3);
+\path[nn edge] (b2) -- node[nn weight] {0.5} (u4);
+\path[nn edge] (b3) -- node[nn weight] {-0.5} (u5);
+\path[nn edge] (i1) -- node[nn weight] {1.0} (u1);
+\path[nn edge] (i1) -- node[nn weight] {0.5} (u2);
+\path[nn edge] (i2) -- node[nn weight] {-0.5} (u1);
+\path[nn edge] (i2) -- node[nn weight] {1.0} (u2);
+\path[nn edge] (u1) -- node[nn weight] {1.0} (u3);
+\path[nn edge] (u1) -- node[nn weight] {0.5} (u4);
+\path[nn edge] (u2) -- node[nn weight] {1.5} (u3);
+\path[nn edge] (u2) -- node[nn weight] {-1.0} (u4);
+\path[nn edge] (u3) -- node[nn weight] {-0.5} (u5);
+\path[nn edge] (u4) -- node[nn weight] {1.0} (u5);
 \path[nn edge] (u5) -- (o);
 \end{tikzpicture}
 \end{center}

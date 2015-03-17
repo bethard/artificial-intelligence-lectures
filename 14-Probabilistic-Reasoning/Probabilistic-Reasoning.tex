@@ -1198,27 +1198,25 @@ $P(x|\textit{mb}(X)) = \alpha P(x|\textit{parents}(X)) \prod\limits_{Y \in \text
 			\end{tabular}
 		\end{column}
 	\end{columns}
-% Updating R:
-% P(r | mb(R)) = \alpha P(r | c) P(w | s, r) = \alpha * .8 * .99 = 0.792\alpha
-% P(\lnot r | mb(R)) = \alpha P(\lnot r | c) P(w | s, \lnot r) = \alpha * .2 * .9 = .18\alpha
-% sum => .972
-% P(R | mb(R)) = < .815, .185 >
-% 0.48 => r
-% <c, s, r, w>
-%
-% Updating W:
-% P(w | mb(W)) = \alpha P(w | s, r) = .99\alpha
-% P(\lnot w | mb (W)) = \alpha P(\lnot w | s, r) = .01\alpha
-% P(W | mb(W)) = < .99, .01 >
-% .63 => w
-% <c, s, r, w>
-%
-% Updating C:
-% P(c | mb(C)) = \alpha P(c) P(s | c) P(r | c) = \alpha * .5 * .1 * .8 = .04 \alpha
-% P(\lnot c | mb(C)) = \alpha P(\lnot c) P(s | \lnot c) P(r | \lnot c) = \alpha * .5 * .5 * .2 = .05 \alpha
-% P(C | mb(C)) = < .44444, .55555 >
-% .83 => \lnot c
-% <\lnot c, s, r, w>
+\end{frame}
+
+\begin{frame}{Gibbs Sampling Exercise}
+\footnotesize
+\begin{align*}
+\text{previous sample} &\rightarrow \langle c, s, \lnot r, w \rangle \\[0.5em]
+P(r | mb(R)) &= \alpha P(r | c) P(w | s, r) = \alpha \cdot 0.8 \cdot 0.99 = \alpha \cdot 0.792 \\
+P(\lnot r | mb(R)) &= \alpha P(\lnot r | c) P(w | s, \lnot r) = \alpha \cdot 0.2 \cdot 0.9 = \alpha \cdot 0.18 \\
+P(R | mb(R)) &= \alpha \langle 0.792, 0.18 \rangle = \langle 0.815, 0.185 \rangle\\
+0.48 < 0.815 &\rightarrow \langle c, s, r, w \rangle \\[0.5em]
+P(w | mb(W)) &= \alpha P(w | s, r) = \alpha \cdot 0.99 \\
+P(\lnot w | mb (W)) &= \alpha P(\lnot w | s, r) = \alpha \cdot 0.01 \\
+P(W | mb(W)) &= \alpha \langle 0.99, 0.01 \rangle = \langle 0.99, 0.01 \rangle \\
+0.63 < 0.99 &\rightarrow \langle c, s, r, w \rangle \\[0.5em]
+P(c | mb(C)) &= \alpha P(c) P(s | c) P(r | c) = \alpha \cdot 0.5 \cdot 0.1 \cdot 0.8 = \alpha \cdot 0.04 \\
+P(\lnot c | mb(C)) &= \alpha P(\lnot c) P(s | \lnot c) P(r | \lnot c) = \alpha \cdot 0.5 \cdot 0.5 \cdot 0.2 = \alpha \cdot 0.05 \\
+P(C | mb(C)) &= \alpha \langle 0.04, 0.05 \rangle = \langle 0.444, 0.555 \rangle \\
+0.83 \not< 0.444 &\rightarrow \langle \lnot c, s, r, w \rangle
+\end{align*}
 \end{frame}
 
 \begin{frame}{Gibbs Sampling}

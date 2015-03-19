@@ -249,10 +249,10 @@ $
 \begin{array}[t]{ll|l}
 x_1 & x_2 & f(x) \\
 \hline
-0   & a   & \textit{true} \\
+1   & a   & \textit{true} \\
 0   & b   & \textit{false} \\
 0   & c   & \textit{false} \\
-1   & b   & \textit{false} \\
+0   & b   & \textit{false} \\
 \end{array}
 $
 \end{column}
@@ -273,7 +273,11 @@ $
 \medskip
 \begin{columns}
 \begin{column}<4->{0.48\textwidth}
-$\displaystyle h_1(x) = \textit{false} $ \\
+$\displaystyle h_1(x) = 
+\begin{cases}
+\textit{true} & \text{if } x_1 = 1 \\
+\textit{false} & \text{otherwise}
+\end{cases} $ \\
 \end{column}
 \begin{column}<4->{0.48\textwidth}
 $\displaystyle h_2(x) = 
@@ -285,7 +289,7 @@ $\displaystyle h_2(x) =
 \end{columns}
 \begin{columns}
 \begin{column}<4->{0.48\textwidth}
-\uncover<6->{Performance:} \uncover<7->{$\frac{2}{4} = 0.5$}
+\uncover<6->{Performance:} \uncover<7->{$\frac{4}{4} = 1.0$}
 \end{column}
 \begin{column}<4->{0.48\textwidth}
 \uncover<6->{Performance:} \uncover<8->{$\frac{3}{4} = 0.75$}

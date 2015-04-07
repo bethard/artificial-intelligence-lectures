@@ -1583,7 +1583,7 @@ $\begin{array}{ >{\displaystyle}r >{\displaystyle}c >{\displaystyle}l }
 Loss(h_{\theta})
 & = & \frac{1}{|X|}\sum_{x \in X} \left(f(x) - (\theta_0 + \theta_1 x_1)\right)^2\\
 \pause
-& = & \frac{1}{|X|}\sum_{x \in X} f(x)^2 - \alert<4->{ \theta_0 f(x) } - 2 \theta_1 x_1 f(x) + \alert<4->{ \theta_0^2 } + \alert<4->{ 2 \theta_0 \theta_1 x_1 } + \theta_1^2 x_1^2 \\
+& = & \frac{1}{|X|}\sum_{x \in X} f(x)^2 - \alert<4->{ 2 \theta_0 f(x) } - 2 \theta_1 x_1 f(x) + \alert<4->{ \theta_0^2 } + \alert<4->{ 2 \theta_0 \theta_1 x_1 } + \theta_1^2 x_1^2 \\
 \pause
 \displaystyle\frac{\delta}{\delta\theta_0} Loss(h_{\theta})
 & = & \frac{1}{|X|}\sum_{x \in X} - 2 f(x) + 2 \theta_0 + 2 \theta_1 x_1 = 0\\
@@ -1959,7 +1959,7 @@ Common kernels $k(x,x')$:
 \uncover<4->{
 Demo: kernels allow non-linear classification boundaries
 \begin{itemize}
-\item \small\url{http://www.csie.ntu.edu.tw/~cjlin/libsvm/\#GUI}
+\item \footnotesize\url{http://www.csie.ntu.edu.tw/~cjlin/libsvm/index.html?js=1}
 \end{itemize}
 }
 \end{frame}

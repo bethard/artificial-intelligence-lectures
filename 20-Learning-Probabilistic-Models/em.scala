@@ -10,7 +10,13 @@ package object em {
     "THHHTHHHTH",
     "HTTTHHTHTH").map(_.toSeq)
 
-  val candyCountsData = ListMap(
+  val coinInitialParameters = Map(
+    'C' -> Map('A' -> 0.5, 'B' -> 0.5),
+    'A' -> Map('H' -> 0.6, 'T' -> 0.4),
+    'B' -> Map('H' -> 0.5, 'T' -> 0.5))
+
+
+  val candyData = ListMap(
     Map("Flavor" -> "cherry", "Wrapper" -> "red", "Hole" -> "true") -> 273,
     Map("Flavor" -> "cherry", "Wrapper" -> "red", "Hole" -> "false") -> 93,
     Map("Flavor" -> "cherry", "Wrapper" -> "green", "Hole" -> "true") -> 104,
@@ -19,6 +25,15 @@ package object em {
     Map("Flavor" -> "lime", "Wrapper" -> "red", "Hole" -> "false") -> 100,
     Map("Flavor" -> "lime", "Wrapper" -> "green", "Hole" -> "true") -> 94,
     Map("Flavor" ->  "lime", "Wrapper" -> "green", "Hole" -> "false") -> 167)
+
+  val candyInitialParameters = Map(
+    "Bag" -> Map("1" -> 0.6, "2" -> 0.4),
+    "1Flavor" -> Map("cherry" -> 0.6, "lime" -> 0.4),
+    "1Wrapper" -> Map("red" -> 0.6, "green" -> 0.4),
+    "1Hole" -> Map("true" -> 0.6, "false" -> 0.4),
+    "2Flavor" -> Map("cherry" -> 0.4, "lime" -> 0.6),
+    "2Wrapper" -> Map("red" -> 0.4, "green" -> 0.6),
+    "2Hole" -> Map("true" -> 0.4, "false" -> 0.6))
 
   val bcxyData = Seq(
     ("bc".toSeq, "xy".toSeq),
@@ -51,7 +66,7 @@ abstract class ExpectationMaximization[NAME, VALUE] {
     }
   }
 
-  def iterator = {
+  def iterator: Iterator[Parameters] = {
     var parameters = this.initialParameters
     Iterator(parameters) ++ Iterator.continually {
       parameters = this.normalize(this.collectCounts(parameters))
@@ -73,17 +88,10 @@ abstract class ExpectationMaximization[NAME, VALUE] {
   }
 }
 
-class CandyProblem(candyCounts: Map[Map[String, String], Int])
+class CandyProblem(
+    candyCounts: Map[Map[String, String], Int] = em.candyData,
+    val initialParameters: Map[String, Map[String, Double]] = em.candyInitialParameters)
 extends ExpectationMaximization[String, String] {
-
-  val initialParameters = Map(
-    "Bag" -> Map("1" -> 0.6, "2" -> 0.4),
-    "1Flavor" -> Map("cherry" -> 0.6, "lime" -> 0.4),
-    "1Wrapper" -> Map("red" -> 0.6, "green" -> 0.4),
-    "1Hole" -> Map("true" -> 0.6, "false" -> 0.4),
-    "2Flavor" -> Map("cherry" -> 0.4, "lime" -> 0.6),
-    "2Wrapper" -> Map("red" -> 0.4, "green" -> 0.6),
-    "2Hole" -> Map("true" -> 0.4, "false" -> 0.6))
 
   def collectCounts(parameters: Parameters): Parameters = {
     val counts = this.emptyCounts
@@ -147,13 +155,9 @@ extends ExpectationMaximization[T, T] {
 }
 
 class CoinProblem(
-  data: Seq[Seq[Char]], probA: Double, probAH: Double, probBH: Double)
+  data: Seq[Seq[Char]] = em.coinData,
+  val initialParameters: Map[Char, Map[Char, Double]] = em.coinInitialParameters)
 extends ExpectationMaximization[Char, Char] {
-
-  val initialParameters = Map(
-    'C' -> Map('A' -> probA, 'B' -> (1.0 - probA)),
-    'A' -> Map('H' -> probAH, 'T' -> (1.0 - probAH)),
-    'B' -> Map('H' -> probBH, 'T' -> (1.0 - probBH)))
 
   def collectCounts(parameters: Parameters): Parameters = {
     val counts = this.emptyCounts
@@ -190,4 +194,3 @@ extends ExpectationMaximization[Char, Char] {
 }
 
 }
-

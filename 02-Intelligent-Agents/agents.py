@@ -2,12 +2,12 @@ class TableDrivenAgent(object):
     def __init__(self, table):
         self.table = table
         self.percepts = []
-    def take_action(self, percept):
+    def act(self, percept):
         self.percepts.append(percept)
         return self.table[self.percepts]
 
 class ReflexVacuumAgent(object):
-    def take_action(self, percept):
+    def act(self, percept):
         location, status = percept
         if status == "Dirty":
             return "Suck"
@@ -21,7 +21,7 @@ class StatefulReflexVacuumAgent(object):
     def __init__(self):
         self.time_at_location = 3
         self.directions = dict(A="Right", B="Left")
-    def take_action(self, percept):
+    def act(self, percept):
         self.time_at_location += 1
         location, status = percept
         if status == "Dirty":
@@ -34,20 +34,20 @@ class StatefulReflexVacuumAgent(object):
 
 def test():
     agent = StatefulReflexVacuumAgent()
-    assert agent.take_action(("A", "Dirty")) == "Suck"
-    assert agent.take_action(("A", "Clean")) == "Right"
-    assert agent.take_action(("B", "Clean")) == "NoOp"
-    assert agent.take_action(("B", "Clean")) == "NoOp"
-    assert agent.take_action(("B", "Clean")) == "NoOp"
-    assert agent.take_action(("B", "Clean")) == "Left"
-    assert agent.take_action(("A", "Clean")) == "NoOp"
-    assert agent.take_action(("A", "Clean")) == "NoOp"
-    assert agent.take_action(("A", "Clean")) == "NoOp"
-    assert agent.take_action(("A", "Clean")) == "Right"
-    assert agent.take_action(("B", "Clean")) == "NoOp"
-    assert agent.take_action(("B", "Clean")) == "NoOp"
-    assert agent.take_action(("B", "Clean")) == "NoOp"
-    assert agent.take_action(("B", "Dirty")) == "Suck"
-    assert agent.take_action(("B", "Clean")) == "Left"
+    assert agent.act(("A", "Dirty")) == "Suck"
+    assert agent.act(("A", "Clean")) == "Right"
+    assert agent.act(("B", "Clean")) == "NoOp"
+    assert agent.act(("B", "Clean")) == "NoOp"
+    assert agent.act(("B", "Clean")) == "NoOp"
+    assert agent.act(("B", "Clean")) == "Left"
+    assert agent.act(("A", "Clean")) == "NoOp"
+    assert agent.act(("A", "Clean")) == "NoOp"
+    assert agent.act(("A", "Clean")) == "NoOp"
+    assert agent.act(("A", "Clean")) == "Right"
+    assert agent.act(("B", "Clean")) == "NoOp"
+    assert agent.act(("B", "Clean")) == "NoOp"
+    assert agent.act(("B", "Clean")) == "NoOp"
+    assert agent.act(("B", "Dirty")) == "Suck"
+    assert agent.act(("B", "Clean")) == "Left"
 
 test()

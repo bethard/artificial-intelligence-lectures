@@ -2,10 +2,10 @@
 
 \documentclass[14pt]{beamer}
 \input{../slides-preamble}
-\lstset{emph={[2]ReflexVacuumAgent,ReflexWithStateVacuumAgent,take_action,__init__}}
+\lstset{emph={[2]ReflexVacuumAgent,ReflexWithStateVacuumAgent,act,__init__}}
 
 \title{Intelligent Agents}
-\date[]{8 Jan 2015}
+\date[]{12 Jan 2016}
 
 \begin{document}
 
@@ -39,7 +39,7 @@
 \begin{frame}[fragile]{A Vacuum Cleaner Agent}
 \begin{lstlisting}
 class ReflexVacuumAgent(object):
-    def take_action(self, percept):
+    def act(self, percept):
         location, status = percept
         if status == "Dirty":
             return "Suck"
@@ -183,7 +183,7 @@ Single-agent  & \U{7}{Yes}       & \U{7}{No}        & \U{7}{Maybe}    & \U{7}{No
 \begin{frame}[fragile]{Simple Reflex Agent Example}
 \begin{lstlisting}
 class ReflexVacuumAgent(object):
-    def take_action(self, percept):
+    def act(self, percept):
         location, status = percept
         if status == "Dirty":
             return "Suck"
@@ -206,8 +206,8 @@ class ReflexVacuumAgent(object):
 class StatefulReflexVacuumAgent(object):
     def __init__(self):
         self.time_at_location = 3
-        self.directions = dict(A="Right", B="Left")
-    def take_action(self, percept):
+        self.directions = {"A": "Right", "B": "Left"}
+    def act(self, percept):
         self.time_at_location += 1
         location, status = percept
         if status == "Dirty":

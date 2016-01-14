@@ -38,161 +38,161 @@ $}
 
 \subsection{Describing Search Problems}
 \begin{frame}[plain]
-	\begin{center}
-		\includegraphics[width=\textwidth]{uab-to-mr-chens.pdf}
-	\end{center}
+\begin{center}
+\includegraphics[width=\textwidth]{uab-to-mr-chens.pdf}
+\end{center}
 \end{frame}
 
 \begin{frame}{Properties of Search Problems}
-	\begin{itemize}
-		\item \alert<2->{Fully} or Partially Observable?
-		\item \alert<3->{Deterministic} or Stochastic?
-		\item Episodic or \alert<4->{Sequential}?
-		\item \alert<5->{Static} or Dynamic?
-		\item \alert<6->{Discrete} or Continuous?
-		\item \alert<7->{Single} or Multi-Agent?
-	\end{itemize}
+\begin{itemize}
+\item \alert<2->{Fully} or Partially Observable?
+\item \alert<3->{Deterministic} or Stochastic?
+\item Episodic or \alert<4->{Sequential}?
+\item \alert<5->{Static} or Dynamic?
+\item \alert<6->{Discrete} or Continuous?
+\item \alert<7->{Single} or Multi-Agent?
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Example: Vacuum Problem}
-	\begin{columns}
-		\column{.50\textwidth}
-			\begin{block}{Problem}
-				\begin{itemize}
-					\item Start in \searchstate{1}
-					\item Left square actions:\\
-					      \searchaction{Suck} or \searchaction{Right}
-					\item Right square actions:\\
-					      \searchaction{Suck} or \searchaction{Left}
-					\item Success: \searchstate{7} or \searchstate{8}
-					\item Optimal: fewest actions
-				\end{itemize}
-			\end{block}
-			\begin{block}{Solution}<2->
-				\uncover<3->{[\searchaction{Suck}, \searchaction{Right}, \searchaction{Suck}]} \\
-				\uncover<4->{i.e., [\searchstate{1}, \searchstate{5}, \searchstate{6}, \searchstate{8}]}
-			\end{block}
-		\column{.50\textwidth}
-			\includegraphics[width=2.1in]{vacuum-space.pdf}
-	\end{columns}
+\begin{columns}
+\column{.50\textwidth}
+\begin{block}{Problem}
+\begin{itemize}
+\item Start in \searchstate{1}
+\item Left square actions:\\
+      \searchaction{Suck} or \searchaction{Right}
+\item Right square actions:\\
+      \searchaction{Suck} or \searchaction{Left}
+\item Success: \searchstate{7} or \searchstate{8}
+\item Optimal: fewest actions
+\end{itemize}
+\end{block}
+\begin{block}{Solution}<2->
+\uncover<3->{[\searchaction{Suck}, \searchaction{Right}, \searchaction{Suck}]} \\
+\uncover<4->{i.e., [\searchstate{1}, \searchstate{5}, \searchstate{6}, \searchstate{8}]}
+\end{block}
+\column{.50\textwidth}
+\includegraphics[width=2.1in]{vacuum-space.pdf}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Defining a Search Problem}
-	\begin{block}{Components}
-		\begin{itemize}
-			\item Initial state
-			\item Actions
-			\item Goal test
-			\item Path cost
-		\end{itemize}
-	\end{block}
-	\begin{block}{Solution}
-		Path from initial state to goal state
-	\end{block}
-	\begin{block}{Optimal solution}
-		Path with lowest cost
-	\end{block}
+\begin{block}{Components}
+\begin{itemize}
+\item Initial state
+\item Actions
+\item Goal test
+\item Path cost
+\end{itemize}
+\end{block}
+\begin{block}{Solution}
+Path from initial state to goal state
+\end{block}
+\begin{block}{Optimal solution}
+Path with lowest cost
+\end{block}
 \end{frame}
 
 \begin{frame}{Defining the Vacuum Problem}
-	\begin{columns}
-		\column{.45\textwidth}
-			\begin{block}{Initial State}
-				\searchstate{1}
-			\end{block}
-			\begin{block}{Actions}
-				\small
-	      $S(\searchstate{1}) = \{(\searchaction{Right}, \searchstate{2}), (\searchaction{Suck}, \searchstate{5})\}$ \\
-	      $S(\searchstate{2}) = \{(\searchaction{Left}, \searchstate{1}), (\searchaction{Suck}, \searchstate{4})\}$ \\
-	      \ldots
-			\end{block}
-			\begin{block}{Goal Test}
-				$G(s) = s \in \{\searchstate{7}, \searchstate{8}\}$
-			\end{block}
-			\begin{block}{Path Cost}
-				1 per state
-			\end{block}
-		\column{.50\textwidth}
-			\includegraphics[width=2.1in]{vacuum-space.pdf}
-	\end{columns}
+\begin{columns}
+\column{.45\textwidth}
+\begin{block}{Initial State}
+\searchstate{1}
+\end{block}
+\begin{block}{Actions}
+\small
+      $S(\searchstate{1}) = \{(\searchaction{Right}, \searchstate{2}), (\searchaction{Suck}, \searchstate{5})\}$ \\
+      $S(\searchstate{2}) = \{(\searchaction{Left}, \searchstate{1}), (\searchaction{Suck}, \searchstate{4})\}$ \\
+      \ldots
+\end{block}
+\begin{block}{Goal Test}
+$G(s) = s \in \{\searchstate{7}, \searchstate{8}\}$
+\end{block}
+\begin{block}{Path Cost}
+1 per state
+\end{block}
+\column{.50\textwidth}
+\includegraphics[width=2.1in]{vacuum-space.pdf}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Defining the 8-Puzzle Problem}
-	\begin{center}
-		\includegraphics[height=1.5in]{8puzzle.pdf}
-	\end{center}
-	\begin{description}
-		\thickmuskip=1mu
-		\item[States] \uncover<2->{Mappings of tile numbers to tile locations }
-		\item[Initial] \uncover<3->{$\{
-			1 : 9,
-			2 : 2,
-			3 : 8,
-			4 : 3,
-			5 : 4,
-			6 : 6,
-			7 : 1,
-			8 : 7\}$}
-		\item[Actions] \uncover<4->{Move blank left, right, up, down}
-		\item[Goal] \uncover<5->{$\{
-			1 : 1,
-			2 : 2,
-			3 : 3,
-			4 : 4,
-			5 : 5,
-			6 : 6,
-			7 : 7,
-			8 : 8\}$}
-		\item[Cost] \uncover<6->{1 per move}
-	\end{description}
+\begin{center}
+\includegraphics[height=1.5in]{8puzzle.pdf}
+\end{center}
+\begin{description}
+\thickmuskip=1mu
+\item[States] \uncover<2->{Mappings of tile numbers to tile locations }
+\item[Initial] \uncover<3->{$\{
+1 : 9,
+2 : 2,
+3 : 8,
+4 : 3,
+5 : 4,
+6 : 6,
+7 : 1,
+8 : 7\}$}
+\item[Actions] \uncover<4->{Move blank left, right, up, down}
+\item[Goal] \uncover<5->{$\{
+1 : 1,
+2 : 2,
+3 : 3,
+4 : 4,
+5 : 5,
+6 : 6,
+7 : 7,
+8 : 8\}$}
+\item[Cost] \uncover<6->{1 per move}
+\end{description}
 \end{frame}
 
 \begin{frame}{Defining the Robotic Assembly Problem}
-	\begin{center}
-		\includegraphics[height=1.5in]{stanford-arm.pdf}
-	\end{center}
-	\begin{description}
-		\item[States] \uncover<2->{real-valued joint angles, parts to assemble}
-		\item[Initial] \uncover<3->{many possible}
-		\item[Actions] \uncover<4->{real-valued adjustments to joint angles}
-		\item[Goal] \uncover<5->{fully assembled part}
-		\item[Cost] \uncover<6->{total duration of all movements}
-	\end{description}
+\begin{center}
+\includegraphics[height=1.5in]{stanford-arm.pdf}
+\end{center}
+\begin{description}
+\item[States] \uncover<2->{real-valued joint angles, parts to assemble}
+\item[Initial] \uncover<3->{many possible}
+\item[Actions] \uncover<4->{real-valued adjustments to joint angles}
+\item[Goal] \uncover<5->{fully assembled part}
+\item[Cost] \uncover<6->{total duration of all movements}
+\end{description}
 \end{frame}
 
 \begin{frame}{Defining the Machine Translation Problem}
-	\begin{description}
-		\item[Input] Com\'i la manzana roja porque ten\'ia hambre.
-		\item[Output] I ate the red apple because I was hungry.
-		\bigskip\bigskip
-		\item[States]
-		\item[Initial]
-		\item[Actions]
-		\item[Goal]
-		\item[Cost]
-	\end{description}
+\begin{description}
+\item[Input] Com\'i la manzana roja porque ten\'ia hambre.
+\item[Output] I ate the red apple because I was hungry.
+\bigskip\bigskip
+\item[States]
+\item[Initial]
+\item[Actions]
+\item[Goal]
+\item[Cost]
+\end{description}
 \end{frame}
 
 \subsection{Search Trees and Search Nodes}
 
 \begin{frame}[fragile]{Tree Search}
-	\footnotesize
-	\begin{lstlisting}
-		def tree_search(problem, strategy):
+\footnotesize
+\begin{lstlisting}
+def tree_search(problem, strategy):
 
-		    strategy.add(...problem.initial_state...)
+    strategy.add(...problem.initial_state...)
 
-		    for node in strategy:
+    for node in strategy:
 
-		        if problem.is_goal(node.state):
-		            return node.get_actions()
+        if problem.is_goal(node.state):
+            return node.get_actions()
 
-		        items = problem.get_successors(node.state)
-		        for state, action, ... in items:
-		            strategy.add(...state...action...)
+        items = problem.get_successors(node.state)
+        for state, action, ... in items:
+            strategy.add(...state...action...)
 
-		    return None
-	\end{lstlisting}
+    return None
+\end{lstlisting}
 \end{frame}
 
 \begin{frame}{Search Tree Example}
@@ -226,45 +226,45 @@ for tree={grow'=east,l sep=4em}
 \end{frame}
 
 \begin{frame}{The Node Data Structure}
-	\begin{center}
-		\includegraphics[width=4in]{state-vs-node.pdf}
-	\end{center}
+\begin{center}
+\includegraphics[width=4in]{state-vs-node.pdf}
+\end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Tree Search Revisited}
-	\footnotesize
-	\begin{lstlisting}
-		def tree_search(problem, strategy):
-		    strategy.add(Node(problem.initial_state))
-		    for node in strategy:
-		        if problem.is_goal(node.state):
-		            return node.get_actions()
-		        succs = problem.get_successors(node.state)
-		        for state, action, cost in succs:
-		            strategy.add(Node(
-		                state=state,
-		                action=action,
-		                parent=node,
-		                cost=node.cost + cost,
-		                depth=node.depth + 1))
-		    return None
-	\end{lstlisting}
+\footnotesize
+\begin{lstlisting}
+def tree_search(problem, strategy):
+    strategy.add(Node(problem.initial_state))
+    for node in strategy:
+        if problem.is_goal(node.state):
+            return node.get_actions()
+        succs = problem.get_successors(node.state)
+        for state, action, cost in succs:
+            strategy.add(Node(
+                state=state,
+                action=action,
+                parent=node,
+                cost=node.cost + cost,
+                depth=node.depth + 1))
+    return None
+\end{lstlisting}
 \end{frame}
 
 \section{Uninformed Search Strategies}
 \begin{frame}[<+->]{Search Strategy Properties}
-	\begin{block}{Completeness}
-		If a solution exists, is it always found?
-	\end{block}
-	\begin{block}{Optimality}
-		Is the solution found always the lowest cost?
-	\end{block}
-	\begin{block}{Time Complexity}
-		How many search nodes will be generated?
-	\end{block}
-	\begin{block}{Space Complexity}
-		How many search nodes must stay in main memory?
-	\end{block}
+\begin{block}{Completeness}
+If a solution exists, is it always found?
+\end{block}
+\begin{block}{Optimality}
+Is the solution found always the lowest cost?
+\end{block}
+\begin{block}{Time Complexity}
+How many search nodes will be generated?
+\end{block}
+\begin{block}{Space Complexity}
+How many search nodes must stay in main memory?
+\end{block}
 \end{frame}
 
 \subsection{Breadth-first Search}
@@ -298,22 +298,22 @@ for tree={circle,draw}
 \end{center}
 \end{frame}
 \begin{frame}{Breadth-first Properties}
-	\footnotesize
-	\begin{block}{Strategy? \hyperlink{breadth-first-example}{\beamergotobutton{Example}}}
-		 \uncover<2->{First-in First-Out Queue}
-	\end{block}
-	\begin{block}{Complete?}
-		\uncover<3->{Yes, if number of branches is finite}
-	\end{block}
-	\begin{block}{Optimal?}
-		\uncover<4->{Yes, if step costs are all identical}
-	\end{block}
-	\begin{block}{Worst Case Time Complexity?}
-		\uncover<5->{$O(b^{d+1})$, branching factor $b$, depth of goal state $d$}
-	\end{block}
-	\begin{block}{Worst Case Space Complexity?}
-		\uncover<6->{$O(b^{d+1})$, branching factor $b$, depth of goal state $d$}
-	\end{block}
+\footnotesize
+\begin{block}{Strategy? \hyperlink{breadth-first-example}{\beamergotobutton{Example}}}
+ \uncover<2->{First-in First-Out Queue}
+\end{block}
+\begin{block}{Complete?}
+\uncover<3->{Yes, if number of branches is finite}
+\end{block}
+\begin{block}{Optimal?}
+\uncover<4->{Yes, if step costs are all identical}
+\end{block}
+\begin{block}{Worst Case Time Complexity?}
+\uncover<5->{$O(b^{d+1})$, branching factor $b$, depth of goal state $d$}
+\end{block}
+\begin{block}{Worst Case Space Complexity?}
+\uncover<6->{$O(b^{d+1})$, branching factor $b$, depth of goal state $d$}
+\end{block}
 \end{frame}
 
 \subsection{Uniform-cost Search}
@@ -347,22 +347,22 @@ for tree={circle,draw},
 \end{center}
 \end{frame}
 \begin{frame}{Uniform-cost Search}
-	\footnotesize
-	\begin{block}{Strategy? \hyperlink{uniform-cost-example}{\beamergotobutton{Example}}}
-		\uncover<2->{Lowest Cost First Priority Queue}
-	\end{block}
-	\begin{block}{Complete?}
-		\uncover<3->{Yes, if number of branches is finite and steps are all positive}
-	\end{block}
-	\begin{block}{Optimal?}
-		\uncover<4->{Yes}
-	\end{block}
-	\begin{block}{Worst Case Time Complexity?}
-		\uncover<5->{$O(b^{\left\lfloor C^{*}/\epsilon \right\rfloor +1})$, optimal cost $C^{*}$, minimum step cost $\epsilon$}
-	\end{block}
-	\begin{block}{Worst Case Space Complexity?}
-		\uncover<6->{$O(b^{\left\lfloor C^{*}/\epsilon \right\rfloor +1})$, optimal cost $C^{*}$, minimum step cost $\epsilon$}
-	\end{block}
+\footnotesize
+\begin{block}{Strategy? \hyperlink{uniform-cost-example}{\beamergotobutton{Example}}}
+\uncover<2->{Lowest Cost First Priority Queue}
+\end{block}
+\begin{block}{Complete?}
+\uncover<3->{Yes, if number of branches is finite and steps are all positive}
+\end{block}
+\begin{block}{Optimal?}
+\uncover<4->{Yes}
+\end{block}
+\begin{block}{Worst Case Time Complexity?}
+\uncover<5->{$O(b^{\left\lfloor C^{*}/\epsilon \right\rfloor +1})$, optimal cost $C^{*}$, minimum step cost $\epsilon$}
+\end{block}
+\begin{block}{Worst Case Space Complexity?}
+\uncover<6->{$O(b^{\left\lfloor C^{*}/\epsilon \right\rfloor +1})$, optimal cost $C^{*}$, minimum step cost $\epsilon$}
+\end{block}
 \end{frame}
 
 \subsection{Depth-first Search}
@@ -396,22 +396,22 @@ for tree={circle,draw}
 \end{center}
 \end{frame}
 \begin{frame}{Depth-first Properties}
-	\footnotesize
-	\begin{block}{Strategy? \hyperlink{depth-first-example}{\beamergotobutton{Example}}}
-		\uncover<2->{First-in Last-Out Stack}
-	\end{block}
-	\begin{block}{Complete?}
-		\uncover<3->{Yes, if finite number of states and no cyclic paths}
-	\end{block}
-	\begin{block}{Optimal?}
-		\uncover<4->{No, lower goal states may be found first}
-	\end{block}
-	\begin{block}{Worst Case Time Complexity?}
-		\uncover<5->{$O(b^{m})$, branching factor $b$, maximum depth $m$}
-	\end{block}
-	\begin{block}{Worst Case Space Complexity?}
-		\uncover<6->{$O(bm)$, branching factor $b$, maximum depth $m$}
-	\end{block}
+\footnotesize
+\begin{block}{Strategy? \hyperlink{depth-first-example}{\beamergotobutton{Example}}}
+\uncover<2->{First-in Last-Out Stack}
+\end{block}
+\begin{block}{Complete?}
+\uncover<3->{Yes, if finite number of states and no cyclic paths}
+\end{block}
+\begin{block}{Optimal?}
+\uncover<4->{No, lower goal states may be found first}
+\end{block}
+\begin{block}{Worst Case Time Complexity?}
+\uncover<5->{$O(b^{m})$, branching factor $b$, maximum depth $m$}
+\end{block}
+\begin{block}{Worst Case Space Complexity?}
+\uncover<6->{$O(bm)$, branching factor $b$, maximum depth $m$}
+\end{block}
 \end{frame}
 
 \subsection{Iterative Deepening Search}
@@ -445,55 +445,55 @@ for tree={circle,draw}
 \end{center}
 \end{frame}
 \begin{frame}{Iterative Deepening Properties}
-	\footnotesize
-	\begin{block}{Strategy? \hyperlink{iterative-deepening-example}{\beamergotobutton{Example}}}
-		\uncover<2->{First-in Last-Out Stack with depth limit}
-	\end{block}
-	\begin{block}{Complete?}
-		\uncover<3->{Yes, if number of branches is finite}
-	\end{block}
-	\begin{block}{Optimal?}
-		\uncover<4->{Yes, if step costs are all identical}
-	\end{block}
-	\begin{block}{Worst Case Time Complexity?}
-		\uncover<5->{$O(b^{d})$, branching factor $b$, depth of goal state $d$}
-	\end{block}
-	\begin{block}{Worst Case Space Complexity?}
-		\uncover<6->{$O(bd)$, branching factor $b$, depth of goal state $d$}
-	\end{block}
+\footnotesize
+\begin{block}{Strategy? \hyperlink{iterative-deepening-example}{\beamergotobutton{Example}}}
+\uncover<2->{First-in Last-Out Stack with depth limit}
+\end{block}
+\begin{block}{Complete?}
+\uncover<3->{Yes, if number of branches is finite}
+\end{block}
+\begin{block}{Optimal?}
+\uncover<4->{Yes, if step costs are all identical}
+\end{block}
+\begin{block}{Worst Case Time Complexity?}
+\uncover<5->{$O(b^{d})$, branching factor $b$, depth of goal state $d$}
+\end{block}
+\begin{block}{Worst Case Space Complexity?}
+\uncover<6->{$O(bd)$, branching factor $b$, depth of goal state $d$}
+\end{block}
 \end{frame}
 
 \subsection*{Repeated States}
 \begin{frame}{Exponential Costs of Repeated States}
-	\begin{center}
-		\includegraphics[width=4in]{ribbon-space.pdf}
-	\end{center}
+\begin{center}
+\includegraphics[width=4in]{ribbon-space.pdf}
+\end{center}
 \end{frame}
 \begin{frame}[fragile]{Graph Search}
-	\scriptsize
-	\begin{lstlisting}
-		def graph_search(problem, strategy):
-		    seen = set()
-		    strategy.add(Node(problem.initial_state))
-		    for node in strategy:
-		        if problem.is_goal(node.state):
-		            return node.get_actions()
-		        if node not in seen:
-		            seen.add(node)
-		            succs = problem.get_successors(node.state)
-		            for state, action, cost in succs:
-		                strategy.add(Node(
-		                    state=state,
-		                    action=action,
-		                    parent=node,
-		                    cost=node.cost + cost,
-		                    depth=node.depth + 1))
-	\end{lstlisting}
+\scriptsize
+\begin{lstlisting}
+def graph_search(problem, strategy):
+    seen = set()
+    strategy.add(Node(problem.initial_state))
+    for node in strategy:
+        if problem.is_goal(node.state):
+            return node.get_actions()
+        if node not in seen:
+            seen.add(node)
+            succs = problem.get_successors(node.state)
+            for state, action, cost in succs:
+                strategy.add(Node(
+                    state=state,
+                    action=action,
+                    parent=node,
+                    cost=node.cost + cost,
+                    depth=node.depth + 1))
+\end{lstlisting}
 \end{frame}
 
 \section{Informed Search}
 \begin{frame}{All States are not Equal}
-	\includegraphics[width=4in]{romania-distances.pdf}
+\includegraphics[width=4in]{romania-distances.pdf}
 \end{frame}
 
 \subsection{Best-First Search}
@@ -520,22 +520,22 @@ for tree={draw,rounded corners,align=center}
 \end{center}
 \end{frame}
 \begin{frame}[label=greedy-properties]{Best-First (Greedy) Properties}
-	\footnotesize
-	\begin{block}{Strategy?}
-		 \uncover<2->{Priority Queue, $f(n) = h(n)$}
-	\end{block}
-	\begin{block}{Complete?}
-		\uncover<3->{Yes, if finite number of states and no cyclic paths}
-	\end{block}
-	\begin{block}{Optimal?}
-		\uncover<4->{No}
-	\end{block}
-	\begin{block}{Worst Case Time Complexity?}
-		\uncover<5->{$O(b^m)$, but better with good heuristic}
-	\end{block}
-	\begin{block}{Worst Case Space Complexity?}
-		\uncover<6->{$O(b^m)$}
-	\end{block}
+\footnotesize
+\begin{block}{Strategy?}
+ \uncover<2->{Priority Queue, $f(n) = h(n)$}
+\end{block}
+\begin{block}{Complete?}
+\uncover<3->{Yes, if finite number of states and no cyclic paths}
+\end{block}
+\begin{block}{Optimal?}
+\uncover<4->{No}
+\end{block}
+\begin{block}{Worst Case Time Complexity?}
+\uncover<5->{$O(b^m)$, but better with good heuristic}
+\end{block}
+\begin{block}{Worst Case Space Complexity?}
+\uncover<6->{$O(b^m)$}
+\end{block}
 \end{frame}
 
 \subsection{A* Search}
@@ -569,134 +569,134 @@ for tree={draw,rounded corners,align=center,l sep=3em}
 \end{center}
 \end{frame}
 \begin{frame}[label=a-star-properties]{A* Properties}
-	\footnotesize
-	\begin{block}{Strategy?}
-		 \uncover<2->{Priority Queue, $f(n) = g(n) + h(n)$}
-	\end{block}
-	\begin{block}{Complete?}
-		\uncover<3->{Yes, if there are finite nodes with $f(n) < C^{*}$}
-	\end{block}
-	\begin{block}{Optimal?}
-		\uncover<4->{Yes, if $h$ is consistent}
-	\end{block}
-	\begin{block}{Worst Case Time Complexity?}
-		\uncover<5->{All nodes with $f(n) < C^{*}$, exponential in \texttt{len(path)}}
-	\end{block}
-	\begin{block}{Worst Case Space Complexity?}
-		\uncover<6->{All nodes with $f(n) < C^{*}$}
-	\end{block}
+\footnotesize
+\begin{block}{Strategy?}
+ \uncover<2->{Priority Queue, $f(n) = g(n) + h(n)$}
+\end{block}
+\begin{block}{Complete?}
+\uncover<3->{Yes, if there are finite nodes with $f(n) < C^{*}$}
+\end{block}
+\begin{block}{Optimal?}
+\uncover<4->{Yes, if $h$ is consistent}
+\end{block}
+\begin{block}{Worst Case Time Complexity?}
+\uncover<5->{All nodes with $f(n) < C^{*}$, exponential in \texttt{len(path)}}
+\end{block}
+\begin{block}{Worst Case Space Complexity?}
+\uncover<6->{All nodes with $f(n) < C^{*}$}
+\end{block}
 \end{frame}
 
 \begin{frame}{Proof that A* is Optimal}
-	\begin{columns}[T]
-		\begin{column}{1.75in}
-			Suppose some suboptimal goal $G_2$ has been generated and is in the queue. Let $n$ be an unexpanded node on a shortest path to an optimal goal $G_1$.
-		\end{column}
-		\begin{column}{2.25in}
-			\includegraphics[width=2.25in]{a-star-proof.pdf}
-		\end{column}
-	\end{columns}
-	\bigskip
-	\[
-	\begin{array}{llll}
-	\uncover<2->{f(G_2)} & \uncover<2->{=  }  & \uncover<2->{g(G_2)} & \uncover<2->{\mbox{since $h(G_2) = 0$}} \\
-	\uncover<3->{      } & \uncover<3->{>  }  & \uncover<3->{g(G_1)} & \uncover<3->{\mbox{since $G_2$ is suboptimal}} \\
-	\uncover<4->{      } & \uncover<4->{\geq} & \uncover<4->{f(n)  } & \uncover<4->{\mbox{since $h$ is consistent}}
-	\end{array}
-	\]
-	\bigskip
-	\uncover<5->{Since $f(G_2) > f(n)$, A* will never select $G_2$ for expansion.}
+\begin{columns}[T]
+\begin{column}{1.75in}
+Suppose some suboptimal goal $G_2$ has been generated and is in the queue. Let $n$ be an unexpanded node on a shortest path to an optimal goal $G_1$.
+\end{column}
+\begin{column}{2.25in}
+\includegraphics[width=2.25in]{a-star-proof.pdf}
+\end{column}
+\end{columns}
+\bigskip
+\[
+\begin{array}{llll}
+\uncover<2->{f(G_2)} & \uncover<2->{=  }  & \uncover<2->{g(G_2)} & \uncover<2->{\mbox{since $h(G_2) = 0$}} \\
+\uncover<3->{      } & \uncover<3->{>  }  & \uncover<3->{g(G_1)} & \uncover<3->{\mbox{since $G_2$ is suboptimal}} \\
+\uncover<4->{      } & \uncover<4->{\geq} & \uncover<4->{f(n)  } & \uncover<4->{\mbox{since $h$ is consistent}}
+\end{array}
+\]
+\bigskip
+\uncover<5->{Since $f(G_2) > f(n)$, A* will never select $G_2$ for expansion.}
 \end{frame}
 \begin{frame}{A* Contours}
-	\includegraphics[width=4in]{a-star-contours.pdf}
+\includegraphics[width=4in]{a-star-contours.pdf}
 \end{frame}
 
 \subsection{Heuristic Functions}
 
 \begin{frame}{8-Puzzle Heuristics}
-	\begin{center}
-		\includegraphics[height=1.25in]{8puzzle.pdf}
-	\end{center}
-	\begin{tabular}{ll}
-		\medskip
-		\uncover<2->{\color{blue}Misplaced Tiles}    & \uncover<3->{\footnotesize $h(n) = 6$} \\
-		\medskip
-		\uncover<4->{\color{blue}Manhattan Distance} & \uncover<5->{\footnotesize $h(n) = 4 + 0 + 3 + 3 + 1 + 0 + 2 + 1$} \\
-	\end{tabular}
+\begin{center}
+\includegraphics[height=1.25in]{8puzzle.pdf}
+\end{center}
+\begin{tabular}{ll}
+\medskip
+\uncover<2->{\color{blue}Misplaced Tiles}    & \uncover<3->{\footnotesize $h(n) = 6$} \\
+\medskip
+\uncover<4->{\color{blue}Manhattan Distance} & \uncover<5->{\footnotesize $h(n) = 4 + 0 + 3 + 3 + 1 + 0 + 2 + 1$} \\
+\end{tabular}
 \end{frame}
 \begin{frame}{Heuristic Quality}
-	\begin{block}{All heuristics were not created equal}
-		\begin{tabular}{rrr}
-			                      & \color{blue}Misplaced Tiles & \color{blue}Manhattan Distance \\
-			\color{blue} 4 moves  &                    13 nodes &                       12 nodes \\
-			\color{blue} 8 moves  &                    39 nodes &                       25 nodes \\
-			\color{blue}12 moves  &                   227 nodes &                       73 nodes \\
-			\color{blue}16 moves  &                  1301 nodes &                      211 nodes \\
-			\color{blue}20 moves  &                  7276 nodes &                      676 nodes \\
-		\end{tabular}
-	\end{block}
+\begin{block}{All heuristics were not created equal}
+\begin{tabular}{rrr}
+                      & \color{blue}Misplaced Tiles & \color{blue}Manhattan Distance \\
+\color{blue} 4 moves  &                    13 nodes &                       12 nodes \\
+\color{blue} 8 moves  &                    39 nodes &                       25 nodes \\
+\color{blue}12 moves  &                   227 nodes &                       73 nodes \\
+\color{blue}16 moves  &                  1301 nodes &                      211 nodes \\
+\color{blue}20 moves  &                  7276 nodes &                      676 nodes \\
+\end{tabular}
+\end{block}
 \end{frame}
 \begin{frame}{Heuristic Dominance}
-	\begin{block}{Dominance}
-		$h_1$ \textbf{dominates} $h_2$ if for all $n$, $h_1(n) \geq h_2(n)$
-		\\ \bigskip
-		Which one dominates?
-		\begin{itemize}
-			\item Misplaced Tiles
-			\item<1-|alert@2-> Manhattan Distance
-		\end{itemize}
-	\end{block}
-	\begin{block}<3->{Dominance = Efficiency}
-		A* with $h_1$ will never expand more nodes than A* with $h_2$
-		\\ \bigskip
-		\alert{Why?} \uncover<4->{Every node with $h(n) < C^{*} - g(n)$ is expanded}
-	\end{block}
+\begin{block}{Dominance}
+$h_1$ \textbf{dominates} $h_2$ if for all $n$, $h_1(n) \geq h_2(n)$
+\\ \bigskip
+Which one dominates?
+\begin{itemize}
+\item Misplaced Tiles
+\item<1-|alert@2-> Manhattan Distance
+\end{itemize}
+\end{block}
+\begin{block}<3->{Dominance = Efficiency}
+A* with $h_1$ will never expand more nodes than A* with $h_2$
+\\ \bigskip
+\alert{Why?} \uncover<4->{Every node with $h(n) < C^{*} - g(n)$ is expanded}
+\end{block}
 \end{frame}
 
 \begin{frame}{Relaxed Problems}
-	\begin{block}{The 8-Puzzle}
-		\begin{tabular}{ll}
-			\bf Problem                                  & \bf Heuristic\\
-			\hline
-			\uncover<2->{Tiles move anywhere}            & \uncover<3->{Misplaced Tiles} \\
-			\uncover<4->{Tiles move to adjacent squares} & \uncover<5->{Manhattan Distance} \\
-		\end{tabular}
-	\end{block}
-	
-	\begin{block}<6->{Generating heuristics}
-		Exact solution to relaxed problem $\Rightarrow$ consistent heuristic
-		\\ \bigskip
-		\alert{Why?}
-		\uncover<7->{
-		\begin{itemize}
-			\item Solution in original problem is also solution in relaxed
-			\item Heuristic is exact cost in relaxed $\Rightarrow$ triangle inequality
-		\end{itemize}
-		}
-	\end{block}
+\begin{block}{The 8-Puzzle}
+\begin{tabular}{ll}
+\bf Problem                                  & \bf Heuristic\\
+\hline
+\uncover<2->{Tiles move anywhere}            & \uncover<3->{Misplaced Tiles} \\
+\uncover<4->{Tiles move to adjacent squares} & \uncover<5->{Manhattan Distance} \\
+\end{tabular}
+\end{block}
+
+\begin{block}<6->{Generating heuristics}
+Exact solution to relaxed problem $\Rightarrow$ consistent heuristic
+\\ \bigskip
+\alert{Why?}
+\uncover<7->{
+\begin{itemize}
+\item Solution in original problem is also solution in relaxed
+\item Heuristic is exact cost in relaxed $\Rightarrow$ triangle inequality
+\end{itemize}
+}
+\end{block}
 \end{frame}
 
 \begin{frame}{Traveling Salesman Problem}
-	\begin{columns}
-		\begin{column}{2in}
-			\begin{block}{Problem}
-				Visit all cities exactly once, minimum distance
-			\end{block}
-			\begin{center}
-				\includegraphics[width=2in]{tsp.pdf}
-			\end{center}
-		\end{column}
-		\pause
-		\begin{column}{2in}
-			\begin{block}{Heuristic}
-				Minimum spanning tree \\
-				Solvable in $O(n^2)$
-			\end{block}
-			\begin{center}
-				\visible<2>{\includegraphics[width=2in]{mst.pdf}}%
-			\end{center}
-		\end{column}
-	\end{columns}
+\begin{columns}
+\begin{column}{2in}
+\begin{block}{Problem}
+Visit all cities exactly once, minimum distance
+\end{block}
+\begin{center}
+\includegraphics[width=2in]{tsp.pdf}
+\end{center}
+\end{column}
+\pause
+\begin{column}{2in}
+\begin{block}{Heuristic}
+Minimum spanning tree \\
+Solvable in $O(n^2)$
+\end{block}
+\begin{center}
+\visible<2>{\includegraphics[width=2in]{mst.pdf}}%
+\end{center}
+\end{column}
+\end{columns}
 \end{frame}
 \begin{frame}[label=bag-generation]{Bag Generation}
 \vspace{-1em}
@@ -801,25 +801,25 @@ lamp  & the  & 6.2 \\
 
 \part{Key Points}
 \begin{frame}[label=key-points]{Key Points}
-	\begin{block}{Search Problems}
-		\begin{itemize}
-			\item Initial State, Actions, Goal Test, Path Cost
-		\end{itemize}
-	\end{block}
-	\begin{block}{Search Strategies}
-		\begin{itemize}
-			\item Breadth-first
-			\item Uniform-cost
-			\item Depth-first
-			\item Iterative Deepening
-			\item A* Search
-		\end{itemize}
-	\end{block}
-	\begin{block}{Heuristics}
-		\begin{itemize}
-			\item Dominance, Relaxed Problems
-		\end{itemize}
-	\end{block}
+\begin{block}{Search Problems}
+\begin{itemize}
+\item Initial State, Actions, Goal Test, Path Cost
+\end{itemize}
+\end{block}
+\begin{block}{Search Strategies}
+\begin{itemize}
+\item Breadth-first
+\item Uniform-cost
+\item Depth-first
+\item Iterative Deepening
+\item A* Search
+\end{itemize}
+\end{block}
+\begin{block}{Heuristics}
+\begin{itemize}
+\item Dominance, Relaxed Problems
+\end{itemize}
+\end{block}
 \end{frame}
 
 

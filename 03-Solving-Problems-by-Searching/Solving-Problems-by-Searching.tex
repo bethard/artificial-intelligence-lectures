@@ -96,7 +96,7 @@ Path with lowest cost
 
 \begin{frame}{Defining the Vacuum Problem}
 \begin{columns}
-\column{.45\textwidth}
+\column{.47\textwidth}
 \begin{block}{Initial State}
 \searchstate{1}
 \end{block}
@@ -147,7 +147,7 @@ $G(s) = s \in \{\searchstate{7}, \searchstate{8}\}$
 \end{description}
 \end{frame}
 
-\begin{frame}{Defining the Robotic Assembly Problem}
+\begin{frame}{Defining a Robotic Assembly Problem}
 \begin{center}
 \includegraphics[height=1.5in]{stanford-arm.pdf}
 \end{center}
@@ -160,7 +160,7 @@ $G(s) = s \in \{\searchstate{7}, \searchstate{8}\}$
 \end{description}
 \end{frame}
 
-\begin{frame}{Defining the Machine Translation Problem}
+\begin{frame}{Defining a Machine Translation Problem}
 \begin{description}
 \item[Input] Com\'i la manzana roja porque ten\'ia hambre.
 \item[Output] I ate the red apple because I was hungry.
@@ -196,7 +196,7 @@ def tree_search(problem, strategy):
 \end{frame}
 
 \begin{frame}{Search Tree Example}
-\begin{center}
+\centering
 \small
 \pgfkeys{/pgf/inner sep=0.25em}
 \begin{forest}
@@ -222,7 +222,6 @@ for tree={grow'=east,l sep=4em}
   ]
 ]
 \end{forest}
-\end{center}
 \end{frame}
 
 \begin{frame}{The Node Data Structure}
@@ -470,7 +469,7 @@ for tree={circle,draw}
 \end{center}
 \end{frame}
 \begin{frame}[fragile]{Graph Search}
-\scriptsize
+\footnotesize
 \begin{lstlisting}
 def graph_search(problem, strategy):
     seen = set()
@@ -728,7 +727,7 @@ the & the & 25.1 \\
 \centering
 \scriptsize
 \begin{forest}
-for tree={draw,rounded corners,grow'=east,edge=-latex,l sep=2em}
+for tree={draw,rounded corners,grow'=east,edge=-latex,l sep=1.5em}
 [{\mtnode{lamp,John,the,broke}{}}
   [{\mtnode{lamp,John,broke}{the}}
     [{\mtnode{lamp,broke}{the,John}}

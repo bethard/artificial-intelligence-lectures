@@ -6,6 +6,14 @@
 
 \newcommand{\searchstate}[1]{\mbox{\texttt{\bfseries\color{red}#1}}}
 \newcommand{\searchaction}[1]{\mbox{\textsc{\bfseries\color{red}#1}}}
+\newcommand{\astarnode}[3]{%
+#1\\$
+\begin{array}{@{} r @{} c @{} l @{}}
+f(n) & \null = \null & #2\\
+& \null = \null & #3
+\end{array}
+$}
+
 
 
 \title{Beyond Classical Search}
@@ -317,6 +325,51 @@ weight/.style={auto,swap},
 \end{center}
 \uncover<14>{Complete in finite, safely explorable environments}
 \end{block}
+\end{frame}
+
+
+\subsection{Informed Search meets Local Search}
+
+
+\begin{frame}{Informed Search Meets Local Search}
+A* Search + beam
+\begin{itemize}
+\item Nodes are still scored as $f(x) = g(x) + h(x)$
+\item Priority queue can only hold $k$ nodes \pause
+\item Complete? \pause  No \pause
+\item Optimal? \pause No \pause
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Exercise: A* with beam of 3}
+\begin{center}
+\tiny
+\begin{forest}
+for tree={draw,rounded corners,align=center,l sep=3em}
+[{\astarnode{Arad}{0 + 366}{366}}
+  [{\astarnode{Sibiu}{140+253}{393}},edge weight=140
+    [{\astarnode{Arad}{280+366}{646}},edge weight=140]
+    [{\astarnode{Fagaras}{239+176}{415}},edge weight=99
+      [{\astarnode{Sibiu}{338+253}{591}},edge weight=99]
+      [{\astarnode{Bucharest}{450+0}{450}},edge weight=211]
+    ]
+    [{\astarnode{Oradea}{291+380}{671}},edge weight=151]
+    [{\astarnode{Rimnicu Vilcea}{220+193}{413}},edge weight=80
+      [{\astarnode{Craiova}{366+160}{526}},edge weight=146]
+      [{\astarnode{Pitesti}{317+100}{417}},edge weight=91
+        [{\astarnode{Bucharest}{418+0}{418}},edge weight=101]
+        [{\astarnode{Craiova}{455+160}{615}},edge weight=138]
+        [{\astarnode{Rimnicu Vilcea}{414+193}{607}},edge weight=97]
+      ]
+      [{\astarnode{Sibiu}{300+253}{553}},edge weight=80]
+    ]
+  ]
+  [{\astarnode{Timisoara}{118+329}{447}},edge weight=118]
+  [{\astarnode{Zerind}{75+374}{449}},edge weight=75]
+]
+\end{forest}
+\end{center}
 \end{frame}
 
 

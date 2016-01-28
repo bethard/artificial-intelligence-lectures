@@ -637,14 +637,14 @@ pruned/.style={draw=none,content={---}}
 \end{frame}
 \begin{frame}[label=using-expectiminimax]{Using Expectiminimax}
 	\begin{block}{Expectiminimax Properties}
-		\begin{tabular}{ll}
+		\begin{tabular}{@{} ll @{}}
 			Complete? & \uncover<2->{Yes, if tree is finite (both moves and ``rolls'')} \\
 			Optimal? & \uncover<3->{Yes} \\
 			Time? & \uncover<4->{$O(b^mn^m)$, all nodes, all ``roll'' sequences} \\
 		\end{tabular}
 	\end{block}
 	\begin{block}{Consequences}<5->
-		\begin{tabular}{ll}
+		\begin{tabular}{@{} ll @{}}
 			Node Likelihood? & \uncover<6->{Decreases with depth} \\
 			Alpha-Beta Pruning? & \uncover<7->{Effectiveness decreased} \\
 		\end{tabular}
@@ -695,7 +695,7 @@ utility/.style={draw=none}
 \visible<2->{
 \begin{forest}
 utility/.style={draw=none}
-[{},phantom,for tree={align=center},s sep=1.5em
+[{},phantom,for tree={align=center},s sep=1em
   [{Max},for tree={edge=invisible}
     [{Chc}
       [{Min}

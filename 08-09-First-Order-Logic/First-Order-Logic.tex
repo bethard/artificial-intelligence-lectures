@@ -9,7 +9,7 @@
 \newcommand{\edge}[2]{$\textit{Edge}(#1, #2)$}
 
 \title{First-Order Logic}
-\date{19 Feb 2015}
+\date{25 Feb 2016}
 
 \begin{document}
 
@@ -654,11 +654,11 @@ $
 \small
 	\begin{tabular}{p{0.97\textwidth}}
 		If you're rich and someone sells something you want, you buy it \\
-		\tab$\forall x \forall y \forall z\ \textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y)$ \\
+		\tab$\forall u \forall v \forall w\ \textit{Rich}(u) \land \textit{Wants}(u, v) \land \textit{Sells}(w, v) \limpl \textit{Buys}(u, v)$ \\
 		If you're hot, you want ice cream \\
 		\tab$\forall x \forall y\ \textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y)$ \\
-		HaagenDazs sells all kinds of ice cream \\
-		\tab$\forall y\ \textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y)$ \\
+		Brusters sells all kinds of ice cream \\
+		\tab$\forall z\ \textit{IceCream}(z) \limpl \textit{Sells}(\textit{Brusters}, z)$ \\
 		One flavor of ice cream is mint \\
 		\tab$\textit{IceCream}(\textit{Mint})$ \\
 		Bill is rich \\
@@ -681,17 +681,17 @@ $
 \textit{Wants}(\textit{Bill}, \textit{Mint}) \\[.8em]}
 \visible<3->{
 \textit{IceCream}(\textit{Mint}) \\
-\forall y\ \textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y) \\
-\theta = \{ y = \textit{Mint} \} \\
+\forall z\ \textit{IceCream}(z) \limpl \textit{Sells}(\textit{Brusters}, z) \\
+\theta = \{ z = \textit{Mint} \} \\
 \hline}
 \visible<4->{
-\textit{Sells}(\textit{HaagenDazs}, \textit{Mint}) \\[.8em]}
+\textit{Sells}(\textit{Brusters}, \textit{Mint}) \\[.8em]}
 \visible<5->{
 \textit{Rich}(\textit{Bill}) \\
 \textit{Wants}(\textit{Bill}, \textit{Mint}) \\
-\textit{Sells}(\textit{HaagenDazs}, \textit{Mint}) \\
-\forall x \forall y \forall z\ \textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y) \\
-\theta = \{ x = \textit{Bill}, y = \textit{Mint}, z = \textit{HaagenDazs} \} \\
+\textit{Sells}(\textit{Brusters}, \textit{Mint}) \\
+\forall u \forall v \forall w\ \textit{Rich}(u) \land \textit{Wants}(u, v) \land \textit{Sells}(w, v) \limpl \textit{Buys}(u, v) \\
+\theta = \{ u = \textit{Bill}, v = \textit{Mint}, w = \textit{Brusters} \} \\
 \hline}
 \visible<6->{
 \textit{Buys}(\textit{Bill}, \textit{Mint})}
@@ -756,44 +756,45 @@ With no functions, $p$ predicates, $n$ constants, and at most $k$ arguments per 
 Given:\\
 \tab$
 \begin{array}{ @{} l @{\hspace{4em}} l @{\hspace{4em}} l @{}}
-\lefteqn{\forall x \forall y \forall z\ \textit{Rich}(x) \land \textit{Wants}(x, y) \land \textit{Sells}(z, y) \limpl \textit{Buys}(x, y)} \\
+\lefteqn{\forall u \forall v \forall w\ \textit{Rich}(u) \land \textit{Wants}(u, v) \land \textit{Sells}(w, v) \limpl \textit{Buys}(u, v)} \\
 \lefteqn{\forall x \forall y\ \textit{Hot}(x) \land \textit{IceCream}(y) \limpl \textit{Wants}(x, y)} \\
-\lefteqn{\forall y\ \textit{IceCream}(y) \limpl \textit{Sells}(\textit{HaagenDazs}, y)} \\
+\lefteqn{\forall z\ \textit{IceCream}(z) \limpl \textit{Sells}(\textit{Brusters}, z)} \\
 \textit{IceCream}(\textit{Mint})
 & \textit{Rich}(\textit{Bill})
 & \textit{Hot}(\textit{Bill})
 \end{array}
 $\\[0.5em]
-Prove $\textit{Buys}(x, y)$:
+Prove $\textit{Buys}(a, b)$:
 \\[0.5em]
 \pause
-$
-\begin{array}{@{}ll@{}}
+\footnotesize
+$\thickmuskip=0mu
+\begin{array}{ l l }
 \mbox{Goals} & \mbox{Assignment} \\
 \hline
-\left[\textit{Buys}(x, y)\right]
+\left[\textit{Buys}(a, b)\right]
 & \{\}
 \pause\\
-\left[\textit{Rich}(x), \textit{Wants}(x, y), \textit{Sells}(z, y)\right]
-& \{\}
+\left[\textit{Rich}(a), \textit{Wants}(a, b), \textit{Sells}(z, b)\right]
+& \{u=a, v=b\}
 \pause\\
-\left[\textit{Wants}(x, y), \textit{Sells}(z, y)\right]
-& \{x\!\!=\!\!\textit{Bill}\}
+\left[\textit{Wants}(a, b), \textit{Sells}(z, b)\right]
+& \{u=a=\textit{Bill}, v=b\}
 \pause\\
-\left[\textit{Hot}(x), \textit{IceCream}(y), \textit{Sells}(z, y)\right]
-& \{x\!\!=\!\!\textit{Bill}\}
+\left[\textit{Hot}(a), \textit{IceCream}(b), \textit{Sells}(z, b)\right]
+& \{u=a=\textit{Bill}=x, v=b=y\}
 \pause\\
-\left[\textit{IceCream}(y), \textit{Sells}(z, y)\right]
-& \{x\!\!=\!\!\textit{Bill}\}
+\left[\textit{IceCream}(b), \textit{Sells}(z, b)\right]
+& \{u=a=\textit{Bill}=x, v=b=y\}
 \pause\\
-\left[\textit{Sells}(z, y)\right]
-& \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}\}
+\left[\textit{Sells}(z, b)\right]
+& \{u=a=\textit{Bill}=x, v=b=y=\textit{Mint}\}
 \pause\\
-\left[\textit{IceCream}(y)\right]
-& \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{HaagenDazs}\}
+\left[\textit{IceCream}(z)\right]
+& \{u=a=\textit{Bill}=x, v=b=y=\textit{Mint}, z=\textit{Brusters}\}
 \pause\\
 \left[\right]
-& \{x\!\!=\!\!\textit{Bill}, y\!\!=\!\!\textit{Mint}, z\!\!=\!\!\textit{HaagenDazs}\}
+& \{u=a=\textit{Bill}=x, v=b=y=\textit{Mint}, z=\textit{Brusters}\}
 \end{array}
 $
 \end{frame}
@@ -949,41 +950,41 @@ $
 Given:\\
 \tab$
 \begin{array}{ @{} l @{\hspace{4em}} l @{\hspace{4em}} l @{} }
-\lefteqn{\forall x \forall y \forall z\ \lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y)} \\
+\lefteqn{\forall u \forall v \forall w\ \lnot\textit{Rich}(u) \lor \lnot\textit{Wants}(u, v) \lor \lnot\textit{Sells}(w, v) \lor \textit{Buys}(u, v)} \\
 \lefteqn{\forall x \forall y\ \lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y)} \\
-\lefteqn{\forall y\ \lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y)} \\
+\lefteqn{\forall y\ \lnot\textit{IceCream}(z) \lor \textit{Sells}(\textit{Brusters}, z)} \\
 \textit{IceCream}(\textit{Mint})
 & \textit{Rich}(\textit{Bill})
 & \textit{Hot}(\textit{Bill})
 \end{array}
 $
 \\[0.5em]
-Prove $\exists x \exists y\ \textit{Buys}(x, y)$:\\
+Prove $\exists x \exists y\ \textit{Buys}(a, b)$:\\
 \pause
-\tab$
+\tab$\thickmuskip=0mu
 \begin{array}{ @{} l @{} }
-\forall x \forall y\ \lnot\textit{Buys}(x, y) \\
+\forall a \forall b\ \lnot\textit{Buys}(a, b) \\
 \pause
-\forall x \forall y \forall z\ \lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y) \\
+\forall u \forall v \forall w\ \lnot\textit{Rich}(u) \lor \lnot\textit{Wants}(u, v) \lor \lnot\textit{Sells}(w, v) \lor \textit{Buys}(u, v) \\
 \pause
-\theta = \{ \} \\
+\theta = \{ a=u, b=v \} \\
 \hline
 \pause
-\forall x \forall y \forall z\ \lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y)\\
+\forall a \forall b \forall w\ \lnot\textit{Rich}(a) \lor \lnot\textit{Wants}(a, b) \lor \lnot\textit{Sells}(w, b)\\
 \pause
 \textit{Rich}(\textit{Bill}) \\
 \pause
-\theta = \{ x = \textit{Bill} \} \\
+\theta = \{ a=u=\textit{Bill}, b=v \} \\
 \hline
 \pause
-\forall y \forall z\ \lnot\textit{Wants}(\textit{Bill}, y) \lor \lnot\textit{Sells}(z, y) \\
+\forall b \forall w\ \lnot\textit{Wants}(\textit{Bill}, b) \lor \lnot\textit{Sells}(w, b) \\
 \pause
 \forall x \forall y\ \lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y) \\
 \pause
-\theta = \{ x = \textit{Bill} \} \\
+\theta = \{ a=u=\textit{Bill}=x, b=v=y \} \\
 \hline
 \pause
-\forall y \forall z\ \lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \lor \lnot\textit{Sells}(z, y) \\
+\forall b \forall w\ \lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(b) \lor \lnot\textit{Sells}(w, b) \\
 \end{array}
 $
 \end{frame}
@@ -994,33 +995,33 @@ $
 Given:\\
 \tab$
 \begin{array}{ @{} l @{\hspace{4em}} l @{\hspace{4em}} l @{} }
-\lefteqn{\forall x \forall y \forall z\ \lnot\textit{Rich}(x) \lor \lnot\textit{Wants}(x, y) \lor \lnot\textit{Sells}(z, y) \lor \textit{Buys}(x, y)} \\
+\lefteqn{\forall u \forall v \forall w\ \lnot\textit{Rich}(u) \lor \lnot\textit{Wants}(u, v) \lor \lnot\textit{Sells}(w, v) \lor \textit{Buys}(u, v)} \\
 \lefteqn{\forall x \forall y\ \lnot\textit{Hot}(x) \lor \lnot\textit{IceCream}(y) \lor \textit{Wants}(x, y)} \\
-\lefteqn{\forall y\ \lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y)} \\
+\lefteqn{\forall y\ \lnot\textit{IceCream}(z) \lor \textit{Sells}(\textit{Brusters}, z)} \\
 \textit{IceCream}(\textit{Mint})
 & \textit{Rich}(\textit{Bill})
 & \textit{Hot}(\textit{Bill})
 \end{array}
 $
 \\[0.5em]
-Prove $\exists x \exists y\ \textit{Buys}(x, y)$:\\
-\tab$
+Prove $\exists x \exists y\ \textit{Buys}(a, b)$:\\
+\tab$\thickmuskip=0mu
 \begin{array}{ @{} l @{} }
-\forall x \forall y\ \lnot\textit{Buys}(x, y) \\
+\forall a \forall b\ \lnot\textit{Buys}(a, b) \\
 \ldots\\
 \hline
-\forall y \forall z\ \lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \lor \lnot\textit{Sells}(z, y) \\
+\forall b \forall w\ \lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(b) \lor \lnot\textit{Sells}(w, b) \\
 \pause
-\forall y\ \lnot\textit{IceCream}(y) \lor \textit{Sells}(\textit{HaagenDazs}, y) \\
+\forall y\ \lnot\textit{IceCream}(z) \lor \textit{Sells}(\textit{Brusters}, z) \\
 \pause
-\theta = \{ z = \textit{HaagenDazs} \} \\
+\theta = \{ a=u=\textit{Bill}=x, b=v=y=z, w=\textit{Brusters} \} \\
 \hline
 \pause
-\forall y\ \lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(y) \\
+\forall y\ \lnot\textit{Hot}(\textit{Bill}) \lor \lnot\textit{IceCream}(b) \\
 \pause
 \textit{IceCream}(\textit{Mint}) \\
 \pause
-\theta = \{ y = \textit{Mint} \} \\
+\theta = \{ a=u=\textit{Bill}=x, b=v=y=z=\textit{Mint}, w=\textit{Brusters} \} \\
 \hline
 \pause
 \lnot\textit{Hot}(\textit{Bill}) \\

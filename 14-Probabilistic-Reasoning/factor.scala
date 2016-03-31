@@ -71,44 +71,45 @@ object Factor {
   }
 }
 
-val A = new Variable('A, List(true, false))
-val B = new Variable('B, List(true, false))
-val C = new Variable('B, List(true, false))
-val E = new Variable('E, List(true, false))
+val A = new Variable('A, List(" a", "¬a"))
+val B = new Variable('B, List(" b", "¬b"))
+val C = new Variable('C, List(" c", "¬c"))
+val E = new Variable('E, List(" e", "¬e"))
+val XYZ = new Variable('X, List("x", "y", "z"))
+val IJ = new Variable('I, List("i", "j"))
 
-val X = new Variable('X, List("a", "b", "c"))
-val Y = new Variable('Y, List("c", "d"))
+
 
 val pB = Factor(
   List(B),
-  List(true) -> 0.001,
-  List(false) -> 0.999)
+  List(" b") -> 0.001,
+  List("¬b") -> 0.999)
 
 val pE = Factor(
   List(E),
-  List(true) -> 0.002,
-  List(false) -> 0.998)
+  List(" e") -> 0.002,
+  List("¬e") -> 0.998)
 
 val pABE = Factor(
   List(A, B, E),
-  List(true, true, true) -> 0.95,
-  List(true, true, false) -> 0.94,
-  List(true, false, true) -> 0.29,
-  List(true, false, false) -> 0.001,
-  List(false, true, true) -> 0.05,
-  List(false, true, false) -> 0.06,
-  List(false, false, true) -> 0.71,
-  List(false, false, false) -> 0.999)
+  List(" a", " b", " e") -> 0.95,
+  List(" a", " b", "¬e") -> 0.94,
+  List(" a", "¬b", " e") -> 0.29,
+  List(" a", "¬b", "¬e") -> 0.001,
+  List("¬a", " b", " e") -> 0.05,
+  List("¬a", " b", "¬e") -> 0.06,
+  List("¬a", "¬b", " e") -> 0.71,
+  List("¬a", "¬b", "¬e") -> 0.999)
 
 val pjA = Factor(
   List(A),
-  List(true) -> 0.9,
-  List(false) -> 0.05)
+  List(" a") -> 0.9,
+  List("¬a") -> 0.05)
 
 val pmA = Factor(
   List(A),
-  List(true) -> 0.7,
-  List(false) -> 0.01)
+  List(" a") -> 0.7,
+  List("¬a") -> 0.01)
 
 
 println(pjA * pmA)
@@ -121,42 +122,55 @@ println((pB * pE * pABE * pjA * pmA - A - E).normalized)
 
 val ab = Factor(
   List(A, B),
-  List(true, true) -> 0.3,
-  List(true, false) -> 0.1,
-  List(false, true) -> 0.7,
-  List(false, false) -> 0.9)
+  List(" a", " b") -> 0.3,
+  List(" a", "¬b") -> 0.1,
+  List("¬a", " b") -> 0.7,
+  List("¬a", "¬b") -> 0.9)
 
 val bc = Factor(
   List(B, C),
-  List(true, true) -> 0.6,
-  List(true, false) -> 0.8,
-  List(false, true) -> 0.4,
-  List(false, false) -> 0.2)
+  List(" b", " c") -> 0.6,
+  List(" b", "¬c") -> 0.8,
+  List("¬b", " c") -> 0.4,
+  List("¬b", "¬c") -> 0.2)
 
 println(ab * bc)
 println((ab * bc) - B)
 
 
-val X2 = new Variable('X, List("x", "y", "z"))
-val A2 = new Variable('A, List("a", "¬a"))
-val I2 = new Variable('I, List("i", "j"))
-
-
 val xa = Factor(
-  List(X2, A2),
-  List("x", "a") -> 1,
+  List(XYZ, A),
+  List("x", " a") -> 1,
   List("x", "¬a") -> 4,
-  List("y", "a") -> 3,
+  List("y", " a") -> 3,
   List("y", "¬a") -> 2,
-  List("z", "a") -> 2,
+  List("z", " a") -> 2,
   List("z", "¬a") -> 5)
 
 val ai = Factor(
-  List(A2, I2),
-  List("a", "i") -> 3,
-  List("a", "j") -> 6,
+  List(A, IJ),
+  List(" a", "i") -> 3,
+  List(" a", "j") -> 6,
   List("¬a", "i") -> 2,
   List("¬a", "j") -> 4)
 
 println(xa * ai)
-println((xa * ai) - A2)
+println((xa * ai) - A)
+
+
+val ab2 = Factor(
+  List(A, B),
+  List(" a", " b") -> 1,
+  List(" a", "¬b") -> 5,
+  List("¬a", " b") -> 3,
+  List("¬a", "¬b") -> 7)
+
+val bc2 = Factor(
+  List(B, C),
+  List(" b", " c") -> 8,
+  List(" b", "¬c") -> 6,
+  List("¬b", " c") -> 4,
+  List("¬b", "¬c") -> 2)
+
+println(ab2 * bc2)
+println(ab2 * bc2 - B)
